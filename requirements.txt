@@ -1,0 +1,13 @@
+# Install PyTorch FIRST for RTX 5080 (Blackwell, sm_120): needs CUDA 12.8+ wheels
+#   pip install torch --index-url https://download.pytorch.org/whl/cu128
+numpy
+scipy
+pyyaml
+pandas
+matplotlib
+tqdm
+pytest
+# Tier B (from Day 8):
+transformers>=4.45
+datasets
+accelerate

@@ -1,0 +1,75 @@
+"""Single-client baselines that share the ``write`` / ``read`` interface.
+
+* ``SharedMemory``     ungated Titans memory: every source writes into one
+                       memory.  Options reproduce clipping-only, OWASP-style
+                       TTL (strong forget) and DP-noise memories.
+* ``RobustAggMemory``  per-source quarantines + robust aggregation of the
+                       whole quarantine states every tau steps (mean = FedAvg
+                       analogue, trmean, median, krum, geomed, cclip).  This is
+                       "Titans + Krum / trimmed mean applied to memory deltas"
+                       from Sec. 9.4, and isolates the value of the
+                       corroboration gate and the per-direction certificate.
+"""
+from __future__ import annotations
+
+import torch
+
+from .gate import AGGREGATORS, centered_clipping
+from .memory import Gates, make_memory
+
+
+class SharedMemory:
+    def __init__(self, dk, dv, gates: Gates, kind="linear", dp_sigma: float = 0.0,
+                 device="cpu", seed=0, **kw):
+        self.mem = make_memory(kind, 1, dk, dv, gates, device=device, **kw)
+        self.dp_sigma = dp_sigma
+        self.gen = torch.Generator(device="cpu").manual_seed(seed)
+        self.t = 0
+
+    def write(self, src, k, v):
+        for i in range(len(src)):           # writes inside one step applied in order
+            self.mem.write(k[i:i + 1], v[i:i + 1])
+            if self.dp_sigma > 0 and hasattr(self.mem, "M"):
+                noise = torch.randn(self.mem.M.shape, generator=self.gen) * self.dp_sigma
+                self.mem.M += noise.to(self.mem.M.device)
+        self.t += 1
+
+    def read(self, q, src=None, high_risk=True):
+        return self.mem.read(q.unsqueeze(0)).squeeze(0)
+
+
+class RobustAggMemory:
+    def __init__(self, n_sources, dk, dv, gates: Gates, agg="mean", f=1, tau=50,
+                 alpha_P=0.5, kind="linear", device="cpu", cclip_tau=1.0, **kw):
+        self.Q = make_memory(kind, n_sources, dk, dv, gates, device=device, **kw)
+        self.MP = torch.zeros(dv, dk, device=device)
+        self.n, self.dk, self.dv = n_sources, dk, dv
+        self.agg, self.f, self.tau, self.a = agg, f, tau, alpha_P
+        self.cclip_tau = cclip_tau
+        self.t = 0
+        self.U = torch.eye(dk, device=device)
+
+    def write(self, src, k, v):
+        if len(src):
+            Kf = torch.zeros(self.n, self.dk, device=self.MP.device)
+            Vf = torch.zeros(self.n, self.dv, device=self.MP.device)
+            mask = torch.zeros(self.n, dtype=torch.bool, device=self.MP.device)
+            Kf[src], Vf[src], mask[src] = k, v, True
+            self.Q.write(Kf, Vf, mask=mask)
+        self.t += 1
+        if self.t % self.tau == 0:
+            self.promote()
+
+    def promote(self):
+        Uq = self.U.unsqueeze(0).expand(self.n, *self.U.shape)
+        D = self.Q.read(Uq)                                      # (n, dk, dv): states
+        if self.agg == "cclip":
+            ref = (self.U @ self.MP.T)
+            val = centered_clipping(D, ref, self.cclip_tau)
+        else:
+            val = AGGREGATORS[self.agg](D, self.f)
+        cur = self.U @ self.MP.T
+        self.MP = self.MP + (self.a * (val - cur)).T @ self.U
+
+    def read(self, q, src=None, high_risk=True):
+        return q @ self.MP.T

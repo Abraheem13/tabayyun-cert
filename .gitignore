@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+checkpoints/
+*.pt
+*.safetensors
+data_cache/
+results/smoke.jsonl
+results/**/smoke.json
+wandb/
+.ipynb_checkpoints/

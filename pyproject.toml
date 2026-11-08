@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tabayyun-cert"
+version = "0.1.0"
+description = "Certified, corroboration-gated quarantine for poisoned test-time memory in federated, agentic AI-native networks"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.7", "numpy", "scipy", "pyyaml", "pandas", "matplotlib", "tqdm"]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+llm = ["transformers>=4.45", "datasets", "accelerate"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 110
