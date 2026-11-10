@@ -70,6 +70,8 @@ def plan(day: int, dev: str) -> list[list[str]]:
              "--trials", "100", "--trial_offset", "0", "--tag", "d128_explore"],
             [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d256.pt", "--device", dev,
              "--trials", "100", "--trial_offset", "0", "--tag", "d256_explore"]],
+        # clean-only tuning of nu_rel / gamma (no attacked runs are looked at)
+        8: [[PY, "scripts/tune_e04_clean.py"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")

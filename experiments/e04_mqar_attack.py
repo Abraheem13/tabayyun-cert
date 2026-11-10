@@ -43,6 +43,8 @@ from tabayyun.models import MemLM, MemLMConfig  # noqa: E402
 from tabayyun.registry import log_run  # noqa: E402
 from tabayyun.tiered import grow_anchored_basis  # noqa: E402
 
+NU_REL = None      # set by --nu_rel (v2.3); tuned on CLEAN trials only
+GAMMA = 0.3
 DEFENCES = ["titans", "agg_mean", "agg_trmean", "agg_median", "agg_krum", "agg_geomed",
             "robustrag", "smsr", "tma_corr", "tab_nocorr", "tabayyun"]
 ATTACKS = ["none", "assert", "assert_x4", "edge", "unbounded"]
@@ -198,9 +200,9 @@ def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences):
                 D = torch.einsum("nvk,uk->nuv", Ms, U)                     # (n, K, dv)
                 if hook is not None:
                     D = hook(D, U)
-                gc = {"tabayyun": GateConfig(k=k_gate, f=f, gamma=0.3, nu=1e-3),
+                gc = {"tabayyun": GateConfig(k=k_gate, f=f, gamma=GAMMA, nu=1e-3, nu_rel=NU_REL),
                       "tab_nocorr": GateConfig(k=k_gate, f=f, corroborate=False),
-                      "tma_corr": GateConfig(k=k_gate, f=f, nu=1e-3, cone=False, trim=False)}[d]
+                      "tma_corr": GateConfig(k=k_gate, f=f, nu=1e-3, nu_rel=NU_REL, cone=False, trim=False)}[d]
                 out = tabayyun_gate(D, gc)
                 MP = out.values.T @ U                                      # single promotion round, alpha_P = 1
                 y = q @ MP.T
@@ -242,7 +244,14 @@ def main():
     ap.add_argument("--trial_offset", type=int, default=0, help="confirmatory: 200+ (Amendment 3)")
     ap.add_argument("--facts", type=int, default=16)
     ap.add_argument("--tag", default="")
+    ap.add_argument("--nu_rel", type=float, default=None)
+    ap.add_argument("--gamma", type=float, default=0.3)
+    ap.add_argument("--attacks", default=",".join(ATTACKS))
+    ap.add_argument("--defences", default=",".join(DEFENCES))
     a = ap.parse_args()
+    global NU_REL, GAMMA, DEFENCES
+    NU_REL, GAMMA = a.nu_rel, a.gamma
+    DEFENCES = a.defences.split(",")
     torch.set_grad_enabled(False)
     model = load(a.ckpt, a.device)
     V = model.cfg.vocab
@@ -252,7 +261,7 @@ def main():
     else:
         cells = [(rg, n, f, rho) for rg, n, fs in [("dense", 10, (1, 2)), ("locality", 20, (2, 3))]
                  for f in fs for rho in (0.4, 0.7)]
-        atks, trials = ATTACKS, range(a.trial_offset, a.trial_offset + a.trials)
+        atks, trials = a.attacks.split(","), range(a.trial_offset, a.trial_offset + a.trials)
     rows, t0 = [], time.time()
     for (rg, n, f, rho), at in itertools.product(cells, atks):
         for s in trials:
@@ -270,15 +279,16 @@ def main():
             rr = [r for r in rows if r["regime"] == rg and r["f"] == f and r["rho"] == rho and r["defence"] == d]
             att = [r for r in rr if r["attack"] != "none"]
             cl = [r for r in rr if r["attack"] == "none"]
-            worst_inst = max(np.mean([r["installed"] for r in att if r["attack"] == x]) for x in atks if x != "none")
-            worst_amn = max(np.mean([r["amnesia"] for r in att if r["attack"] == x]) for x in atks if x != "none")
+            ax = [x for x in atks if x != "none"]
+            worst_inst = max((np.mean([r["installed"] for r in att if r["attack"] == x]) for x in ax), default=float("nan"))
+            worst_amn = max((np.mean([r["amnesia"] for r in att if r["attack"] == x]) for x in ax), default=float("nan"))
             e = {"clean_recall": float(np.nanmean([r["recall"] for r in cl])), "worst_installed": float(worst_inst),
                  "worst_amnesia": float(worst_amn)}
             if d == "tabayyun":
                 e["violations"] = int(sum(r["violations"] for r in rr))
                 e["action_violations"] = int(sum(r["action_violations"] for r in rr))
                 e["certified_frac_clean"] = float(np.mean([r["certified_frac"] for r in cl]))
-                e["certified_frac_attacked"] = float(np.mean([r["certified_frac"] for r in att]))
+                e["certified_frac_attacked"] = float(np.mean([r["certified_frac"] for r in att])) if att else float("nan")
             summ[f"{rg}|f={f}|rho={rho}|{d}"] = e
             print(f"{rg:8} f={f} rho={rho} {d:11} " + " ".join(f"{k}={v:.2f}" if isinstance(v, float) else f"{k}={v}" for k, v in e.items()))
     (out / f"{name}_summary.json").write_text(json.dumps(summ, indent=1))

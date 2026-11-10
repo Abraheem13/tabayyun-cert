@@ -6,9 +6,11 @@
 .pytest_cache/
 .venv/
 __pycache__/
-checkpoints/
+checkpoints/*
 data_cache/
 results/**/smoke.json
+results/**/smoke_summary.json
 results/smoke.jsonl
 wandb/
-results/**/smoke_summary.json
+!checkpoints/memlm_d128.pt
+!checkpoints/memlm_d256.pt

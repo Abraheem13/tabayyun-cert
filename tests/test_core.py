@@ -274,3 +274,20 @@ def test_memlm_forward_and_readout_linear_in_y():
     W = m.readout_matrix()
     d = m.logits_from_read(h, y1) - m.logits_from_read(h, y2)
     assert torch.allclose(d, (y1 - y2) @ W.T, atol=1e-10)
+
+
+
+def test_relative_activity_threshold_robust_to_adversary():
+    """nu_rel: crosstalk-level sources become inactive; huge adversarial norms cannot
+    push every honest supporter below the threshold."""
+    g = torch.Generator().manual_seed(0)
+    n, f, K, dv = 12, 2, 4, 6
+    D = 0.02 * torch.randn(n, K, dv, generator=g)            # crosstalk for everybody
+    base = torch.randn(K, dv, generator=g)
+    sup = torch.arange(f, f + 6)                               # 6 honest supporters
+    D[sup] = base + 0.05 * torch.randn(len(sup), K, dv, generator=g)
+    D[:f] = 1000 * base                                        # adversary inflates norms
+    out = tabayyun_gate(D, GateConfig(k=5, f=f, gamma=0.3, nu=1e-3, nu_rel=0.3))
+    assert out.active[sup].all()                               # supporters stay active
+    assert not out.active[f + 6:].any()                        # crosstalk-only sources dropped
+    assert out.promoted.all()

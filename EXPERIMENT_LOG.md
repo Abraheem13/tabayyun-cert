@@ -248,3 +248,29 @@ The `prereg-v1-amend2` tag did not reach GitHub (network drop on the PI machine)
 3. E04 smoke (3 trials, tiny model): 0 certificate violations and 0 action-certificate violations. But the **certified-token fraction is low (0.00–0.07)**: the per-query bound is large relative to logit margins in a small model with correlated learned keys. Also, token-level argmax is less sensitive to magnitude dilution than Recall_L2, so the baselines lose less recall than in Tier A. **Both points must be checked on the GPU models before any Tier-B claim is registered.**
 
 **Day 7 = GPU training of two models (d128/dk64, d256/dk128) plus exploratory attack runs (trials 0–99).** Confirmatory Tier-B criteria will be registered (Amendment 4) after seeing the exploratory numbers, with fresh trials 200+.
+
+---
+
+## Day 7 (2026-11-10): Tier B, trained memory LMs (RTX 5080), exploratory attacks (trials 0–99)
+
+**Note:** the first Day-7 attempt did not run (the PI machine's `git pull` failed, so it had the old runner; the log has only a header, commit `b45f452`). The rerun is commit `45de15d`.
+
+### Training (E03, `results/e03/`)
+| Model | Params | Steps | Final MQAR accuracy | Time |
+|---|---|---|---|---|
+| MemLM d128 / dk64 | 0.20 M | 8000 | **99.98%** | 23.7 min |
+| MemLM d256 / dk128 | 0.66 M | 8000 | **99.92%** | 24.6 min |
+
+### Exploratory attack results (E04, 16 facts, 100 trials per cell × 5 attacks × 8 cells × 11 defences, 44k rows per model)
+- **0 certificate violations and 0 certified-token violations** (88k rows).
+- **Tabayyun has the lowest attacker-installed rate of any useful defence:** worst-case installed 0.00–0.16. Titans is 0.23–0.61, mean / TMA-NM-style about 0.50, TrMean 0.07–0.46, GeoMed 0.07–0.42, SMSR up to 0.48. Krum and RobustRAG install little but recall almost nothing (Krum 0.01–0.80, RobustRAG 0.02–0.96).
+- **Certified tokens on real models:** dense f=1, ρ=0.7: **0.91–0.95** of tokens certified (clean), 0.88–0.91 under attack. Dense f=2, ρ=0.7: 0.47–0.56. **Locality: 0.00–0.09.**
+- Dense recall is on par with TrMean/median at ρ=0.7 (1.00 vs 0.99 for f=1; 0.82–0.83 vs 0.98 for f=2). It starves at f=2, ρ=0.4 (0.41–0.45). That is the single-shot regime (one assertion opportunity per source, versus 10 rounds in Tier A), consistent with Thm 3(b): P(Bin(8, 0.4) ≥ 5) = 0.17.
+
+### Diagnosis of the weak locality numbers
+The activity threshold ν = 1e−3 came from Tier A, where fact keys are exactly orthogonal. With **learned keys every source has small cross-talk reads along every direction**, so non-supporters count as active, dominate the median and push the real supporters out of the cone. This also widens the certificate (more, and more dispersed, corroborators).
+
+**Fix (v2.3): robust relative activity threshold** `nu_rel`. A source is active along u iff ‖D[s,u]‖ ≥ ν_rel · (the (f+1)-th largest norm along u). At most f values can exceed that order statistic, so it is ≤ the largest honest norm: the adversary cannot push every honest supporter below the bar. Unit test added (63/63).
+
+### Next (Day 8)
+**Clean-only tuning** of ν_rel ∈ {none, 0.1, 0.2, 0.3, 0.5} × γ ∈ {0.3, 0.5} on trials 0–99, attack = none. The objective was fixed in advance: clean recall + certified fraction. Then Amendment 4 registers the Tier-B confirmatory test (Amendment 3 metrics, trials 200–299). The two small checkpoints (~1 MB each) are released in `checkpoints/` for reproducibility.

@@ -40,6 +40,7 @@ class GateConfig:
     beta: int | None = None  # trimming per side (default: f)
     gamma: float = 0.5    # cosine agreement with the robust median
     nu: float = 1e-3      # activity threshold on ||D[s,u]||
+    nu_rel: float | None = None  # v2.3: active iff ||D[s,u]|| >= nu_rel * (f+1)-th largest norm along u
     corroborate: bool = True  # ablation: False -> trimmed mean only, no gate
     cone: bool = True         # baseline TMA-NM-style: False -> count active writers only
     trim: bool = True         # baseline TMA-NM-style: False -> plain mean (no certificate)
@@ -94,6 +95,13 @@ def tabayyun_gate(D: torch.Tensor, cfg: GateConfig) -> GateOutput:
     n, K, dv = D.shape
     norms = D.norm(dim=-1)                                  # (n,K)
     active = norms >= cfg.nu
+    if cfg.nu_rel is not None:
+        # Robust relative threshold: the (f+1)-th largest norm along u is <= the largest
+        # honest norm (at most f values exceed it), so the adversary cannot raise the bar
+        # above every honest source.  With learned (non-orthogonal) keys this removes the
+        # small cross-talk reads of sources that never asserted the fact.
+        kth = torch.topk(norms, min(cfg.f + 1, n), dim=0).values[-1]      # (K,)
+        active = active & (norms >= cfg.nu_rel * kth.unsqueeze(0))
     if cfg.corroborate and not cfg.cone:
         C = active
         promoted = C.sum(0) >= cfg.k
