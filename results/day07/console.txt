@@ -1,1 +1,352 @@
-# Day 7  device=cuda  started 2026-11-10 17:44:57
+# Day 7  device=cuda  started 2026-11-10 17:46:49
+
+=== python.exe -m pytest -q
+..............................................................           [100%]
+62 passed in 6.73s
+--- exit 0 in 7.9s
+
+=== python.exe experiments/e03_mqar_train.py --device cuda --steps 8000 --batch 128 --d_model 128 --dk 64 --max_pairs 24 --max_segments 6 --tag memlm_d128
+params 0.20M  device cuda
+C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e03_mqar_train.py:83: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:837.)
+  curve.append({"step": step, "loss": float(loss), "acc": acc, "sec": round(time.time() - t0, 1)})
+{"step": 250, "loss": 0.27018919587135315, "acc": 0.286865234375, "sec": 10.3}
+{"step": 500, "loss": 0.0015675575705245137, "acc": 0.9677734375, "sec": 23.0}
+{"step": 750, "loss": 0.004962294362485409, "acc": 0.976806640625, "sec": 37.4}
+{"step": 1000, "loss": 0.003042424563318491, "acc": 0.9815673828125, "sec": 53.5}
+{"step": 1250, "loss": 0.00476352171972394, "acc": 0.98486328125, "sec": 74.0}
+{"step": 1500, "loss": 0.004641132429242134, "acc": 0.98828125, "sec": 96.1}
+{"step": 1750, "loss": 0.0028284001164138317, "acc": 0.989501953125, "sec": 122.9}
+{"step": 2000, "loss": 0.0029488378204405308, "acc": 0.9896240234375, "sec": 152.7}
+{"step": 2250, "loss": 0.0052311718463897705, "acc": 0.9945068359375, "sec": 185.2}
+{"step": 2500, "loss": 0.011556245386600494, "acc": 0.992431640625, "sec": 225.2}
+{"step": 2750, "loss": 0.002894324716180563, "acc": 0.9949951171875, "sec": 267.5}
+{"step": 3000, "loss": 0.009426329284906387, "acc": 0.9974365234375, "sec": 315.2}
+{"step": 3250, "loss": 0.007372197695076466, "acc": 0.99755859375, "sec": 369.6}
+{"step": 3500, "loss": 0.004161406774073839, "acc": 0.996826171875, "sec": 424.5}
+{"step": 3750, "loss": 0.0034928591921925545, "acc": 0.9971923828125, "sec": 479.2}
+{"step": 4000, "loss": 0.010818732902407646, "acc": 0.9967041015625, "sec": 534.4}
+{"step": 4250, "loss": 0.002321042586117983, "acc": 0.99755859375, "sec": 589.8}
+{"step": 4500, "loss": 0.009008960798382759, "acc": 0.9981689453125, "sec": 644.7}
+{"step": 4750, "loss": 0.0025373785756528378, "acc": 0.9969482421875, "sec": 699.8}
+{"step": 5000, "loss": 0.0103971678763628, "acc": 0.9974365234375, "sec": 754.9}
+{"step": 5250, "loss": 0.022596076130867004, "acc": 0.9967041015625, "sec": 810.3}
+{"step": 5500, "loss": 0.006972165312618017, "acc": 0.997802734375, "sec": 865.6}
+{"step": 5750, "loss": 0.01684926263988018, "acc": 0.996826171875, "sec": 920.4}
+{"step": 6000, "loss": 0.008555629290640354, "acc": 0.998046875, "sec": 975.3}
+{"step": 6250, "loss": 0.012479736469686031, "acc": 0.998291015625, "sec": 1030.4}
+{"step": 6500, "loss": 0.015279152430593967, "acc": 0.9984130859375, "sec": 1085.8}
+{"step": 6750, "loss": 3.782580097322352e-05, "acc": 0.9990234375, "sec": 1141.3}
+{"step": 7000, "loss": 0.003323127282783389, "acc": 0.9996337890625, "sec": 1196.9}
+{"step": 7250, "loss": 4.193108907202259e-06, "acc": 0.999755859375, "sec": 1252.5}
+{"step": 7500, "loss": 6.887711060699075e-05, "acc": 0.999755859375, "sec": 1308.0}
+{"step": 7750, "loss": 8.218721632147208e-05, "acc": 0.9998779296875, "sec": 1363.0}
+{"step": 8000, "loss": 0.00026857745251618326, "acc": 0.9998779296875, "sec": 1418.4}
+SUMMARY {"final_acc": 0.99981689453125, "params": 197891, "sec": 1419.7}
+--- exit 0 in 1425.4s
+
+=== python.exe experiments/e03_mqar_train.py --device cuda --steps 8000 --batch 128 --d_model 256 --dk 128 --max_pairs 24 --max_segments 6 --tag memlm_d256
+params 0.66M  device cuda
+C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e03_mqar_train.py:83: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:837.)
+  curve.append({"step": step, "loss": float(loss), "acc": acc, "sec": round(time.time() - t0, 1)})
+{"step": 250, "loss": 0.8237709999084473, "acc": 0.253662109375, "sec": 10.3}
+{"step": 500, "loss": 0.6685154438018799, "acc": 0.546630859375, "sec": 23.1}
+{"step": 750, "loss": 0.7304725646972656, "acc": 0.591796875, "sec": 37.7}
+{"step": 1000, "loss": 0.07800810039043427, "acc": 0.8736572265625, "sec": 54.0}
+{"step": 1250, "loss": 0.05120830237865448, "acc": 0.9366455078125, "sec": 74.9}
+{"step": 1500, "loss": 0.02571800909936428, "acc": 0.95166015625, "sec": 97.5}
+{"step": 1750, "loss": 0.04245925694704056, "acc": 0.9580078125, "sec": 124.8}
+{"step": 2000, "loss": 0.030469689518213272, "acc": 0.96630859375, "sec": 154.9}
+{"step": 2250, "loss": 0.06067844480276108, "acc": 0.975341796875, "sec": 187.9}
+{"step": 2500, "loss": 0.023731734603643417, "acc": 0.9805908203125, "sec": 228.9}
+{"step": 2750, "loss": 0.04703506827354431, "acc": 0.9852294921875, "sec": 272.2}
+{"step": 3000, "loss": 0.036406997591257095, "acc": 0.9864501953125, "sec": 321.3}
+{"step": 3250, "loss": 0.08674295246601105, "acc": 0.9892578125, "sec": 378.1}
+{"step": 3500, "loss": 0.06447048485279083, "acc": 0.9893798828125, "sec": 435.4}
+{"step": 3750, "loss": 0.025161629542708397, "acc": 0.9874267578125, "sec": 492.6}
+{"step": 4000, "loss": 0.04893099516630173, "acc": 0.9908447265625, "sec": 550.2}
+{"step": 4250, "loss": 0.05512632057070732, "acc": 0.9869384765625, "sec": 607.5}
+{"step": 4500, "loss": 0.04104843735694885, "acc": 0.9903564453125, "sec": 664.4}
+{"step": 4750, "loss": 0.031966738402843475, "acc": 0.98681640625, "sec": 722.0}
+{"step": 5000, "loss": 0.044498689472675323, "acc": 0.98828125, "sec": 779.7}
+{"step": 5250, "loss": 0.07260468602180481, "acc": 0.9915771484375, "sec": 837.4}
+{"step": 5500, "loss": 0.01614658534526825, "acc": 0.98974609375, "sec": 894.8}
+{"step": 5750, "loss": 0.0060045612044632435, "acc": 0.9893798828125, "sec": 951.7}
+{"step": 6000, "loss": 0.0236615389585495, "acc": 0.9920654296875, "sec": 1008.6}
+{"step": 6250, "loss": 0.02126629650592804, "acc": 0.990966796875, "sec": 1066.0}
+{"step": 6500, "loss": 0.01801791414618492, "acc": 0.9925537109375, "sec": 1124.2}
+{"step": 6750, "loss": 0.012808525934815407, "acc": 0.9935302734375, "sec": 1182.6}
+{"step": 7000, "loss": 0.02445540577173233, "acc": 0.9951171875, "sec": 1242.3}
+{"step": 7250, "loss": 0.001959581393748522, "acc": 0.9970703125, "sec": 1300.6}
+{"step": 7500, "loss": 0.0020675829146057367, "acc": 0.998046875, "sec": 1357.5}
+{"step": 7750, "loss": 0.02802320197224617, "acc": 0.99853515625, "sec": 1415.0}
+{"step": 8000, "loss": 0.0015829066978767514, "acc": 0.9986572265625, "sec": 1472.6}
+SUMMARY {"final_acc": 0.99920654296875, "params": 657667, "sec": 1473.9}
+--- exit 0 in 1484.3s
+
+=== python.exe experiments/e04_mqar_attack.py --ckpt checkpoints/memlm_d128.pt --device cuda --trials 100 --trial_offset 0 --tag d128_explore
+dense n=10 f=1 rho=0.4 none: 10s
+dense n=10 f=1 rho=0.4 assert: 21s
+dense n=10 f=1 rho=0.4 assert_x4: 32s
+dense n=10 f=1 rho=0.4 edge: 43s
+dense n=10 f=1 rho=0.4 unbounded: 54s
+dense n=10 f=1 rho=0.7 none: 70s
+dense n=10 f=1 rho=0.7 assert: 87s
+dense n=10 f=1 rho=0.7 assert_x4: 104s
+dense n=10 f=1 rho=0.7 edge: 121s
+dense n=10 f=1 rho=0.7 unbounded: 139s
+dense n=10 f=2 rho=0.4 none: 147s
+dense n=10 f=2 rho=0.4 assert: 157s
+dense n=10 f=2 rho=0.4 assert_x4: 168s
+dense n=10 f=2 rho=0.4 edge: 178s
+dense n=10 f=2 rho=0.4 unbounded: 188s
+dense n=10 f=2 rho=0.7 none: 202s
+dense n=10 f=2 rho=0.7 assert: 219s
+dense n=10 f=2 rho=0.7 assert_x4: 235s
+dense n=10 f=2 rho=0.7 edge: 252s
+dense n=10 f=2 rho=0.7 unbounded: 268s
+locality n=20 f=2 rho=0.4 none: 275s
+locality n=20 f=2 rho=0.4 assert: 284s
+locality n=20 f=2 rho=0.4 assert_x4: 293s
+locality n=20 f=2 rho=0.4 edge: 302s
+locality n=20 f=2 rho=0.4 unbounded: 311s
+locality n=20 f=2 rho=0.7 none: 324s
+locality n=20 f=2 rho=0.7 assert: 337s
+locality n=20 f=2 rho=0.7 assert_x4: 352s
+locality n=20 f=2 rho=0.7 edge: 367s
+locality n=20 f=2 rho=0.7 unbounded: 381s
+locality n=20 f=3 rho=0.4 none: 387s
+locality n=20 f=3 rho=0.4 assert: 396s
+locality n=20 f=3 rho=0.4 assert_x4: 406s
+locality n=20 f=3 rho=0.4 edge: 416s
+locality n=20 f=3 rho=0.4 unbounded: 425s
+locality n=20 f=3 rho=0.7 none: 438s
+locality n=20 f=3 rho=0.7 assert: 454s
+locality n=20 f=3 rho=0.7 assert_x4: 470s
+locality n=20 f=3 rho=0.7 edge: 486s
+locality n=20 f=3 rho=0.7 unbounded: 502s
+dense    f=1 rho=0.4 titans      clean_recall=1.00 worst_installed=0.29 worst_amnesia=0.29
+dense    f=1 rho=0.4 agg_mean    clean_recall=0.92 worst_installed=0.51 worst_amnesia=0.62
+dense    f=1 rho=0.4 agg_trmean  clean_recall=0.89 worst_installed=0.09 worst_amnesia=0.14
+dense    f=1 rho=0.4 agg_median  clean_recall=0.86 worst_installed=0.07 worst_amnesia=0.15
+dense    f=1 rho=0.4 agg_krum    clean_recall=0.15 worst_installed=0.01 worst_amnesia=0.69
+dense    f=1 rho=0.4 agg_geomed  clean_recall=0.89 worst_installed=0.09 worst_amnesia=0.13
+dense    f=1 rho=0.4 robustrag   clean_recall=0.50 worst_installed=0.04 worst_amnesia=0.41
+dense    f=1 rho=0.4 smsr        clean_recall=0.87 worst_installed=0.04 worst_amnesia=0.14
+dense    f=1 rho=0.4 tma_corr    clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.59
+dense    f=1 rho=0.4 tab_nocorr  clean_recall=0.82 worst_installed=0.02 worst_amnesia=0.14
+dense    f=1 rho=0.4 tabayyun    clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.17 violations=0 action_violations=0 certified_frac_clean=0.47 certified_frac_attacked=0.37
+dense    f=1 rho=0.7 titans      clean_recall=1.00 worst_installed=0.23 worst_amnesia=0.23
+dense    f=1 rho=0.7 agg_mean    clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.53
+dense    f=1 rho=0.7 agg_trmean  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.7 agg_median  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.03
+dense    f=1 rho=0.7 agg_krum    clean_recall=0.81 worst_installed=0.01 worst_amnesia=0.21
+dense    f=1 rho=0.7 agg_geomed  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.7 robustrag   clean_recall=0.94 worst_installed=0.01 worst_amnesia=0.06
+dense    f=1 rho=0.7 smsr        clean_recall=0.99 worst_installed=0.02 worst_amnesia=0.04
+dense    f=1 rho=0.7 tma_corr    clean_recall=1.00 worst_installed=0.51 worst_amnesia=0.53
+dense    f=1 rho=0.7 tab_nocorr  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.7 tabayyun    clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.01 violations=0 action_violations=0 certified_frac_clean=0.95 certified_frac_attacked=0.91
+dense    f=2 rho=0.4 titans      clean_recall=1.00 worst_installed=0.36 worst_amnesia=0.36
+dense    f=2 rho=0.4 agg_mean    clean_recall=0.89 worst_installed=0.50 worst_amnesia=0.80
+dense    f=2 rho=0.4 agg_trmean  clean_recall=0.83 worst_installed=0.34 worst_amnesia=0.38
+dense    f=2 rho=0.4 agg_median  clean_recall=0.80 worst_installed=0.32 worst_amnesia=0.37
+dense    f=2 rho=0.4 agg_krum    clean_recall=0.02 worst_installed=0.04 worst_amnesia=0.74
+dense    f=2 rho=0.4 agg_geomed  clean_recall=0.85 worst_installed=0.36 worst_amnesia=0.40
+dense    f=2 rho=0.4 robustrag   clean_recall=0.40 worst_installed=0.15 worst_amnesia=0.46
+dense    f=2 rho=0.4 smsr        clean_recall=0.83 worst_installed=0.35 worst_amnesia=0.61
+dense    f=2 rho=0.4 tma_corr    clean_recall=0.69 worst_installed=0.51 worst_amnesia=0.80
+dense    f=2 rho=0.4 tab_nocorr  clean_recall=0.63 worst_installed=0.14 worst_amnesia=0.34
+dense    f=2 rho=0.4 tabayyun    clean_recall=0.45 worst_installed=0.06 worst_amnesia=0.36 violations=0 action_violations=0 certified_frac_clean=0.17 certified_frac_attacked=0.12
+dense    f=2 rho=0.7 titans      clean_recall=1.00 worst_installed=0.27 worst_amnesia=0.27
+dense    f=2 rho=0.7 agg_mean    clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.64
+dense    f=2 rho=0.7 agg_trmean  clean_recall=0.99 worst_installed=0.09 worst_amnesia=0.10
+dense    f=2 rho=0.7 agg_median  clean_recall=0.98 worst_installed=0.04 worst_amnesia=0.06
+dense    f=2 rho=0.7 agg_krum    clean_recall=0.80 worst_installed=0.01 worst_amnesia=0.23
+dense    f=2 rho=0.7 agg_geomed  clean_recall=0.99 worst_installed=0.07 worst_amnesia=0.07
+dense    f=2 rho=0.7 robustrag   clean_recall=0.90 worst_installed=0.02 worst_amnesia=0.07
+dense    f=2 rho=0.7 smsr        clean_recall=0.99 worst_installed=0.34 worst_amnesia=0.49
+dense    f=2 rho=0.7 tma_corr    clean_recall=0.93 worst_installed=0.51 worst_amnesia=0.66
+dense    f=2 rho=0.7 tab_nocorr  clean_recall=0.95 worst_installed=0.03 worst_amnesia=0.06
+dense    f=2 rho=0.7 tabayyun    clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.12 violations=0 action_violations=0 certified_frac_clean=0.56 certified_frac_attacked=0.43
+locality f=2 rho=0.4 titans      clean_recall=1.00 worst_installed=0.48 worst_amnesia=0.48
+locality f=2 rho=0.4 agg_mean    clean_recall=0.62 worst_installed=0.50 worst_amnesia=0.83
+locality f=2 rho=0.4 agg_trmean  clean_recall=0.48 worst_installed=0.36 worst_amnesia=0.65
+locality f=2 rho=0.4 agg_median  clean_recall=0.26 worst_installed=0.15 worst_amnesia=0.76
+locality f=2 rho=0.4 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.98
+locality f=2 rho=0.4 agg_geomed  clean_recall=0.36 worst_installed=0.28 worst_amnesia=0.57
+locality f=2 rho=0.4 robustrag   clean_recall=0.04 worst_installed=0.04 worst_amnesia=0.97
+locality f=2 rho=0.4 smsr        clean_recall=0.58 worst_installed=0.35 worst_amnesia=0.72
+locality f=2 rho=0.4 tma_corr    clean_recall=0.57 worst_installed=0.50 worst_amnesia=0.82
+locality f=2 rho=0.4 tab_nocorr  clean_recall=0.32 worst_installed=0.07 worst_amnesia=0.69
+locality f=2 rho=0.4 tabayyun    clean_recall=0.55 worst_installed=0.06 worst_amnesia=0.56 violations=0 action_violations=0 certified_frac_clean=0.04 certified_frac_attacked=0.04
+locality f=2 rho=0.7 titans      clean_recall=1.00 worst_installed=0.32 worst_amnesia=0.32
+locality f=2 rho=0.7 agg_mean    clean_recall=0.89 worst_installed=0.50 worst_amnesia=0.69
+locality f=2 rho=0.7 agg_trmean  clean_recall=0.84 worst_installed=0.21 worst_amnesia=0.28
+locality f=2 rho=0.7 agg_median  clean_recall=0.73 worst_installed=0.14 worst_amnesia=0.26
+locality f=2 rho=0.7 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.89
+locality f=2 rho=0.7 agg_geomed  clean_recall=0.82 worst_installed=0.17 worst_amnesia=0.23
+locality f=2 rho=0.7 robustrag   clean_recall=0.19 worst_installed=0.06 worst_amnesia=0.76
+locality f=2 rho=0.7 smsr        clean_recall=0.86 worst_installed=0.34 worst_amnesia=0.53
+locality f=2 rho=0.7 tma_corr    clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.68
+locality f=2 rho=0.7 tab_nocorr  clean_recall=0.72 worst_installed=0.05 worst_amnesia=0.21
+locality f=2 rho=0.7 tabayyun    clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.15 violations=0 action_violations=0 certified_frac_clean=0.09 certified_frac_attacked=0.08
+locality f=3 rho=0.4 titans      clean_recall=1.00 worst_installed=0.61 worst_amnesia=0.61
+locality f=3 rho=0.4 agg_mean    clean_recall=0.66 worst_installed=0.50 worst_amnesia=0.86
+locality f=3 rho=0.4 agg_trmean  clean_recall=0.48 worst_installed=0.45 worst_amnesia=0.69
+locality f=3 rho=0.4 agg_median  clean_recall=0.24 worst_installed=0.35 worst_amnesia=0.70
+locality f=3 rho=0.4 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.96
+locality f=3 rho=0.4 agg_geomed  clean_recall=0.36 worst_installed=0.42 worst_amnesia=0.56
+locality f=3 rho=0.4 robustrag   clean_recall=0.02 worst_installed=0.09 worst_amnesia=0.94
+locality f=3 rho=0.4 smsr        clean_recall=0.64 worst_installed=0.48 worst_amnesia=0.84
+locality f=3 rho=0.4 tma_corr    clean_recall=0.37 worst_installed=0.49 worst_amnesia=0.89
+locality f=3 rho=0.4 tab_nocorr  clean_recall=0.23 worst_installed=0.13 worst_amnesia=0.72
+locality f=3 rho=0.4 tabayyun    clean_recall=0.36 worst_installed=0.13 worst_amnesia=0.65 violations=0 action_violations=0 certified_frac_clean=0.01 certified_frac_attacked=0.01
+locality f=3 rho=0.7 titans      clean_recall=1.00 worst_installed=0.41 worst_amnesia=0.41
+locality f=3 rho=0.7 agg_mean    clean_recall=0.94 worst_installed=0.50 worst_amnesia=0.76
+locality f=3 rho=0.7 agg_trmean  clean_recall=0.88 worst_installed=0.38 worst_amnesia=0.41
+locality f=3 rho=0.7 agg_median  clean_recall=0.82 worst_installed=0.27 worst_amnesia=0.32
+locality f=3 rho=0.7 agg_krum    clean_recall=0.01 worst_installed=0.02 worst_amnesia=0.86
+locality f=3 rho=0.7 agg_geomed  clean_recall=0.88 worst_installed=0.33 worst_amnesia=0.35
+locality f=3 rho=0.7 robustrag   clean_recall=0.20 worst_installed=0.09 worst_amnesia=0.62
+locality f=3 rho=0.7 smsr        clean_recall=0.92 worst_installed=0.48 worst_amnesia=0.73
+locality f=3 rho=0.7 tma_corr    clean_recall=0.87 worst_installed=0.50 worst_amnesia=0.72
+locality f=3 rho=0.7 tab_nocorr  clean_recall=0.71 worst_installed=0.09 worst_amnesia=0.22
+locality f=3 rho=0.7 tabayyun    clean_recall=0.79 worst_installed=0.06 worst_amnesia=0.20 violations=0 action_violations=0 certified_frac_clean=0.01 certified_frac_attacked=0.01
+SUMMARY {"rows": 44000, "cert_violations": 0, "action_cert_violations": 0, "seconds": 501.9}
+--- exit 0 in 509.7s
+
+=== python.exe experiments/e04_mqar_attack.py --ckpt checkpoints/memlm_d256.pt --device cuda --trials 100 --trial_offset 0 --tag d256_explore
+dense n=10 f=1 rho=0.4 none: 11s
+dense n=10 f=1 rho=0.4 assert: 22s
+dense n=10 f=1 rho=0.4 assert_x4: 34s
+dense n=10 f=1 rho=0.4 edge: 45s
+dense n=10 f=1 rho=0.4 unbounded: 57s
+dense n=10 f=1 rho=0.7 none: 74s
+dense n=10 f=1 rho=0.7 assert: 91s
+dense n=10 f=1 rho=0.7 assert_x4: 109s
+dense n=10 f=1 rho=0.7 edge: 127s
+dense n=10 f=1 rho=0.7 unbounded: 145s
+dense n=10 f=2 rho=0.4 none: 154s
+dense n=10 f=2 rho=0.4 assert: 164s
+dense n=10 f=2 rho=0.4 assert_x4: 175s
+dense n=10 f=2 rho=0.4 edge: 186s
+dense n=10 f=2 rho=0.4 unbounded: 196s
+dense n=10 f=2 rho=0.7 none: 211s
+dense n=10 f=2 rho=0.7 assert: 228s
+dense n=10 f=2 rho=0.7 assert_x4: 245s
+dense n=10 f=2 rho=0.7 edge: 262s
+dense n=10 f=2 rho=0.7 unbounded: 279s
+locality n=20 f=2 rho=0.4 none: 286s
+locality n=20 f=2 rho=0.4 assert: 295s
+locality n=20 f=2 rho=0.4 assert_x4: 305s
+locality n=20 f=2 rho=0.4 edge: 315s
+locality n=20 f=2 rho=0.4 unbounded: 324s
+locality n=20 f=2 rho=0.7 none: 337s
+locality n=20 f=2 rho=0.7 assert: 351s
+locality n=20 f=2 rho=0.7 assert_x4: 367s
+locality n=20 f=2 rho=0.7 edge: 382s
+locality n=20 f=2 rho=0.7 unbounded: 396s
+locality n=20 f=3 rho=0.4 none: 403s
+locality n=20 f=3 rho=0.4 assert: 413s
+locality n=20 f=3 rho=0.4 assert_x4: 423s
+locality n=20 f=3 rho=0.4 edge: 433s
+locality n=20 f=3 rho=0.4 unbounded: 443s
+locality n=20 f=3 rho=0.7 none: 456s
+locality n=20 f=3 rho=0.7 assert: 472s
+locality n=20 f=3 rho=0.7 assert_x4: 489s
+locality n=20 f=3 rho=0.7 edge: 506s
+locality n=20 f=3 rho=0.7 unbounded: 522s
+dense    f=1 rho=0.4 titans      clean_recall=1.00 worst_installed=0.30 worst_amnesia=0.30
+dense    f=1 rho=0.4 agg_mean    clean_recall=0.91 worst_installed=0.51 worst_amnesia=0.65
+dense    f=1 rho=0.4 agg_trmean  clean_recall=0.88 worst_installed=0.06 worst_amnesia=0.13
+dense    f=1 rho=0.4 agg_median  clean_recall=0.86 worst_installed=0.05 worst_amnesia=0.17
+dense    f=1 rho=0.4 agg_krum    clean_recall=0.16 worst_installed=0.01 worst_amnesia=0.68
+dense    f=1 rho=0.4 agg_geomed  clean_recall=0.88 worst_installed=0.06 worst_amnesia=0.14
+dense    f=1 rho=0.4 robustrag   clean_recall=0.61 worst_installed=0.02 worst_amnesia=0.34
+dense    f=1 rho=0.4 smsr        clean_recall=0.87 worst_installed=0.04 worst_amnesia=0.15
+dense    f=1 rho=0.4 tma_corr    clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.62
+dense    f=1 rho=0.4 tab_nocorr  clean_recall=0.82 worst_installed=0.01 worst_amnesia=0.18
+dense    f=1 rho=0.4 tabayyun    clean_recall=0.82 worst_installed=0.01 worst_amnesia=0.17 violations=0 action_violations=0 certified_frac_clean=0.42 certified_frac_attacked=0.33
+dense    f=1 rho=0.7 titans      clean_recall=1.00 worst_installed=0.23 worst_amnesia=0.23
+dense    f=1 rho=0.7 agg_mean    clean_recall=0.99 worst_installed=0.51 worst_amnesia=0.54
+dense    f=1 rho=0.7 agg_trmean  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.7 agg_median  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.03
+dense    f=1 rho=0.7 agg_krum    clean_recall=0.80 worst_installed=0.01 worst_amnesia=0.20
+dense    f=1 rho=0.7 agg_geomed  clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.7 robustrag   clean_recall=0.96 worst_installed=0.01 worst_amnesia=0.06
+dense    f=1 rho=0.7 smsr        clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.03
+dense    f=1 rho=0.7 tma_corr    clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.54
+dense    f=1 rho=0.7 tab_nocorr  clean_recall=0.98 worst_installed=0.00 worst_amnesia=0.02
+dense    f=1 rho=0.7 tabayyun    clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.01 violations=0 action_violations=0 certified_frac_clean=0.91 certified_frac_attacked=0.88
+dense    f=2 rho=0.4 titans      clean_recall=1.00 worst_installed=0.39 worst_amnesia=0.39
+dense    f=2 rho=0.4 agg_mean    clean_recall=0.89 worst_installed=0.51 worst_amnesia=0.80
+dense    f=2 rho=0.4 agg_trmean  clean_recall=0.85 worst_installed=0.31 worst_amnesia=0.38
+dense    f=2 rho=0.4 agg_median  clean_recall=0.84 worst_installed=0.28 worst_amnesia=0.36
+dense    f=2 rho=0.4 agg_krum    clean_recall=0.02 worst_installed=0.04 worst_amnesia=0.74
+dense    f=2 rho=0.4 agg_geomed  clean_recall=0.87 worst_installed=0.35 worst_amnesia=0.41
+dense    f=2 rho=0.4 robustrag   clean_recall=0.54 worst_installed=0.12 worst_amnesia=0.41
+dense    f=2 rho=0.4 smsr        clean_recall=0.84 worst_installed=0.35 worst_amnesia=0.63
+dense    f=2 rho=0.4 tma_corr    clean_recall=0.69 worst_installed=0.51 worst_amnesia=0.78
+dense    f=2 rho=0.4 tab_nocorr  clean_recall=0.64 worst_installed=0.13 worst_amnesia=0.35
+dense    f=2 rho=0.4 tabayyun    clean_recall=0.41 worst_installed=0.04 worst_amnesia=0.42 violations=0 action_violations=0 certified_frac_clean=0.17 certified_frac_attacked=0.10
+dense    f=2 rho=0.7 titans      clean_recall=1.00 worst_installed=0.32 worst_amnesia=0.32
+dense    f=2 rho=0.7 agg_mean    clean_recall=0.99 worst_installed=0.51 worst_amnesia=0.70
+dense    f=2 rho=0.7 agg_trmean  clean_recall=0.98 worst_installed=0.07 worst_amnesia=0.07
+dense    f=2 rho=0.7 agg_median  clean_recall=0.98 worst_installed=0.04 worst_amnesia=0.06
+dense    f=2 rho=0.7 agg_krum    clean_recall=0.80 worst_installed=0.01 worst_amnesia=0.21
+dense    f=2 rho=0.7 agg_geomed  clean_recall=0.99 worst_installed=0.08 worst_amnesia=0.09
+dense    f=2 rho=0.7 robustrag   clean_recall=0.94 worst_installed=0.02 worst_amnesia=0.08
+dense    f=2 rho=0.7 smsr        clean_recall=0.99 worst_installed=0.34 worst_amnesia=0.53
+dense    f=2 rho=0.7 tma_corr    clean_recall=0.93 worst_installed=0.51 worst_amnesia=0.67
+dense    f=2 rho=0.7 tab_nocorr  clean_recall=0.95 worst_installed=0.03 worst_amnesia=0.07
+dense    f=2 rho=0.7 tabayyun    clean_recall=0.82 worst_installed=0.01 worst_amnesia=0.12 violations=0 action_violations=0 certified_frac_clean=0.47 certified_frac_attacked=0.37
+locality f=2 rho=0.4 titans      clean_recall=1.00 worst_installed=0.48 worst_amnesia=0.48
+locality f=2 rho=0.4 agg_mean    clean_recall=0.68 worst_installed=0.50 worst_amnesia=0.81
+locality f=2 rho=0.4 agg_trmean  clean_recall=0.57 worst_installed=0.37 worst_amnesia=0.60
+locality f=2 rho=0.4 agg_median  clean_recall=0.31 worst_installed=0.20 worst_amnesia=0.70
+locality f=2 rho=0.4 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.99
+locality f=2 rho=0.4 agg_geomed  clean_recall=0.43 worst_installed=0.28 worst_amnesia=0.51
+locality f=2 rho=0.4 robustrag   clean_recall=0.06 worst_installed=0.04 worst_amnesia=0.91
+locality f=2 rho=0.4 smsr        clean_recall=0.65 worst_installed=0.34 worst_amnesia=0.66
+locality f=2 rho=0.4 tma_corr    clean_recall=0.58 worst_installed=0.50 worst_amnesia=0.80
+locality f=2 rho=0.4 tab_nocorr  clean_recall=0.37 worst_installed=0.12 worst_amnesia=0.71
+locality f=2 rho=0.4 tabayyun    clean_recall=0.55 worst_installed=0.03 worst_amnesia=0.56 violations=0 action_violations=0 certified_frac_clean=0.03 certified_frac_attacked=0.02
+locality f=2 rho=0.7 titans      clean_recall=1.00 worst_installed=0.37 worst_amnesia=0.37
+locality f=2 rho=0.7 agg_mean    clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.70
+locality f=2 rho=0.7 agg_trmean  clean_recall=0.87 worst_installed=0.20 worst_amnesia=0.24
+locality f=2 rho=0.7 agg_median  clean_recall=0.81 worst_installed=0.15 worst_amnesia=0.21
+locality f=2 rho=0.7 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.89
+locality f=2 rho=0.7 agg_geomed  clean_recall=0.86 worst_installed=0.17 worst_amnesia=0.21
+locality f=2 rho=0.7 robustrag   clean_recall=0.33 worst_installed=0.04 worst_amnesia=0.65
+locality f=2 rho=0.7 smsr        clean_recall=0.89 worst_installed=0.32 worst_amnesia=0.49
+locality f=2 rho=0.7 tma_corr    clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.69
+locality f=2 rho=0.7 tab_nocorr  clean_recall=0.76 worst_installed=0.09 worst_amnesia=0.23
+locality f=2 rho=0.7 tabayyun    clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.15 violations=0 action_violations=0 certified_frac_clean=0.06 certified_frac_attacked=0.04
+locality f=3 rho=0.4 titans      clean_recall=1.00 worst_installed=0.60 worst_amnesia=0.60
+locality f=3 rho=0.4 agg_mean    clean_recall=0.71 worst_installed=0.50 worst_amnesia=0.85
+locality f=3 rho=0.4 agg_trmean  clean_recall=0.55 worst_installed=0.46 worst_amnesia=0.67
+locality f=3 rho=0.4 agg_median  clean_recall=0.33 worst_installed=0.33 worst_amnesia=0.69
+locality f=3 rho=0.4 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.96
+locality f=3 rho=0.4 agg_geomed  clean_recall=0.43 worst_installed=0.40 worst_amnesia=0.55
+locality f=3 rho=0.4 robustrag   clean_recall=0.06 worst_installed=0.09 worst_amnesia=0.88
+locality f=3 rho=0.4 smsr        clean_recall=0.69 worst_installed=0.48 worst_amnesia=0.84
+locality f=3 rho=0.4 tma_corr    clean_recall=0.38 worst_installed=0.49 worst_amnesia=0.88
+locality f=3 rho=0.4 tab_nocorr  clean_recall=0.25 worst_installed=0.18 worst_amnesia=0.74
+locality f=3 rho=0.4 tabayyun    clean_recall=0.35 worst_installed=0.16 worst_amnesia=0.68 violations=0 action_violations=0 certified_frac_clean=0.01 certified_frac_attacked=0.00
+locality f=3 rho=0.7 titans      clean_recall=1.00 worst_installed=0.46 worst_amnesia=0.46
+locality f=3 rho=0.7 agg_mean    clean_recall=0.94 worst_installed=0.50 worst_amnesia=0.76
+locality f=3 rho=0.7 agg_trmean  clean_recall=0.90 worst_installed=0.30 worst_amnesia=0.32
+locality f=3 rho=0.7 agg_median  clean_recall=0.86 worst_installed=0.23 worst_amnesia=0.26
+locality f=3 rho=0.7 agg_krum    clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.87
+locality f=3 rho=0.7 agg_geomed  clean_recall=0.90 worst_installed=0.28 worst_amnesia=0.30
+locality f=3 rho=0.7 robustrag   clean_recall=0.36 worst_installed=0.09 worst_amnesia=0.49
+locality f=3 rho=0.7 smsr        clean_recall=0.92 worst_installed=0.48 worst_amnesia=0.73
+locality f=3 rho=0.7 tma_corr    clean_recall=0.87 worst_installed=0.50 worst_amnesia=0.74
+locality f=3 rho=0.7 tab_nocorr  clean_recall=0.75 worst_installed=0.14 worst_amnesia=0.21
+locality f=3 rho=0.7 tabayyun    clean_recall=0.79 worst_installed=0.03 worst_amnesia=0.23 violations=0 action_violations=0 certified_frac_clean=0.00 certified_frac_attacked=0.01
+SUMMARY {"rows": 44000, "cert_violations": 0, "action_cert_violations": 0, "seconds": 522.0}
+--- exit 0 in 525.1s
+
+# finished 2026-11-10 18:52:41; failed: none
