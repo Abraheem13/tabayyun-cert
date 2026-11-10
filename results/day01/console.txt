@@ -1,0 +1,787 @@
+# Day 1  device=cuda  started 2026-11-10 14:16:31
+
+=== python.exe -m pytest -q
+..........Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+Windows fatal exception: access violation
+
+Thread 0x0000544c (most recent call first):
+  <no Python frame>
+
+Current thread 0x0000445c (most recent call first):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\tests\test_core.py", line 117 in test_hull_and_runtime_certificate_fuzz
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 187 in pytest_pyfunc_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\python.py", line 1798 in runtest
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 184 in pytest_runtest_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 250 in <lambda>
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 361 in from_call
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 249 in call_and_report
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 139 in runtestprotocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\runner.py", line 118 in pytest_runtest_protocol
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 411 in pytest_runtestloop
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 387 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 333 in wrap_session
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\main.py", line 380 in pytest_cmdline_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_execution.py", line 147 in _multicall
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_manager.py", line 183 in _hookexec
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pluggy\_caller.py", line 197 in __call__
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 262 in _main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\_pytest\config\__init__.py", line 286 in _console_main
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\pytest\__main__.py", line 9 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+........................................                       [100%]
+50 passed in 8.93s
+--- exit 0 in 10.3s
+
+=== python.exe scripts/check_gpu.py
+python 3.11.9 on Windows 10
+torch 2.11.0+cu128  cuda 12.8
+cuda available: True
+device: NVIDIA GeForce RTX 5080
+capability: (12, 0)
+arch list: ['sm_75', 'sm_80', 'sm_86', 'sm_90', 'sm_100', 'sm_120']
+sm_120 supported: True
+total memory GB: 17.1
+bf16 matmul TFLOP/s: 101.7
+--- exit 0 in 2.2s
+
+=== python.exe experiments/e01_persistence.py --smoke --device cuda
+{"kind": "linear", "eta": 0.0, "alpha": 0.01, "half_life_measured": 59.5, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 69}
+{"kind": "linear", "eta": 0.0, "alpha": 0.05, "half_life_measured": 13.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 14}
+{"kind": "linear", "eta": 0.5, "alpha": 0.01, "half_life_measured": 53.5, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 71}
+{"kind": "linear", "eta": 0.5, "alpha": 0.05, "half_life_measured": 14.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 16}
+{"kind": "linear", "eta": 0.9, "alpha": 0.01, "half_life_measured": 36.0, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 79}
+{"kind": "linear", "eta": 0.9, "alpha": 0.05, "half_life_measured": 19.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 25}
+SUMMARY {"loglog_corr_pred_vs_measured": 0.9518155659717289, "rayn_cos_target_mean": 0.9947334825992584, "single_cos_target_mean": 0.35120461881160736, "rayn_max_norm_over_single": 0.10000000838190388}
+--- exit 0 in 5.9s
+
+=== python.exe experiments/e02_synthetic_defence.py --smoke --device cuda
+{"asr": NaN, "target_cos": -0.9802353382110596, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "titans", "attack": "none", "f_over_n": 0.2, "seed": 0}
+{"asr": 1.0, "target_cos": 1.0, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "titans", "attack": "targeted", "f_over_n": 0.2, "seed": 0}
+{"asr": 1.0, "target_cos": 1.0, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "titans", "attack": "edge_of_range", "f_over_n": 0.2, "seed": 0}
+{"asr": NaN, "target_cos": -0.9993988275527954, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "agg_mean", "attack": "none", "f_over_n": 0.2, "seed": 0}
+{"asr": 0.0, "target_cos": -0.9986319541931152, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "agg_mean", "attack": "targeted", "f_over_n": 0.2, "seed": 0}
+{"asr": 0.0, "target_cos": -0.9986319541931152, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "agg_mean", "attack": "edge_of_range", "f_over_n": 0.2, "seed": 0}
+{"asr": NaN, "target_cos": -0.9983260631561279, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "agg_trmean", "attack": "none", "f_over_n": 0.2, "seed": 0}
+{"asr": 0.0, "target_cos": -0.9966659545898438, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "agg_trmean", "attack": "targeted", "f_over_n": 0.2, "seed": 0}
+{"asr": 0.0, "target_cos": -0.9966659545898438, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "defence": "agg_trmean", "attack": "edge_of_range", "f_over_n": 0.2, "seed": 0}
+{"asr": NaN, "target_cos": -0.9987579584121704, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "cert_sound": true, "cert_frob": 0.5630427002906799, "true_drift": 0.12254471331834793, "tightness_ratio": 4.594589885146671, "promoted_frac": 1.0, "cert_query_mean": 0.4412679672241211, "defence": "tabayyun", "attack": "none", "f_over_n": 0.2, "seed": 0}
+{"asr": 0.0, "target_cos": -0.998806357383728, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "cert_sound": true, "cert_frob": 0.5697157979011536, "true_drift": 0.1450778841972351, "tightness_ratio": 3.9269651680790862, "promoted_frac": 1.0, "cert_query_mean": 0.44511494040489197, "defence": "tabayyun", "attack": "targeted", "f_over_n": 0.2, "seed": 0}
+{"asr": 0.0, "target_cos": -0.9952437281608582, "recall_high_risk_shared": 1.0, "recall_high_risk_all": 1.0, "cert_sound": true, "cert_frob": 0.48551422357559204, "true_drift": 0.4075639843940735, "tightness_ratio": 1.1912588996238405, "promoted_frac": 1.0, "cert_query_mean": 0.380759060382843, "defence": "tabayyun", "attack": "edge_of_range", "f_over_n": 0.2, "seed": 0}
+SUMMARY {"tabayyun_cert_sound_all": true, "n_runs": 12, "asr_titans": 1.0, "clean_recall_titans": 1.0, "asr_agg_mean": 0.0, "clean_recall_agg_mean": 1.0, "asr_agg_trmean": 0.0, "clean_recall_agg_trmean": 1.0, "asr_tabayyun": 0.0, "clean_recall_tabayyun": 1.0}
+--- exit 0 in 4.6s
+
+# finished 2026-11-10 14:16:54; failed: none
