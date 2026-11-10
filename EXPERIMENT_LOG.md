@@ -310,3 +310,37 @@ The activity threshold ν = 1e−3 came from Tier A, where fact keys are exactly
 - New scorer `scripts/analyze_e04.py`. An 8-trial exploratory preview predicts C3 (Amendment 3's −0.50 installed margin) will fail in Tier B. This expectation is written into Amendment 4 *before* the run, and the criterion is not changed.
 
 **Day 9 = confirmatory Tier B (trials 200–299, both models).**
+
+---
+
+## Day 9 (2026-11-10): Tier-B CONFIRMATORY (Amendment 4; trials 200–299; both models)
+
+**Runs (RTX 5080, commit `0118a8b`):** 96,000 rows per model (16 cells × 5 attack settings × 100 trials × 12 defences), 37 min per model. Scorecards in `results/e04/e04_{d128,d256}_confirm_scorecard.json`.
+
+### Scorecard (both models identical except where noted)
+| Criterion | primary `tabayyun` | secondary `tabayyun_strict` |
+|---|---|---|
+| **H3**: certificate + certified-token violations | **0** (192k rows) | **0** |
+| **P1**: installed ≤ 0.5 × Titans | **32/32** | **32/32** |
+| **C1**: Pareto non-dominated by all 9 baselines | **32/32** | **32/32** |
+| **C2** (locality): recall ≥ best secure baseline + 0.20 | 10/16 (5/8 + 5/8) | 3/16 (1/8 + 2/8) |
+| **C3**: installed ≤ best useful baseline − 0.50 | 0/32 (*pre-declared expected failure*) | 0/32 |
+| **H7**: Thm 3(b) predicts recall (±0.10) | 18/32 (not a criterion; cross-talk) | **32/32** (most within 0.03) |
+
+### What holds
+- **Security everywhere.** Worst-case installed rate is 0.00–0.07 in 30/32 cells (max 0.22 at locality f=3, ρ=0.4, R=1), against Titans 0.13–0.56. Among baselines with comparable recall, installed rates are 0.02–0.42 (e.g. locality f=3, ρ=0.7, R=1: median recall 0.83–0.86 with **installed 0.28–0.30**, vs Tabayyun recall 0.81 with **installed 0.03**).
+- **Never dominated.** In all 64 (method × model × cell) comparisons no baseline is at least as good on installed, amnesia and recall.
+- **Certified tokens.** Dense with R = 3: **0.58–1.00** of all tokens are certified *and* correct (0.90–1.00 in 6/8 cells). Strict variant in locality R = 3: 0.30–0.81. Primary variant in locality: 0.00–0.33.
+- **Theory predicts the cost of security** for the strict variant in every one of 32 cells.
+
+### What does not hold (reported as such)
+- **C2 fails in 6/16 (primary) and 13/16 (strict) locality cells.** Mostly at R = 3, where facts are observed many times and the best *secure* baseline (GeoMed / TrMean, installed ≤ 0.1) reaches recall 0.90–0.98. **The large Tier-A recall advantage over robust aggregators does not fully carry over to token-level MQAR.** Argmax decoding tolerates the dilution that majority aggregators cause, whereas Tier A's magnitude-aware Recall_L2 does not. Tier B's advantage over robust aggregators is therefore **security (installed) plus certification at comparable recall**, not recall.
+- **C3 fails everywhere**, as written down in Amendment 4 before the run.
+- The strict variant pays in recall when observation is single-shot (R = 1, locality: 0.04–0.61), exactly as Thm 3(b) predicts.
+
+### Paper message after Tier B
+1. On a trained memory LM, Tabayyun is the only defence that is **never Pareto-dominated**, and it halves or better the attacker's success against Titans in every cell.
+2. When sources re-observe facts (R = 3), the strict variant **certifies up to 100% of predicted tokens**, and its utility is predicted in closed form.
+3. Robust aggregators are competitive in token recall when facts are well observed, but they are attacker-steerable (installed up to 0.42) and certify nothing.
+
+**Next:** adaptive gradient attacker (PGD on a differentiable relaxation of the gate, plus BPDA; Day 13 of the roadmap, pulled forward), then federation (Days 15–16) and O-RAN (Days 17–18). While I build the attacker, the GPU trains a larger model (d512) for the scaling ablation.

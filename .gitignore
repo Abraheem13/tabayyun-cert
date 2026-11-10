@@ -14,3 +14,4 @@ results/smoke.jsonl
 wandb/
 !checkpoints/memlm_d128.pt
 !checkpoints/memlm_d256.pt
+!checkpoints/memlm_d512.pt

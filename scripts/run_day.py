@@ -79,6 +79,9 @@ def plan(day: int, dev: str) -> list[list[str]]:
             [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d256.pt", "--device", dev,
              "--trials", "100", "--trial_offset", "200", "--obs_rounds", "1,3", "--tag", "d256_confirm"],
             [PY, "scripts/analyze_e04.py", "results/e04/e04_d256_confirm.json"]],
+        # scaling ablation (Day 26 pulled forward): a larger memory LM
+        10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
+              "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")
