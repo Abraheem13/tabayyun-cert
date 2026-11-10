@@ -231,3 +231,20 @@ Registered in `docs/preregistration.md`. Primary security metric = **installed**
 The `prereg-v1-amend2` tag did not reach GitHub (network drop on the PI machine). It is re-pushed with the Day 8 command. Amendment 2's text is in commit `26aa550`, before the Day 6 runs (`a7dc484`).
 
 **Decision: Tier A is complete.** Gate 1 is passed (0 certificate violations in 12,240 Tabayyun runs; locality advantage confirmed on 3 independent seed sets). Moving to **Tier B (learned memories, MQAR)**.
+
+---
+
+## Day 7 preparation: Tier B (trained memory LM on MQAR)
+
+**Built**
+- `models/memlm.py`, **MemLM**: embedding, full width-2 causal conv, MLP, then **one Titans linear-memory layer** with data-dependent gates. Logits = W_U(h + W_O y) are **affine in the memory read y**, so Thm 3(a) certifies the *predicted token* exactly with W = W_U W_O. All cross-token mixing happens in the memory layer, so per-source quarantine isolates sources completely.
+- `data/mqar.py`: multi-segment MQAR (Zoology protocol: keys and values in disjoint vocab halves); one write per asserted fact.
+- `e03_mqar_train.py` (curriculum: facts 4 → max over 40% of steps) and `e04_mqar_attack.py` (token-level attacks on the trained model; 11 defences; certified-token fraction; soundness check against the oracle reference).
+- Tests: the model's scan equals the certified Titans `LinearMemory` (to 1e−10); logits are exactly affine in y. **62/62 pass.**
+
+**Development findings (CPU, tiny model; not results)**
+1. With writes at every context position, MemLM plateaus at ~32%. With **one write per asserted fact** (value positions) it reaches 96% in 1.2k steps.
+2. Harder settings (12 facts × 4 segments) need a **curriculum**: 33% without, **98% with** (1.6k CPU steps).
+3. E04 smoke (3 trials, tiny model): 0 certificate violations and 0 action-certificate violations. But the **certified-token fraction is low (0.00–0.07)**: the per-query bound is large relative to logit margins in a small model with correlated learned keys. Also, token-level argmax is less sensitive to magnitude dilution than Recall_L2, so the baselines lose less recall than in Tier A. **Both points must be checked on the GPU models before any Tier-B claim is registered.**
+
+**Day 7 = GPU training of two models (d128/dk64, d256/dk128) plus exploratory attack runs (trials 0–99).** Confirmatory Tier-B criteria will be registered (Amendment 4) after seeing the exploratory numbers, with fresh trials 200+.

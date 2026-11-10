@@ -61,6 +61,15 @@ def plan(day: int, dev: str) -> list[list[str]]:
             [PY, "scripts/analyze_e02.py", "--method", "tabayyun_anchored2", "--out", "scorecard_amend2",
              "--baselines", AMEND2_BASE,
              "results/e02/e02_dense_amend2.json", "results/e02/e02_locality_amend2.json"]],
+        # Tier B: train two memory LMs on GPU, then exploratory attack runs (trials 0-99)
+        7: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
+             "--d_model", "128", "--dk", "64", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d128"],
+            [PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
+             "--d_model", "256", "--dk", "128", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d256"],
+            [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d128.pt", "--device", dev,
+             "--trials", "100", "--trial_offset", "0", "--tag", "d128_explore"],
+            [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d256.pt", "--device", dev,
+             "--trials", "100", "--trial_offset", "0", "--tag", "d256_explore"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")

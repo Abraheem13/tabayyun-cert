@@ -245,3 +245,32 @@ def test_untrimmed_gate_reports_no_certificate():
     D = torch.randn(7, 3, 4)
     out = tabayyun_gate(D, GateConfig(k=3, f=1, nu=0.0, cone=False, trim=False))
     assert (out.runtime_err[out.promoted] >= 1e8).all()
+
+
+def test_memlm_scan_equals_titans_linear_memory():
+    """The trained model's memory layer is exactly the certified Titans memory (constant gates)."""
+    from tabayyun.models import MemLM
+    g = torch.Generator().manual_seed(0)
+    B, L, dk, dv = 2, 7, 8, 5
+    k = torch.nn.functional.normalize(torch.randn(B, L, dk, generator=g), dim=-1)
+    q = torch.nn.functional.normalize(torch.randn(B, L, dk, generator=g), dim=-1)
+    v = torch.randn(B, L, dv, generator=g)
+    th, al, et = torch.full((B, L), 0.3), torch.full((B, L), 0.05), torch.full((B, L), 0.6)
+    wm = torch.ones(B, L, dtype=torch.bool)
+    y, M, _ = MemLM.scan(k, v, q, th, al, et, wm)
+    ref = LinearMemory(B, dk, dv, Gates(theta=0.3, eta=0.6, alpha=0.05))
+    for t in range(L):
+        assert torch.allclose(y[:, t], ref.read(q[:, t]), atol=1e-10)
+        ref.write(k[:, t], v[:, t])
+    assert torch.allclose(M, ref.M, atol=1e-10)
+
+
+def test_memlm_forward_and_readout_linear_in_y():
+    from tabayyun.models import MemLM, MemLMConfig
+    torch.manual_seed(0)
+    m = MemLM(MemLMConfig(vocab=32, d_model=16, dk=8, dv=8)).double()
+    h = torch.randn(3, 16, dtype=torch.float64)
+    y1, y2 = torch.randn(3, 8, dtype=torch.float64), torch.randn(3, 8, dtype=torch.float64)
+    W = m.readout_matrix()
+    d = m.logits_from_read(h, y1) - m.logits_from_read(h, y2)
+    assert torch.allclose(d, (y1 - y2) @ W.T, atol=1e-10)
