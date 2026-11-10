@@ -51,12 +51,43 @@ class TabayyunConfig:
     anchor_cos: float = 0.98                  # anchored: keys this close are the same direction
     anchor_min_resid: float = 0.3             # anchored: min new component to add a direction
     anchor_window: int = 5                    # anchored: rounds of key history kept
+    anchor_min_writers: str = "k"             # "k" (v2.1, Day 3) | "f+1" (v2.2): distinct writers to anchor
     K: int | None = None                      # number of directions (default dk)
     after_promotion: str = "keep"             # keep | reset | decay   (quarantine)
     post_decay: float = 0.5
     lam_low: float = 1.0                      # own-quarantine read weight, low-risk queries
     mlp_hidden: int = 64
     device: str = "cpu"
+
+
+def grow_anchored_basis(U: torch.Tensor, hist, n_sources: int, need: int, K: int,
+                        anchor_cos: float = 0.98, min_resid: float = 0.3) -> torch.Tensor:
+    """Grow a frozen orthonormal basis with keys written by >= `need` distinct
+    sources in the key history `hist` (list of rounds of (source, key)).
+    Shared by TabayyunMemory and the anchored robust-aggregation baselines."""
+    pool = [x for rnd in hist for x in rnd]
+    if not pool or U.shape[0] >= K:
+        return U
+    src = torch.tensor([p[0] for p in pool], device=U.device)
+    X = torch.nn.functional.normalize(torch.stack([p[1] for p in pool]), dim=1)
+    close = (X @ X.T).abs() >= anchor_cos                                # (P,P)
+    onehot = torch.nn.functional.one_hot(src, n_sources).to(X.dtype)     # (P,n)
+    n_src = ((close.to(X.dtype) @ onehot) > 0).sum(1)                    # distinct writers per key
+    for i in torch.argsort(n_src, descending=True).tolist():
+        if int(n_src[i]) < need or U.shape[0] >= K:
+            break
+        members = X[close[i]]
+        sign = torch.sign(members @ X[i]).unsqueeze(1)
+        c = torch.nn.functional.normalize((members * sign).median(0).values, dim=0)
+        if U.shape[0]:
+            if (U @ c).abs().max() >= anchor_cos:
+                continue
+            r = c - U.T @ (U @ c)
+        else:
+            r = c
+        if r.norm() >= min_resid:
+            U = torch.cat([U, (r / r.norm()).unsqueeze(0)])
+    return U
 
 
 class TabayyunMemory:
@@ -153,35 +184,13 @@ class TabayyunMemory:
         never change, so the per-direction certificate stays valid; M^P lives
         in span(U) because it is only ever updated along U.
         """
-        cfg, dev = self.cfg, self.MP.device
+        cfg = self.cfg
         self._hist.append([(s, k) for s, ks in enumerate(self._keys) for k in ks])
         self._hist = self._hist[-cfg.anchor_window:]
-        pool = [x for rnd in self._hist for x in rnd]
-        if not pool or self.U.shape[0] >= self.K:
-            return self.U
-        src = torch.tensor([p[0] for p in pool], device=dev)
-        X = torch.nn.functional.normalize(torch.stack([p[1] for p in pool]), dim=1)
-        close = (X @ X.T).abs() >= cfg.anchor_cos                          # (P,P)
-        onehot = torch.nn.functional.one_hot(src, cfg.n_sources).to(X.dtype)  # (P,n)
-        n_src = ((close.to(X.dtype) @ onehot) > 0).sum(1)                   # distinct sources per key
-        order = torch.argsort(n_src, descending=True)
-        U = self.U
-        for i in order.tolist():
-            if int(n_src[i]) < cfg.gate.k or U.shape[0] >= self.K:
-                break
-            members = X[close[i]]
-            sign = torch.sign(members @ X[i]).unsqueeze(1)
-            c = torch.nn.functional.normalize((members * sign).median(0).values, dim=0)
-            if U.shape[0]:
-                if (U @ c).abs().max() >= cfg.anchor_cos:
-                    continue
-                r = c - U.T @ (U @ c)
-            else:
-                r = c
-            if r.norm() >= cfg.anchor_min_resid:
-                U = torch.cat([U, (r / r.norm()).unsqueeze(0)])
-        self.U = U
-        return U
+        need = cfg.gate.k if cfg.anchor_min_writers == "k" else cfg.gate.f + 1
+        self.U = grow_anchored_basis(self.U, self._hist, cfg.n_sources, need, self.K,
+                                     cfg.anchor_cos, cfg.anchor_min_resid)
+        return self.U
 
     def promote(self) -> GateOutput | None:
         U = self.basis()                                   # (K, dk)

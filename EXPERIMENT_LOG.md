@@ -105,3 +105,40 @@ With the identity basis, every basis direction mixes many facts, so honest sourc
 Regimes, metrics (Recall_L2, L2 flip, amnesia), success criteria (P1, P2-dense non-inferiority, P2-loc/H6, A2, A6, H3) and **confirmatory seeds 100–109** are fixed before any confirmatory run.
 
 **Decision:** Day 4 = confirmatory E02, dense (6480 runs) and locality (4320 runs), on CPU workers.
+
+---
+
+## Day 4 (2026-11-10): first confirmatory E02 (prereg-v1, seeds 100–109)
+
+**Runs (CPU, 19 workers, commit `7b01795`):** dense 6480 runs (81 s), locality 4320 runs (62 s). Scored by `scripts/analyze_e02.py`, giving `results/e02/prereg_scorecard.json`. Paired bootstrap, 10k resamples.
+
+### Scorecard (method = `tabayyun_anchored`, the registered method)
+| Criterion | Dense (n=10) | Locality (n=20) |
+|---|---|---|
+| **P1** (≥ 50% ASR reduction vs Titans) | **9/9 PASS** | **6/6 PASS** |
+| **P2** (dense: non-inferior to best robust baseline; locality: +0.20 recall, −0.20 amnesia, ≤ ASR) | **6/9** | **5/6 as registered, 6/6 with fp tolerance (Amendment 1)** |
+| **A2** (corroboration gate needed) | – | 5/6 as registered, 6/6 with fp tolerance |
+| **A6** (anchored basis needed) | – | **6/6 PASS** |
+| **H3** (certificate violations) | **0 / 1620** | **0 / 1080** |
+
+**Locality, the main claim (worst case over 5 attacks, 10 seeds):** Tabayyun-anchored has ASR 0.00–0.20, amnesia 0.00–0.50 and clean Recall_L2 0.32–1.00. **Every robust baseline (mean, TrMean, median, Krum, GeoMed, CClip) has clean Recall_L2 = 0.00 and amnesia = 1.00 in every cell.** They erase all minority-held facts, and Krum is also flipped (ASR 0.8–1.0). Differences vs the best baseline: recall **+0.32 to +1.00**, amnesia **−0.50 to −1.00**, ASR −0.50 to 0.00.
+
+**Dense failures (honest):**
+- f/n = 0.2, ρ = 0.2: recall difference 0.00 [−0.03, +0.03]. Non-inferiority within 0.02 is not established (underpowered at 10 seeds).
+- f/n = 0.3, ρ = 0.2 and 0.4: **real failures.** Recall 0.17 / 0.88 vs Krum 0.95 / 1.00. With f = 3 we need k = 7 corroborators out of only 7 honest sources, so every honest source must see the fact. Under sparse observation, corroboration starves.
+
+### Why it fails where it fails: Theorem 3(b) predicts it (H7, exploratory on Day 4)
+Clean recall equals the probability that a fact gets k corroborators in time, P(Bin(m, 1−(1−ρ)^{R−1}) ≥ k). For the registered method this holds 8/9 (dense) and 5/6 (locality) within ±0.10. The misses come from the v2.1 anchoring rule (k writers inside a 5-round window), an extra bottleneck the theorem does not model.
+
+### Diagnosis and fix (exploratory probes, seeds 0–5)
+- **`tabayyun_anchored2`**: anchor a key once f+1 distinct sources wrote it (at least one honest); promotion still needs k. Thm 3(b) then predicts recall **within 0.07 in 8/8 cells** (e.g. dense f/n=0.3, ρ=0.2: 0.38 observed vs 0.36 predicted; ρ=0.4: 0.93 vs 0.93).
+- **Fairness (A11):** robust baselines given the same anchored basis still have Recall_L2 = 0 in the locality regime. Their failure comes from the majority requirement, not from the basis.
+- **A3:** the v1 additive promotion rule fails on utility (Recall_L2 = 0), which confirms fix F3 (EMA).
+- **Metric caveat:** when a fact is never promoted the read is ≈ 0, and the registered ASR (v* vs v_true comparison) becomes a coin toss, so some "ASR" in starved cells is really amnesia. Added the secondary metric `installed`.
+
+### Paper message after Day 4
+1. Where facts are local (the realistic O-RAN case), Tabayyun dominates every robust aggregator on recall and amnesia (+0.3 to +1.0) at equal or lower ASR, with zero certificate violations.
+2. Where every source sees every fact, Tabayyun ties the best robust aggregator on security and adds a certificate.
+3. Its utility cost is a closed-form operating curve (Thm 3(b)) that the operator controls through (k, τ). It is largest when f/n → 1/3 under sparse observation. **The paper reports this regime as a limitation, with the curve.**
+
+**Decision:** Amendment 1 registered (`docs/preregistration.md`). **Day 5 = confirmatory anchored2 + H7 + A11 + A3 on fresh seeds 110–119**, with scorecards generated on the RTX machine.

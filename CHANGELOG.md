@@ -2,6 +2,13 @@
 
 All design and code changes. Experiment results go in `EXPERIMENT_LOG.md`.
 
+## [0.4.0] - 2026-11-10 (Day 4)
+### Added
+- `scripts/analyze_e02.py`: pre-registration scorecard (paired bootstrap, per-criterion best baseline, H7 prediction).
+- `anchor_min_writers` ("k" | "f+1"); `tabayyun_anchored2`; `grow_anchored_basis` shared with baselines; `RobustAggMemory(basis="anchored")` (A11); `tabayyun_anchored2_add` (A3).
+- Metric `installed`; per-query certificate at k* recorded.
+- Pre-registration Amendment 1; Day 5 plan.
+
 ## [0.3.0] - 2026-11-10 (Day 3)
 ### Added
 - `basis="anchored"`: key-anchored, growing, frozen basis (F13); `DirectionalDrift.resize`.

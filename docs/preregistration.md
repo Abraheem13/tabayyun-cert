@@ -37,3 +37,14 @@ Primary contrasts for Holm correction: P1 and P2-loc.
 
 ## Pre-declared negative regimes (reported whatever happens)
 Dirichlet(0.1) heterogeneity; client-unique facts and facts with support < k (never promoted, by design); correlated upstream feed; Sybils beyond f.
+
+---
+
+## Amendment 1 (2026-11-10, after Day 4 confirmatory runs; tagged `prereg-v1-amend1`)
+Every Day-4 result is reported as scored under v1 **and** under this amendment. Nothing from v1 is withdrawn.
+
+1. **Floating-point tolerance (1e−9) in threshold comparisons.** Two Day-4 locality cells failed only because a bootstrap bound was −0.19999999999999996 against "≤ −0.20". Without the tolerance, locality P2 is 5/6 and A2 is 5/6; with it, both are 6/6. Both numbers are reported.
+2. **Secondary metric `installed`** (‖read − v*‖ < 0.5‖v*‖). The registered ASR compares the read with v* and v_true. When the read is near zero (the fact was never promoted), that comparison is a coin toss and counts amnesia as a "flip". `installed` measures whether the attacker's value is actually in memory. The primary ASR is unchanged.
+3. **New method variant `tabayyun_anchored2`** (a key is anchored once f+1 distinct sources wrote it, i.e. at least one honest source; promotion still needs k corroborators). Reason: Day 4 showed that the v2.1 anchoring rule (k writers inside a 5-round window) is an extra bottleneck not modelled by Thm 3(b). It is tested **confirmatorily on fresh seeds 110–119** with the same criteria (P1, P2-dense, P2-loc, A2, A6, H3).
+4. **New hypothesis H7 (theory predicts the cost of security).** Clean Recall_L2 of the method equals the Thm 3(b) promotion probability P(Bin(m, 1−(1−ρ)^{R−1}) ≥ k), averaged over fact supports m, within ±0.10 in every cell. On Day-4 data (registered post hoc, so exploratory) it holds 8/9 dense and 5/6 locality. On the anchored2 probe (seeds 0–5) it holds 8/8 within 0.07. **Confirmatory on seeds 110–119.**
+5. **Fairness ablation A11**: the robust baselines also get the key-anchored basis (`agg_*_anc`). **A3**: v1 additive promotion (`tabayyun_anchored2_add`). Both are reported, with no success threshold (descriptive).

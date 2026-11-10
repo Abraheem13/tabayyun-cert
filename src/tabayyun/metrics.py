@@ -60,3 +60,11 @@ def amnesia(mem, k_star, v_true, tol=0.5) -> bool:
     """The true association is lost: ||read - v_true|| >= tol ||v_true||."""
     y = mem.read(k_star.unsqueeze(0)).squeeze(0)
     return bool((y - v_true).norm() >= tol * v_true.norm())
+
+
+def installed(mem, k_star, v_star, tol=0.5) -> bool:
+    """The attacker's value is actually installed: ||read - v*|| < tol ||v*||.
+    Separates a real flip from a near-empty read whose cosine/L2 comparison
+    with v* vs v_true is a coin toss (Amendment 1)."""
+    y = mem.read(k_star.unsqueeze(0)).squeeze(0)
+    return bool((y - v_star).norm() < tol * v_star.norm())

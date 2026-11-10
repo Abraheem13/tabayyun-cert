@@ -28,11 +28,12 @@ from tabayyun import GateConfig, Gates, TabayyunConfig, TabayyunMemory  # noqa: 
 from tabayyun.attacks import EdgeOfRange, Rayn, TargetedWrite, Unbounded  # noqa: E402
 from tabayyun.baselines import RobustAggMemory, SharedMemory  # noqa: E402
 from tabayyun.data import FactWorld, WorldConfig, run_round  # noqa: E402
-from tabayyun.metrics import amnesia, benign_recall, l2_flip, l2_recall, target_cos, targeted_success  # noqa: E402
+from tabayyun.metrics import amnesia, benign_recall, installed, l2_flip, l2_recall, target_cos, targeted_success  # noqa: E402
 from tabayyun.registry import log_run  # noqa: E402
 
 DEFENCES = ["titans", "titans_clip", "titans_ttl", "agg_mean", "agg_trmean", "agg_median",
-            "agg_krum", "agg_geomed", "agg_cclip", "tab_nocorr", "tabayyun", "tabayyun_anchored"]
+            "agg_krum", "agg_geomed", "agg_cclip", "tab_nocorr", "tabayyun", "tabayyun_anchored",
+            "tabayyun_anchored2", "tabayyun_anchored2_add", "agg_median_anc", "agg_trmean_anc", "agg_krum_anc"]
 ATTACKS = ["none", "targeted", "single_shot", "rayn", "edge_of_range", "unbounded"]
 QUARANTINE = ("agg_", "tab")
 
@@ -51,11 +52,16 @@ def build(defence, wc: WorldConfig, f, k, device, alpha_q=None):
     if defence == "titans_ttl":
         return SharedMemory(dk, dv, Gates(theta=0.5, eta=0.0, alpha=0.2), device=device)
     if defence.startswith("agg_"):
-        return RobustAggMemory(n, dk, dv, gates, agg=defence[4:], f=f, tau=tau, device=device)
+        anc = defence.endswith("_anc")
+        return RobustAggMemory(n, dk, dv, gates, agg=defence[4:].removesuffix("_anc"), f=f, tau=tau,
+                               device=device, basis="anchored" if anc else "identity")
     if defence.startswith("tab"):
         gate = GateConfig(k=k, f=f, gamma=0.3, nu=0.05, corroborate=(defence != "tab_nocorr"))
         return TabayyunMemory(TabayyunConfig(n_sources=n, dk=dk, dv=dv, tau=tau, q_gates=gates, gate=gate,
-                                             basis="anchored" if defence == "tabayyun_anchored" else "identity",
+                                             basis="anchored" if defence.startswith("tabayyun_anchored") else "identity",
+                                             anchor_min_writers="f+1" if defence.startswith("tabayyun_anchored2") else "k",
+                                             rule="additive" if defence.endswith("_add") else "ema",
+                                             alpha_P=0.1 if defence.endswith("_add") else 0.5,
                                              device=device))
     raise ValueError(defence)
 
@@ -119,6 +125,7 @@ def run_one(job):
            "asr": float(targeted_success(mem, k_star, v_star, v_true)) if attack != "none" else None,
            "asr_l2": float(l2_flip(mem, k_star, v_star, v_true)) if attack != "none" else None,
            "amnesia": float(amnesia(mem, k_star, v_true)),
+           "installed": float(installed(mem, k_star, v_star)) if attack != "none" else None,
            "target_cos": target_cos(mem, k_star, v_star),
            "recall": benign_recall(mem, w.keys[shared], w.values[shared], extra_candidates=v_star[None]),
            "recall_l2": l2_recall(mem, w.keys[shared], w.values[shared])}
@@ -126,6 +133,8 @@ def run_one(job):
         U = mem.basis()
         res.update({"cert_sound": bool(sound), "cert_frob": mem.certificate, "true_drift": mem.true_drift(),
                     "drift_over_cert_max": worst_ratio, "n_directions": int(U.shape[0]),
+                    "qcert_kstar": float(mem.query_certificate(k_star[None])[0]) if U.shape[0] else 0.0,
+                    "qdrift_kstar": float(((mem.MP - mem.MP_ref) @ k_star).norm()),
                     "promoted_frac": float(mem.last.promoted.float().mean()) if mem.last is not None else 0.0})
     return res
 

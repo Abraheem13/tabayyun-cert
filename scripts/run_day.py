@@ -17,6 +17,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
+AMEND1_DEFS = ("titans,titans_clip,titans_ttl,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,"
+               "agg_median_anc,agg_trmean_anc,agg_krum_anc,tab_nocorr,tabayyun,tabayyun_anchored,"
+               "tabayyun_anchored2,tabayyun_anchored2_add")
 
 
 def plan(day: int, dev: str) -> list[list[str]]:
@@ -35,6 +38,16 @@ def plan(day: int, dev: str) -> list[list[str]]:
              "--n", "10", "--support", "all", "--tag", "dense"],
             [PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "100",
              "--n", "20", "--support", "minority", "--fracs", "0.1,0.15", "--tag", "locality"]],
+        # Amendment 1: confirmatory test of anchored2 + H7 + fairness (A11) + A3 on fresh seeds 110-119
+        5: [[PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "110",
+             "--n", "10", "--support", "all", "--tag", "dense_amend1", "--defences", AMEND1_DEFS],
+            [PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "110",
+             "--n", "20", "--support", "minority", "--fracs", "0.1,0.15", "--tag", "locality_amend1",
+             "--defences", AMEND1_DEFS],
+            [PY, "scripts/analyze_e02.py", "--method", "tabayyun_anchored2", "--out", "scorecard_amend1",
+             "results/e02/e02_dense_amend1.json", "results/e02/e02_locality_amend1.json"],
+            [PY, "scripts/analyze_e02.py", "--method", "tabayyun_anchored", "--out", "scorecard_day4",
+             "results/e02/e02_dense.json", "results/e02/e02_locality.json"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")
