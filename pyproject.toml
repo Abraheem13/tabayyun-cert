@@ -19,6 +19,9 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+# Windows: torch emits benign first-chance SEH exceptions that faulthandler prints
+# as "access violation" although every test passes; keep the output clean.
+addopts = "-p no:faulthandler"
 
 [tool.ruff]
 line-length = 110

@@ -21,3 +21,17 @@ Smoke runs are **not results** and are never quoted in the paper.
 5. E02 smoke (f/n = 0.2, ρ = 0.7): Titans ASR 1.0; quarantine + mean, quarantine + TrMean and Tabayyun all reach ASR 0; certificate sound in all runs. **This regime is too easy to separate robust baselines from Tabayyun.** Day 4 must sweep ρ (sparse observation) and use the adaptive and unbounded attackers. That is where the corroboration gate should matter (H6).
 
 **Decision:** proceed to Day 1 (GPU environment) and Day 2 (full E01).
+
+---
+
+## Day 1 (2026-11-10): GPU environment
+
+**Machine:** Windows 10, Python 3.11.9, torch 2.11.0+cu128, **NVIDIA GeForce RTX 5080** (capability 12.0, sm_120 in the arch list, 17.1 GB). bf16 matmul **101.7 TFLOP/s**. The environment is valid for the whole plan.
+
+**Tests:** 50/50 pass on Windows. pytest's faulthandler printed "Windows fatal exception: access violation" traces inside `test_hull_and_runtime_certificate_fuzz`, but the test passed. These are first-chance SEH exceptions inside torch's CPU kernels, which Windows reports even when they are handled. Fixed the output noise with `addopts = "-p no:faulthandler"`. A real crash would still kill the process and fail the run.
+
+**Reproducibility check:** the GPU smoke numbers equal the Day-0 CPU smoke numbers to float32 precision (E01 log-log correlation 0.9518; rayn cos 0.9947 at 0.100× norm; E02 tightness ratios 4.59 / 3.93 / 1.19). Seeded generators make runs reproducible across devices and OSes. This is good evidence for the artefact.
+
+**Issue:** `git push` was denied (403) because Windows git is logged in as a different GitHub account than the repo owner. Fix in the reply to the PI.
+
+**Decision:** go to Day 2 (full E01 grid: linear + MLP, 7 η × 6 α × 5 seeds).
