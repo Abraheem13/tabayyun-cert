@@ -185,3 +185,49 @@ Week-1 Tier-A goals are met early: H1, H3, H5, H6/P2-loc, H7, A2, A3, A6, A11 an
   - Tabayyun: Recall_L2 0.94–1.00, ASR 0, amnesia 0.
   - **Key insight for the novelty argument:** corroboration-gated elevation (the 2026 TMA-NM idea) is **necessary but not sufficient** for parametric memory. Once ≥ k sources corroborate, f of them can still steer the plain mean. The *robust statistics inside the corroborating set* (cone test + trimmed mean) and the certificate are what make it secure.
 - Amendment 2 registered; Day 6 = confirmatory on seeds 120–129.
+
+---
+
+## Day 6 (2026-11-10): Amendment 2, strict comparison against the 2026 defences (seeds 120–129)
+
+**Runs (CPU, commit `a7dc484`):** dense 8100 runs, locality 5400 runs, scorecard `results/e02/scorecard_amend2.json`, Pareto analysis `scorecard_amend2_pareto.json` (`scripts/pareto_e02.py`).
+
+### As registered (Amendment 2)
+| Criterion | Dense | Locality |
+|---|---|---|
+| P1 | 9/9 | **5/6** |
+| P2 (per-criterion best of 13 baselines) | 7/9 | **0/6** |
+| H7 (Thm 3(b) predicts recall) | 9/9 | 6/6 |
+| H3 violations | 0/540 | 0/360 |
+
+**Why locality P2 = 0/6: a flaw in the criterion I wrote for Amendment 2 (my error), reported as a fail.** Adding undefended single-tier memories (Titans + clip, Miras-Yaad) and TMA-NM-style corroboration to a "best per criterion" comparison means recall is compared against memories with **ASR = 1.00** (recall 0.94–1.00), while ASR is compared against RobustRAG / anchored median, which have **recall = 0.00**. No method can be 0.20 better in recall than an undefended memory, so the criterion was unsatisfiable by construction.
+
+**Why P1 fails in locality f = 0.15, ρ = 0.2:** Tabayyun's registered ASR is 0.50, but **installed = 0.00**. This is the empty-read coin toss on facts that were not promoted (recall 0.55 = Thm 3(b) prediction 0.54), not an installed flip.
+
+### Post-hoc multi-objective analysis (labelled post hoc in the paper)
+Objectives: worst ASR, worst amnesia, worst installed, clean Recall_L2.
+- **Locality: Tabayyun is Pareto-undominated in 6/6 cells** and dominates 9–14 of 14 baselines.
+  - Best *secure* baseline (installed ≤ 0.1, ASR ≤ 0.2): **Recall_L2 = 0.00 in all 6 cells** vs Tabayyun 0.55–1.00.
+  - Best *useful* baseline (recall within 0.05 of Tabayyun): TMA-NM-style corroboration, **ASR = 1.00** (installed up to 0.60).
+- **Dense:** undominated in 7/9 cells. It is dominated by Krum / anchored median / RobustRAG only in the f/n = 0.3 starvation cells (ρ = 0.2, 0.4), exactly where Thm 3(b) predicts low recall.
+
+### What the 2026 defences do on parametric memory (locality, worst case)
+| Defence | Recall_L2 | ASR | installed |
+|---|---|---|---|
+| Miras-Yaad (Huber) | 0.94–1.00 | 1.00 | 1.00 |
+| SMSR-style ablation + vote | 0.00 | 0.80–0.90 | 0.60–0.90 |
+| RobustRAG-style isolate+aggregate | 0.00 | 0.00 | 0.00 |
+| TMA-NM-style corroboration (count only) | 0.55–1.00 | 1.00 | 0.00–0.60 |
+| **Tabayyun-Cert** | **0.55–1.00** | 0.00–0.50* | **0.00** |
+
+*the coin-toss artefact on unpromoted facts (see above).
+
+**Conclusion:** among 15 memories, Tabayyun is the only one that is both secure and useful when knowledge is local. Corroboration without robust statistics (the closest 2026 idea) is fully steerable.
+
+### Amendment 3 (prospective; applies to Tier B/C and to the final Tier-A rerun on Day 27)
+Registered in `docs/preregistration.md`. Primary security metric = **installed**, with flip-ASR secondary. Primary comparison = Pareto non-domination plus recall vs best *secure* baseline plus security vs best *useful* baseline.
+
+### Note
+The `prereg-v1-amend2` tag did not reach GitHub (network drop on the PI machine). It is re-pushed with the Day 8 command. Amendment 2's text is in commit `26aa550`, before the Day 6 runs (`a7dc484`).
+
+**Decision: Tier A is complete.** Gate 1 is passed (0 certificate violations in 12,240 Tabayyun runs; locality advantage confirmed on 3 independent seed sets). Moving to **Tier B (learned memories, MQAR)**.

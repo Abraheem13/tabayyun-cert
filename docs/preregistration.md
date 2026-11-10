@@ -56,3 +56,15 @@ Day 5 confirmed Amendment 1: dense P1 9/9, P2 7/9, H7 9/9; locality all 6/6; 0/4
 1. **Extended baseline set for "best robust baseline" in P2:** mean, TrMean, median, Krum, GeoMed, CClip, median/Krum with the anchored basis, **SMSR-style** randomised ablation + voting (2606.12703), **RobustRAG-style** isolate-then-aggregate, **TMA-NM-style** corroboration-gated elevation (2606.24322: ≥ k distinct writers, plain mean), **Miras-Yaad** (Huber attentional bias), and Titans + per-write clip. Each criterion uses the best baseline *for that criterion*.
 2. Same criteria (P1, P2-dense, P2-loc, H3, H7) and same method (`tabayyun_anchored2`), **fresh seeds 120–129**.
 3. Ports are faithful to each paper's defining mechanism, adapted to parametric memory, and receive the same omniscient adversary (white-box control of their own sources' state). The adaptation choices are listed in `src/tabayyun/baselines.py`. A reviewer may dispute a port; we will release them for scrutiny.
+
+---
+
+## Amendment 3 (2026-11-10, after Day 6; prospective only)
+Day 6 showed that "best baseline per criterion" is unsatisfiable when the set mixes undefended memories (full recall, ASR 1.0) with majority aggregators (ASR 0, recall 0). This was a flaw in Amendment 2, reported as a fail. **From Tier B onward, and for the final Tier-A rerun (Day 27, seeds 300+):**
+1. **Primary security metric: `installed`** (attacker value present: ‖read − v*‖ < 0.5‖v*‖; for token models: the decoded token equals the attacker's token). Flip-ASR is secondary.
+2. **Primary comparison (per cell):**
+   - (C1) Pareto non-domination over (worst installed, worst amnesia, clean recall).
+   - (C2) recall ≥ best *secure* baseline (worst installed ≤ 0.1) + 0.20, in the locality / local-knowledge regime.
+   - (C3) worst installed ≤ best *useful* baseline (recall within 0.05 of the method) − 0.50.
+   - (P1) installed ≤ 0.5 × Titans installed.
+3. H3 (0 violations) and H7 (Thm 3(b) predicts recall ±0.10) unchanged.

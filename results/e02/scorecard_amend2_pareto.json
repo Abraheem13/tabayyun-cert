@@ -1,0 +1,300 @@
+{
+ "dense": {
+  "f=0.1|rho=0.2": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_median_anc",
+    "agg_trmean",
+    "miras_yaad",
+    "robustrag",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "robustrag",
+   "recall_gap_vs_best_secure": 0.004347825050354026,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.1|rho=0.4": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_mean",
+    "miras_yaad",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 0.0,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.1|rho=0.7": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_mean",
+    "miras_yaad",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 0.0,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.2|rho=0.2": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_median_anc",
+    "agg_trmean",
+    "miras_yaad",
+    "robustrag",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_krum",
+   "recall_gap_vs_best_secure": 0.02173912525177002,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.2|rho=0.4": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_mean",
+    "miras_yaad",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 0.0,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.2|rho=0.7": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_mean",
+    "miras_yaad",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 0.0,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.3|rho=0.2": {
+   "dominated_by": [
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_median_anc",
+    "robustrag"
+   ],
+   "dominates": [
+    "tma_corr"
+   ],
+   "best_secure": "agg_krum",
+   "recall_gap_vs_best_secure": -0.5826087057590484,
+   "best_useful": "agg_median_anc",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.2
+  },
+  "f=0.3|rho=0.4": {
+   "dominated_by": [
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_median_anc",
+    "robustrag"
+   ],
+   "dominates": [
+    "smsr",
+    "titans",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": -0.043478256464004494,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  },
+  "f=0.3|rho=0.7": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_mean",
+    "miras_yaad",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 0.0,
+   "best_useful": "agg_cclip",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": 0.0
+  }
+ },
+ "locality": {
+  "f=0.1|rho=0.2": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_trmean",
+    "smsr",
+    "titans",
+    "tma_corr"
+   ],
+   "best_secure": "agg_median",
+   "recall_gap_vs_best_secure": 0.8043478190898895,
+   "best_useful": "tma_corr",
+   "installed_gap_vs_best_useful": -0.2,
+   "asr_gap_vs_best_useful": -0.9
+  },
+  "f=0.1|rho=0.4": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_median_anc",
+    "agg_trmean",
+    "miras_yaad",
+    "robustrag",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 0.982608699798584,
+   "best_useful": "tma_corr",
+   "installed_gap_vs_best_useful": -0.6,
+   "asr_gap_vs_best_useful": -1.0
+  },
+  "f=0.1|rho=0.7": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_median_anc",
+    "agg_trmean",
+    "miras_yaad",
+    "robustrag",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_cclip",
+   "recall_gap_vs_best_secure": 1.0,
+   "best_useful": "tma_corr",
+   "installed_gap_vs_best_useful": -0.6,
+   "asr_gap_vs_best_useful": -1.0
+  },
+  "f=0.15|rho=0.2": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_trmean",
+    "smsr",
+    "tma_corr"
+   ],
+   "best_secure": "agg_median_anc",
+   "recall_gap_vs_best_secure": 0.547826087474823,
+   "best_useful": "tma_corr",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": -0.5
+  },
+  "f=0.15|rho=0.4": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_trmean",
+    "smsr",
+    "titans",
+    "tma_corr"
+   ],
+   "best_secure": "agg_median",
+   "recall_gap_vs_best_secure": 0.973913049697876,
+   "best_useful": "tma_corr",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": -0.9
+  },
+  "f=0.15|rho=0.7": {
+   "dominated_by": [],
+   "dominates": [
+    "agg_cclip",
+    "agg_geomed",
+    "agg_krum",
+    "agg_krum_anc",
+    "agg_mean",
+    "agg_median",
+    "agg_median_anc",
+    "agg_trmean",
+    "miras_yaad",
+    "robustrag",
+    "smsr",
+    "titans",
+    "titans_clip",
+    "tma_corr"
+   ],
+   "best_secure": "agg_median",
+   "recall_gap_vs_best_secure": 1.0,
+   "best_useful": "tma_corr",
+   "installed_gap_vs_best_useful": 0.0,
+   "asr_gap_vs_best_useful": -1.0
+  }
+ }
+}
