@@ -25,6 +25,11 @@ def plan(day: int, dev: str) -> list[list[str]]:
             [PY, "experiments/e01_persistence.py", "--smoke", "--device", dev],
             [PY, "experiments/e02_synthetic_defence.py", "--smoke", "--device", dev]],
         2: [[PY, "experiments/e01_persistence.py", "--device", dev, "--seeds", "5"]],
+        3: [[PY, "experiments/e01_persistence.py", "--device", dev, "--part", "halflife",
+             "--kinds", "mlp", "--streams", "random", "--tag", "mlp_random"],
+            [PY, "experiments/e01_persistence.py", "--device", dev, "--part", "halflife",
+             "--kinds", "linear", "--streams", "orthogonal", "--tag", "linear_orth"],
+            [PY, "experiments/e01_persistence.py", "--device", dev, "--part", "rayn", "--seeds", "10"]],
         4: [[PY, "experiments/e02_synthetic_defence.py", "--device", dev, "--seeds", "10", "--rounds", "10"]],
     }
     if day not in days:

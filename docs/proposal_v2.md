@@ -120,7 +120,7 @@ The proof status of each result is tracked in `docs/theory_status.md`. A result 
 
 These are frozen in `docs/preregistration.md` and committed before the full runs.
 
-* **H1 (persistence).** Measured half-life (counterfactual twin) tracks the exact Lemma-1 curve: log-log correlation ≥ 0.9 on orthogonal streams, and an upper bound on random streams. Momentum increases persistence.
+* **H1 (persistence, revised Day 2).** Lemma 1 upper-bounds the measured half-life (counterfactual twin) and is exact on orthogonal streams. On random streams the mean-field Lemma 1′ (self-correction λ = 2θ/d_k) predicts it with log-log correlation ≥ 0.95. Momentum lengthens persistence only on quiet keys and shortens it in busy memories (Day 2: r = 0.9996 over 42 linear cells).
 * **H2 (defence).** At matched clean recall (≤ 1 point), Tabayyun-Cert reduces targeted ASR by ≥ 50% relative to Titans/FedAvg, and by ≥ 25% relative to the best robust-aggregation baseline, for f/n ≤ 0.2, **including the adaptive attacker**.
 * **H3 (certificate).** Zero certificate violations across all runs. The runtime certificate is within 10× of the measured worst-case drift on IID and mild non-IID. The certified-action fraction is ≥ 60% on the O-RAN replays.
 * **H4 (negative regime).** Under Dirichlet(0.1) heterogeneity, or with client-unique facts, high-risk benign recall drops by > 10 points and the certificate becomes vacuous.

@@ -40,6 +40,28 @@ def half_life(eta: float, alpha: float) -> float:
     return math.log(2) / (-math.log(c))
 
 
+def mean_field_half_life(eta: float, alpha: float, lam: float, T: int = 200000) -> float:
+    """Lemma 1' (mean-field persistence law, Day 2).
+
+    Along k*, a poisoned write's footprint x_t in a stream of benign writes with
+    random unit keys follows, in expectation,
+        S_t = eta S_{t-1} - lam x_{t-1},     x_t = (1 - alpha) x_{t-1} + S_t,
+    with lam = 2 theta E[<k, k*>^2] = 2 theta / d_k (self-correction by benign
+    writes, which momentum *amplifies*).  lam = 0 recovers Lemma 1 (orthogonal
+    stream).  Returns steps from the peak of |x_t| to half of it.
+    """
+    S, x = 1.0, 1.0
+    peak, pk = 1.0, 0
+    for t in range(1, T + 1):
+        S = eta * S - lam * x
+        x = (1 - alpha) * x + S
+        if abs(x) > peak:
+            peak, pk = abs(x), t
+        elif abs(x) <= 0.5 * peak:
+            return float(t - pk)
+    return math.inf
+
+
 def apriori_drift(dv: int, K: int, delta_H: float, alpha_P: float, R: int | None = None) -> float:
     """Theorem 2 (v2). delta_H = honest-corroborator coordinate spread."""
     per_round = math.sqrt(dv * K) * delta_H

@@ -195,3 +195,14 @@ def test_robust_agg_baseline_runs():
         m = RobustAggMemory(10, 16, 16, Gates(theta=0.5, alpha=0.02), agg=agg, f=2, tau=40)
         run_round(m, w, TargetedWrite(w.adv, w.keys[0], -w.values[0]))
         assert torch.isfinite(m.MP).all()
+
+
+def test_mean_field_law_reduces_to_lemma1_and_matches_day2():
+    from tabayyun.certify import mean_field_half_life
+    # lam = 0 -> Lemma 1 curve (values from the Day-2 exact computation)
+    assert mean_field_half_life(0.0, 0.01, 0.0) == 69
+    assert mean_field_half_life(0.9, 0.01, 0.0) == 79
+    # Day-2 measured (linear, random stream, theta=0.05, d_k=64): 271.8 and 45.6
+    lam = 2 * 0.05 / 64
+    assert abs(mean_field_half_life(0.0, 0.001, lam) / 271.8 - 1) < 0.1
+    assert abs(mean_field_half_life(0.9, 0.001, lam) / 45.6 - 1) < 0.1
