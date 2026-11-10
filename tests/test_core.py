@@ -224,3 +224,24 @@ def test_anchored_basis_recovers_fact_keys_and_ignores_adversary_keys():
     assert (align > 0.97).float().mean() >= 7 / 8
     assert U.shape[0] == 8                                     # exactly the 8 fact keys
     assert float((U @ junk).abs().max()) < 0.9                 # adversary key not a direction
+
+
+
+def test_ported_2026_baselines_run_and_shapes():
+    from tabayyun.baselines import HuberSharedMemory, IsolateAggregateMemory, SMSRMemory
+    w = _world()
+    g = Gates(theta=0.5, alpha=0.005)
+    mems = [HuberSharedMemory(16, 16, Gates(theta=0.5, eta=0.5, alpha=0.005)),
+            SMSRMemory(10, 16, 16, g), IsolateAggregateMemory(10, 16, 16, g),
+            TabayyunMemory(TabayyunConfig(n_sources=10, dk=16, dv=16, tau=40, q_gates=g, basis="anchored",
+                                          gate=GateConfig(k=5, f=2, nu=0.05, cone=False, trim=False)))]
+    for m in mems:
+        run_round(m, w, TargetedWrite(w.adv, w.keys[0], -w.values[0]))
+        y = m.read(w.keys[:3])
+        assert y.shape == (3, 16) and torch.isfinite(y).all()
+
+
+def test_untrimmed_gate_reports_no_certificate():
+    D = torch.randn(7, 3, 4)
+    out = tabayyun_gate(D, GateConfig(k=3, f=1, nu=0.0, cone=False, trim=False))
+    assert (out.runtime_err[out.promoted] >= 1e8).all()

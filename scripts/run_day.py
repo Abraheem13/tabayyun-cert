@@ -17,6 +17,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PY = sys.executable
+AMEND2_DEFS = ("titans,titans_clip,miras_yaad,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,"
+               "agg_median_anc,agg_krum_anc,smsr,robustrag,tma_corr,tabayyun_anchored2")
+AMEND2_BASE = ("agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,agg_median_anc,agg_krum_anc,"
+               "smsr,robustrag,tma_corr,miras_yaad,titans_clip")
 AMEND1_DEFS = ("titans,titans_clip,titans_ttl,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,"
                "agg_median_anc,agg_trmean_anc,agg_krum_anc,tab_nocorr,tabayyun,tabayyun_anchored,"
                "tabayyun_anchored2,tabayyun_anchored2_add")
@@ -48,6 +52,15 @@ def plan(day: int, dev: str) -> list[list[str]]:
              "results/e02/e02_dense_amend1.json", "results/e02/e02_locality_amend1.json"],
             [PY, "scripts/analyze_e02.py", "--method", "tabayyun_anchored", "--out", "scorecard_day4",
              "results/e02/e02_dense.json", "results/e02/e02_locality.json"]],
+        # Amendment 2: 2026 memory defences added to the comparison set, fresh seeds 120-129
+        6: [[PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "120",
+             "--n", "10", "--support", "all", "--tag", "dense_amend2", "--defences", AMEND2_DEFS],
+            [PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "120",
+             "--n", "20", "--support", "minority", "--fracs", "0.1,0.15", "--tag", "locality_amend2",
+             "--defences", AMEND2_DEFS],
+            [PY, "scripts/analyze_e02.py", "--method", "tabayyun_anchored2", "--out", "scorecard_amend2",
+             "--baselines", AMEND2_BASE,
+             "results/e02/e02_dense_amend2.json", "results/e02/e02_locality_amend2.json"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")

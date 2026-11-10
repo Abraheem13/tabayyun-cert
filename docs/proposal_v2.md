@@ -114,6 +114,8 @@ The proof status of each result is tracked in `docs/theory_status.md`. A result 
 | Krum / TrMean / FLTrust / RFA / CClip | — | FL gradients | Byzantine rates | — | Yes | Aggregate fixed-model gradients, not inner-loop memory; no source tiering; no action certificate |
 | Memory-poisoning survey | 2604.16548 | — | — | — | — | Reports no certified defence for parametric memory |
 
+**Day-6 evidence on the TMA-NM overlap:** a faithful parametric port of corroboration-gated elevation (≥ k distinct writers, plain mean) keeps recall but is fully controllable by f corroborating attackers (probe ASR 1.0). Tabayyun's robust statistics inside the corroborating set (cone + trimmed mean) and its instance-optimal certificate (Thm 4) are the differentiators. They are not just "corroboration".
+
 **Honest novelty rating:** high for the intersection of parametric memory, quantitative certificates and federation. Not high for the individual ingredients: corroboration, trimmed means and quarantine all exist. The paper must state this openly and win on the triad *necessity (Prop. 0) → sufficiency (Thms 1–3, Prop. R) → tightness (Thm 4)* and on the evaluation.
 
 ---

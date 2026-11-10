@@ -26,14 +26,16 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from tabayyun import GateConfig, Gates, TabayyunConfig, TabayyunMemory  # noqa: E402
 from tabayyun.attacks import EdgeOfRange, Rayn, TargetedWrite, Unbounded  # noqa: E402
-from tabayyun.baselines import RobustAggMemory, SharedMemory  # noqa: E402
+from tabayyun.baselines import (HuberSharedMemory, IsolateAggregateMemory, RobustAggMemory,  # noqa: E402
+                                SharedMemory, SMSRMemory)
 from tabayyun.data import FactWorld, WorldConfig, run_round  # noqa: E402
 from tabayyun.metrics import amnesia, benign_recall, installed, l2_flip, l2_recall, target_cos, targeted_success  # noqa: E402
 from tabayyun.registry import log_run  # noqa: E402
 
 DEFENCES = ["titans", "titans_clip", "titans_ttl", "agg_mean", "agg_trmean", "agg_median",
             "agg_krum", "agg_geomed", "agg_cclip", "tab_nocorr", "tabayyun", "tabayyun_anchored",
-            "tabayyun_anchored2", "tabayyun_anchored2_add", "agg_median_anc", "agg_trmean_anc", "agg_krum_anc"]
+            "tabayyun_anchored2", "tabayyun_anchored2_add", "agg_median_anc", "agg_trmean_anc", "agg_krum_anc",
+            "miras_yaad", "smsr", "robustrag", "tma_corr"]
 ATTACKS = ["none", "targeted", "single_shot", "rayn", "edge_of_range", "unbounded"]
 QUARANTINE = ("agg_", "tab")
 
@@ -51,6 +53,18 @@ def build(defence, wc: WorldConfig, f, k, device, alpha_q=None):
         return SharedMemory(dk, dv, Gates(theta=0.5, eta=0.5, alpha=aq, clip=0.5), device=device)
     if defence == "titans_ttl":
         return SharedMemory(dk, dv, Gates(theta=0.5, eta=0.0, alpha=0.2), device=device)
+    if defence == "miras_yaad":
+        return HuberSharedMemory(dk, dv, Gates(theta=0.5, eta=0.5, alpha=aq), delta=0.1, device=device)
+    if defence == "smsr":
+        return SMSRMemory(n, dk, dv, gates, seed=wc.seed, device=device)
+    if defence == "robustrag":
+        return IsolateAggregateMemory(n, dk, dv, gates, device=device)
+    if defence == "tma_corr":
+        # TMA-NM-style corroboration-gated elevation: >= k distinct writers, plain mean,
+        # no cone test, no trimming (hence no certificate); same anchored basis as ours
+        gate = GateConfig(k=k, f=f, nu=0.05, cone=False, trim=False)
+        return TabayyunMemory(TabayyunConfig(n_sources=n, dk=dk, dv=dv, tau=tau, q_gates=gates, gate=gate,
+                                             basis="anchored", anchor_min_writers="f+1", device=device))
     if defence.startswith("agg_"):
         anc = defence.endswith("_anc")
         return RobustAggMemory(n, dk, dv, gates, agg=defence[4:].removesuffix("_anc"), f=f, tau=tau,
@@ -76,7 +90,7 @@ def make_attack(name, w: FactWorld, mem, k_star, v_star):
         return TargetedWrite(w.adv, k_star, v_star, scale=10.0, steps=[0]), None
     if name == "rayn":
         return Rayn(w.adv, k_star, v_star, eps=0.1), None
-    quarantined = isinstance(mem, (TabayyunMemory, RobustAggMemory))
+    quarantined = isinstance(mem, (TabayyunMemory, RobustAggMemory, SMSRMemory, IsolateAggregateMemory))
     if name == "edge_of_range":
         if quarantined:
             return TargetedWrite(w.adv, k_star, v_star), EdgeOfRange(w.adv, w.honest, k_star, v_star, nu=0.05)
@@ -108,12 +122,13 @@ def run_one(job):
     watk, hook = make_attack(attack, w, mem, k_star, v_star)
     if hook is not None:
         mem.delta_hook = hook
-    if isinstance(mem, TabayyunMemory):
+    certified = defence.startswith("tab")
+    if certified:
         mem.oracle_honest = w.honest
     sound, worst_ratio = True, 0.0
     for _ in range(rounds):
         run_round(mem, w, watk)
-        if isinstance(mem, TabayyunMemory):
+        if certified:
             td, ce = mem.true_drift(), mem.certificate
             sound &= td <= ce * (1 + 1e-4) + 1e-5
             if td > 1e-6:
@@ -129,7 +144,7 @@ def run_one(job):
            "target_cos": target_cos(mem, k_star, v_star),
            "recall": benign_recall(mem, w.keys[shared], w.values[shared], extra_candidates=v_star[None]),
            "recall_l2": l2_recall(mem, w.keys[shared], w.values[shared])}
-    if isinstance(mem, TabayyunMemory):
+    if certified:
         U = mem.basis()
         res.update({"cert_sound": bool(sound), "cert_frob": mem.certificate, "true_drift": mem.true_drift(),
                     "drift_over_cert_max": worst_ratio, "n_directions": int(U.shape[0]),

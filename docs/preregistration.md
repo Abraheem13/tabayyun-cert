@@ -48,3 +48,11 @@ Every Day-4 result is reported as scored under v1 **and** under this amendment. 
 3. **New method variant `tabayyun_anchored2`** (a key is anchored once f+1 distinct sources wrote it, i.e. at least one honest source; promotion still needs k corroborators). Reason: Day 4 showed that the v2.1 anchoring rule (k writers inside a 5-round window) is an extra bottleneck not modelled by Thm 3(b). It is tested **confirmatorily on fresh seeds 110–119** with the same criteria (P1, P2-dense, P2-loc, A2, A6, H3).
 4. **New hypothesis H7 (theory predicts the cost of security).** Clean Recall_L2 of the method equals the Thm 3(b) promotion probability P(Bin(m, 1−(1−ρ)^{R−1}) ≥ k), averaged over fact supports m, within ±0.10 in every cell. On Day-4 data (registered post hoc, so exploratory) it holds 8/9 dense and 5/6 locality. On the anchored2 probe (seeds 0–5) it holds 8/8 within 0.07. **Confirmatory on seeds 110–119.**
 5. **Fairness ablation A11**: the robust baselines also get the key-anchored basis (`agg_*_anc`). **A3**: v1 additive promotion (`tabayyun_anchored2_add`). Both are reported, with no success threshold (descriptive).
+
+---
+
+## Amendment 2 (2026-11-10, before Day 6 runs; tag `prereg-v1-amend2`)
+Day 5 confirmed Amendment 1: dense P1 9/9, P2 7/9, H7 9/9; locality all 6/6; 0/4500 violations. **The comparison set is now made stricter.**
+1. **Extended baseline set for "best robust baseline" in P2:** mean, TrMean, median, Krum, GeoMed, CClip, median/Krum with the anchored basis, **SMSR-style** randomised ablation + voting (2606.12703), **RobustRAG-style** isolate-then-aggregate, **TMA-NM-style** corroboration-gated elevation (2606.24322: ≥ k distinct writers, plain mean), **Miras-Yaad** (Huber attentional bias), and Titans + per-write clip. Each criterion uses the best baseline *for that criterion*.
+2. Same criteria (P1, P2-dense, P2-loc, H3, H7) and same method (`tabayyun_anchored2`), **fresh seeds 120–129**.
+3. Ports are faithful to each paper's defining mechanism, adapted to parametric memory, and receive the same omniscient adversary (white-box control of their own sources' state). The adaptation choices are listed in `src/tabayyun/baselines.py`. A reviewer may dispute a port; we will release them for scrutiny.

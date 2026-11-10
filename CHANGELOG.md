@@ -2,6 +2,12 @@
 
 All design and code changes. Experiment results go in `EXPERIMENT_LOG.md`.
 
+## [0.5.0] - 2026-11-10 (Day 5)
+### Added
+- Theorem 4 (instance-optimality of the runtime certificate) with proof; proofs of Lemma 2 and Prop. R.
+- Ported 2026 baselines: Miras-Yaad (Huber), SMSR-style, RobustRAG-style, TMA-NM-style (`GateConfig.cone/trim`).
+- `analyze_e02.py --baselines`; pre-registration Amendment 2; Day 6 plan.
+
 ## [0.4.0] - 2026-11-10 (Day 4)
 ### Added
 - `scripts/analyze_e02.py`: pre-registration scorecard (paired bootstrap, per-criterion best baseline, H7 prediction).

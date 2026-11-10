@@ -26,4 +26,18 @@ Consider a single-tier linear memory with any per-write filter G > 0 (also G = �
 
 *Empirical check (Day 3, 10 seeds × 2 momenta, filters G ∈ {∞, 0.5, 0.2, 0.1, 0.05, 0.02}).* Single-shot ASR is 0 under every filter, and its unfiltered flip is transient because the honest refresh restores the fact. Rayn ASR is 1.0 under every filter (20/20 runs per filter), with a median of 21–35 writes to flip, and that number barely depends on G, exactly as the proof predicts (the filter also clips the honest refresh).
 
-## Theorem 1, Lemma 2, Proposition R, Theorem 3: see `docs/proposal_v2.md` §4; full write-up on Days 5–7.
+## Lemma 2 (hull) and Proposition R (runtime certificate)
+Fix a direction u and a coordinate i. Let x_1 ≤ … ≤ x_c be the corroborators' values, of which at most f are adversarial (f ≤ β, c ≥ 2β+1), and let H be the honest corroborators (|H| = h ≥ c − f).
+
+*Lemma 2.* TrMean_β(x) ∈ [min_H x, max_H x]. *Proof.* Every value below min_H x is adversarial, so there are at most f ≤ β of them, and all are trimmed. The same holds above. The retained values lie in [x_{β+1}, x_{c−β}] ⊆ [min_H, max_H]. ∎
+
+*Proposition R.* Let L = mean of the c−f smallest values and U = mean of the c−f largest. Then μ_H := mean_H x ∈ [L, U], hence |TrMean − μ_H| ≤ e := max(TrMean − L, U − TrMean). *Proof.* H is a subset of size h ≥ c−f. The mean of any h-subset is at least the mean of the h smallest values, which is at least the mean of the c−f smallest (adding larger elements cannot lower a mean). Symmetrically for U. ∎
+
+## Theorem 4 (instance-optimality of the runtime certificate), new on Day 5
+Among all bounds B(x) computed from the observed corroborator values x that are **sound** (|TrMean(x) − μ_H| ≤ B(x) for every placement of ≤ f adversaries consistent with x), Prop. R is the smallest: B(x) ≥ e(x) for every x.
+
+*Proof.* Given x, both "the c−f smallest values are the honest ones" and "the c−f largest values are the honest ones" are consistent with the threat model (the other f values are adversarial). In these two worlds μ_H = L and μ_H = U respectively, and the observation x, and hence TrMean(x) and B(x), is identical. Soundness in both worlds requires B(x) ≥ max(TrMean − L, U − TrMean) = e(x). ∎
+
+*Remarks.* (i) The bound is exactly attained, so it cannot be improved by any constant. (ii) The theorem is per coordinate. Jointly over coordinates and directions the adversary must use one identity set, so the joint bound can be loose in principle. Empirically the omniscient edge-of-range attacker attains it: Day 5 shows true drift / certificate = 0.94–0.98 (median) and up to 0.998 (Frobenius), and up to 1.0000003 (float32) at the attacked key. Non-adaptive attacks reach a median of 0.29, so the certificate costs a factor of about 3.5 against weak attackers and nothing against the strongest one.
+
+## Theorem 1, Theorem 2′, Theorem 3: see `docs/proposal_v2.md` §4; full write-up on Day 7.

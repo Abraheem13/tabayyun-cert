@@ -129,14 +129,17 @@ def fmt(t):
 
 
 def main():
-    global TAB
+    global TAB, ROBUST
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("paths", nargs="*", default=["results/e02/e02_dense.json", "results/e02/e02_locality.json"])
     ap.add_argument("--method", default="tabayyun_anchored")
     ap.add_argument("--out", default="prereg_scorecard")
+    ap.add_argument("--baselines", default=",".join(ROBUST),
+                    help="comparison set for 'best robust baseline' (Amendment 2 extends it)")
     a = ap.parse_args()
     TAB, paths = a.method, a.paths
+    ROBUST = [b for b in a.baselines.split(",") if b]
     res = {}
     for p in paths:
         regime = "locality" if "locality" in p else "dense"

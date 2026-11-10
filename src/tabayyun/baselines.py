@@ -89,3 +89,80 @@ class RobustAggMemory:
 
     def read(self, q, src=None, high_risk=True):
         return q @ self.MP.T
+
+
+# ---------------------------------------------------------------------------
+# 2026 agent-memory defences, ported to parametric (gradient-written) memory.
+# Each keeps the defining mechanism of the original and is given the same
+# omniscient adversary as Tabayyun (via ``delta_hook`` on the per-source reads).
+# ---------------------------------------------------------------------------
+class HuberSharedMemory(SharedMemory):
+    """Miras 'Yaad'-style memory: Huber attentional bias, i.e. the per-coordinate
+    residual is clipped at delta before the gradient step (robust to outliers
+    in a single write, but still a single shared tier)."""
+
+    def __init__(self, dk, dv, gates: Gates, delta=0.1, device="cpu", **kw):
+        super().__init__(dk, dv, gates, device=device, **kw)
+        self.delta = delta
+
+    def write(self, src, k, v):
+        m = self.mem
+        for i in range(len(src)):
+            kk, vv = k[i:i + 1], v[i:i + 1]
+            err = torch.einsum("bvk,bk->bv", m.M, kk) - vv
+            g = 2.0 * torch.einsum("bv,bk->bvk", err.clamp(-self.delta, self.delta), kk)
+            m.S = m.g.eta * m.S - m.g.theta * g
+            m.M = (1 - m.g.alpha) * m.M + m.S
+        self.t += 1
+
+
+class _QuarantineReader:
+    """Per-source quarantines read at query time (no promoted tier)."""
+
+    def __init__(self, n_sources, dk, dv, gates: Gates, device="cpu"):
+        self.Q = make_memory("linear", n_sources, dk, dv, gates, device=device)
+        self.n, self.dk, self.dv = n_sources, dk, dv
+        self.delta_hook = None
+        self.t = 0
+
+    def write(self, src, k, v):
+        if len(src):
+            dev = self.Q.M.device
+            Kf = torch.zeros(self.n, self.dk, device=dev)
+            Vf = torch.zeros(self.n, self.dv, device=dev)
+            mask = torch.zeros(self.n, dtype=torch.bool, device=dev)
+            Kf[src], Vf[src], mask[src] = k, v, True
+            self.Q.write(Kf, Vf, mask=mask)
+        self.t += 1
+
+    def _reads(self, q):
+        R = self.Q.read(q.unsqueeze(0).expand(self.n, *q.shape))          # (n, m, dv)
+        if self.delta_hook is not None:                                   # adversary sets its rows
+            qn = torch.nn.functional.normalize(q, dim=-1)
+            R = self.delta_hook(R, qn) * q.norm(dim=-1, keepdim=True).unsqueeze(0)
+        return R
+
+
+class SMSRMemory(_QuarantineReader):
+    """SMSR-style (arXiv 2606.12703) randomised source ablation + voting: for
+    each query, R random subsets of s sources each produce a mean read; the
+    answer is the coordinate-wise median ("vote") of the subset answers."""
+
+    def __init__(self, n_sources, dk, dv, gates, R=21, frac=0.3, seed=0, device="cpu"):
+        super().__init__(n_sources, dk, dv, gates, device)
+        g = torch.Generator().manual_seed(seed)
+        s = max(1, int(round(frac * n_sources)))
+        self.subsets = torch.stack([torch.randperm(n_sources, generator=g)[:s] for _ in range(R)])
+
+    def read(self, q, src=None, high_risk=True):
+        Rd = self._reads(q)                                               # (n, m, dv)
+        answers = torch.stack([Rd[sub].mean(0) for sub in self.subsets])  # (R, m, dv)
+        return answers.median(0).values
+
+
+class IsolateAggregateMemory(_QuarantineReader):
+    """RobustRAG-style isolate-then-aggregate: every source answers in isolation
+    and the answers are robustly aggregated at query time (coordinate median)."""
+
+    def read(self, q, src=None, high_risk=True):
+        return self._reads(q).median(0).values

@@ -142,3 +142,46 @@ Clean recall equals the probability that a fact gets k corroborators in time, P(
 3. Its utility cost is a closed-form operating curve (Thm 3(b)) that the operator controls through (k, τ). It is largest when f/n → 1/3 under sparse observation. **The paper reports this regime as a limitation, with the curve.**
 
 **Decision:** Amendment 1 registered (`docs/preregistration.md`). **Day 5 = confirmatory anchored2 + H7 + A11 + A3 on fresh seeds 110–119**, with scorecards generated on the RTX machine.
+
+---
+
+## Day 5 (2026-11-10): confirmatory test of Amendment 1 (fresh seeds 110–119)
+
+**Runs (CPU, 19 workers, commit `f65e3dc`):** dense 9180 runs (226 s), locality 6120 runs (165 s), plus scorecards generated on the RTX machine. Method = `tabayyun_anchored2`.
+
+### Scorecard (Amendment 1, confirmatory)
+| Criterion | Dense (n=10) | Locality (n=20) |
+|---|---|---|
+| P1 (≥ 50% ASR reduction vs Titans) | **9/9** | **6/6** |
+| P2 (vs best robust baseline) | **7/9** | **6/6** |
+| A2 (gate needed) / A6 (anchoring needed) | – | **6/6 / 6/6** |
+| **H7 (Thm 3(b) predicts recall, ±0.10)** | **9/9**, max error 0.02 | **6/6**, max error 0.02 |
+| H3 certificate violations | **0 / 2700** | **0 / 1800** |
+
+- **Locality (main claim):** Tabayyun Recall_L2 0.54–1.00 vs **0.00 for every robust baseline in every cell**. Worst-case amnesia 0.0–0.5 vs 1.0. Krum gets its target **installed** in 40–100% of attacked runs; Titans in 100%.
+- **`installed` (secondary): Tabayyun = 0.00 in all 15 cells, both regimes.** The attacker's value is never actually written into the trusted memory. The non-zero "ASR" (0.1–0.2) in starved cells is the coin-toss artefact on empty reads predicted in Amendment 1.
+- **Dense, the 2 P2 failures** (f/n = 0.3, ρ ≤ 0.4) are exactly the starvation cells. Recall 0.35 / 0.91 against Thm 3(b) predictions of 0.36 / 0.93. It is a **predicted, tunable cost**, reported as a limitation with its operating curve.
+- **Day 4 vs Day 5:** anchoring v2.2 raises recall in the starved cells (dense 0.17 → 0.35; locality 0.32 → 0.54) and turns H7 from 13/15 into 15/15.
+
+### Ablations (descriptive)
+- **A11 fairness:** robust baselines with the same anchored basis still have locality Recall_L2 = **0.00** (median, TrMean, Krum), and Krum-anchored installs the attacker's value in 29% of runs. The majority requirement, not the basis, is the cause. In the dense regime they are fine (0.95–0.99).
+- **A3:** the v1 additive promotion rule fails on utility (dense 0.11, locality 0.00) → EMA (F3) is required.
+
+### Certificate: sound and exactly tight
+- 0 violations in 4500 runs. An apparent per-query ratio of 6.9 was float32 noise at magnitudes around 1e−8. Over all runs with a certificate > 1e−4 the maximum ratio is **1.0000003**.
+- The omniscient edge-of-range attacker reaches true/certified = **0.94–0.98 median, 0.998 max** (Frobenius). Weak attacks reach about 0.29.
+- This motivated **Theorem 4 (instance-optimality)**: Prop. R is the smallest sound bound computable from the observed values. The proof is short and complete (`paper/proofs.md`).
+
+### Status vs roadmap
+Week-1 Tier-A goals are met early: H1, H3, H5, H6/P2-loc, H7, A2, A3, A6, A11 and Thm 4. **Gate 1 is effectively passed.** The criteria (0 violations; corroboration matters in the sparse/local regime; Tabayyun ≥ the best baseline against adaptive attacks) all hold.
+
+**Next (Day 6):** port the 2026 memory defences as baselines: SMSR-style randomised ablation and voting, TMA-NM-style corroboration-gated elevation (writer count, no robust statistics), RobustRAG isolate-then-aggregate, and Miras-Yaad (Huber attentional bias). Run them on fresh seeds 120–129 (Amendment 2: P2 is recomputed against the extended baseline set).
+
+### Day 6 preparation (same day): 2026 defences ported
+- `HuberSharedMemory` (Miras-Yaad), `SMSRMemory` (randomised source ablation + median vote over 21 subsets of 30% of sources), `IsolateAggregateMemory` (RobustRAG), `tma_corr` (TMA-NM-style: ≥ k distinct writers, plain mean, no cone, no trimming, no certificate). 60/60 tests.
+- **Exploratory probe (seeds 0–2, locality, ρ = 0.4), not results:**
+  - TMA-NM-style corroboration: Recall_L2 0.94–1.00, **but ASR 1.00 and amnesia 1.00**.
+  - SMSR: Recall_L2 0.00, ASR 0.67–1.00. RobustRAG: ASR 0.00, Recall_L2 0.00. Miras-Yaad: Recall_L2 0.96–0.99, ASR 1.00.
+  - Tabayyun: Recall_L2 0.94–1.00, ASR 0, amnesia 0.
+  - **Key insight for the novelty argument:** corroboration-gated elevation (the 2026 TMA-NM idea) is **necessary but not sufficient** for parametric memory. Once ≥ k sources corroborate, f of them can still steer the plain mean. The *robust statistics inside the corroborating set* (cone test + trimmed mean) and the certificate are what make it secure.
+- Amendment 2 registered; Day 6 = confirmatory on seeds 120–129.

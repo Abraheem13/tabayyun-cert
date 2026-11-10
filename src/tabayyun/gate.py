@@ -41,11 +41,13 @@ class GateConfig:
     gamma: float = 0.5    # cosine agreement with the robust median
     nu: float = 1e-3      # activity threshold on ||D[s,u]||
     corroborate: bool = True  # ablation: False -> trimmed mean only, no gate
+    cone: bool = True         # baseline TMA-NM-style: False -> count active writers only
+    trim: bool = True         # baseline TMA-NM-style: False -> plain mean (no certificate)
 
     def __post_init__(self):
         if self.beta is None:
-            self.beta = self.f
-        if self.corroborate and self.k < max(2 * self.beta + 1, self.f + 1):
+            self.beta = self.f if self.trim else 0
+        if self.corroborate and self.trim and self.k < max(2 * self.beta + 1, self.f + 1):
             raise ValueError(
                 f"need k >= max(2*beta+1, f+1); got k={self.k}, beta={self.beta}, f={self.f}")
 
@@ -92,7 +94,10 @@ def tabayyun_gate(D: torch.Tensor, cfg: GateConfig) -> GateOutput:
     n, K, dv = D.shape
     norms = D.norm(dim=-1)                                  # (n,K)
     active = norms >= cfg.nu
-    if cfg.corroborate:
+    if cfg.corroborate and not cfg.cone:
+        C = active
+        promoted = C.sum(0) >= cfg.k
+    elif cfg.corroborate:
         med = masked_median(D, active)                      # (K,dv)
         cos = torch.nn.functional.cosine_similarity(D, med.unsqueeze(0), dim=-1, eps=1e-12)
         medn = med.norm(dim=-1)
@@ -109,6 +114,8 @@ def tabayyun_gate(D: torch.Tensor, cfg: GateConfig) -> GateOutput:
     L = _range_mean(srt, torch.zeros_like(c), hf)
     U = _range_mean(srt, c - hf, c)
     err = torch.maximum(values - L, U - values).clamp(min=0)
+    if not cfg.trim:                                         # plain mean: no sound certificate
+        err = torch.full_like(err, 1e9)
     pm = promoted.view(K, 1).to(D.dtype)
     return GateOutput(values * pm, promoted, active, C, c, err * pm)
 
