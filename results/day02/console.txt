@@ -1,0 +1,102 @@
+# Day 2  device=cuda  started 2026-11-10 14:29:59
+
+=== python.exe -m pytest -q
+..................................................                       [100%]
+50 passed in 2.70s
+--- exit 0 in 3.6s
+
+=== python.exe experiments/e01_persistence.py --device cuda --seeds 5
+C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e01_persistence.py:127: RuntimeWarning: divide by zero encountered in log
+  x = np.log([r["half_life_pred"] for r in finite]); y = np.log([r["half_life_measured"] for r in finite])
+C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\numpy\lib\_function_base_impl.py:2882: RuntimeWarning: invalid value encountered in subtract
+  X -= avg[:, None]
+C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-packages\numpy\lib\_function_base_impl.py:2887: RuntimeWarning: invalid value encountered in dot
+  c = dot(X, X_T.conj())
+{"kind": "linear", "eta": 0.0, "alpha": 0.001, "half_life_measured": 271.8, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 693}
+{"kind": "linear", "eta": 0.0, "alpha": 0.005, "half_life_measured": 106.4, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 139}
+{"kind": "linear", "eta": 0.0, "alpha": 0.01, "half_life_measured": 59.6, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 69}
+{"kind": "linear", "eta": 0.0, "alpha": 0.02, "half_life_measured": 32.2, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 35}
+{"kind": "linear", "eta": 0.0, "alpha": 0.05, "half_life_measured": 13.4, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 14}
+{"kind": "linear", "eta": 0.0, "alpha": 0.1, "half_life_measured": 7.0, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 11}
+{"kind": "linear", "eta": 0.3, "alpha": 0.001, "half_life_measured": 213.0, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 694}
+{"kind": "linear", "eta": 0.3, "alpha": 0.005, "half_life_measured": 97.8, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 139}
+{"kind": "linear", "eta": 0.3, "alpha": 0.01, "half_life_measured": 56.6, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 70}
+{"kind": "linear", "eta": 0.3, "alpha": 0.02, "half_life_measured": 32.4, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 35}
+{"kind": "linear", "eta": 0.3, "alpha": 0.05, "half_life_measured": 14.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 15}
+{"kind": "linear", "eta": 0.3, "alpha": 0.1, "half_life_measured": 8.0, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 10}
+{"kind": "linear", "eta": 0.5, "alpha": 0.001, "half_life_measured": 168.4, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 695}
+{"kind": "linear", "eta": 0.5, "alpha": 0.005, "half_life_measured": 86.6, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 140}
+{"kind": "linear", "eta": 0.5, "alpha": 0.01, "half_life_measured": 53.6, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 71}
+{"kind": "linear", "eta": 0.5, "alpha": 0.02, "half_life_measured": 31.2, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 37}
+{"kind": "linear", "eta": 0.5, "alpha": 0.05, "half_life_measured": 14.4, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 16}
+{"kind": "linear", "eta": 0.5, "alpha": 0.1, "half_life_measured": 8.6, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 9}
+{"kind": "linear", "eta": 0.7, "alpha": 0.001, "half_life_measured": 116.8, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 696}
+{"kind": "linear", "eta": 0.7, "alpha": 0.005, "half_life_measured": 69.2, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 142}
+{"kind": "linear", "eta": 0.7, "alpha": 0.01, "half_life_measured": 46.8, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 73}
+{"kind": "linear", "eta": 0.7, "alpha": 0.02, "half_life_measured": 29.6, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 37}
+{"kind": "linear", "eta": 0.7, "alpha": 0.05, "half_life_measured": 15.4, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 17}
+{"kind": "linear", "eta": 0.7, "alpha": 0.1, "half_life_measured": 9.4, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 10}
+{"kind": "linear", "eta": 0.8, "alpha": 0.001, "half_life_measured": 83.0, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 698}
+{"kind": "linear", "eta": 0.8, "alpha": 0.005, "half_life_measured": 55.0, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 144}
+{"kind": "linear", "eta": 0.8, "alpha": 0.01, "half_life_measured": 41.2, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 74}
+{"kind": "linear", "eta": 0.8, "alpha": 0.02, "half_life_measured": 28.0, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 39}
+{"kind": "linear", "eta": 0.8, "alpha": 0.05, "half_life_measured": 16.6, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 18}
+{"kind": "linear", "eta": 0.8, "alpha": 0.1, "half_life_measured": 11.4, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 12}
+{"kind": "linear", "eta": 0.9, "alpha": 0.001, "half_life_measured": 45.6, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 702}
+{"kind": "linear", "eta": 0.9, "alpha": 0.005, "half_life_measured": 38.8, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 149}
+{"kind": "linear", "eta": 0.9, "alpha": 0.01, "half_life_measured": 32.8, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 79}
+{"kind": "linear", "eta": 0.9, "alpha": 0.02, "half_life_measured": 26.8, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 46}
+{"kind": "linear", "eta": 0.9, "alpha": 0.05, "half_life_measured": 19.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 25}
+{"kind": "linear", "eta": 0.9, "alpha": 0.1, "half_life_measured": 14.4, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 17}
+{"kind": "linear", "eta": 0.95, "alpha": 0.001, "half_life_measured": 31.8, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 713}
+{"kind": "linear", "eta": 0.95, "alpha": 0.005, "half_life_measured": 31.8, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 160}
+{"kind": "linear", "eta": 0.95, "alpha": 0.01, "half_life_measured": 29.8, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 90}
+{"kind": "linear", "eta": 0.95, "alpha": 0.02, "half_life_measured": 27.2, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 56}
+{"kind": "linear", "eta": 0.95, "alpha": 0.05, "half_life_measured": 22.4, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 34}
+{"kind": "linear", "eta": 0.95, "alpha": 0.1, "half_life_measured": 19.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 25}
+{"kind": "mlp", "eta": 0.0, "alpha": 0.001, "half_life_measured": 241.8, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 693}
+{"kind": "mlp", "eta": 0.0, "alpha": 0.005, "half_life_measured": 65.2, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 139}
+{"kind": "mlp", "eta": 0.0, "alpha": 0.01, "half_life_measured": 34.2, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 69}
+{"kind": "mlp", "eta": 0.0, "alpha": 0.02, "half_life_measured": 17.4, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 35}
+{"kind": "mlp", "eta": 0.0, "alpha": 0.05, "half_life_measured": 7.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 14}
+{"kind": "mlp", "eta": 0.0, "alpha": 0.1, "half_life_measured": 4.0, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 11}
+{"kind": "mlp", "eta": 0.3, "alpha": 0.001, "half_life_measured": 221.8, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 694}
+{"kind": "mlp", "eta": 0.3, "alpha": 0.005, "half_life_measured": 64.8, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 139}
+{"kind": "mlp", "eta": 0.3, "alpha": 0.01, "half_life_measured": 35.2, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 70}
+{"kind": "mlp", "eta": 0.3, "alpha": 0.02, "half_life_measured": 18.6, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 35}
+{"kind": "mlp", "eta": 0.3, "alpha": 0.05, "half_life_measured": 8.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 15}
+{"kind": "mlp", "eta": 0.3, "alpha": 0.1, "half_life_measured": 4.0, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 10}
+{"kind": "mlp", "eta": 0.5, "alpha": 0.001, "half_life_measured": Infinity, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 695}
+{"kind": "mlp", "eta": 0.5, "alpha": 0.005, "half_life_measured": 63.2, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 140}
+{"kind": "mlp", "eta": 0.5, "alpha": 0.01, "half_life_measured": 37.0, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 71}
+{"kind": "mlp", "eta": 0.5, "alpha": 0.02, "half_life_measured": 20.2, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 37}
+{"kind": "mlp", "eta": 0.5, "alpha": 0.05, "half_life_measured": 8.8, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 16}
+{"kind": "mlp", "eta": 0.5, "alpha": 0.1, "half_life_measured": 5.4, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 9}
+{"kind": "mlp", "eta": 0.7, "alpha": 0.001, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 696}
+{"kind": "mlp", "eta": 0.7, "alpha": 0.005, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 142}
+{"kind": "mlp", "eta": 0.7, "alpha": 0.01, "half_life_measured": 40.4, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 73}
+{"kind": "mlp", "eta": 0.7, "alpha": 0.02, "half_life_measured": 22.2, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 37}
+{"kind": "mlp", "eta": 0.7, "alpha": 0.05, "half_life_measured": 10.4, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 17}
+{"kind": "mlp", "eta": 0.7, "alpha": 0.1, "half_life_measured": 6.2, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 10}
+{"kind": "mlp", "eta": 0.8, "alpha": 0.001, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 698}
+{"kind": "mlp", "eta": 0.8, "alpha": 0.005, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 144}
+{"kind": "mlp", "eta": 0.8, "alpha": 0.01, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 74}
+{"kind": "mlp", "eta": 0.8, "alpha": 0.02, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 39}
+{"kind": "mlp", "eta": 0.8, "alpha": 0.05, "half_life_measured": 12.4, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 18}
+{"kind": "mlp", "eta": 0.8, "alpha": 0.1, "half_life_measured": 7.0, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 12}
+{"kind": "mlp", "eta": 0.9, "alpha": 0.001, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 702}
+{"kind": "mlp", "eta": 0.9, "alpha": 0.005, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 149}
+{"kind": "mlp", "eta": 0.9, "alpha": 0.01, "half_life_measured": Infinity, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 79}
+{"kind": "mlp", "eta": 0.9, "alpha": 0.02, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 46}
+{"kind": "mlp", "eta": 0.9, "alpha": 0.05, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 25}
+{"kind": "mlp", "eta": 0.9, "alpha": 0.1, "half_life_measured": 10.8, "half_life_pred_v1_asymptotic": 6.578813478960585, "half_life_pred": 17}
+{"kind": "mlp", "eta": 0.95, "alpha": 0.001, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 692.8005491785002, "half_life_pred": 713}
+{"kind": "mlp", "eta": 0.95, "alpha": 0.005, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 138.28257298606084, "half_life_pred": 160}
+{"kind": "mlp", "eta": 0.95, "alpha": 0.01, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 68.96756393652842, "half_life_pred": 90}
+{"kind": "mlp", "eta": 0.95, "alpha": 0.02, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 34.309618491520645, "half_life_pred": 56}
+{"kind": "mlp", "eta": 0.95, "alpha": 0.05, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 34}
+{"kind": "mlp", "eta": 0.95, "alpha": 0.1, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 25}
+SUMMARY {"loglog_corr_pred_vs_measured": NaN, "rayn_cos_target_mean": 0.9951961636543274, "single_cos_target_mean": -0.03370494544506073, "rayn_max_norm_over_single": 0.10000001080334249}
+--- exit 0 in 1412.6s
+
+# finished 2026-11-10 14:53:35; failed: none

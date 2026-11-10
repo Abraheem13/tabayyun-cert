@@ -1,0 +1,738 @@
+{
+ "half_life": [
+  {
+   "kind": "linear",
+   "eta": 0.0,
+   "alpha": 0.001,
+   "half_life_measured": 271.8,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 693
+  },
+  {
+   "kind": "linear",
+   "eta": 0.0,
+   "alpha": 0.005,
+   "half_life_measured": 106.4,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 139
+  },
+  {
+   "kind": "linear",
+   "eta": 0.0,
+   "alpha": 0.01,
+   "half_life_measured": 59.6,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 69
+  },
+  {
+   "kind": "linear",
+   "eta": 0.0,
+   "alpha": 0.02,
+   "half_life_measured": 32.2,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 35
+  },
+  {
+   "kind": "linear",
+   "eta": 0.0,
+   "alpha": 0.05,
+   "half_life_measured": 13.4,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 14
+  },
+  {
+   "kind": "linear",
+   "eta": 0.0,
+   "alpha": 0.1,
+   "half_life_measured": 7.0,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 11
+  },
+  {
+   "kind": "linear",
+   "eta": 0.3,
+   "alpha": 0.001,
+   "half_life_measured": 213.0,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 694
+  },
+  {
+   "kind": "linear",
+   "eta": 0.3,
+   "alpha": 0.005,
+   "half_life_measured": 97.8,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 139
+  },
+  {
+   "kind": "linear",
+   "eta": 0.3,
+   "alpha": 0.01,
+   "half_life_measured": 56.6,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 70
+  },
+  {
+   "kind": "linear",
+   "eta": 0.3,
+   "alpha": 0.02,
+   "half_life_measured": 32.4,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 35
+  },
+  {
+   "kind": "linear",
+   "eta": 0.3,
+   "alpha": 0.05,
+   "half_life_measured": 14.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 15
+  },
+  {
+   "kind": "linear",
+   "eta": 0.3,
+   "alpha": 0.1,
+   "half_life_measured": 8.0,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 10
+  },
+  {
+   "kind": "linear",
+   "eta": 0.5,
+   "alpha": 0.001,
+   "half_life_measured": 168.4,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 695
+  },
+  {
+   "kind": "linear",
+   "eta": 0.5,
+   "alpha": 0.005,
+   "half_life_measured": 86.6,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 140
+  },
+  {
+   "kind": "linear",
+   "eta": 0.5,
+   "alpha": 0.01,
+   "half_life_measured": 53.6,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 71
+  },
+  {
+   "kind": "linear",
+   "eta": 0.5,
+   "alpha": 0.02,
+   "half_life_measured": 31.2,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 37
+  },
+  {
+   "kind": "linear",
+   "eta": 0.5,
+   "alpha": 0.05,
+   "half_life_measured": 14.4,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 16
+  },
+  {
+   "kind": "linear",
+   "eta": 0.5,
+   "alpha": 0.1,
+   "half_life_measured": 8.6,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 9
+  },
+  {
+   "kind": "linear",
+   "eta": 0.7,
+   "alpha": 0.001,
+   "half_life_measured": 116.8,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 696
+  },
+  {
+   "kind": "linear",
+   "eta": 0.7,
+   "alpha": 0.005,
+   "half_life_measured": 69.2,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 142
+  },
+  {
+   "kind": "linear",
+   "eta": 0.7,
+   "alpha": 0.01,
+   "half_life_measured": 46.8,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 73
+  },
+  {
+   "kind": "linear",
+   "eta": 0.7,
+   "alpha": 0.02,
+   "half_life_measured": 29.6,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 37
+  },
+  {
+   "kind": "linear",
+   "eta": 0.7,
+   "alpha": 0.05,
+   "half_life_measured": 15.4,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 17
+  },
+  {
+   "kind": "linear",
+   "eta": 0.7,
+   "alpha": 0.1,
+   "half_life_measured": 9.4,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 10
+  },
+  {
+   "kind": "linear",
+   "eta": 0.8,
+   "alpha": 0.001,
+   "half_life_measured": 83.0,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 698
+  },
+  {
+   "kind": "linear",
+   "eta": 0.8,
+   "alpha": 0.005,
+   "half_life_measured": 55.0,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 144
+  },
+  {
+   "kind": "linear",
+   "eta": 0.8,
+   "alpha": 0.01,
+   "half_life_measured": 41.2,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 74
+  },
+  {
+   "kind": "linear",
+   "eta": 0.8,
+   "alpha": 0.02,
+   "half_life_measured": 28.0,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 39
+  },
+  {
+   "kind": "linear",
+   "eta": 0.8,
+   "alpha": 0.05,
+   "half_life_measured": 16.6,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 18
+  },
+  {
+   "kind": "linear",
+   "eta": 0.8,
+   "alpha": 0.1,
+   "half_life_measured": 11.4,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 12
+  },
+  {
+   "kind": "linear",
+   "eta": 0.9,
+   "alpha": 0.001,
+   "half_life_measured": 45.6,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 702
+  },
+  {
+   "kind": "linear",
+   "eta": 0.9,
+   "alpha": 0.005,
+   "half_life_measured": 38.8,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 149
+  },
+  {
+   "kind": "linear",
+   "eta": 0.9,
+   "alpha": 0.01,
+   "half_life_measured": 32.8,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 79
+  },
+  {
+   "kind": "linear",
+   "eta": 0.9,
+   "alpha": 0.02,
+   "half_life_measured": 26.8,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 46
+  },
+  {
+   "kind": "linear",
+   "eta": 0.9,
+   "alpha": 0.05,
+   "half_life_measured": 19.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 25
+  },
+  {
+   "kind": "linear",
+   "eta": 0.9,
+   "alpha": 0.1,
+   "half_life_measured": 14.4,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 17
+  },
+  {
+   "kind": "linear",
+   "eta": 0.95,
+   "alpha": 0.001,
+   "half_life_measured": 31.8,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 713
+  },
+  {
+   "kind": "linear",
+   "eta": 0.95,
+   "alpha": 0.005,
+   "half_life_measured": 31.8,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 160
+  },
+  {
+   "kind": "linear",
+   "eta": 0.95,
+   "alpha": 0.01,
+   "half_life_measured": 29.8,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 90
+  },
+  {
+   "kind": "linear",
+   "eta": 0.95,
+   "alpha": 0.02,
+   "half_life_measured": 27.2,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 56
+  },
+  {
+   "kind": "linear",
+   "eta": 0.95,
+   "alpha": 0.05,
+   "half_life_measured": 22.4,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 34
+  },
+  {
+   "kind": "linear",
+   "eta": 0.95,
+   "alpha": 0.1,
+   "half_life_measured": 19.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 25
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.0,
+   "alpha": 0.001,
+   "half_life_measured": 241.8,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 693
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.0,
+   "alpha": 0.005,
+   "half_life_measured": 65.2,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 139
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.0,
+   "alpha": 0.01,
+   "half_life_measured": 34.2,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 69
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.0,
+   "alpha": 0.02,
+   "half_life_measured": 17.4,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 35
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.0,
+   "alpha": 0.05,
+   "half_life_measured": 7.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 14
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.0,
+   "alpha": 0.1,
+   "half_life_measured": 4.0,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 11
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.3,
+   "alpha": 0.001,
+   "half_life_measured": 221.8,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 694
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.3,
+   "alpha": 0.005,
+   "half_life_measured": 64.8,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 139
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.3,
+   "alpha": 0.01,
+   "half_life_measured": 35.2,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 70
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.3,
+   "alpha": 0.02,
+   "half_life_measured": 18.6,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 35
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.3,
+   "alpha": 0.05,
+   "half_life_measured": 8.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 15
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.3,
+   "alpha": 0.1,
+   "half_life_measured": 4.0,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 10
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.5,
+   "alpha": 0.001,
+   "half_life_measured": Infinity,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 695
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.5,
+   "alpha": 0.005,
+   "half_life_measured": 63.2,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 140
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.5,
+   "alpha": 0.01,
+   "half_life_measured": 37.0,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 71
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.5,
+   "alpha": 0.02,
+   "half_life_measured": 20.2,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 37
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.5,
+   "alpha": 0.05,
+   "half_life_measured": 8.8,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 16
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.5,
+   "alpha": 0.1,
+   "half_life_measured": 5.4,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 9
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.7,
+   "alpha": 0.001,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 696
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.7,
+   "alpha": 0.005,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 142
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.7,
+   "alpha": 0.01,
+   "half_life_measured": 40.4,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 73
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.7,
+   "alpha": 0.02,
+   "half_life_measured": 22.2,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 37
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.7,
+   "alpha": 0.05,
+   "half_life_measured": 10.4,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 17
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.7,
+   "alpha": 0.1,
+   "half_life_measured": 6.2,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 10
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.8,
+   "alpha": 0.001,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 698
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.8,
+   "alpha": 0.005,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 144
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.8,
+   "alpha": 0.01,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 74
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.8,
+   "alpha": 0.02,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 39
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.8,
+   "alpha": 0.05,
+   "half_life_measured": 12.4,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 18
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.8,
+   "alpha": 0.1,
+   "half_life_measured": 7.0,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 12
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.9,
+   "alpha": 0.001,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 702
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.9,
+   "alpha": 0.005,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 149
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.9,
+   "alpha": 0.01,
+   "half_life_measured": Infinity,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 79
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.9,
+   "alpha": 0.02,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 46
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.9,
+   "alpha": 0.05,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 25
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.9,
+   "alpha": 0.1,
+   "half_life_measured": 10.8,
+   "half_life_pred_v1_asymptotic": 6.578813478960585,
+   "half_life_pred": 17
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.95,
+   "alpha": 0.001,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 692.8005491785002,
+   "half_life_pred": 713
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.95,
+   "alpha": 0.005,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 138.28257298606084,
+   "half_life_pred": 160
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.95,
+   "alpha": 0.01,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 68.96756393652842,
+   "half_life_pred": 90
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.95,
+   "alpha": 0.02,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 34.309618491520645,
+   "half_life_pred": 56
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.95,
+   "alpha": 0.05,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 34
+  },
+  {
+   "kind": "mlp",
+   "eta": 0.95,
+   "alpha": 0.1,
+   "half_life_measured": 0.0,
+   "half_life_pred_v1_asymptotic": 13.513407333964874,
+   "half_life_pred": 25
+  }
+ ],
+ "rayn": [
+  {
+   "single": {
+    "cos_target": -0.015133194625377655,
+    "max_write_norm": 0.09999998658895493,
+    "n_attack_writes": 1
+   },
+   "rayn": {
+    "cos_target": 0.9965975284576416,
+    "max_write_norm": 0.010000001639127731,
+    "n_attack_writes": 200
+   }
+  },
+  {
+   "single": {
+    "cos_target": 0.07355937361717224,
+    "max_write_norm": 0.10000000149011612,
+    "n_attack_writes": 1
+   },
+   "rayn": {
+    "cos_target": 0.9963948130607605,
+    "max_write_norm": 0.010000000707805157,
+    "n_attack_writes": 200
+   }
+  },
+  {
+   "single": {
+    "cos_target": -0.10349737107753754,
+    "max_write_norm": 0.10000000149011612,
+    "n_attack_writes": 1
+   },
+   "rayn": {
+    "cos_target": 0.9946870803833008,
+    "max_write_norm": 0.010000000707805157,
+    "n_attack_writes": 200
+   }
+  },
+  {
+   "single": {
+    "cos_target": -0.06254177540540695,
+    "max_write_norm": 0.10000000149011612,
+    "n_attack_writes": 1
+   },
+   "rayn": {
+    "cos_target": 0.9978868961334229,
+    "max_write_norm": 0.010000000707805157,
+    "n_attack_writes": 200
+   }
+  },
+  {
+   "single": {
+    "cos_target": -0.06091175973415375,
+    "max_write_norm": 0.10000000894069672,
+    "n_attack_writes": 1
+   },
+   "rayn": {
+    "cos_target": 0.9904145002365112,
+    "max_write_norm": 0.010000001639127731,
+    "n_attack_writes": 200
+   }
+  }
+ ]
+}
