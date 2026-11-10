@@ -274,3 +274,39 @@ The activity threshold ν = 1e−3 came from Tier A, where fact keys are exactly
 
 ### Next (Day 8)
 **Clean-only tuning** of ν_rel ∈ {none, 0.1, 0.2, 0.3, 0.5} × γ ∈ {0.3, 0.5} on trials 0–99, attack = none. The objective was fixed in advance: clean recall + certified fraction. Then Amendment 4 registers the Tier-B confirmatory test (Amendment 3 metrics, trials 200–299). The two small checkpoints (~1 MB each) are released in `checkpoints/` for reproducibility.
+
+---
+
+## Day 8 (2026-11-10): clean-only tuning; the cross-talk finding
+
+**PI run failed** (commit `14a58e4`): `SyntaxError: name 'DEFENCES' is used prior to global declaration` in E04. My bug (I edited the script without re-running it). Fixed in `2208d8a`. The checkpoints were released (`6c9017b`), so **the tuning was run on the released models on CPU** (`results/e04/tuning_clean.json`, 36 configs × 2 models, attack = none, trials 0–99, 10.5 min).
+
+**Objective changed before any tuning data existed:** "certified fraction" rewards empty memories (an empty read trivially equals the empty reference). The objective is now recall + **certified-and-correct**.
+
+### Result: my ν_rel hypothesis is falsified as a strict improvement
+| model | best config (pre-set objective) | mean recall | mean certified-correct |
+|---|---|---|---|
+| d128 | ν_rel none, γ 0.3 | 0.70 | 0.30 |
+| d256 | ν_rel none, γ 0.3 | 0.70 | 0.26 |
+
+ν_rel raises certification (up to 0.43) but lowers recall (to 0.46). It is a trade-off, not a fix.
+
+### Diagnosis (40 clean locality trials, f = 2, ρ = 0.4, d128)
+| honest observers of the fact | promoted | corroborators counted | correct |
+|---|---|---|---|
+| 0 | (not anchored) | – | 0.00 |
+| 1–2 | (not anchored: needs f+1 = 3 writers) | – | 0.01 |
+| **3–4 (< k = 5)** | **0.97** | **8.2** | **0.93** |
+| ≥ 5 | 1.00 | 10.7 | 1.00 |
+
+**Cross-talk corroboration:** with learned, non-orthogonal keys, honest sources that never saw a fact have small reads along its direction and pass the cone test, so a fact seen by only 3–4 honest sources gets "k = 5 corroborators".
+- This is not a security hole: the extra corroborators are honest, adversary-only keys are never anchored, and the certificate stays sound (0 violations).
+- But it loosens the "k independent witnesses" semantics and explains why recall exceeds Thm 3(b).
+- With ν_rel = 0.3 the method follows Thm 3(b) closely (exploratory, d128): dense f=1, ρ=0.4: 0.77 vs 0.77; dense f=2, ρ=0.7: 0.82 vs 0.81; locality f=2, ρ=0.7: 0.58 vs 0.59.
+
+### Design for the Tier-B confirmatory test (Amendment 4)
+- **Primary** = pre-set tuning winner (ν_rel none). **Secondary** = strict (ν_rel 0.3), on which H7 is tested.
+- Added **observation rounds R ∈ {1, 3}**: single-shot is harsher than real memory streams (exploratory smoke, locality R = 3: strict certifies 83% of tokens as correct at recall 0.93).
+- New scorer `scripts/analyze_e04.py`. An 8-trial exploratory preview predicts C3 (Amendment 3's −0.50 installed margin) will fail in Tier B. This expectation is written into Amendment 4 *before* the run, and the criterion is not changed.
+
+**Day 9 = confirmatory Tier B (trials 200–299, both models).**

@@ -72,6 +72,13 @@ def plan(day: int, dev: str) -> list[list[str]]:
              "--trials", "100", "--trial_offset", "0", "--tag", "d256_explore"]],
         # clean-only tuning of nu_rel / gamma (no attacked runs are looked at)
         8: [[PY, "scripts/tune_e04_clean.py"]],
+        # Amendment 4: Tier-B confirmatory, trials 200-299, both models, R in {1,3}
+        9: [[PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d128.pt", "--device", dev,
+             "--trials", "100", "--trial_offset", "200", "--obs_rounds", "1,3", "--tag", "d128_confirm"],
+            [PY, "scripts/analyze_e04.py", "results/e04/e04_d128_confirm.json"],
+            [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d256.pt", "--device", dev,
+             "--trials", "100", "--trial_offset", "200", "--obs_rounds", "1,3", "--tag", "d256_confirm"],
+            [PY, "scripts/analyze_e04.py", "results/e04/e04_d256_confirm.json"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")

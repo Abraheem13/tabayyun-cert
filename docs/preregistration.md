@@ -68,3 +68,18 @@ Day 6 showed that "best baseline per criterion" is unsatisfiable when the set mi
    - (C3) worst installed ≤ best *useful* baseline (recall within 0.05 of the method) − 0.50.
    - (P1) installed ≤ 0.5 × Titans installed.
 3. H3 (0 violations) and H7 (Thm 3(b) predicts recall ±0.10) unchanged.
+
+---
+
+## Amendment 4 (2026-11-10, Tier B confirmatory; registered BEFORE trials 200–299 are run)
+**Design (from exploratory trials 0–99 and clean-only tuning, `results/e04/tuning_clean.json`):**
+- Models: MemLM d128/dk64 and d256/dk128 (released in `checkpoints/`), 16 facts per trial.
+- Cells: dense (n=10, f ∈ {1,2}) and locality (n=20, f ∈ {2,3}), ρ ∈ {0.4, 0.7}, **observation rounds R ∈ {1, 3}** (R = 3 added for realism; untuned). Attacks: assert, assert ×4, edge-of-range (white-box), unbounded (white-box).
+- **Primary method `tabayyun`**: ν_rel = none, γ = 0.3, chosen by the pre-set clean-only objective (recall + certified-and-correct).
+- **Secondary method `tabayyun_strict`**: ν_rel = 0.3, γ = 0.3 (strict k-witness semantics; see the Day 8 diagnosis of cross-talk corroboration).
+- Baselines: Titans (ungated, concatenated), mean / TrMean / median / Krum / GeoMed of the per-source memories, RobustRAG-style, SMSR-style, TMA-NM-style.
+- **Trials 200–299** (fresh).
+
+**Criteria: Amendment 3, unchanged** (P1, C1, C2 in locality, C3) for both methods, plus H3 (0 certificate and 0 certified-token violations) and **H7 for `tabayyun_strict`** (|clean recall − Thm 3(b) prediction| ≤ 0.10, prediction conditioned on ≥ 1 observer).
+
+**Expectations written down in advance (from 8 exploratory trials):** C3 (installed ≤ best useful baseline − 0.50) is expected to **fail** in most cells, because in token space the baselines install less (≈ 0.1–0.5) than in Tier A, so a 0.50 margin is unreachable. Amendment 3 stays as written and the failure will be reported. The primary method's H7 is expected to fail where cross-talk inflates recall above Thm 3(b) (it is reported but is not a criterion for the primary method).

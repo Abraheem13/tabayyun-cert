@@ -46,7 +46,9 @@ from tabayyun.tiered import grow_anchored_basis  # noqa: E402
 NU_REL = None      # set by --nu_rel (v2.3); tuned on CLEAN trials only
 GAMMA = 0.3
 DEFENCES = ["titans", "agg_mean", "agg_trmean", "agg_median", "agg_krum", "agg_geomed",
-            "robustrag", "smsr", "tma_corr", "tab_nocorr", "tabayyun"]
+            "robustrag", "smsr", "tma_corr", "tab_nocorr", "tabayyun", "tabayyun_strict"]
+TAB_METHODS = ("tabayyun", "tabayyun_strict")
+NU_REL_STRICT = 0.3   # secondary variant (Amendment 4): strict k-witness semantics
 ATTACKS = ["none", "assert", "assert_x4", "edge", "unbounded"]
 
 
@@ -105,7 +107,7 @@ def kv_vectors(model, key_tok, val_tok, device):
     return k[0, 1], v[0, 1]
 
 
-def build_trial(V, F, n, f, rho, regime, seed):
+def build_trial(V, F, n, f, rho, regime, seed, rounds=1):
     g = torch.Generator().manual_seed(seed)
     keys, vals = sample_facts(F, V, g)
     k_gate = 2 * f + 1
@@ -122,10 +124,11 @@ def build_trial(V, F, n, f, rho, regime, seed):
     for t in targets:   # attacker's token: a different value token
         adv_vals[t] = V // 2 + (int(vals[t]) - V // 2 + 1 + int(torch.randint(0, V // 2 - 1, (1,), generator=g))) % (V // 2)
     honest_idx = {s: [] for s in honest}
-    for j in range(F):
-        for s in support[j]:
-            if torch.rand(1, generator=g).item() < rho:
-                honest_idx[s].append(j)
+    for _r in range(rounds):           # a fact observed in r rounds is asserted r times
+        for j in range(F):
+            for s in support[j]:
+                if torch.rand(1, generator=g).item() < rho:
+                    honest_idx[s].append(j)
     for t in targets:            # targets must be known to >= 1 honest source to be attackable
         if not any(t in honest_idx[s] for s in honest):
             honest_idx[support[t][0]].append(t)
@@ -150,8 +153,8 @@ def predict(model, h_q, y):
     return model.logits_from_read(h_q, y)
 
 
-def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences):
-    keys, vals, adv_vals, targets, honest_idx, g = build_trial(V, F, n, f, rho, regime, seed)
+def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences, rounds=1):
+    keys, vals, adv_vals, targets, honest_idx, g = build_trial(V, F, n, f, rho, regime, seed, rounds)
     honest_segs = [segment(keys, vals, torch.tensor(honest_idx[s], dtype=torch.long), g)
                    if honest_idx[s] else torch.zeros(0, dtype=torch.long) for s in range(f, n)]
     if attack == "none":
@@ -201,12 +204,13 @@ def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences):
                 if hook is not None:
                     D = hook(D, U)
                 gc = {"tabayyun": GateConfig(k=k_gate, f=f, gamma=GAMMA, nu=1e-3, nu_rel=NU_REL),
+                      "tabayyun_strict": GateConfig(k=k_gate, f=f, gamma=GAMMA, nu=1e-3, nu_rel=NU_REL_STRICT),
                       "tab_nocorr": GateConfig(k=k_gate, f=f, corroborate=False),
                       "tma_corr": GateConfig(k=k_gate, f=f, nu=1e-3, nu_rel=NU_REL, cone=False, trim=False)}[d]
                 out = tabayyun_gate(D, gc)
                 MP = out.values.T @ U                                      # single promotion round, alpha_P = 1
                 y = q @ MP.T
-                if d == "tabayyun":
+                if d in TAB_METHODS:
                     # reference: honest-corroborator mean under the same decisions (oracle, evaluation only)
                     H = torch.zeros(n, dtype=torch.bool, device=device); H[f:] = True
                     CH = out.corroborators & H.unsqueeze(1)
@@ -249,6 +253,7 @@ def main():
     ap.add_argument("--gamma", type=float, default=0.3)
     ap.add_argument("--attacks", default=",".join(ATTACKS))
     ap.add_argument("--defences", default=",".join(DEFENCES))
+    ap.add_argument("--obs_rounds", default="1", help="comma list of observation rounds R (Amendment 4: 1,3)")
     a = ap.parse_args()
     NU_REL, GAMMA = a.nu_rel, a.gamma
     DEFENCES = a.defences.split(",")
@@ -256,27 +261,34 @@ def main():
     model = load(a.ckpt, a.device)
     V = model.cfg.vocab
     if a.smoke:
-        cells = [("dense", 10, 2, 0.7), ("locality", 20, 2, 0.7)]
+        cells = [("dense", 10, 2, 0.7, 1), ("locality", 20, 2, 0.7, 3)]
         atks, trials = ["none", "assert", "edge"], range(3)
     else:
-        cells = [(rg, n, f, rho) for rg, n, fs in [("dense", 10, (1, 2)), ("locality", 20, (2, 3))]
-                 for f in fs for rho in (0.4, 0.7)]
+        cells = [(rg, n, f, rho, R) for rg, n, fs in [("dense", 10, (1, 2)), ("locality", 20, (2, 3))]
+                 for f in fs for rho in (0.4, 0.7) for R in [int(x) for x in a.obs_rounds.split(",")]]
         atks, trials = a.attacks.split(","), range(a.trial_offset, a.trial_offset + a.trials)
     rows, t0 = [], time.time()
-    for (rg, n, f, rho), at in itertools.product(cells, atks):
+    for (rg, n, f, rho, R), at in itertools.product(cells, atks):
         for s in trials:
-            res = run_trial(model, V, a.facts, n, f, rho, rg, at, s, a.device, DEFENCES)
+            res = run_trial(model, V, a.facts, n, f, rho, rg, at, s, a.device, DEFENCES, R)
             for d, r in res.items():
-                rows.append({"regime": rg, "n": n, "f": f, "rho": rho, "attack": at, "trial": s, "defence": d, **r})
-        print(f"{rg} n={n} f={f} rho={rho} {at}: {time.time() - t0:.0f}s", flush=True)
+                rows.append({"regime": rg, "n": n, "f": f, "rho": rho, "R": R, "attack": at, "trial": s,
+                             "defence": d, **r})
+        print(f"{rg} n={n} f={f} rho={rho} R={R} {at}: {time.time() - t0:.0f}s", flush=True)
     out = ROOT / "results" / "e04"; out.mkdir(parents=True, exist_ok=True)
     name = "smoke" if a.smoke else f"e04{('_' + a.tag) if a.tag else ''}"
     (out / f"{name}.json").write_text(json.dumps(rows))
     # summary table
     summ = {}
-    for (rg, n, f, rho) in cells:
+    for (rg, n, f, rho, R) in cells:
+        k_ = 2 * f + 1
+        ms = [n - f] if rg == "dense" else list(range(k_, (n - f) // 2 + 1))
+        p = 1 - (1 - rho) ** R
+        from scipy.stats import binom
+        h7 = float(np.mean([binom.sf(k_ - 1, m, p) / max(binom.sf(0, m, p), 1e-12) for m in ms]))
         for d in DEFENCES:
-            rr = [r for r in rows if r["regime"] == rg and r["f"] == f and r["rho"] == rho and r["defence"] == d]
+            rr = [r for r in rows if r["regime"] == rg and r["f"] == f and r["rho"] == rho and r["R"] == R
+                  and r["defence"] == d]
             att = [r for r in rr if r["attack"] != "none"]
             cl = [r for r in rr if r["attack"] == "none"]
             ax = [x for x in atks if x != "none"]
@@ -284,14 +296,15 @@ def main():
             worst_amn = max((np.mean([r["amnesia"] for r in att if r["attack"] == x]) for x in ax), default=float("nan"))
             e = {"clean_recall": float(np.nanmean([r["recall"] for r in cl])), "worst_installed": float(worst_inst),
                  "worst_amnesia": float(worst_amn)}
-            if d == "tabayyun":
+            if d in TAB_METHODS:
+                e["H7_pred"] = h7
                 e["violations"] = int(sum(r["violations"] for r in rr))
                 e["action_violations"] = int(sum(r["action_violations"] for r in rr))
                 e["certified_frac_clean"] = float(np.mean([r["certified_frac"] for r in cl]))
                 e["certified_correct_clean"] = float(np.mean([r["certified_correct_frac"] for r in cl]))
                 e["certified_frac_attacked"] = float(np.mean([r["certified_frac"] for r in att])) if att else float("nan")
-            summ[f"{rg}|f={f}|rho={rho}|{d}"] = e
-            print(f"{rg:8} f={f} rho={rho} {d:11} " + " ".join(f"{k}={v:.2f}" if isinstance(v, float) else f"{k}={v}" for k, v in e.items()))
+            summ[f"{rg}|f={f}|rho={rho}|R={R}|{d}"] = e
+            print(f"{rg:8} f={f} rho={rho} R={R} {d:15} " + " ".join(f"{k}={v:.2f}" if isinstance(v, float) else f"{k}={v}" for k, v in e.items()))
     (out / f"{name}_summary.json").write_text(json.dumps(summ, indent=1))
     tot_v = sum(v.get("violations", 0) for v in summ.values())
     tot_av = sum(v.get("action_violations", 0) for v in summ.values())
