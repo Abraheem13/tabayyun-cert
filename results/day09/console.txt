@@ -1,0 +1,632 @@
+# Day 9  device=cuda  started 2026-11-10 22:05:38
+
+=== python.exe -m pytest -q
+...............................................................          [100%]
+63 passed in 6.66s
+--- exit 0 in 7.8s
+
+=== python.exe experiments/e04_mqar_attack.py --ckpt checkpoints/memlm_d128.pt --device cuda --trials 100 --trial_offset 200 --obs_rounds 1,3 --tag d128_confirm
+dense n=10 f=1 rho=0.4 R=1 none: 13s
+dense n=10 f=1 rho=0.4 R=1 assert: 26s
+dense n=10 f=1 rho=0.4 R=1 assert_x4: 39s
+dense n=10 f=1 rho=0.4 R=1 edge: 53s
+dense n=10 f=1 rho=0.4 R=1 unbounded: 66s
+dense n=10 f=1 rho=0.4 R=3 none: 98s
+dense n=10 f=1 rho=0.4 R=3 assert: 131s
+dense n=10 f=1 rho=0.4 R=3 assert_x4: 164s
+dense n=10 f=1 rho=0.4 R=3 edge: 198s
+dense n=10 f=1 rho=0.4 R=3 unbounded: 231s
+dense n=10 f=1 rho=0.7 R=1 none: 251s
+dense n=10 f=1 rho=0.7 R=1 assert: 272s
+dense n=10 f=1 rho=0.7 R=1 assert_x4: 293s
+dense n=10 f=1 rho=0.7 R=1 edge: 314s
+dense n=10 f=1 rho=0.7 R=1 unbounded: 335s
+dense n=10 f=1 rho=0.7 R=3 none: 389s
+dense n=10 f=1 rho=0.7 R=3 assert: 445s
+dense n=10 f=1 rho=0.7 R=3 assert_x4: 500s
+dense n=10 f=1 rho=0.7 R=3 edge: 556s
+dense n=10 f=1 rho=0.7 R=3 unbounded: 612s
+dense n=10 f=2 rho=0.4 R=1 none: 622s
+dense n=10 f=2 rho=0.4 R=1 assert: 634s
+dense n=10 f=2 rho=0.4 R=1 assert_x4: 647s
+dense n=10 f=2 rho=0.4 R=1 edge: 659s
+dense n=10 f=2 rho=0.4 R=1 unbounded: 671s
+dense n=10 f=2 rho=0.4 R=3 none: 700s
+dense n=10 f=2 rho=0.4 R=3 assert: 731s
+dense n=10 f=2 rho=0.4 R=3 assert_x4: 762s
+dense n=10 f=2 rho=0.4 R=3 edge: 793s
+dense n=10 f=2 rho=0.4 R=3 unbounded: 823s
+dense n=10 f=2 rho=0.7 R=1 none: 841s
+dense n=10 f=2 rho=0.7 R=1 assert: 861s
+dense n=10 f=2 rho=0.7 R=1 assert_x4: 881s
+dense n=10 f=2 rho=0.7 R=1 edge: 901s
+dense n=10 f=2 rho=0.7 R=1 unbounded: 921s
+dense n=10 f=2 rho=0.7 R=3 none: 970s
+dense n=10 f=2 rho=0.7 R=3 assert: 1021s
+dense n=10 f=2 rho=0.7 R=3 assert_x4: 1071s
+dense n=10 f=2 rho=0.7 R=3 edge: 1122s
+dense n=10 f=2 rho=0.7 R=3 unbounded: 1173s
+locality n=20 f=2 rho=0.4 R=1 none: 1181s
+locality n=20 f=2 rho=0.4 R=1 assert: 1192s
+locality n=20 f=2 rho=0.4 R=1 assert_x4: 1203s
+locality n=20 f=2 rho=0.4 R=1 edge: 1215s
+locality n=20 f=2 rho=0.4 R=1 unbounded: 1225s
+locality n=20 f=2 rho=0.4 R=3 none: 1250s
+locality n=20 f=2 rho=0.4 R=3 assert: 1277s
+locality n=20 f=2 rho=0.4 R=3 assert_x4: 1304s
+locality n=20 f=2 rho=0.4 R=3 edge: 1332s
+locality n=20 f=2 rho=0.4 R=3 unbounded: 1358s
+locality n=20 f=2 rho=0.7 R=1 none: 1374s
+locality n=20 f=2 rho=0.7 R=1 assert: 1392s
+locality n=20 f=2 rho=0.7 R=1 assert_x4: 1410s
+locality n=20 f=2 rho=0.7 R=1 edge: 1428s
+locality n=20 f=2 rho=0.7 R=1 unbounded: 1445s
+locality n=20 f=2 rho=0.7 R=3 none: 1488s
+locality n=20 f=2 rho=0.7 R=3 assert: 1534s
+locality n=20 f=2 rho=0.7 R=3 assert_x4: 1580s
+locality n=20 f=2 rho=0.7 R=3 edge: 1625s
+locality n=20 f=2 rho=0.7 R=3 unbounded: 1669s
+locality n=20 f=3 rho=0.4 R=1 none: 1677s
+locality n=20 f=3 rho=0.4 R=1 assert: 1687s
+locality n=20 f=3 rho=0.4 R=1 assert_x4: 1699s
+locality n=20 f=3 rho=0.4 R=1 edge: 1710s
+locality n=20 f=3 rho=0.4 R=1 unbounded: 1721s
+locality n=20 f=3 rho=0.4 R=3 none: 1747s
+locality n=20 f=3 rho=0.4 R=3 assert: 1776s
+locality n=20 f=3 rho=0.4 R=3 assert_x4: 1806s
+locality n=20 f=3 rho=0.4 R=3 edge: 1835s
+locality n=20 f=3 rho=0.4 R=3 unbounded: 1865s
+locality n=20 f=3 rho=0.7 R=1 none: 1880s
+locality n=20 f=3 rho=0.7 R=1 assert: 1899s
+locality n=20 f=3 rho=0.7 R=1 assert_x4: 1919s
+locality n=20 f=3 rho=0.7 R=1 edge: 1938s
+locality n=20 f=3 rho=0.7 R=1 unbounded: 1957s
+locality n=20 f=3 rho=0.7 R=3 none: 2002s
+locality n=20 f=3 rho=0.7 R=3 assert: 2049s
+locality n=20 f=3 rho=0.7 R=3 assert_x4: 2097s
+locality n=20 f=3 rho=0.7 R=3 edge: 2145s
+locality n=20 f=3 rho=0.7 R=3 unbounded: 2193s
+dense    f=1 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.23 worst_amnesia=0.23
+dense    f=1 rho=0.4 R=1 agg_mean        clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.64
+dense    f=1 rho=0.4 R=1 agg_trmean      clean_recall=0.89 worst_installed=0.10 worst_amnesia=0.18
+dense    f=1 rho=0.4 R=1 agg_median      clean_recall=0.86 worst_installed=0.07 worst_amnesia=0.18
+dense    f=1 rho=0.4 R=1 agg_krum        clean_recall=0.17 worst_installed=0.00 worst_amnesia=0.72
+dense    f=1 rho=0.4 R=1 agg_geomed      clean_recall=0.89 worst_installed=0.07 worst_amnesia=0.14
+dense    f=1 rho=0.4 R=1 robustrag       clean_recall=0.52 worst_installed=0.03 worst_amnesia=0.45
+dense    f=1 rho=0.4 R=1 smsr            clean_recall=0.87 worst_installed=0.06 worst_amnesia=0.20
+dense    f=1 rho=0.4 R=1 tma_corr        clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.61
+dense    f=1 rho=0.4 R=1 tab_nocorr      clean_recall=0.83 worst_installed=0.03 worst_amnesia=0.18
+dense    f=1 rho=0.4 R=1 tabayyun        clean_recall=0.84 worst_installed=0.01 worst_amnesia=0.13 H7_pred=0.78 violations=0 action_violations=0 certified_frac_clean=0.46 certified_correct_clean=0.46 certified_frac_attacked=0.38
+dense    f=1 rho=0.4 R=1 tabayyun_strict clean_recall=0.79 worst_installed=0.01 worst_amnesia=0.21 H7_pred=0.78 violations=0 action_violations=0 certified_frac_clean=0.72 certified_correct_clean=0.72 certified_frac_attacked=0.70
+dense    f=1 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.18 worst_amnesia=0.18
+dense    f=1 rho=0.4 R=3 agg_mean        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.51
+dense    f=1 rho=0.4 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.4 R=3 agg_median      clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.4 R=3 agg_krum        clean_recall=0.90 worst_installed=0.01 worst_amnesia=0.12
+dense    f=1 rho=0.4 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.4 R=3 robustrag       clean_recall=0.98 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.4 R=3 smsr            clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.03
+dense    f=1 rho=0.4 R=3 tma_corr        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.51
+dense    f=1 rho=0.4 R=3 tab_nocorr      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.4 R=3 tabayyun        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.98 certified_correct_clean=0.98 certified_frac_attacked=0.97
+dense    f=1 rho=0.4 R=3 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.99 certified_correct_clean=0.99 certified_frac_attacked=0.98
+dense    f=1 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.17 worst_amnesia=0.17
+dense    f=1 rho=0.7 R=1 agg_mean        clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.53
+dense    f=1 rho=0.7 R=1 agg_trmean      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.7 R=1 agg_median      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.03
+dense    f=1 rho=0.7 R=1 agg_krum        clean_recall=0.82 worst_installed=0.00 worst_amnesia=0.21
+dense    f=1 rho=0.7 R=1 agg_geomed      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.7 R=1 robustrag       clean_recall=0.94 worst_installed=0.00 worst_amnesia=0.05
+dense    f=1 rho=0.7 R=1 smsr            clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.7 R=1 tma_corr        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.52
+dense    f=1 rho=0.7 R=1 tab_nocorr      clean_recall=0.98 worst_installed=0.00 worst_amnesia=0.02
+dense    f=1 rho=0.7 R=1 tabayyun        clean_recall=0.99 worst_installed=0.00 worst_amnesia=0.02 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.94 certified_correct_clean=0.94 certified_frac_attacked=0.92
+dense    f=1 rho=0.7 R=1 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.01 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.97 certified_correct_clean=0.97 certified_frac_attacked=0.96
+dense    f=1 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.13 worst_amnesia=0.13
+dense    f=1 rho=0.7 R=3 agg_mean        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.50
+dense    f=1 rho=0.7 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 agg_median      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 agg_krum        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 robustrag       clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 smsr            clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.7 R=3 tma_corr        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.51
+dense    f=1 rho=0.7 R=3 tab_nocorr      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=1.00 certified_correct_clean=1.00 certified_frac_attacked=1.00
+dense    f=1 rho=0.7 R=3 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=1.00 certified_correct_clean=1.00 certified_frac_attacked=1.00
+dense    f=2 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.43 worst_amnesia=0.43
+dense    f=2 rho=0.4 R=1 agg_mean        clean_recall=0.90 worst_installed=0.51 worst_amnesia=0.76
+dense    f=2 rho=0.4 R=1 agg_trmean      clean_recall=0.86 worst_installed=0.32 worst_amnesia=0.40
+dense    f=2 rho=0.4 R=1 agg_median      clean_recall=0.82 worst_installed=0.30 worst_amnesia=0.39
+dense    f=2 rho=0.4 R=1 agg_krum        clean_recall=0.02 worst_installed=0.04 worst_amnesia=0.77
+dense    f=2 rho=0.4 R=1 agg_geomed      clean_recall=0.86 worst_installed=0.35 worst_amnesia=0.43
+dense    f=2 rho=0.4 R=1 robustrag       clean_recall=0.40 worst_installed=0.14 worst_amnesia=0.50
+dense    f=2 rho=0.4 R=1 smsr            clean_recall=0.83 worst_installed=0.36 worst_amnesia=0.63
+dense    f=2 rho=0.4 R=1 tma_corr        clean_recall=0.71 worst_installed=0.52 worst_amnesia=0.79
+dense    f=2 rho=0.4 R=1 tab_nocorr      clean_recall=0.65 worst_installed=0.15 worst_amnesia=0.41
+dense    f=2 rho=0.4 R=1 tabayyun        clean_recall=0.47 worst_installed=0.04 worst_amnesia=0.42 H7_pred=0.18 violations=0 action_violations=0 certified_frac_clean=0.16 certified_correct_clean=0.15 certified_frac_attacked=0.11
+dense    f=2 rho=0.4 R=1 tabayyun_strict clean_recall=0.22 worst_installed=0.04 worst_amnesia=0.71 H7_pred=0.18 violations=0 action_violations=0 certified_frac_clean=0.28 certified_correct_clean=0.17 certified_frac_attacked=0.24
+dense    f=2 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.23 worst_amnesia=0.23
+dense    f=2 rho=0.4 R=3 agg_mean        clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.61
+dense    f=2 rho=0.4 R=3 agg_trmean      clean_recall=0.99 worst_installed=0.02 worst_amnesia=0.02
+dense    f=2 rho=0.4 R=3 agg_median      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=2 rho=0.4 R=3 agg_krum        clean_recall=0.89 worst_installed=0.01 worst_amnesia=0.11
+dense    f=2 rho=0.4 R=3 agg_geomed      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.01
+dense    f=2 rho=0.4 R=3 robustrag       clean_recall=0.96 worst_installed=0.01 worst_amnesia=0.01
+dense    f=2 rho=0.4 R=3 smsr            clean_recall=0.99 worst_installed=0.33 worst_amnesia=0.43
+dense    f=2 rho=0.4 R=3 tma_corr        clean_recall=0.95 worst_installed=0.50 worst_amnesia=0.61
+dense    f=2 rho=0.4 R=3 tab_nocorr      clean_recall=0.98 worst_installed=0.01 worst_amnesia=0.01
+dense    f=2 rho=0.4 R=3 tabayyun        clean_recall=0.92 worst_installed=0.00 worst_amnesia=0.04 H7_pred=0.93 violations=0 action_violations=0 certified_frac_clean=0.68 certified_correct_clean=0.68 certified_frac_attacked=0.58
+dense    f=2 rho=0.4 R=3 tabayyun_strict clean_recall=0.92 worst_installed=0.00 worst_amnesia=0.05 H7_pred=0.93 violations=0 action_violations=0 certified_frac_clean=0.72 certified_correct_clean=0.72 certified_frac_attacked=0.65
+dense    f=2 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.36 worst_amnesia=0.36
+dense    f=2 rho=0.7 R=1 agg_mean        clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.64
+dense    f=2 rho=0.7 R=1 agg_trmean      clean_recall=0.99 worst_installed=0.09 worst_amnesia=0.10
+dense    f=2 rho=0.7 R=1 agg_median      clean_recall=0.98 worst_installed=0.07 worst_amnesia=0.09
+dense    f=2 rho=0.7 R=1 agg_krum        clean_recall=0.80 worst_installed=0.00 worst_amnesia=0.19
+dense    f=2 rho=0.7 R=1 agg_geomed      clean_recall=0.99 worst_installed=0.07 worst_amnesia=0.07
+dense    f=2 rho=0.7 R=1 robustrag       clean_recall=0.91 worst_installed=0.04 worst_amnesia=0.10
+dense    f=2 rho=0.7 R=1 smsr            clean_recall=0.99 worst_installed=0.33 worst_amnesia=0.47
+dense    f=2 rho=0.7 R=1 tma_corr        clean_recall=0.93 worst_installed=0.50 worst_amnesia=0.63
+dense    f=2 rho=0.7 R=1 tab_nocorr      clean_recall=0.94 worst_installed=0.02 worst_amnesia=0.07
+dense    f=2 rho=0.7 R=1 tabayyun        clean_recall=0.84 worst_installed=0.00 worst_amnesia=0.12 H7_pred=0.81 violations=0 action_violations=0 certified_frac_clean=0.54 certified_correct_clean=0.54 certified_frac_attacked=0.42
+dense    f=2 rho=0.7 R=1 tabayyun_strict clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.17 H7_pred=0.81 violations=0 action_violations=0 certified_frac_clean=0.61 certified_correct_clean=0.61 certified_frac_attacked=0.54
+dense    f=2 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.27 worst_amnesia=0.27
+dense    f=2 rho=0.7 R=3 agg_mean        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.56
+dense    f=2 rho=0.7 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 agg_median      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 agg_krum        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 robustrag       clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 smsr            clean_recall=1.00 worst_installed=0.33 worst_amnesia=0.42
+dense    f=2 rho=0.7 R=3 tma_corr        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.55
+dense    f=2 rho=0.7 R=3 tab_nocorr      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 tabayyun        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.97 certified_correct_clean=0.97 certified_frac_attacked=0.93
+dense    f=2 rho=0.7 R=3 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.97 certified_correct_clean=0.97 certified_frac_attacked=0.94
+locality f=2 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.49 worst_amnesia=0.49
+locality f=2 rho=0.4 R=1 agg_mean        clean_recall=0.61 worst_installed=0.51 worst_amnesia=0.81
+locality f=2 rho=0.4 R=1 agg_trmean      clean_recall=0.49 worst_installed=0.30 worst_amnesia=0.64
+locality f=2 rho=0.4 R=1 agg_median      clean_recall=0.24 worst_installed=0.17 worst_amnesia=0.72
+locality f=2 rho=0.4 R=1 agg_krum        clean_recall=0.02 worst_installed=0.01 worst_amnesia=0.96
+locality f=2 rho=0.4 R=1 agg_geomed      clean_recall=0.37 worst_installed=0.26 worst_amnesia=0.57
+locality f=2 rho=0.4 R=1 robustrag       clean_recall=0.04 worst_installed=0.02 worst_amnesia=0.94
+locality f=2 rho=0.4 R=1 smsr            clean_recall=0.58 worst_installed=0.39 worst_amnesia=0.74
+locality f=2 rho=0.4 R=1 tma_corr        clean_recall=0.57 worst_installed=0.48 worst_amnesia=0.84
+locality f=2 rho=0.4 R=1 tab_nocorr      clean_recall=0.32 worst_installed=0.07 worst_amnesia=0.68
+locality f=2 rho=0.4 R=1 tabayyun        clean_recall=0.55 worst_installed=0.04 worst_amnesia=0.58 H7_pred=0.12 violations=0 action_violations=0 certified_frac_clean=0.04 certified_correct_clean=0.04 certified_frac_attacked=0.04
+locality f=2 rho=0.4 R=1 tabayyun_strict clean_recall=0.16 worst_installed=0.03 worst_amnesia=0.83 H7_pred=0.12 violations=0 action_violations=0 certified_frac_clean=0.48 certified_correct_clean=0.14 certified_frac_attacked=0.29
+locality f=2 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.28 worst_amnesia=0.28
+locality f=2 rho=0.4 R=3 agg_mean        clean_recall=0.94 worst_installed=0.51 worst_amnesia=0.62
+locality f=2 rho=0.4 R=3 agg_trmean      clean_recall=0.91 worst_installed=0.14 worst_amnesia=0.18
+locality f=2 rho=0.4 R=3 agg_median      clean_recall=0.84 worst_installed=0.07 worst_amnesia=0.14
+locality f=2 rho=0.4 R=3 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.84
+locality f=2 rho=0.4 R=3 agg_geomed      clean_recall=0.90 worst_installed=0.09 worst_amnesia=0.13
+locality f=2 rho=0.4 R=3 robustrag       clean_recall=0.28 worst_installed=0.01 worst_amnesia=0.62
+locality f=2 rho=0.4 R=3 smsr            clean_recall=0.90 worst_installed=0.35 worst_amnesia=0.52
+locality f=2 rho=0.4 R=3 tma_corr        clean_recall=0.93 worst_installed=0.51 worst_amnesia=0.61
+locality f=2 rho=0.4 R=3 tab_nocorr      clean_recall=0.80 worst_installed=0.02 worst_amnesia=0.15
+locality f=2 rho=0.4 R=3 tabayyun        clean_recall=0.85 worst_installed=0.01 worst_amnesia=0.10 H7_pred=0.73 violations=0 action_violations=0 certified_frac_clean=0.17 certified_correct_clean=0.17 certified_frac_attacked=0.12
+locality f=2 rho=0.4 R=3 tabayyun_strict clean_recall=0.73 worst_installed=0.01 worst_amnesia=0.21 H7_pred=0.73 violations=0 action_violations=0 certified_frac_clean=0.65 certified_correct_clean=0.65 certified_frac_attacked=0.62
+locality f=2 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.29 worst_amnesia=0.29
+locality f=2 rho=0.7 R=1 agg_mean        clean_recall=0.89 worst_installed=0.51 worst_amnesia=0.65
+locality f=2 rho=0.7 R=1 agg_trmean      clean_recall=0.84 worst_installed=0.16 worst_amnesia=0.24
+locality f=2 rho=0.7 R=1 agg_median      clean_recall=0.74 worst_installed=0.09 worst_amnesia=0.21
+locality f=2 rho=0.7 R=1 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.89
+locality f=2 rho=0.7 R=1 agg_geomed      clean_recall=0.82 worst_installed=0.10 worst_amnesia=0.17
+locality f=2 rho=0.7 R=1 robustrag       clean_recall=0.19 worst_installed=0.01 worst_amnesia=0.73
+locality f=2 rho=0.7 R=1 smsr            clean_recall=0.86 worst_installed=0.35 worst_amnesia=0.53
+locality f=2 rho=0.7 R=1 tma_corr        clean_recall=0.91 worst_installed=0.51 worst_amnesia=0.62
+locality f=2 rho=0.7 R=1 tab_nocorr      clean_recall=0.72 worst_installed=0.04 worst_amnesia=0.21
+locality f=2 rho=0.7 R=1 tabayyun        clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.14 H7_pred=0.59 violations=0 action_violations=0 certified_frac_clean=0.10 certified_correct_clean=0.10 certified_frac_attacked=0.09
+locality f=2 rho=0.7 R=1 tabayyun_strict clean_recall=0.61 worst_installed=0.01 worst_amnesia=0.34 H7_pred=0.59 violations=0 action_violations=0 certified_frac_clean=0.56 certified_correct_clean=0.55 certified_frac_attacked=0.55
+locality f=2 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.23 worst_amnesia=0.23
+locality f=2 rho=0.7 R=3 agg_mean        clean_recall=0.99 worst_installed=0.51 worst_amnesia=0.58
+locality f=2 rho=0.7 R=3 agg_trmean      clean_recall=0.98 worst_installed=0.06 worst_amnesia=0.07
+locality f=2 rho=0.7 R=3 agg_median      clean_recall=0.96 worst_installed=0.02 worst_amnesia=0.05
+locality f=2 rho=0.7 R=3 agg_krum        clean_recall=0.02 worst_installed=0.01 worst_amnesia=0.80
+locality f=2 rho=0.7 R=3 agg_geomed      clean_recall=0.98 worst_installed=0.03 worst_amnesia=0.03
+locality f=2 rho=0.7 R=3 robustrag       clean_recall=0.52 worst_installed=0.01 worst_amnesia=0.33
+locality f=2 rho=0.7 R=3 smsr            clean_recall=0.97 worst_installed=0.34 worst_amnesia=0.43
+locality f=2 rho=0.7 R=3 tma_corr        clean_recall=0.98 worst_installed=0.50 worst_amnesia=0.56
+locality f=2 rho=0.7 R=3 tab_nocorr      clean_recall=0.94 worst_installed=0.01 worst_amnesia=0.04
+locality f=2 rho=0.7 R=3 tabayyun        clean_recall=0.97 worst_installed=0.00 worst_amnesia=0.01 H7_pred=0.97 violations=0 action_violations=0 certified_frac_clean=0.33 certified_correct_clean=0.33 certified_frac_attacked=0.24
+locality f=2 rho=0.7 R=3 tabayyun_strict clean_recall=0.97 worst_installed=0.00 worst_amnesia=0.01 H7_pred=0.97 violations=0 action_violations=0 certified_frac_clean=0.81 certified_correct_clean=0.81 certified_frac_attacked=0.74
+locality f=3 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.56 worst_amnesia=0.56
+locality f=3 rho=0.4 R=1 agg_mean        clean_recall=0.65 worst_installed=0.51 worst_amnesia=0.85
+locality f=3 rho=0.4 R=1 agg_trmean      clean_recall=0.46 worst_installed=0.45 worst_amnesia=0.78
+locality f=3 rho=0.4 R=1 agg_median      clean_recall=0.24 worst_installed=0.34 worst_amnesia=0.76
+locality f=3 rho=0.4 R=1 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.97
+locality f=3 rho=0.4 R=1 agg_geomed      clean_recall=0.35 worst_installed=0.42 worst_amnesia=0.60
+locality f=3 rho=0.4 R=1 robustrag       clean_recall=0.03 worst_installed=0.07 worst_amnesia=0.94
+locality f=3 rho=0.4 R=1 smsr            clean_recall=0.63 worst_installed=0.51 worst_amnesia=0.85
+locality f=3 rho=0.4 R=1 tma_corr        clean_recall=0.35 worst_installed=0.51 worst_amnesia=0.92
+locality f=3 rho=0.4 R=1 tab_nocorr      clean_recall=0.21 worst_installed=0.11 worst_amnesia=0.81
+locality f=3 rho=0.4 R=1 tabayyun        clean_recall=0.33 worst_installed=0.14 worst_amnesia=0.77 H7_pred=0.01 violations=0 action_violations=0 certified_frac_clean=0.01 certified_correct_clean=0.01 certified_frac_attacked=0.01
+locality f=3 rho=0.4 R=1 tabayyun_strict clean_recall=0.04 worst_installed=0.04 worst_amnesia=0.91 H7_pred=0.01 violations=0 action_violations=0 certified_frac_clean=0.79 certified_correct_clean=0.03 certified_frac_attacked=0.20
+locality f=3 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.41 worst_amnesia=0.41
+locality f=3 rho=0.4 R=3 agg_mean        clean_recall=0.97 worst_installed=0.51 worst_amnesia=0.72
+locality f=3 rho=0.4 R=3 agg_trmean      clean_recall=0.93 worst_installed=0.32 worst_amnesia=0.33
+locality f=3 rho=0.4 R=3 agg_median      clean_recall=0.89 worst_installed=0.23 worst_amnesia=0.25
+locality f=3 rho=0.4 R=3 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.86
+locality f=3 rho=0.4 R=3 agg_geomed      clean_recall=0.93 worst_installed=0.28 worst_amnesia=0.29
+locality f=3 rho=0.4 R=3 robustrag       clean_recall=0.30 worst_installed=0.07 worst_amnesia=0.56
+locality f=3 rho=0.4 R=3 smsr            clean_recall=0.95 worst_installed=0.49 worst_amnesia=0.70
+locality f=3 rho=0.4 R=3 tma_corr        clean_recall=0.92 worst_installed=0.50 worst_amnesia=0.67
+locality f=3 rho=0.4 R=3 tab_nocorr      clean_recall=0.81 worst_installed=0.07 worst_amnesia=0.17
+locality f=3 rho=0.4 R=3 tabayyun        clean_recall=0.83 worst_installed=0.03 worst_amnesia=0.18 H7_pred=0.32 violations=0 action_violations=0 certified_frac_clean=0.01 certified_correct_clean=0.01 certified_frac_attacked=0.02
+locality f=3 rho=0.4 R=3 tabayyun_strict clean_recall=0.38 worst_installed=0.01 worst_amnesia=0.57 H7_pred=0.32 violations=0 action_violations=0 certified_frac_clean=0.34 certified_correct_clean=0.31 certified_frac_attacked=0.33
+locality f=3 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.42 worst_amnesia=0.42
+locality f=3 rho=0.7 R=1 agg_mean        clean_recall=0.94 worst_installed=0.51 worst_amnesia=0.78
+locality f=3 rho=0.7 R=1 agg_trmean      clean_recall=0.89 worst_installed=0.36 worst_amnesia=0.41
+locality f=3 rho=0.7 R=1 agg_median      clean_recall=0.83 worst_installed=0.28 worst_amnesia=0.33
+locality f=3 rho=0.7 R=1 agg_krum        clean_recall=0.01 worst_installed=0.02 worst_amnesia=0.91
+locality f=3 rho=0.7 R=1 agg_geomed      clean_recall=0.88 worst_installed=0.33 worst_amnesia=0.36
+locality f=3 rho=0.7 R=1 robustrag       clean_recall=0.20 worst_installed=0.07 worst_amnesia=0.69
+locality f=3 rho=0.7 R=1 smsr            clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.74
+locality f=3 rho=0.7 R=1 tma_corr        clean_recall=0.88 worst_installed=0.51 worst_amnesia=0.72
+locality f=3 rho=0.7 R=1 tab_nocorr      clean_recall=0.72 worst_installed=0.11 worst_amnesia=0.27
+locality f=3 rho=0.7 R=1 tabayyun        clean_recall=0.81 worst_installed=0.03 worst_amnesia=0.25 H7_pred=0.17 violations=0 action_violations=0 certified_frac_clean=0.01 certified_correct_clean=0.01 certified_frac_attacked=0.01
+locality f=3 rho=0.7 R=1 tabayyun_strict clean_recall=0.26 worst_installed=0.04 worst_amnesia=0.71 H7_pred=0.17 violations=0 action_violations=0 certified_frac_clean=0.26 certified_correct_clean=0.19 certified_frac_attacked=0.24
+locality f=3 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.33 worst_amnesia=0.33
+locality f=3 rho=0.7 R=3 agg_mean        clean_recall=1.00 worst_installed=0.51 worst_amnesia=0.67
+locality f=3 rho=0.7 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.21 worst_amnesia=0.21
+locality f=3 rho=0.7 R=3 agg_median      clean_recall=0.99 worst_installed=0.12 worst_amnesia=0.12
+locality f=3 rho=0.7 R=3 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.82
+locality f=3 rho=0.7 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.15 worst_amnesia=0.15
+locality f=3 rho=0.7 R=3 robustrag       clean_recall=0.59 worst_installed=0.04 worst_amnesia=0.26
+locality f=3 rho=0.7 R=3 smsr            clean_recall=1.00 worst_installed=0.49 worst_amnesia=0.66
+locality f=3 rho=0.7 R=3 tma_corr        clean_recall=0.95 worst_installed=0.50 worst_amnesia=0.63
+locality f=3 rho=0.7 R=3 tab_nocorr      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+locality f=3 rho=0.7 R=3 tabayyun        clean_recall=0.91 worst_installed=0.01 worst_amnesia=0.10 H7_pred=0.90 violations=0 action_violations=0 certified_frac_clean=0.05 certified_correct_clean=0.05 certified_frac_attacked=0.05
+locality f=3 rho=0.7 R=3 tabayyun_strict clean_recall=0.89 worst_installed=0.01 worst_amnesia=0.12 H7_pred=0.90 violations=0 action_violations=0 certified_frac_clean=0.54 certified_correct_clean=0.54 certified_frac_attacked=0.47
+SUMMARY {"rows": 96000, "cert_violations": 0, "action_cert_violations": 0, "seconds": 2194.5}
+--- exit 0 in 2197.6s
+
+=== python.exe scripts/analyze_e04.py results/e04/e04_d128_confirm.json
+dense    f=1 rho=0.4 R=1 tabayyun        rec=0.84 inst=0.01 amn=0.13 cert=0.46 | P1 -0.11[-0.14,-0.08] P | C1 P | C3 -0.04[-0.08,-0.02] vs smsr F | H7 0.84 vs 0.78 P
+dense    f=1 rho=0.4 R=1 tabayyun_strict rec=0.79 inst=0.01 amn=0.21 cert=0.72 | P1 -0.11[-0.15,-0.08] P | C1 P | C3 -0.05[-0.08,-0.02] vs smsr F | H7 0.79 vs 0.78 P
+dense    f=1 rho=0.4 R=3 tabayyun        rec=1.00 inst=0.00 amn=0.00 cert=0.98 | P1 -0.09[-0.13,-0.07] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.4 R=3 tabayyun_strict rec=1.00 inst=0.00 amn=0.00 cert=0.99 | P1 -0.09[-0.13,-0.07] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.7 R=1 tabayyun        rec=0.99 inst=0.00 amn=0.02 cert=0.94 | P1 -0.09[-0.12,-0.06] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_trmean F | H7 0.99 vs 1.00 P
+dense    f=1 rho=0.7 R=1 tabayyun_strict rec=1.00 inst=0.00 amn=0.01 cert=0.97 | P1 -0.09[-0.12,-0.06] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.7 R=3 tabayyun        rec=1.00 inst=0.00 amn=0.00 cert=1.00 | P1 -0.07[-0.10,-0.04] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.7 R=3 tabayyun_strict rec=1.00 inst=0.00 amn=0.00 cert=1.00 | P1 -0.07[-0.10,-0.04] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=2 rho=0.4 R=1 tabayyun        rec=0.47 inst=0.04 amn=0.42 cert=0.15 | P1 -0.17[-0.22,-0.14] P | C1 P | C3 -0.26[-0.31,-0.21] vs agg_median F | H7 0.47 vs 0.18 F
+dense    f=2 rho=0.4 R=1 tabayyun_strict rec=0.22 inst=0.04 amn=0.71 cert=0.17 | P1 -0.18[-0.23,-0.14] P | C1 P | C3 -0.10[-0.15,-0.05] vs robustrag F | H7 0.22 vs 0.18 P
+dense    f=2 rho=0.4 R=3 tabayyun        rec=0.92 inst=0.00 amn=0.04 cert=0.68 | P1 -0.11[-0.15,-0.09] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_krum F | H7 0.92 vs 0.93 P
+dense    f=2 rho=0.4 R=3 tabayyun_strict rec=0.92 inst=0.00 amn=0.05 cert=0.72 | P1 -0.11[-0.15,-0.09] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_krum F | H7 0.92 vs 0.93 P
+dense    f=2 rho=0.7 R=1 tabayyun        rec=0.84 inst=0.00 amn=0.12 cert=0.54 | P1 -0.18[-0.22,-0.15] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_krum F | H7 0.84 vs 0.81 P
+dense    f=2 rho=0.7 R=1 tabayyun_strict rec=0.83 inst=0.01 amn=0.17 cert=0.61 | P1 -0.17[-0.21,-0.13] P | C1 P | C3 +0.01[+0.00,+0.03] vs agg_krum F | H7 0.83 vs 0.81 P
+dense    f=2 rho=0.7 R=3 tabayyun        rec=1.00 inst=0.00 amn=0.00 cert=0.97 | P1 -0.13[-0.18,-0.11] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=2 rho=0.7 R=3 tabayyun_strict rec=1.00 inst=0.00 amn=0.00 cert=0.97 | P1 -0.13[-0.18,-0.11] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+locality f=2 rho=0.4 R=1 tabayyun        rec=0.55 inst=0.04 amn=0.58 cert=0.04 | P1 -0.21[-0.26,-0.17] P | C1 P | C2 +0.51[+0.49,+0.54] vs robustrag P | C3 -0.35[-0.40,-0.30] vs smsr F | H7 0.55 vs 0.12 F
+locality f=2 rho=0.4 R=1 tabayyun_strict rec=0.16 inst=0.03 amn=0.83 cert=0.14 | P1 -0.22[-0.26,-0.17] P | C1 P | C2 +0.12[+0.10,+0.14] vs robustrag F | C3 -0.14[-0.18,-0.09] vs agg_median F | H7 0.16 vs 0.12 P
+locality f=2 rho=0.4 R=3 tabayyun        rec=0.85 inst=0.01 amn=0.10 cert=0.17 | P1 -0.13[-0.17,-0.11] P | C1 P | C2 -0.04[-0.06,-0.03] vs agg_geomed F | C3 -0.06[-0.10,-0.03] vs agg_median F | H7 0.85 vs 0.73 F
+locality f=2 rho=0.4 R=3 tabayyun_strict rec=0.73 inst=0.01 amn=0.21 cert=0.65 | P1 -0.13[-0.17,-0.11] P | C1 P | C2 -0.16[-0.18,-0.14] vs agg_geomed F | C3 -0.06[-0.10,-0.03] vs agg_median F | H7 0.73 vs 0.73 P
+locality f=2 rho=0.7 R=1 tabayyun        rec=0.83 inst=0.01 amn=0.14 cert=0.10 | P1 -0.14[-0.18,-0.11] P | C1 P | C2 +0.01[-0.01,+0.03] vs agg_geomed F | C3 -0.10[-0.13,-0.06] vs agg_geomed F | H7 0.83 vs 0.59 F
+locality f=2 rho=0.7 R=1 tabayyun_strict rec=0.61 inst=0.01 amn=0.34 cert=0.55 | P1 -0.13[-0.18,-0.10] P | C1 P | C2 -0.21[-0.24,-0.19] vs agg_geomed F | C3 -0.08[-0.12,-0.04] vs agg_median F | H7 0.61 vs 0.59 P
+locality f=2 rho=0.7 R=3 tabayyun        rec=0.97 inst=0.00 amn=0.01 cert=0.33 | P1 -0.11[-0.15,-0.09] P | C1 P | C2 -0.01[-0.02,-0.01] vs agg_geomed F | C3 -0.02[-0.04,-0.01] vs agg_median F | H7 0.97 vs 0.97 P
+locality f=2 rho=0.7 R=3 tabayyun_strict rec=0.97 inst=0.00 amn=0.01 cert=0.81 | P1 -0.11[-0.15,-0.09] P | C1 P | C2 -0.01[-0.02,-0.00] vs agg_geomed F | C3 -0.02[-0.04,-0.01] vs agg_median F | H7 0.97 vs 0.97 P
+locality f=3 rho=0.4 R=1 tabayyun        rec=0.33 inst=0.14 amn=0.77 cert=0.01 | P1 -0.14[-0.21,-0.10] P | C1 P | C2 +0.30[+0.27,+0.32] vs robustrag P | C3 -0.29[-0.34,-0.24] vs agg_geomed F | H7 0.33 vs 0.01 F
+locality f=3 rho=0.4 R=1 tabayyun_strict rec=0.04 inst=0.04 amn=0.91 cert=0.03 | P1 -0.23[-0.28,-0.20] P | C1 P | C2 +0.01[-0.00,+0.02] vs robustrag F | C3 +0.03[+0.01,+0.07] vs agg_krum F | H7 0.04 vs 0.01 P
+locality f=3 rho=0.4 R=3 tabayyun        rec=0.83 inst=0.03 amn=0.18 cert=0.01 | P1 -0.17[-0.22,-0.14] P | C1 P | C2 +0.53[+0.50,+0.56] vs robustrag P | C3 -0.20[-0.25,-0.15] vs agg_median F | H7 0.83 vs 0.32 F
+locality f=3 rho=0.4 R=3 tabayyun_strict rec=0.38 inst=0.01 amn=0.57 cert=0.31 | P1 -0.19[-0.24,-0.15] P | C1 P | C2 +0.09[+0.06,+0.12] vs robustrag F | C3 -0.22[-0.27,-0.17] vs agg_median F | H7 0.38 vs 0.32 P
+locality f=3 rho=0.7 R=1 tabayyun        rec=0.81 inst=0.03 amn=0.25 cert=0.01 | P1 -0.18[-0.23,-0.14] P | C1 P | C2 +0.60[+0.58,+0.63] vs robustrag P | C3 -0.25[-0.30,-0.20] vs agg_median F | H7 0.81 vs 0.17 F
+locality f=3 rho=0.7 R=1 tabayyun_strict rec=0.26 inst=0.04 amn=0.71 cert=0.19 | P1 -0.17[-0.22,-0.12] P | C1 P | C2 +0.05[+0.03,+0.08] vs robustrag F | C3 -0.24[-0.29,-0.18] vs agg_median F | H7 0.26 vs 0.17 P
+locality f=3 rho=0.7 R=3 tabayyun        rec=0.91 inst=0.01 amn=0.10 cert=0.05 | P1 -0.16[-0.20,-0.12] P | C1 P | C2 +0.32[+0.29,+0.34] vs robustrag P | C3 -0.11[-0.15,-0.07] vs agg_median F | H7 0.91 vs 0.90 P
+locality f=3 rho=0.7 R=3 tabayyun_strict rec=0.89 inst=0.01 amn=0.12 cert=0.54 | P1 -0.16[-0.20,-0.12] P | C1 P | C2 +0.30[+0.27,+0.32] vs robustrag P | C3 -0.11[-0.16,-0.07] vs agg_median F | H7 0.89 vs 0.90 P
+SUMMARY {"tabayyun:P1_pass": "16/16", "tabayyun:C1_pass": "16/16", "tabayyun:C3_pass": "0/16", "tabayyun:H7_pass": "9/16", "tabayyun:H3_violations": 0, "tabayyun_strict:P1_pass": "16/16", "tabayyun_strict:C1_pass": "16/16", "tabayyun_strict:C3_pass": "0/16", "tabayyun_strict:H7_pass": "16/16", "tabayyun_strict:H3_violations": 0, "tabayyun:C2_pass": "5/8", "tabayyun_strict:C2_pass": "1/8"}
+--- exit 0 in 6.9s
+
+=== python.exe experiments/e04_mqar_attack.py --ckpt checkpoints/memlm_d256.pt --device cuda --trials 100 --trial_offset 200 --obs_rounds 1,3 --tag d256_confirm
+dense n=10 f=1 rho=0.4 R=1 none: 13s
+dense n=10 f=1 rho=0.4 R=1 assert: 27s
+dense n=10 f=1 rho=0.4 R=1 assert_x4: 41s
+dense n=10 f=1 rho=0.4 R=1 edge: 55s
+dense n=10 f=1 rho=0.4 R=1 unbounded: 68s
+dense n=10 f=1 rho=0.4 R=3 none: 101s
+dense n=10 f=1 rho=0.4 R=3 assert: 135s
+dense n=10 f=1 rho=0.4 R=3 assert_x4: 170s
+dense n=10 f=1 rho=0.4 R=3 edge: 205s
+dense n=10 f=1 rho=0.4 R=3 unbounded: 239s
+dense n=10 f=1 rho=0.7 R=1 none: 259s
+dense n=10 f=1 rho=0.7 R=1 assert: 281s
+dense n=10 f=1 rho=0.7 R=1 assert_x4: 302s
+dense n=10 f=1 rho=0.7 R=1 edge: 324s
+dense n=10 f=1 rho=0.7 R=1 unbounded: 346s
+dense n=10 f=1 rho=0.7 R=3 none: 402s
+dense n=10 f=1 rho=0.7 R=3 assert: 460s
+dense n=10 f=1 rho=0.7 R=3 assert_x4: 517s
+dense n=10 f=1 rho=0.7 R=3 edge: 575s
+dense n=10 f=1 rho=0.7 R=3 unbounded: 632s
+dense n=10 f=2 rho=0.4 R=1 none: 643s
+dense n=10 f=2 rho=0.4 R=1 assert: 655s
+dense n=10 f=2 rho=0.4 R=1 assert_x4: 668s
+dense n=10 f=2 rho=0.4 R=1 edge: 681s
+dense n=10 f=2 rho=0.4 R=1 unbounded: 694s
+dense n=10 f=2 rho=0.4 R=3 none: 723s
+dense n=10 f=2 rho=0.4 R=3 assert: 755s
+dense n=10 f=2 rho=0.4 R=3 assert_x4: 787s
+dense n=10 f=2 rho=0.4 R=3 edge: 819s
+dense n=10 f=2 rho=0.4 R=3 unbounded: 851s
+dense n=10 f=2 rho=0.7 R=1 none: 869s
+dense n=10 f=2 rho=0.7 R=1 assert: 889s
+dense n=10 f=2 rho=0.7 R=1 assert_x4: 910s
+dense n=10 f=2 rho=0.7 R=1 edge: 931s
+dense n=10 f=2 rho=0.7 R=1 unbounded: 951s
+dense n=10 f=2 rho=0.7 R=3 none: 1002s
+dense n=10 f=2 rho=0.7 R=3 assert: 1055s
+dense n=10 f=2 rho=0.7 R=3 assert_x4: 1108s
+dense n=10 f=2 rho=0.7 R=3 edge: 1161s
+dense n=10 f=2 rho=0.7 R=3 unbounded: 1214s
+locality n=20 f=2 rho=0.4 R=1 none: 1223s
+locality n=20 f=2 rho=0.4 R=1 assert: 1234s
+locality n=20 f=2 rho=0.4 R=1 assert_x4: 1246s
+locality n=20 f=2 rho=0.4 R=1 edge: 1257s
+locality n=20 f=2 rho=0.4 R=1 unbounded: 1268s
+locality n=20 f=2 rho=0.4 R=3 none: 1294s
+locality n=20 f=2 rho=0.4 R=3 assert: 1321s
+locality n=20 f=2 rho=0.4 R=3 assert_x4: 1350s
+locality n=20 f=2 rho=0.4 R=3 edge: 1378s
+locality n=20 f=2 rho=0.4 R=3 unbounded: 1406s
+locality n=20 f=2 rho=0.7 R=1 none: 1422s
+locality n=20 f=2 rho=0.7 R=1 assert: 1440s
+locality n=20 f=2 rho=0.7 R=1 assert_x4: 1459s
+locality n=20 f=2 rho=0.7 R=1 edge: 1477s
+locality n=20 f=2 rho=0.7 R=1 unbounded: 1495s
+locality n=20 f=2 rho=0.7 R=3 none: 1540s
+locality n=20 f=2 rho=0.7 R=3 assert: 1585s
+locality n=20 f=2 rho=0.7 R=3 assert_x4: 1632s
+locality n=20 f=2 rho=0.7 R=3 edge: 1678s
+locality n=20 f=2 rho=0.7 R=3 unbounded: 1724s
+locality n=20 f=3 rho=0.4 R=1 none: 1732s
+locality n=20 f=3 rho=0.4 R=1 assert: 1742s
+locality n=20 f=3 rho=0.4 R=1 assert_x4: 1754s
+locality n=20 f=3 rho=0.4 R=1 edge: 1766s
+locality n=20 f=3 rho=0.4 R=1 unbounded: 1777s
+locality n=20 f=3 rho=0.4 R=3 none: 1804s
+locality n=20 f=3 rho=0.4 R=3 assert: 1834s
+locality n=20 f=3 rho=0.4 R=3 assert_x4: 1865s
+locality n=20 f=3 rho=0.4 R=3 edge: 1896s
+locality n=20 f=3 rho=0.4 R=3 unbounded: 1926s
+locality n=20 f=3 rho=0.7 R=1 none: 1943s
+locality n=20 f=3 rho=0.7 R=1 assert: 1963s
+locality n=20 f=3 rho=0.7 R=1 assert_x4: 1983s
+locality n=20 f=3 rho=0.7 R=1 edge: 2004s
+locality n=20 f=3 rho=0.7 R=1 unbounded: 2023s
+locality n=20 f=3 rho=0.7 R=3 none: 2070s
+locality n=20 f=3 rho=0.7 R=3 assert: 2120s
+locality n=20 f=3 rho=0.7 R=3 assert_x4: 2171s
+locality n=20 f=3 rho=0.7 R=3 edge: 2221s
+locality n=20 f=3 rho=0.7 R=3 unbounded: 2271s
+dense    f=1 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.25 worst_amnesia=0.25
+dense    f=1 rho=0.4 R=1 agg_mean        clean_recall=0.91 worst_installed=0.51 worst_amnesia=0.64
+dense    f=1 rho=0.4 R=1 agg_trmean      clean_recall=0.89 worst_installed=0.13 worst_amnesia=0.20
+dense    f=1 rho=0.4 R=1 agg_median      clean_recall=0.87 worst_installed=0.10 worst_amnesia=0.20
+dense    f=1 rho=0.4 R=1 agg_krum        clean_recall=0.14 worst_installed=0.00 worst_amnesia=0.71
+dense    f=1 rho=0.4 R=1 agg_geomed      clean_recall=0.89 worst_installed=0.12 worst_amnesia=0.19
+dense    f=1 rho=0.4 R=1 robustrag       clean_recall=0.61 worst_installed=0.02 worst_amnesia=0.40
+dense    f=1 rho=0.4 R=1 smsr            clean_recall=0.87 worst_installed=0.08 worst_amnesia=0.20
+dense    f=1 rho=0.4 R=1 tma_corr        clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.58
+dense    f=1 rho=0.4 R=1 tab_nocorr      clean_recall=0.83 worst_installed=0.06 worst_amnesia=0.20
+dense    f=1 rho=0.4 R=1 tabayyun        clean_recall=0.82 worst_installed=0.01 worst_amnesia=0.15 H7_pred=0.78 violations=0 action_violations=0 certified_frac_clean=0.41 certified_correct_clean=0.40 certified_frac_attacked=0.33
+dense    f=1 rho=0.4 R=1 tabayyun_strict clean_recall=0.79 worst_installed=0.00 worst_amnesia=0.21 H7_pred=0.78 violations=0 action_violations=0 certified_frac_clean=0.68 certified_correct_clean=0.68 certified_frac_attacked=0.67
+dense    f=1 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.19 worst_amnesia=0.19
+dense    f=1 rho=0.4 R=3 agg_mean        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.53
+dense    f=1 rho=0.4 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.01
+dense    f=1 rho=0.4 R=3 agg_median      clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.4 R=3 agg_krum        clean_recall=0.90 worst_installed=0.01 worst_amnesia=0.12
+dense    f=1 rho=0.4 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.4 R=3 robustrag       clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.4 R=3 smsr            clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.03
+dense    f=1 rho=0.4 R=3 tma_corr        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.52
+dense    f=1 rho=0.4 R=3 tab_nocorr      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.4 R=3 tabayyun        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.01 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.95 certified_correct_clean=0.95 certified_frac_attacked=0.94
+dense    f=1 rho=0.4 R=3 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.96 certified_correct_clean=0.96 certified_frac_attacked=0.95
+dense    f=1 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.17 worst_amnesia=0.17
+dense    f=1 rho=0.7 R=1 agg_mean        clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.55
+dense    f=1 rho=0.7 R=1 agg_trmean      clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.04
+dense    f=1 rho=0.7 R=1 agg_median      clean_recall=0.98 worst_installed=0.01 worst_amnesia=0.04
+dense    f=1 rho=0.7 R=1 agg_krum        clean_recall=0.83 worst_installed=0.00 worst_amnesia=0.23
+dense    f=1 rho=0.7 R=1 agg_geomed      clean_recall=0.99 worst_installed=0.00 worst_amnesia=0.03
+dense    f=1 rho=0.7 R=1 robustrag       clean_recall=0.96 worst_installed=0.00 worst_amnesia=0.07
+dense    f=1 rho=0.7 R=1 smsr            clean_recall=0.99 worst_installed=0.01 worst_amnesia=0.04
+dense    f=1 rho=0.7 R=1 tma_corr        clean_recall=0.99 worst_installed=0.50 worst_amnesia=0.53
+dense    f=1 rho=0.7 R=1 tab_nocorr      clean_recall=0.98 worst_installed=0.00 worst_amnesia=0.04
+dense    f=1 rho=0.7 R=1 tabayyun        clean_recall=0.99 worst_installed=0.00 worst_amnesia=0.01 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.92 certified_correct_clean=0.92 certified_frac_attacked=0.89
+dense    f=1 rho=0.7 R=1 tabayyun_strict clean_recall=0.99 worst_installed=0.00 worst_amnesia=0.01 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.94 certified_correct_clean=0.94 certified_frac_attacked=0.92
+dense    f=1 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.14 worst_amnesia=0.14
+dense    f=1 rho=0.7 R=3 agg_mean        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.51
+dense    f=1 rho=0.7 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 agg_median      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 agg_krum        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 robustrag       clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 smsr            clean_recall=1.00 worst_installed=0.01 worst_amnesia=0.02
+dense    f=1 rho=0.7 R=3 tma_corr        clean_recall=1.00 worst_installed=0.49 worst_amnesia=0.49
+dense    f=1 rho=0.7 R=3 tab_nocorr      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.99 certified_correct_clean=0.99 certified_frac_attacked=0.99
+dense    f=1 rho=0.7 R=3 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.99 certified_correct_clean=0.99 certified_frac_attacked=0.99
+dense    f=2 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.44 worst_amnesia=0.44
+dense    f=2 rho=0.4 R=1 agg_mean        clean_recall=0.90 worst_installed=0.51 worst_amnesia=0.80
+dense    f=2 rho=0.4 R=1 agg_trmean      clean_recall=0.85 worst_installed=0.34 worst_amnesia=0.41
+dense    f=2 rho=0.4 R=1 agg_median      clean_recall=0.84 worst_installed=0.31 worst_amnesia=0.39
+dense    f=2 rho=0.4 R=1 agg_krum        clean_recall=0.02 worst_installed=0.03 worst_amnesia=0.76
+dense    f=2 rho=0.4 R=1 agg_geomed      clean_recall=0.86 worst_installed=0.34 worst_amnesia=0.41
+dense    f=2 rho=0.4 R=1 robustrag       clean_recall=0.54 worst_installed=0.12 worst_amnesia=0.44
+dense    f=2 rho=0.4 R=1 smsr            clean_recall=0.84 worst_installed=0.39 worst_amnesia=0.68
+dense    f=2 rho=0.4 R=1 tma_corr        clean_recall=0.71 worst_installed=0.51 worst_amnesia=0.78
+dense    f=2 rho=0.4 R=1 tab_nocorr      clean_recall=0.67 worst_installed=0.18 worst_amnesia=0.39
+dense    f=2 rho=0.4 R=1 tabayyun        clean_recall=0.42 worst_installed=0.07 worst_amnesia=0.46 H7_pred=0.18 violations=0 action_violations=0 certified_frac_clean=0.15 certified_correct_clean=0.15 certified_frac_attacked=0.10
+dense    f=2 rho=0.4 R=1 tabayyun_strict clean_recall=0.21 worst_installed=0.04 worst_amnesia=0.76 H7_pred=0.18 violations=0 action_violations=0 certified_frac_clean=0.34 certified_correct_clean=0.17 certified_frac_attacked=0.24
+dense    f=2 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.25 worst_amnesia=0.25
+dense    f=2 rho=0.4 R=3 agg_mean        clean_recall=0.99 worst_installed=0.51 worst_amnesia=0.65
+dense    f=2 rho=0.4 R=3 agg_trmean      clean_recall=0.99 worst_installed=0.05 worst_amnesia=0.06
+dense    f=2 rho=0.4 R=3 agg_median      clean_recall=0.99 worst_installed=0.03 worst_amnesia=0.03
+dense    f=2 rho=0.4 R=3 agg_krum        clean_recall=0.89 worst_installed=0.00 worst_amnesia=0.12
+dense    f=2 rho=0.4 R=3 agg_geomed      clean_recall=0.99 worst_installed=0.03 worst_amnesia=0.03
+dense    f=2 rho=0.4 R=3 robustrag       clean_recall=0.97 worst_installed=0.01 worst_amnesia=0.01
+dense    f=2 rho=0.4 R=3 smsr            clean_recall=0.99 worst_installed=0.33 worst_amnesia=0.47
+dense    f=2 rho=0.4 R=3 tma_corr        clean_recall=0.95 worst_installed=0.50 worst_amnesia=0.58
+dense    f=2 rho=0.4 R=3 tab_nocorr      clean_recall=0.97 worst_installed=0.01 worst_amnesia=0.01
+dense    f=2 rho=0.4 R=3 tabayyun        clean_recall=0.92 worst_installed=0.00 worst_amnesia=0.06 H7_pred=0.93 violations=0 action_violations=0 certified_frac_clean=0.58 certified_correct_clean=0.58 certified_frac_attacked=0.51
+dense    f=2 rho=0.4 R=3 tabayyun_strict clean_recall=0.92 worst_installed=0.00 worst_amnesia=0.06 H7_pred=0.93 violations=0 action_violations=0 certified_frac_clean=0.59 certified_correct_clean=0.59 certified_frac_attacked=0.56
+dense    f=2 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.37 worst_amnesia=0.37
+dense    f=2 rho=0.7 R=1 agg_mean        clean_recall=0.98 worst_installed=0.50 worst_amnesia=0.67
+dense    f=2 rho=0.7 R=1 agg_trmean      clean_recall=0.98 worst_installed=0.09 worst_amnesia=0.10
+dense    f=2 rho=0.7 R=1 agg_median      clean_recall=0.97 worst_installed=0.07 worst_amnesia=0.09
+dense    f=2 rho=0.7 R=1 agg_krum        clean_recall=0.79 worst_installed=0.00 worst_amnesia=0.17
+dense    f=2 rho=0.7 R=1 agg_geomed      clean_recall=0.98 worst_installed=0.07 worst_amnesia=0.10
+dense    f=2 rho=0.7 R=1 robustrag       clean_recall=0.93 worst_installed=0.03 worst_amnesia=0.08
+dense    f=2 rho=0.7 R=1 smsr            clean_recall=0.97 worst_installed=0.34 worst_amnesia=0.53
+dense    f=2 rho=0.7 R=1 tma_corr        clean_recall=0.93 worst_installed=0.50 worst_amnesia=0.62
+dense    f=2 rho=0.7 R=1 tab_nocorr      clean_recall=0.95 worst_installed=0.03 worst_amnesia=0.07
+dense    f=2 rho=0.7 R=1 tabayyun        clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.17 H7_pred=0.81 violations=0 action_violations=0 certified_frac_clean=0.48 certified_correct_clean=0.48 certified_frac_attacked=0.38
+dense    f=2 rho=0.7 R=1 tabayyun_strict clean_recall=0.83 worst_installed=0.01 worst_amnesia=0.20 H7_pred=0.81 violations=0 action_violations=0 certified_frac_clean=0.51 certified_correct_clean=0.51 certified_frac_attacked=0.48
+dense    f=2 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.29 worst_amnesia=0.29
+dense    f=2 rho=0.7 R=3 agg_mean        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.59
+dense    f=2 rho=0.7 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 agg_median      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 agg_krum        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 robustrag       clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 smsr            clean_recall=1.00 worst_installed=0.33 worst_amnesia=0.47
+dense    f=2 rho=0.7 R=3 tma_corr        clean_recall=1.00 worst_installed=0.50 worst_amnesia=0.56
+dense    f=2 rho=0.7 R=3 tab_nocorr      clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00
+dense    f=2 rho=0.7 R=3 tabayyun        clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.90 certified_correct_clean=0.90 certified_frac_attacked=0.88
+dense    f=2 rho=0.7 R=3 tabayyun_strict clean_recall=1.00 worst_installed=0.00 worst_amnesia=0.00 H7_pred=1.00 violations=0 action_violations=0 certified_frac_clean=0.90 certified_correct_clean=0.90 certified_frac_attacked=0.88
+locality f=2 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.47 worst_amnesia=0.47
+locality f=2 rho=0.4 R=1 agg_mean        clean_recall=0.68 worst_installed=0.51 worst_amnesia=0.83
+locality f=2 rho=0.4 R=1 agg_trmean      clean_recall=0.56 worst_installed=0.34 worst_amnesia=0.57
+locality f=2 rho=0.4 R=1 agg_median      clean_recall=0.31 worst_installed=0.20 worst_amnesia=0.68
+locality f=2 rho=0.4 R=1 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.94
+locality f=2 rho=0.4 R=1 agg_geomed      clean_recall=0.43 worst_installed=0.25 worst_amnesia=0.49
+locality f=2 rho=0.4 R=1 robustrag       clean_recall=0.06 worst_installed=0.04 worst_amnesia=0.86
+locality f=2 rho=0.4 R=1 smsr            clean_recall=0.64 worst_installed=0.39 worst_amnesia=0.69
+locality f=2 rho=0.4 R=1 tma_corr        clean_recall=0.58 worst_installed=0.51 worst_amnesia=0.83
+locality f=2 rho=0.4 R=1 tab_nocorr      clean_recall=0.37 worst_installed=0.09 worst_amnesia=0.62
+locality f=2 rho=0.4 R=1 tabayyun        clean_recall=0.55 worst_installed=0.07 worst_amnesia=0.58 H7_pred=0.12 violations=0 action_violations=0 certified_frac_clean=0.03 certified_correct_clean=0.03 certified_frac_attacked=0.03
+locality f=2 rho=0.4 R=1 tabayyun_strict clean_recall=0.16 worst_installed=0.03 worst_amnesia=0.82 H7_pred=0.12 violations=0 action_violations=0 certified_frac_clean=0.50 certified_correct_clean=0.14 certified_frac_attacked=0.32
+locality f=2 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.30 worst_amnesia=0.30
+locality f=2 rho=0.4 R=3 agg_mean        clean_recall=0.94 worst_installed=0.51 worst_amnesia=0.68
+locality f=2 rho=0.4 R=3 agg_trmean      clean_recall=0.92 worst_installed=0.14 worst_amnesia=0.16
+locality f=2 rho=0.4 R=3 agg_median      clean_recall=0.88 worst_installed=0.09 worst_amnesia=0.15
+locality f=2 rho=0.4 R=3 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.85
+locality f=2 rho=0.4 R=3 agg_geomed      clean_recall=0.91 worst_installed=0.10 worst_amnesia=0.12
+locality f=2 rho=0.4 R=3 robustrag       clean_recall=0.47 worst_installed=0.04 worst_amnesia=0.46
+locality f=2 rho=0.4 R=3 smsr            clean_recall=0.93 worst_installed=0.34 worst_amnesia=0.53
+locality f=2 rho=0.4 R=3 tma_corr        clean_recall=0.93 worst_installed=0.50 worst_amnesia=0.63
+locality f=2 rho=0.4 R=3 tab_nocorr      clean_recall=0.84 worst_installed=0.04 worst_amnesia=0.12
+locality f=2 rho=0.4 R=3 tabayyun        clean_recall=0.84 worst_installed=0.01 worst_amnesia=0.12 H7_pred=0.73 violations=0 action_violations=0 certified_frac_clean=0.11 certified_correct_clean=0.11 certified_frac_attacked=0.08
+locality f=2 rho=0.4 R=3 tabayyun_strict clean_recall=0.73 worst_installed=0.00 worst_amnesia=0.24 H7_pred=0.73 violations=0 action_violations=0 certified_frac_clean=0.62 certified_correct_clean=0.62 certified_frac_attacked=0.59
+locality f=2 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.33 worst_amnesia=0.33
+locality f=2 rho=0.7 R=1 agg_mean        clean_recall=0.91 worst_installed=0.51 worst_amnesia=0.70
+locality f=2 rho=0.7 R=1 agg_trmean      clean_recall=0.87 worst_installed=0.17 worst_amnesia=0.23
+locality f=2 rho=0.7 R=1 agg_median      clean_recall=0.81 worst_installed=0.12 worst_amnesia=0.23
+locality f=2 rho=0.7 R=1 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.88
+locality f=2 rho=0.7 R=1 agg_geomed      clean_recall=0.86 worst_installed=0.14 worst_amnesia=0.21
+locality f=2 rho=0.7 R=1 robustrag       clean_recall=0.36 worst_installed=0.04 worst_amnesia=0.59
+locality f=2 rho=0.7 R=1 smsr            clean_recall=0.89 worst_installed=0.35 worst_amnesia=0.56
+locality f=2 rho=0.7 R=1 tma_corr        clean_recall=0.91 worst_installed=0.50 worst_amnesia=0.65
+locality f=2 rho=0.7 R=1 tab_nocorr      clean_recall=0.77 worst_installed=0.06 worst_amnesia=0.20
+locality f=2 rho=0.7 R=1 tabayyun        clean_recall=0.82 worst_installed=0.01 worst_amnesia=0.14 H7_pred=0.59 violations=0 action_violations=0 certified_frac_clean=0.07 certified_correct_clean=0.07 certified_frac_attacked=0.05
+locality f=2 rho=0.7 R=1 tabayyun_strict clean_recall=0.60 worst_installed=0.01 worst_amnesia=0.38 H7_pred=0.59 violations=0 action_violations=0 certified_frac_clean=0.54 certified_correct_clean=0.53 certified_frac_attacked=0.51
+locality f=2 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.29 worst_amnesia=0.29
+locality f=2 rho=0.7 R=3 agg_mean        clean_recall=0.99 worst_installed=0.51 worst_amnesia=0.61
+locality f=2 rho=0.7 R=3 agg_trmean      clean_recall=0.98 worst_installed=0.04 worst_amnesia=0.06
+locality f=2 rho=0.7 R=3 agg_median      clean_recall=0.98 worst_installed=0.03 worst_amnesia=0.04
+locality f=2 rho=0.7 R=3 agg_krum        clean_recall=0.01 worst_installed=0.02 worst_amnesia=0.82
+locality f=2 rho=0.7 R=3 agg_geomed      clean_recall=0.98 worst_installed=0.03 worst_amnesia=0.04
+locality f=2 rho=0.7 R=3 robustrag       clean_recall=0.72 worst_installed=0.01 worst_amnesia=0.22
+locality f=2 rho=0.7 R=3 smsr            clean_recall=0.98 worst_installed=0.34 worst_amnesia=0.48
+locality f=2 rho=0.7 R=3 tma_corr        clean_recall=0.98 worst_installed=0.50 worst_amnesia=0.56
+locality f=2 rho=0.7 R=3 tab_nocorr      clean_recall=0.95 worst_installed=0.01 worst_amnesia=0.04
+locality f=2 rho=0.7 R=3 tabayyun        clean_recall=0.96 worst_installed=0.00 worst_amnesia=0.04 H7_pred=0.97 violations=0 action_violations=0 certified_frac_clean=0.24 certified_correct_clean=0.24 certified_frac_attacked=0.15
+locality f=2 rho=0.7 R=3 tabayyun_strict clean_recall=0.97 worst_installed=0.00 worst_amnesia=0.03 H7_pred=0.97 violations=0 action_violations=0 certified_frac_clean=0.72 certified_correct_clean=0.72 certified_frac_attacked=0.69
+locality f=3 rho=0.4 R=1 titans          clean_recall=1.00 worst_installed=0.56 worst_amnesia=0.56
+locality f=3 rho=0.4 R=1 agg_mean        clean_recall=0.73 worst_installed=0.56 worst_amnesia=0.90
+locality f=3 rho=0.4 R=1 agg_trmean      clean_recall=0.55 worst_installed=0.47 worst_amnesia=0.78
+locality f=3 rho=0.4 R=1 agg_median      clean_recall=0.32 worst_installed=0.38 worst_amnesia=0.72
+locality f=3 rho=0.4 R=1 agg_krum        clean_recall=0.01 worst_installed=0.00 worst_amnesia=0.96
+locality f=3 rho=0.4 R=1 agg_geomed      clean_recall=0.44 worst_installed=0.44 worst_amnesia=0.64
+locality f=3 rho=0.4 R=1 robustrag       clean_recall=0.07 worst_installed=0.12 worst_amnesia=0.90
+locality f=3 rho=0.4 R=1 smsr            clean_recall=0.70 worst_installed=0.56 worst_amnesia=0.88
+locality f=3 rho=0.4 R=1 tma_corr        clean_recall=0.36 worst_installed=0.51 worst_amnesia=0.92
+locality f=3 rho=0.4 R=1 tab_nocorr      clean_recall=0.25 worst_installed=0.18 worst_amnesia=0.75
+locality f=3 rho=0.4 R=1 tabayyun        clean_recall=0.34 worst_installed=0.22 worst_amnesia=0.76 H7_pred=0.01 violations=0 action_violations=0 certified_frac_clean=0.01 certified_correct_clean=0.00 certified_frac_attacked=0.01
+locality f=3 rho=0.4 R=1 tabayyun_strict clean_recall=0.04 worst_installed=0.07 worst_amnesia=0.92 H7_pred=0.01 violations=0 action_violations=0 certified_frac_clean=0.78 certified_correct_clean=0.03 certified_frac_attacked=0.25
+locality f=3 rho=0.4 R=3 titans          clean_recall=1.00 worst_installed=0.46 worst_amnesia=0.46
+locality f=3 rho=0.4 R=3 agg_mean        clean_recall=0.97 worst_installed=0.51 worst_amnesia=0.75
+locality f=3 rho=0.4 R=3 agg_trmean      clean_recall=0.96 worst_installed=0.33 worst_amnesia=0.34
+locality f=3 rho=0.4 R=3 agg_median      clean_recall=0.94 worst_installed=0.21 worst_amnesia=0.23
+locality f=3 rho=0.4 R=3 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.87
+locality f=3 rho=0.4 R=3 agg_geomed      clean_recall=0.96 worst_installed=0.29 worst_amnesia=0.30
+locality f=3 rho=0.4 R=3 robustrag       clean_recall=0.53 worst_installed=0.09 worst_amnesia=0.42
+locality f=3 rho=0.4 R=3 smsr            clean_recall=0.96 worst_installed=0.49 worst_amnesia=0.73
+locality f=3 rho=0.4 R=3 tma_corr        clean_recall=0.92 worst_installed=0.51 worst_amnesia=0.67
+locality f=3 rho=0.4 R=3 tab_nocorr      clean_recall=0.86 worst_installed=0.12 worst_amnesia=0.18
+locality f=3 rho=0.4 R=3 tabayyun        clean_recall=0.82 worst_installed=0.03 worst_amnesia=0.22 H7_pred=0.32 violations=0 action_violations=0 certified_frac_clean=0.00 certified_correct_clean=0.00 certified_frac_attacked=0.01
+locality f=3 rho=0.4 R=3 tabayyun_strict clean_recall=0.36 worst_installed=0.01 worst_amnesia=0.63 H7_pred=0.32 violations=0 action_violations=0 certified_frac_clean=0.35 certified_correct_clean=0.30 certified_frac_attacked=0.32
+locality f=3 rho=0.7 R=1 titans          clean_recall=1.00 worst_installed=0.45 worst_amnesia=0.45
+locality f=3 rho=0.7 R=1 agg_mean        clean_recall=0.95 worst_installed=0.51 worst_amnesia=0.80
+locality f=3 rho=0.7 R=1 agg_trmean      clean_recall=0.91 worst_installed=0.39 worst_amnesia=0.41
+locality f=3 rho=0.7 R=1 agg_median      clean_recall=0.86 worst_installed=0.30 worst_amnesia=0.35
+locality f=3 rho=0.7 R=1 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.94
+locality f=3 rho=0.7 R=1 agg_geomed      clean_recall=0.90 worst_installed=0.34 worst_amnesia=0.38
+locality f=3 rho=0.7 R=1 robustrag       clean_recall=0.39 worst_installed=0.10 worst_amnesia=0.61
+locality f=3 rho=0.7 R=1 smsr            clean_recall=0.93 worst_installed=0.49 worst_amnesia=0.78
+locality f=3 rho=0.7 R=1 tma_corr        clean_recall=0.88 worst_installed=0.51 worst_amnesia=0.73
+locality f=3 rho=0.7 R=1 tab_nocorr      clean_recall=0.76 worst_installed=0.18 worst_amnesia=0.30
+locality f=3 rho=0.7 R=1 tabayyun        clean_recall=0.81 worst_installed=0.03 worst_amnesia=0.27 H7_pred=0.17 violations=0 action_violations=0 certified_frac_clean=0.00 certified_correct_clean=0.00 certified_frac_attacked=0.01
+locality f=3 rho=0.7 R=1 tabayyun_strict clean_recall=0.24 worst_installed=0.03 worst_amnesia=0.77 H7_pred=0.17 violations=0 action_violations=0 certified_frac_clean=0.30 certified_correct_clean=0.18 certified_frac_attacked=0.25
+locality f=3 rho=0.7 R=3 titans          clean_recall=1.00 worst_installed=0.35 worst_amnesia=0.35
+locality f=3 rho=0.7 R=3 agg_mean        clean_recall=1.00 worst_installed=0.51 worst_amnesia=0.70
+locality f=3 rho=0.7 R=3 agg_trmean      clean_recall=1.00 worst_installed=0.21 worst_amnesia=0.21
+locality f=3 rho=0.7 R=3 agg_median      clean_recall=1.00 worst_installed=0.14 worst_amnesia=0.14
+locality f=3 rho=0.7 R=3 agg_krum        clean_recall=0.01 worst_installed=0.01 worst_amnesia=0.82
+locality f=3 rho=0.7 R=3 agg_geomed      clean_recall=1.00 worst_installed=0.17 worst_amnesia=0.17
+locality f=3 rho=0.7 R=3 robustrag       clean_recall=0.85 worst_installed=0.02 worst_amnesia=0.09
+locality f=3 rho=0.7 R=3 smsr            clean_recall=1.00 worst_installed=0.48 worst_amnesia=0.68
+locality f=3 rho=0.7 R=3 tma_corr        clean_recall=0.95 worst_installed=0.51 worst_amnesia=0.62
+locality f=3 rho=0.7 R=3 tab_nocorr      clean_recall=0.99 worst_installed=0.04 worst_amnesia=0.04
+locality f=3 rho=0.7 R=3 tabayyun        clean_recall=0.91 worst_installed=0.01 worst_amnesia=0.10 H7_pred=0.90 violations=0 action_violations=0 certified_frac_clean=0.02 certified_correct_clean=0.02 certified_frac_attacked=0.04
+locality f=3 rho=0.7 R=3 tabayyun_strict clean_recall=0.89 worst_installed=0.01 worst_amnesia=0.12 H7_pred=0.90 violations=0 action_violations=0 certified_frac_clean=0.45 certified_correct_clean=0.45 certified_frac_attacked=0.40
+SUMMARY {"rows": 96000, "cert_violations": 0, "action_cert_violations": 0, "seconds": 2272.0}
+--- exit 0 in 2275.3s
+
+=== python.exe scripts/analyze_e04.py results/e04/e04_d256_confirm.json
+dense    f=1 rho=0.4 R=1 tabayyun        rec=0.82 inst=0.01 amn=0.15 cert=0.40 | P1 -0.12[-0.16,-0.09] P | C1 P | C3 -0.07[-0.11,-0.04] vs smsr F | H7 0.82 vs 0.78 P
+dense    f=1 rho=0.4 R=1 tabayyun_strict rec=0.79 inst=0.00 amn=0.21 cert=0.68 | P1 -0.12[-0.16,-0.10] P | C1 P | C3 -0.08[-0.12,-0.05] vs smsr F | H7 0.79 vs 0.78 P
+dense    f=1 rho=0.4 R=3 tabayyun        rec=1.00 inst=0.00 amn=0.01 cert=0.95 | P1 -0.10[-0.13,-0.07] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.4 R=3 tabayyun_strict rec=1.00 inst=0.00 amn=0.00 cert=0.96 | P1 -0.10[-0.13,-0.07] P | C1 P | C3 -0.01[-0.01,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.7 R=1 tabayyun        rec=0.99 inst=0.00 amn=0.01 cert=0.92 | P1 -0.09[-0.12,-0.06] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_geomed F | H7 0.99 vs 1.00 P
+dense    f=1 rho=0.7 R=1 tabayyun_strict rec=0.99 inst=0.00 amn=0.01 cert=0.94 | P1 -0.09[-0.12,-0.06] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_geomed F | H7 0.99 vs 1.00 P
+dense    f=1 rho=0.7 R=3 tabayyun        rec=1.00 inst=0.00 amn=0.00 cert=0.99 | P1 -0.07[-0.10,-0.04] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=1 rho=0.7 R=3 tabayyun_strict rec=1.00 inst=0.00 amn=0.00 cert=0.99 | P1 -0.07[-0.10,-0.04] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=2 rho=0.4 R=1 tabayyun        rec=0.42 inst=0.07 amn=0.46 cert=0.15 | P1 -0.15[-0.21,-0.12] P | C1 P | C3 -0.06[-0.10,-0.02] vs robustrag F | H7 0.42 vs 0.18 F
+dense    f=2 rho=0.4 R=1 tabayyun_strict rec=0.21 inst=0.04 amn=0.76 cert=0.17 | P1 -0.18[-0.24,-0.15] P | C1 P | C3 -0.09[-0.14,-0.05] vs robustrag F | H7 0.21 vs 0.18 P
+dense    f=2 rho=0.4 R=3 tabayyun        rec=0.92 inst=0.00 amn=0.06 cert=0.58 | P1 -0.12[-0.17,-0.10] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_krum F | H7 0.92 vs 0.93 P
+dense    f=2 rho=0.4 R=3 tabayyun_strict rec=0.92 inst=0.00 amn=0.06 cert=0.59 | P1 -0.12[-0.17,-0.10] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_krum F | H7 0.92 vs 0.93 P
+dense    f=2 rho=0.7 R=1 tabayyun        rec=0.83 inst=0.01 amn=0.17 cert=0.48 | P1 -0.17[-0.22,-0.14] P | C1 P | C3 +0.01[+0.00,+0.03] vs agg_krum F | H7 0.83 vs 0.81 P
+dense    f=2 rho=0.7 R=1 tabayyun_strict rec=0.83 inst=0.01 amn=0.20 cert=0.51 | P1 -0.17[-0.22,-0.14] P | C1 P | C3 +0.01[+0.00,+0.03] vs agg_krum F | H7 0.83 vs 0.81 P
+dense    f=2 rho=0.7 R=3 tabayyun        rec=1.00 inst=0.00 amn=0.00 cert=0.90 | P1 -0.14[-0.19,-0.12] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+dense    f=2 rho=0.7 R=3 tabayyun_strict rec=1.00 inst=0.00 amn=0.00 cert=0.90 | P1 -0.14[-0.19,-0.12] P | C1 P | C3 +0.00[+0.00,+0.00] vs agg_trmean F | H7 1.00 vs 1.00 P
+locality f=2 rho=0.4 R=1 tabayyun        rec=0.55 inst=0.07 amn=0.58 cert=0.03 | P1 -0.17[-0.22,-0.13] P | C1 P | C2 +0.49[+0.46,+0.52] vs robustrag P | C3 -0.27[-0.33,-0.22] vs agg_trmean F | H7 0.55 vs 0.12 F
+locality f=2 rho=0.4 R=1 tabayyun_strict rec=0.16 inst=0.03 amn=0.82 cert=0.14 | P1 -0.21[-0.25,-0.17] P | C1 P | C2 +0.10[+0.07,+0.12] vs robustrag F | C3 -0.17[-0.21,-0.11] vs agg_median F | H7 0.16 vs 0.12 P
+locality f=2 rho=0.4 R=3 tabayyun        rec=0.84 inst=0.01 amn=0.12 cert=0.11 | P1 -0.15[-0.19,-0.12] P | C1 P | C2 -0.07[-0.09,-0.06] vs agg_geomed F | C3 -0.08[-0.12,-0.05] vs agg_median F | H7 0.84 vs 0.73 F
+locality f=2 rho=0.4 R=3 tabayyun_strict rec=0.73 inst=0.00 amn=0.24 cert=0.62 | P1 -0.15[-0.19,-0.13] P | C1 P | C2 -0.18[-0.20,-0.16] vs agg_geomed F | C3 -0.09[-0.13,-0.06] vs agg_median F | H7 0.73 vs 0.73 P
+locality f=2 rho=0.7 R=1 tabayyun        rec=0.82 inst=0.01 amn=0.14 cert=0.07 | P1 -0.15[-0.20,-0.12] P | C1 P | C2 +0.46[+0.43,+0.48] vs robustrag P | C3 -0.11[-0.15,-0.07] vs agg_median F | H7 0.82 vs 0.59 F
+locality f=2 rho=0.7 R=1 tabayyun_strict rec=0.60 inst=0.01 amn=0.38 cert=0.53 | P1 -0.16[-0.20,-0.13] P | C1 P | C2 +0.24[+0.22,+0.27] vs robustrag P | C3 -0.11[-0.15,-0.07] vs agg_median F | H7 0.60 vs 0.59 P
+locality f=2 rho=0.7 R=3 tabayyun        rec=0.96 inst=0.00 amn=0.04 cert=0.24 | P1 -0.15[-0.18,-0.12] P | C1 P | C2 -0.02[-0.03,-0.01] vs agg_trmean F | C3 -0.03[-0.05,-0.01] vs agg_median F | H7 0.96 vs 0.97 P
+locality f=2 rho=0.7 R=3 tabayyun_strict rec=0.97 inst=0.00 amn=0.03 cert=0.72 | P1 -0.15[-0.18,-0.12] P | C1 P | C2 -0.01[-0.02,-0.00] vs agg_trmean F | C3 -0.03[-0.05,-0.01] vs agg_median F | H7 0.97 vs 0.97 P
+locality f=3 rho=0.4 R=1 tabayyun        rec=0.34 inst=0.22 amn=0.76 cert=0.00 | P1 -0.06[-0.13,-0.01] P | C1 P | C2 +0.33[+0.30,+0.35] vs agg_krum P | C3 -0.15[-0.20,-0.11] vs agg_median F | H7 0.34 vs 0.01 F
+locality f=3 rho=0.4 R=1 tabayyun_strict rec=0.04 inst=0.07 amn=0.92 cert=0.03 | P1 -0.21[-0.26,-0.17] P | C1 P | C2 +0.03[+0.02,+0.04] vs agg_krum F | C3 +0.07[+0.04,+0.12] vs agg_krum F | H7 0.04 vs 0.01 P
+locality f=3 rho=0.4 R=3 tabayyun        rec=0.82 inst=0.03 amn=0.22 cert=0.00 | P1 -0.21[-0.25,-0.17] P | C1 P | C2 +0.29[+0.26,+0.32] vs robustrag P | C3 -0.19[-0.24,-0.14] vs agg_median F | H7 0.82 vs 0.32 F
+locality f=3 rho=0.4 R=3 tabayyun_strict rec=0.36 inst=0.01 amn=0.63 cert=0.30 | P1 -0.22[-0.26,-0.18] P | C1 P | C2 -0.17[-0.19,-0.14] vs robustrag F | C3 -0.08[-0.12,-0.04] vs robustrag F | H7 0.36 vs 0.32 P
+locality f=3 rho=0.7 R=1 tabayyun        rec=0.81 inst=0.03 amn=0.27 cert=0.00 | P1 -0.20[-0.24,-0.16] P | C1 P | C2 +0.80[+0.78,+0.82] vs agg_krum P | C3 -0.28[-0.32,-0.23] vs agg_median F | H7 0.81 vs 0.17 F
+locality f=3 rho=0.7 R=1 tabayyun_strict rec=0.24 inst=0.03 amn=0.77 cert=0.18 | P1 -0.20[-0.24,-0.16] P | C1 P | C2 +0.23[+0.21,+0.25] vs agg_krum P | C3 -0.07[-0.12,-0.04] vs robustrag F | H7 0.24 vs 0.17 P
+locality f=3 rho=0.7 R=3 tabayyun        rec=0.91 inst=0.01 amn=0.10 cert=0.02 | P1 -0.16[-0.20,-0.13] P | C1 P | C2 +0.06[+0.04,+0.07] vs robustrag F | C3 -0.12[-0.16,-0.08] vs agg_median F | H7 0.91 vs 0.90 P
+locality f=3 rho=0.7 R=3 tabayyun_strict rec=0.89 inst=0.01 amn=0.12 cert=0.45 | P1 -0.17[-0.21,-0.14] P | C1 P | C2 +0.04[+0.03,+0.06] vs robustrag F | C3 -0.01[-0.04,+0.00] vs robustrag F | H7 0.89 vs 0.90 P
+SUMMARY {"tabayyun:P1_pass": "16/16", "tabayyun:C1_pass": "16/16", "tabayyun:C3_pass": "0/16", "tabayyun:H7_pass": "9/16", "tabayyun:H3_violations": 0, "tabayyun_strict:P1_pass": "16/16", "tabayyun_strict:C1_pass": "16/16", "tabayyun_strict:C3_pass": "0/16", "tabayyun_strict:H7_pass": "16/16", "tabayyun_strict:H3_violations": 0, "tabayyun:C2_pass": "5/8", "tabayyun_strict:C2_pass": "2/8"}
+--- exit 0 in 7.6s
+
+# finished 2026-11-10 23:20:33; failed: none
