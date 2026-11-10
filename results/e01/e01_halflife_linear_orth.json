@@ -1,0 +1,802 @@
+{
+ "half_life": [
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.0,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 693.0,
+   "half_life_seeds": [
+    693,
+    693,
+    693,
+    693,
+    693
+   ],
+   "pred_lemma1": 693.0,
+   "pred_meanfield": 693.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.0,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 139.0,
+   "half_life_seeds": [
+    139,
+    139,
+    139,
+    139,
+    139
+   ],
+   "pred_lemma1": 139.0,
+   "pred_meanfield": 139.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.0,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 69.0,
+   "half_life_seeds": [
+    69,
+    69,
+    69,
+    69,
+    69
+   ],
+   "pred_lemma1": 69.0,
+   "pred_meanfield": 69.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.0,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 35.0,
+   "half_life_seeds": [
+    35,
+    35,
+    35,
+    35,
+    35
+   ],
+   "pred_lemma1": 35.0,
+   "pred_meanfield": 35.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.0,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 14.0,
+   "half_life_seeds": [
+    14,
+    14,
+    14,
+    14,
+    14
+   ],
+   "pred_lemma1": 14.0,
+   "pred_meanfield": 14.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.0,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 7.0,
+   "half_life_seeds": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "pred_lemma1": 7.0,
+   "pred_meanfield": 7.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.3,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 694.0,
+   "half_life_seeds": [
+    694,
+    694,
+    694,
+    694,
+    694
+   ],
+   "pred_lemma1": 694.0,
+   "pred_meanfield": 694.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.3,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 139.0,
+   "half_life_seeds": [
+    139,
+    139,
+    139,
+    139,
+    139
+   ],
+   "pred_lemma1": 139.0,
+   "pred_meanfield": 139.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.3,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 70.0,
+   "half_life_seeds": [
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "pred_lemma1": 70.0,
+   "pred_meanfield": 70.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.3,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 35.0,
+   "half_life_seeds": [
+    35,
+    35,
+    35,
+    35,
+    35
+   ],
+   "pred_lemma1": 35.0,
+   "pred_meanfield": 35.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.3,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 15.0,
+   "half_life_seeds": [
+    15,
+    15,
+    15,
+    15,
+    15
+   ],
+   "pred_lemma1": 15.0,
+   "pred_meanfield": 15.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.3,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 8.0,
+   "half_life_seeds": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "pred_lemma1": 8.0,
+   "pred_meanfield": 8.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.5,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 695.0,
+   "half_life_seeds": [
+    695,
+    695,
+    695,
+    695,
+    695
+   ],
+   "pred_lemma1": 695.0,
+   "pred_meanfield": 695.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.5,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 140.0,
+   "half_life_seeds": [
+    140,
+    140,
+    140,
+    140,
+    140
+   ],
+   "pred_lemma1": 140.0,
+   "pred_meanfield": 140.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.5,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 71.0,
+   "half_life_seeds": [
+    71,
+    71,
+    71,
+    71,
+    71
+   ],
+   "pred_lemma1": 71.0,
+   "pred_meanfield": 71.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.5,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 37.0,
+   "half_life_seeds": [
+    37,
+    37,
+    37,
+    37,
+    37
+   ],
+   "pred_lemma1": 37.0,
+   "pred_meanfield": 37.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.5,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 16.0,
+   "half_life_seeds": [
+    16,
+    16,
+    16,
+    16,
+    16
+   ],
+   "pred_lemma1": 16.0,
+   "pred_meanfield": 16.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.5,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 9.0,
+   "half_life_seeds": [
+    9,
+    9,
+    9,
+    9,
+    9
+   ],
+   "pred_lemma1": 9.0,
+   "pred_meanfield": 9.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.7,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 696.0,
+   "half_life_seeds": [
+    696,
+    696,
+    696,
+    696,
+    696
+   ],
+   "pred_lemma1": 696.0,
+   "pred_meanfield": 696.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.7,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 142.0,
+   "half_life_seeds": [
+    142,
+    142,
+    142,
+    142,
+    142
+   ],
+   "pred_lemma1": 142.0,
+   "pred_meanfield": 142.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.7,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 73.0,
+   "half_life_seeds": [
+    73,
+    73,
+    73,
+    73,
+    73
+   ],
+   "pred_lemma1": 73.0,
+   "pred_meanfield": 73.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.7,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 37.0,
+   "half_life_seeds": [
+    37,
+    37,
+    37,
+    37,
+    37
+   ],
+   "pred_lemma1": 37.0,
+   "pred_meanfield": 37.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.7,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 17.0,
+   "half_life_seeds": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ],
+   "pred_lemma1": 17.0,
+   "pred_meanfield": 17.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.7,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 10.0,
+   "half_life_seeds": [
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "pred_lemma1": 10.0,
+   "pred_meanfield": 10.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.8,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 698.0,
+   "half_life_seeds": [
+    698,
+    698,
+    698,
+    698,
+    698
+   ],
+   "pred_lemma1": 698.0,
+   "pred_meanfield": 698.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.8,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 144.0,
+   "half_life_seeds": [
+    144,
+    144,
+    144,
+    144,
+    144
+   ],
+   "pred_lemma1": 144.0,
+   "pred_meanfield": 144.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.8,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 74.0,
+   "half_life_seeds": [
+    74,
+    74,
+    74,
+    74,
+    74
+   ],
+   "pred_lemma1": 74.0,
+   "pred_meanfield": 74.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.8,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 39.0,
+   "half_life_seeds": [
+    39,
+    39,
+    39,
+    39,
+    39
+   ],
+   "pred_lemma1": 39.0,
+   "pred_meanfield": 39.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.8,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 18.0,
+   "half_life_seeds": [
+    18,
+    18,
+    18,
+    18,
+    18
+   ],
+   "pred_lemma1": 18.0,
+   "pred_meanfield": 18.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.8,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 12.0,
+   "half_life_seeds": [
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "pred_lemma1": 12.0,
+   "pred_meanfield": 12.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.9,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 702.0,
+   "half_life_seeds": [
+    702,
+    702,
+    702,
+    702,
+    702
+   ],
+   "pred_lemma1": 702.0,
+   "pred_meanfield": 702.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.9,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 149.0,
+   "half_life_seeds": [
+    149,
+    149,
+    149,
+    149,
+    149
+   ],
+   "pred_lemma1": 149.0,
+   "pred_meanfield": 149.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.9,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 79.0,
+   "half_life_seeds": [
+    79,
+    79,
+    79,
+    79,
+    79
+   ],
+   "pred_lemma1": 79.0,
+   "pred_meanfield": 79.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.9,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 46.0,
+   "half_life_seeds": [
+    46,
+    46,
+    46,
+    46,
+    46
+   ],
+   "pred_lemma1": 46.0,
+   "pred_meanfield": 46.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.9,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 25.0,
+   "half_life_seeds": [
+    25,
+    25,
+    25,
+    25,
+    25
+   ],
+   "pred_lemma1": 25.0,
+   "pred_meanfield": 25.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.9,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 17.0,
+   "half_life_seeds": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ],
+   "pred_lemma1": 17.0,
+   "pred_meanfield": 17.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.95,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 713.0,
+   "half_life_seeds": [
+    713,
+    713,
+    713,
+    713,
+    713
+   ],
+   "pred_lemma1": 713.0,
+   "pred_meanfield": 713.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.95,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 160.0,
+   "half_life_seeds": [
+    160,
+    160,
+    160,
+    160,
+    160
+   ],
+   "pred_lemma1": 160.0,
+   "pred_meanfield": 160.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.95,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 90.0,
+   "half_life_seeds": [
+    90,
+    90,
+    90,
+    90,
+    90
+   ],
+   "pred_lemma1": 90.0,
+   "pred_meanfield": 90.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.95,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 56.0,
+   "half_life_seeds": [
+    56,
+    56,
+    56,
+    56,
+    56
+   ],
+   "pred_lemma1": 56.0,
+   "pred_meanfield": 56.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.95,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 34.0,
+   "half_life_seeds": [
+    34,
+    34,
+    34,
+    34,
+    34
+   ],
+   "pred_lemma1": 34.0,
+   "pred_meanfield": 34.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "linear",
+   "stream": "orthogonal",
+   "eta": 0.95,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 25.0,
+   "half_life_seeds": [
+    25,
+    25,
+    25,
+    25,
+    25
+   ],
+   "pred_lemma1": 25.0,
+   "pred_meanfield": 25.0,
+   "pred_v1": 13.513407333964874
+  }
+ ]
+}

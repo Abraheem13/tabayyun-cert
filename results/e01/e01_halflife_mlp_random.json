@@ -1,0 +1,802 @@
+{
+ "half_life": [
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.0,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 265.0,
+   "half_life_seeds": [
+    259,
+    269,
+    255,
+    272,
+    270
+   ],
+   "pred_lemma1": 693.0,
+   "pred_meanfield": 271.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.0,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 65.4,
+   "half_life_seeds": [
+    64,
+    66,
+    66,
+    65,
+    66
+   ],
+   "pred_lemma1": 139.0,
+   "pred_meanfield": 106.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.0,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 33.8,
+   "half_life_seeds": [
+    33,
+    34,
+    34,
+    34,
+    34
+   ],
+   "pred_lemma1": 69.0,
+   "pred_meanfield": 60.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.0,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 17.0,
+   "half_life_seeds": [
+    17,
+    17,
+    17,
+    17,
+    17
+   ],
+   "pred_lemma1": 35.0,
+   "pred_meanfield": 32.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.0,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 7.0,
+   "half_life_seeds": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "pred_lemma1": 14.0,
+   "pred_meanfield": 14.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.0,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 4.0,
+   "half_life_seeds": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "pred_lemma1": 7.0,
+   "pred_meanfield": 7.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.3,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 240.0,
+   "half_life_seeds": [
+    230,
+    243,
+    230,
+    250,
+    247
+   ],
+   "pred_lemma1": 694.0,
+   "pred_meanfield": 215.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.3,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 65.0,
+   "half_life_seeds": [
+    63,
+    66,
+    65,
+    65,
+    66
+   ],
+   "pred_lemma1": 139.0,
+   "pred_meanfield": 97.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.3,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 34.8,
+   "half_life_seeds": [
+    34,
+    35,
+    35,
+    35,
+    35
+   ],
+   "pred_lemma1": 70.0,
+   "pred_meanfield": 57.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.3,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 18.0,
+   "half_life_seeds": [
+    18,
+    18,
+    18,
+    18,
+    18
+   ],
+   "pred_lemma1": 35.0,
+   "pred_meanfield": 33.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.3,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 8.0,
+   "half_life_seeds": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "pred_lemma1": 15.0,
+   "pred_meanfield": 14.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.3,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 4.0,
+   "half_life_seeds": [
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "pred_lemma1": 8.0,
+   "pred_meanfield": 8.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.5,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 211.0,
+   "half_life_seeds": [
+    201,
+    216,
+    201,
+    218,
+    219
+   ],
+   "pred_lemma1": 695.0,
+   "pred_meanfield": 170.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.5,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 64.0,
+   "half_life_seeds": [
+    62,
+    65,
+    65,
+    63,
+    65
+   ],
+   "pred_lemma1": 140.0,
+   "pred_meanfield": 86.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.5,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 34.8,
+   "half_life_seeds": [
+    34,
+    35,
+    35,
+    35,
+    35
+   ],
+   "pred_lemma1": 71.0,
+   "pred_meanfield": 54.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.5,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 19.0,
+   "half_life_seeds": [
+    19,
+    19,
+    19,
+    19,
+    19
+   ],
+   "pred_lemma1": 37.0,
+   "pred_meanfield": 32.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.5,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 9.0,
+   "half_life_seeds": [
+    9,
+    9,
+    9,
+    9,
+    9
+   ],
+   "pred_lemma1": 16.0,
+   "pred_meanfield": 15.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.5,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 5.0,
+   "half_life_seeds": [
+    5,
+    5,
+    5,
+    5,
+    5
+   ],
+   "pred_lemma1": 9.0,
+   "pred_meanfield": 9.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.7,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 164.6,
+   "half_life_seeds": [
+    153,
+    177,
+    161,
+    166,
+    166
+   ],
+   "pred_lemma1": 696.0,
+   "pred_meanfield": 113.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.7,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 61.2,
+   "half_life_seeds": [
+    58,
+    64,
+    62,
+    59,
+    63
+   ],
+   "pred_lemma1": 142.0,
+   "pred_meanfield": 70.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.7,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 35.4,
+   "half_life_seeds": [
+    34,
+    35,
+    36,
+    35,
+    37
+   ],
+   "pred_lemma1": 73.0,
+   "pred_meanfield": 48.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.7,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 19.6,
+   "half_life_seeds": [
+    19,
+    20,
+    19,
+    20,
+    20
+   ],
+   "pred_lemma1": 37.0,
+   "pred_meanfield": 30.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.7,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 9.2,
+   "half_life_seeds": [
+    10,
+    9,
+    9,
+    9,
+    9
+   ],
+   "pred_lemma1": 17.0,
+   "pred_meanfield": 16.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.7,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 6.0,
+   "half_life_seeds": [
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "pred_lemma1": 10.0,
+   "pred_meanfield": 10.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.8,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 128.8,
+   "half_life_seeds": [
+    122,
+    150,
+    120,
+    121,
+    131
+   ],
+   "pred_lemma1": 698.0,
+   "pred_meanfield": 81.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.8,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 58.0,
+   "half_life_seeds": [
+    53,
+    62,
+    61,
+    54,
+    60
+   ],
+   "pred_lemma1": 144.0,
+   "pred_meanfield": 57.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.8,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 35.8,
+   "half_life_seeds": [
+    34,
+    36,
+    36,
+    35,
+    38
+   ],
+   "pred_lemma1": 74.0,
+   "pred_meanfield": 43.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.8,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 21.0,
+   "half_life_seeds": [
+    20,
+    22,
+    21,
+    21,
+    21
+   ],
+   "pred_lemma1": 39.0,
+   "pred_meanfield": 29.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.8,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 11.0,
+   "half_life_seeds": [
+    11,
+    11,
+    11,
+    11,
+    11
+   ],
+   "pred_lemma1": 18.0,
+   "pred_meanfield": 17.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.8,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 7.0,
+   "half_life_seeds": [
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "pred_lemma1": 12.0,
+   "pred_meanfield": 11.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.9,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 79.2,
+   "half_life_seeds": [
+    76,
+    101,
+    77,
+    66,
+    76
+   ],
+   "pred_lemma1": 702.0,
+   "pred_meanfield": 47.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.9,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 51.2,
+   "half_life_seeds": [
+    47,
+    58,
+    53,
+    45,
+    53
+   ],
+   "pred_lemma1": 149.0,
+   "pred_meanfield": 41.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.9,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 37.2,
+   "half_life_seeds": [
+    33,
+    39,
+    39,
+    34,
+    41
+   ],
+   "pred_lemma1": 79.0,
+   "pred_meanfield": 34.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.9,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 24.8,
+   "half_life_seeds": [
+    24,
+    25,
+    25,
+    24,
+    26
+   ],
+   "pred_lemma1": 46.0,
+   "pred_meanfield": 28.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.9,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 13.8,
+   "half_life_seeds": [
+    14,
+    13,
+    14,
+    14,
+    14
+   ],
+   "pred_lemma1": 25.0,
+   "pred_meanfield": 20.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.9,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 8.0,
+   "half_life_seeds": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "pred_lemma1": 17.0,
+   "pred_meanfield": 15.0,
+   "pred_v1": 6.578813478960585
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.95,
+   "alpha": 0.001,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": Infinity,
+   "half_life_seeds": [
+    Infinity,
+    60,
+    45,
+    Infinity,
+    49
+   ],
+   "pred_lemma1": 713.0,
+   "pred_meanfield": 35.0,
+   "pred_v1": 692.8005491785002
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.95,
+   "alpha": 0.005,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 42.4,
+   "half_life_seeds": [
+    37,
+    53,
+    42,
+    36,
+    44
+   ],
+   "pred_lemma1": 160.0,
+   "pred_meanfield": 33.0,
+   "pred_v1": 138.28257298606084
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.95,
+   "alpha": 0.01,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 38.2,
+   "half_life_seeds": [
+    34,
+    44,
+    38,
+    35,
+    40
+   ],
+   "pred_lemma1": 90.0,
+   "pred_meanfield": 31.0,
+   "pred_v1": 68.96756393652842
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.95,
+   "alpha": 0.02,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 29.2,
+   "half_life_seeds": [
+    26,
+    29,
+    32,
+    27,
+    32
+   ],
+   "pred_lemma1": 56.0,
+   "pred_meanfield": 28.0,
+   "pred_v1": 34.309618491520645
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.95,
+   "alpha": 0.05,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 16.6,
+   "half_life_seeds": [
+    17,
+    16,
+    17,
+    16,
+    17
+   ],
+   "pred_lemma1": 34.0,
+   "pred_meanfield": 23.0,
+   "pred_v1": 13.513407333964874
+  },
+  {
+   "kind": "mlp",
+   "stream": "random",
+   "eta": 0.95,
+   "alpha": 0.1,
+   "theta": 0.05,
+   "n_diverged": 0,
+   "half_life_measured": 10.0,
+   "half_life_seeds": [
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "pred_lemma1": 25.0,
+   "pred_meanfield": 20.0,
+   "pred_v1": 13.513407333964874
+  }
+ ]
+}
