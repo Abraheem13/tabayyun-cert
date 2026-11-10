@@ -1,7 +1,7 @@
 # Roadmap: 30 days of experiments, then the paper
 
 **Working protocol (every day)**
-1. `git pull`, then run the day's command(s) on the RTX 5080 (`scripts/run_day.sh <day>`).
+1. `git pull`, then run the day's experiments on the RTX 5080: `python scripts/run_day.py <day>` (Windows and Linux).
 2. Commit `results/registry.jsonl` and `results/<exp>/*.json` and push. Never commit model checkpoints.
 3. Claude analyses the numbers, appends to `EXPERIMENT_LOG.md`, fixes or extends code, and pushes. Ablations go to `ABLATIONS.md`, design changes to `CHANGELOG.md`.
 4. A day counts as done only when the unit tests pass (`pytest -q`) and the log entry exists.

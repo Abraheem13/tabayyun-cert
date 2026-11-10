@@ -26,11 +26,17 @@ tests/           numerical checks of every theorem (a violated certificate = a b
 ```
 
 ## Quick start (RTX 5080)
-```bash
-bash scripts/setup_env.sh          # Linux/WSL2  (Windows: scripts\setup_env.ps1)
-bash scripts/run_day.sh 1 cuda     # environment check + smoke runs
+Windows PowerShell (from the repo root):
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\setup_env.ps1
+.\.venv\Scripts\python.exe scripts\run_day.py 1
 ```
-The RTX 5080 (Blackwell, sm_120) needs PyTorch ≥ 2.7 built with CUDA 12.8+ (`--index-url https://download.pytorch.org/whl/cu128`). `scripts/check_gpu.py` verifies this.
+Linux / WSL2:
+```bash
+bash scripts/setup_env.sh && source .venv/bin/activate && python scripts/run_day.py 1
+```
+`run_day.py` runs the tests and that day's experiments, and saves all output to `results/dayNN/console.txt`.
+The RTX 5080 (Blackwell, sm_120) needs PyTorch >= 2.7 built with CUDA 12.8+ (`--index-url https://download.pytorch.org/whl/cu128`); `scripts/check_gpu.py` verifies this and writes `results/env.txt`.
 
 ## Rules of the repo
 1. Every number in the paper comes from `results/registry.jsonl` (commit and config hash).
