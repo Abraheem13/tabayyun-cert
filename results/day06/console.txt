@@ -1,0 +1,636 @@
+# Day 6  device=cuda  started 2026-11-10 17:05:44
+
+=== python.exe -m pytest -q
+............................................................             [100%]
+60 passed in 4.98s
+--- exit 0 in 5.8s
+
+=== python.exe experiments/e02_synthetic_defence.py --seeds 10 --seed_offset 120 --n 10 --support all --tag dense_amend2 --defences titans,titans_clip,miras_yaad,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,agg_median_anc,agg_krum_anc,smsr,robustrag,tma_corr,tabayyun_anchored2
+8100 runs on 19 workers
+  200/8100  7s
+  400/8100  10s
+  600/8100  12s
+  800/8100  15s
+  1000/8100  18s
+  1200/8100  20s
+  1400/8100  21s
+  1600/8100  23s
+  1800/8100  24s
+  2000/8100  25s
+  2200/8100  26s
+  2400/8100  27s
+  2600/8100  29s
+  2800/8100  29s
+  3000/8100  30s
+  3200/8100  32s
+  3400/8100  33s
+  3600/8100  34s
+  3800/8100  35s
+  4000/8100  36s
+  4200/8100  37s
+  4400/8100  38s
+  4600/8100  39s
+  4800/8100  40s
+  5000/8100  48s
+  5200/8100  58s
+  5400/8100  72s
+  5600/8100  80s
+  5800/8100  88s
+  6000/8100  99s
+  6200/8100  99s
+  6400/8100  99s
+  6600/8100  99s
+  6800/8100  100s
+  7000/8100  101s
+  7200/8100  113s
+  7400/8100  121s
+  7600/8100  132s
+  7800/8100  143s
+  8000/8100  157s
+titans|f=0.1|rho=0.2 {"asr_mean": 0.9, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8434782445430755, "attacked_recall_l2": 0.586956514120102}
+titans|f=0.1|rho=0.4 {"asr_mean": 0.82, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8956521630287171, "attacked_recall_l2": 0.8608695578575134}
+titans|f=0.1|rho=0.7 {"asr_mean": 0.88, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.904347825050354, "attacked_recall_l2": 0.8939130401611328}
+titans|f=0.2|rho=0.2 {"asr_mean": 0.88, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8304347813129425, "attacked_recall_l2": 0.38347825706005095}
+titans|f=0.2|rho=0.4 {"asr_mean": 0.94, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.87826087474823, "attacked_recall_l2": 0.5469565188884735}
+titans|f=0.2|rho=0.7 {"asr_mean": 0.84, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9130434811115264, "attacked_recall_l2": 0.7173913025856018}
+titans|f=0.3|rho=0.2 {"asr_mean": 0.94, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.7826086938381195, "attacked_recall_l2": 0.24434782505035402}
+titans|f=0.3|rho=0.4 {"asr_mean": 0.92, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8782608687877655, "attacked_recall_l2": 0.49739129960536954}
+titans|f=0.3|rho=0.7 {"asr_mean": 0.86, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8913043558597564, "attacked_recall_l2": 0.6608695662021637}
+titans_clip|f=0.1|rho=0.2 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.97826087474823, "attacked_recall_l2": 0.8799999952316284}
+titans_clip|f=0.1|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.986956524848938, "attacked_recall_l2": 0.9730434846878052}
+titans_clip|f=0.1|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.9860869598388672}
+titans_clip|f=0.2|rho=0.2 {"asr_mean": 0.86, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.7826086997985839}
+titans_clip|f=0.2|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.982608699798584, "attacked_recall_l2": 0.9373913097381592}
+titans_clip|f=0.2|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.982608699798584}
+titans_clip|f=0.3|rho=0.2 {"asr_mean": 0.88, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.965217399597168, "attacked_recall_l2": 0.6034782528877258}
+titans_clip|f=0.3|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.8208695602416992}
+titans_clip|f=0.3|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.9478260898590087}
+miras_yaad|f=0.1|rho=0.2 {"asr_mean": 0.82, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.960869574546814, "attacked_recall_l2": 0.853043475151062}
+miras_yaad|f=0.1|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.982608699798584, "attacked_recall_l2": 0.9582608795166015}
+miras_yaad|f=0.1|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9852173948287963}
+miras_yaad|f=0.2|rho=0.2 {"asr_mean": 0.86, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.960869574546814, "attacked_recall_l2": 0.629565212726593}
+miras_yaad|f=0.2|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9739130437374115, "attacked_recall_l2": 0.8730434691905975}
+miras_yaad|f=0.2|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.9791304397583008}
+miras_yaad|f=0.3|rho=0.2 {"asr_mean": 0.92, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.965217399597168, "attacked_recall_l2": 0.4278260850906372}
+miras_yaad|f=0.3|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.7495652103424072}
+miras_yaad|f=0.3|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.9443478345870971}
+agg_mean|f=0.1|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.97826087474823, "attacked_recall_l2": 0.9808695697784424}
+agg_mean|f=0.1|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_mean|f=0.1|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_mean|f=0.2|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8826086938381195, "attacked_recall_l2": 0.896521737575531}
+agg_mean|f=0.2|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_mean|f=0.2|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_mean|f=0.3|rho=0.2 {"asr_mean": 0.44, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.6739130467176437, "attacked_recall_l2": 0.7165217411518097}
+agg_mean|f=0.3|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.991304349899292, "attacked_recall_l2": 0.9930434799194336}
+agg_mean|f=0.3|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_trmean|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.4, "clean_recall": 1.0, "clean_recall_l2": 0.986956524848938, "attacked_recall_l2": 0.9878260898590088}
+agg_trmean|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_trmean|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_trmean|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.943478262424469, "attacked_recall_l2": 0.9608695697784424}
+agg_trmean|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_trmean|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_trmean|f=0.3|rho=0.2 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.817391300201416, "attacked_recall_l2": 0.8730434763431549}
+agg_trmean|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.9, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_trmean|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.1, "clean_recall": 1.0, "clean_recall_l2": 0.986956524848938, "attacked_recall_l2": 0.9878260898590088}
+agg_median|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.6, "clean_recall": 1.0, "clean_recall_l2": 0.9565217435359955, "attacked_recall_l2": 0.9669565260410309}
+agg_median|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median|f=0.3|rho=0.2 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.804347813129425, "attacked_recall_l2": 0.8686956489086151}
+agg_median|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.7, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 0.995652174949646, "clean_recall_l2": 0.9695652246475219, "attacked_recall_l2": 0.9695652246475219}
+agg_krum|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.973913049697876}
+agg_krum|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum|f=0.3|rho=0.2 {"asr_mean": 0.06, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 0.1, "clean_recall": 0.986956524848938, "clean_recall_l2": 0.9434782683849334, "attacked_recall_l2": 0.940869574546814}
+agg_krum|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.1, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_geomed|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.3, "clean_recall": 1.0, "clean_recall_l2": 0.986956524848938, "attacked_recall_l2": 0.986956524848938}
+agg_geomed|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_geomed|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_geomed|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.9, "clean_recall": 1.0, "clean_recall_l2": 0.9565217435359955, "attacked_recall_l2": 0.9747826147079468}
+agg_geomed|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_geomed|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_geomed|f=0.3|rho=0.2 {"asr_mean": 0.1, "asr_worst": 0.3, "asr_l2_worst": 0.3, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8782608568668365, "attacked_recall_l2": 0.9321739077568054}
+agg_geomed|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_geomed|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_cclip|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.4, "clean_recall": 1.0, "clean_recall_l2": 0.986956524848938, "attacked_recall_l2": 0.986956524848938}
+agg_cclip|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_cclip|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_cclip|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.947826087474823, "attacked_recall_l2": 0.9652173960208893}
+agg_cclip|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_cclip|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_cclip|f=0.3|rho=0.2 {"asr_mean": 0.36, "asr_worst": 0.8, "asr_l2_worst": 0.8, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.6999999970197678, "attacked_recall_l2": 0.840869563817978}
+agg_cclip|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_cclip|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median_anc|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 0.982608699798584, "attacked_recall_l2": 0.9852173948287963}
+agg_median_anc|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median_anc|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median_anc|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.2, "clean_recall": 1.0, "clean_recall_l2": 0.952173912525177, "attacked_recall_l2": 0.9617391300201416}
+agg_median_anc|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median_anc|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_median_anc|f=0.3|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.1, "clean_recall": 0.97826087474823, "clean_recall_l2": 0.778260862827301, "attacked_recall_l2": 0.8182608640193939}
+agg_median_anc|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9965217399597168}
+agg_median_anc|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum_anc|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 0.995652174949646, "clean_recall_l2": 0.9695652246475219, "attacked_recall_l2": 0.9756521797180175}
+agg_krum_anc|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum_anc|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum_anc|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.9791304397583008}
+agg_krum_anc|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum_anc|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+agg_krum_anc|f=0.3|rho=0.2 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 0.1, "clean_recall": 0.982608699798584, "clean_recall_l2": 0.9260869562625885, "attacked_recall_l2": 0.9391304385662079}
+agg_krum_anc|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.9973913049697876}
+agg_krum_anc|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+smsr|f=0.1|rho=0.2 {"asr_mean": 0.08, "asr_worst": 0.2, "asr_l2_worst": 0.2, "amnesia_worst": 0.4, "clean_recall": 1.0, "clean_recall_l2": 0.991304349899292, "attacked_recall_l2": 0.9930434799194336}
+smsr|f=0.1|rho=0.4 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 0.1, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+smsr|f=0.1|rho=0.7 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 0.1, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+smsr|f=0.2|rho=0.2 {"asr_mean": 0.2, "asr_worst": 0.5, "asr_l2_worst": 0.5, "amnesia_worst": 0.6, "clean_recall": 1.0, "clean_recall_l2": 0.939130437374115, "attacked_recall_l2": 0.9495652198791504}
+smsr|f=0.2|rho=0.4 {"asr_mean": 0.2, "asr_worst": 0.5, "asr_l2_worst": 0.5, "amnesia_worst": 0.5, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9965217399597168}
+smsr|f=0.2|rho=0.7 {"asr_mean": 0.2, "asr_worst": 0.5, "asr_l2_worst": 0.5, "amnesia_worst": 0.5, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+smsr|f=0.3|rho=0.2 {"asr_mean": 0.48, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.7869565188884735, "attacked_recall_l2": 0.8278260850906372}
+smsr|f=0.3|rho=0.4 {"asr_mean": 0.44, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9521739184856415, "attacked_recall_l2": 0.9617391347885131}
+smsr|f=0.3|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9782608687877655, "attacked_recall_l2": 0.9826086950302124}
+robustrag|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9965217399597168}
+robustrag|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+robustrag|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+robustrag|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.1, "clean_recall": 1.0, "clean_recall_l2": 0.952173912525177, "attacked_recall_l2": 0.9617391300201416}
+robustrag|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+robustrag|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+robustrag|f=0.3|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.1, "clean_recall": 0.991304349899292, "clean_recall_l2": 0.8130434691905976, "attacked_recall_l2": 0.850434775352478}
+robustrag|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.995652174949646}
+robustrag|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.1|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.1|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.1|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.2|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.995652174949646, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9965217399597168}
+tma_corr|f=0.2|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.2|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.3|rho=0.2 {"asr_mean": 0.46, "asr_worst": 1.0, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 0.4739130437374115, "clean_recall_l2": 0.360869562625885, "attacked_recall_l2": 0.4843478238582611}
+tma_corr|f=0.3|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.9608695685863495, "clean_recall_l2": 0.9565217435359955, "attacked_recall_l2": 0.9652173948287964}
+tma_corr|f=0.3|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.2|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 0.995652174949646, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9965217399597168}
+tabayyun_anchored2|f=0.2|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.2|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.3|rho=0.2 {"asr_mean": 0.18, "asr_worst": 0.2, "asr_l2_worst": 0.0, "amnesia_worst": 0.6, "clean_recall": 0.46086956560611725, "clean_recall_l2": 0.360869562625885, "attacked_recall_l2": 0.4843478238582611}
+tabayyun_anchored2|f=0.3|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.3, "clean_recall": 0.9608695685863495, "clean_recall_l2": 0.9565217435359955, "attacked_recall_l2": 0.9652173948287964}
+tabayyun_anchored2|f=0.3|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+SUMMARY {"n_runs": 8100, "seconds": 166.0, "cert_violations": 0, "cert_runs": 540, "max_drift_over_cert": 1.0000002243275865}
+--- exit 0 in 168.9s
+
+=== python.exe experiments/e02_synthetic_defence.py --seeds 10 --seed_offset 120 --n 20 --support minority --fracs 0.1,0.15 --tag locality_amend2 --defences titans,titans_clip,miras_yaad,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,agg_median_anc,agg_krum_anc,smsr,robustrag,tma_corr,tabayyun_anchored2
+5400 runs on 19 workers
+  200/5400  7s
+  400/5400  10s
+  600/5400  13s
+  800/5400  15s
+  1000/5400  16s
+  1200/5400  18s
+  1400/5400  19s
+  1600/5400  20s
+  1800/5400  22s
+  2000/5400  23s
+  2200/5400  24s
+  2400/5400  25s
+  2600/5400  26s
+  2800/5400  27s
+  3000/5400  29s
+  3200/5400  30s
+  3400/5400  40s
+  3600/5400  53s
+  3800/5400  59s
+  4000/5400  73s
+  4200/5400  73s
+  4400/5400  73s
+  4600/5400  73s
+  4800/5400  83s
+  5000/5400  93s
+  5200/5400  104s
+  5400/5400  119s
+titans|f=0.1|rho=0.2 {"asr_mean": 0.92, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.7260869562625885, "attacked_recall_l2": 0.26521738797426225}
+titans|f=0.1|rho=0.4 {"asr_mean": 0.9, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8347826123237609, "attacked_recall_l2": 0.45565217584371565}
+titans|f=0.1|rho=0.7 {"asr_mean": 0.88, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8913043439388275, "attacked_recall_l2": 0.6295652091503143}
+titans|f=0.15|rho=0.2 {"asr_mean": 0.92, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8043478190898895, "attacked_recall_l2": 0.23391304224729537}
+titans|f=0.15|rho=0.4 {"asr_mean": 0.94, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.830434775352478, "attacked_recall_l2": 0.37304347306489943}
+titans|f=0.15|rho=0.7 {"asr_mean": 0.84, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.8608695566654205, "attacked_recall_l2": 0.5026086872816086}
+titans_clip|f=0.1|rho=0.2 {"asr_mean": 0.9, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9695652186870575, "attacked_recall_l2": 0.7817391335964203}
+titans_clip|f=0.1|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9695652246475219, "attacked_recall_l2": 0.8756521701812744}
+titans_clip|f=0.1|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.9539130496978759}
+titans_clip|f=0.15|rho=0.2 {"asr_mean": 0.88, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.5069565224647522}
+titans_clip|f=0.15|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.6086956477165222}
+titans_clip|f=0.15|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.8295652103424073}
+miras_yaad|f=0.1|rho=0.2 {"asr_mean": 0.9, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9521739184856415, "attacked_recall_l2": 0.5400000011920929}
+miras_yaad|f=0.1|rho=0.4 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.9695652246475219, "attacked_recall_l2": 0.757391300201416}
+miras_yaad|f=0.1|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.995652174949646, "attacked_recall_l2": 0.933043475151062}
+miras_yaad|f=0.15|rho=0.2 {"asr_mean": 0.92, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.943478274345398, "attacked_recall_l2": 0.32086956590414045}
+miras_yaad|f=0.15|rho=0.4 {"asr_mean": 0.82, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.991304349899292, "attacked_recall_l2": 0.556521737575531}
+miras_yaad|f=0.15|rho=0.7 {"asr_mean": 0.8, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 0.7391304397583007}
+agg_mean|f=0.1|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_mean|f=0.1|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_mean|f=0.1|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_mean|f=0.15|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_mean|f=0.15|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_mean|f=0.15|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_trmean|f=0.1|rho=0.2 {"asr_mean": 0.12, "asr_worst": 0.3, "asr_l2_worst": 0.3, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_trmean|f=0.1|rho=0.4 {"asr_mean": 0.02, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_trmean|f=0.1|rho=0.7 {"asr_mean": 0.02, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_trmean|f=0.15|rho=0.2 {"asr_mean": 0.44, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_trmean|f=0.15|rho=0.4 {"asr_mean": 0.32, "asr_worst": 0.9, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_trmean|f=0.15|rho=0.7 {"asr_mean": 0.3, "asr_worst": 0.8, "asr_l2_worst": 0.8, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_median|f=0.1|rho=0.2 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_median|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0008695652335882187}
+agg_median|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0017391304671764375}
+agg_median|f=0.15|rho=0.2 {"asr_mean": 0.24, "asr_worst": 0.6, "asr_l2_worst": 0.6, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_median|f=0.15|rho=0.4 {"asr_mean": 0.08, "asr_worst": 0.2, "asr_l2_worst": 0.2, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_median|f=0.15|rho=0.7 {"asr_mean": 0.08, "asr_worst": 0.2, "asr_l2_worst": 0.2, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_krum|f=0.1|rho=0.2 {"asr_mean": 0.4, "asr_worst": 0.7, "asr_l2_worst": 0.7, "amnesia_worst": 0.9, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.11304347902536392}
+agg_krum|f=0.1|rho=0.4 {"asr_mean": 0.56, "asr_worst": 0.8, "asr_l2_worst": 0.8, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.14173912703990937}
+agg_krum|f=0.1|rho=0.7 {"asr_mean": 0.58, "asr_worst": 0.7, "asr_l2_worst": 0.6, "amnesia_worst": 0.9, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.18086956113576888}
+agg_krum|f=0.15|rho=0.2 {"asr_mean": 0.58, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.12782608419656755}
+agg_krum|f=0.15|rho=0.4 {"asr_mean": 0.76, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.15999999739229678}
+agg_krum|f=0.15|rho=0.7 {"asr_mean": 0.64, "asr_worst": 1.0, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.1678260836005211}
+agg_geomed|f=0.1|rho=0.2 {"asr_mean": 0.12, "asr_worst": 0.3, "asr_l2_worst": 0.3, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_geomed|f=0.1|rho=0.4 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_geomed|f=0.1|rho=0.7 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0008695652335882187}
+agg_geomed|f=0.15|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_geomed|f=0.15|rho=0.4 {"asr_mean": 0.3, "asr_worst": 0.8, "asr_l2_worst": 0.8, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_geomed|f=0.15|rho=0.7 {"asr_mean": 0.24, "asr_worst": 0.6, "asr_l2_worst": 0.6, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_cclip|f=0.1|rho=0.2 {"asr_mean": 0.12, "asr_worst": 0.3, "asr_l2_worst": 0.3, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_cclip|f=0.1|rho=0.4 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_cclip|f=0.1|rho=0.7 {"asr_mean": 0.04, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_cclip|f=0.15|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_cclip|f=0.15|rho=0.4 {"asr_mean": 0.32, "asr_worst": 0.9, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_cclip|f=0.15|rho=0.7 {"asr_mean": 0.24, "asr_worst": 0.6, "asr_l2_worst": 0.6, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0}
+agg_median_anc|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.8434782505035401, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.007826086953282357}
+agg_median_anc|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.934782612323761, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.02869565226137638}
+agg_median_anc|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.9695652246475219, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.02869565226137638}
+agg_median_anc|f=0.15|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.9478260993957519, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.03999999925494194}
+agg_median_anc|f=0.15|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.982608699798584, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0878260862827301}
+agg_median_anc|f=0.15|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.991304349899292, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0973913025856018}
+agg_krum_anc|f=0.1|rho=0.2 {"asr_mean": 0.38, "asr_worst": 0.6, "asr_l2_worst": 0.6, "amnesia_worst": 0.9, "clean_recall": 0.056521739810705185, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.10956521831452846}
+agg_krum_anc|f=0.1|rho=0.4 {"asr_mean": 0.52, "asr_worst": 0.8, "asr_l2_worst": 0.8, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.2417391276359558}
+agg_krum_anc|f=0.1|rho=0.7 {"asr_mean": 0.44, "asr_worst": 0.7, "asr_l2_worst": 0.6, "amnesia_worst": 0.9, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.24347825706005097}
+agg_krum_anc|f=0.15|rho=0.2 {"asr_mean": 0.54, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.06521739177405834, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.2834782600402832}
+agg_krum_anc|f=0.15|rho=0.4 {"asr_mean": 0.56, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.30956521555781363}
+agg_krum_anc|f=0.15|rho=0.7 {"asr_mean": 0.52, "asr_worst": 1.0, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 0.043478261679410934, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.3147826063632965}
+smsr|f=0.1|rho=0.2 {"asr_mean": 0.32, "asr_worst": 0.8, "asr_l2_worst": 0.7, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0052173914015293124}
+smsr|f=0.1|rho=0.4 {"asr_mean": 0.32, "asr_worst": 0.8, "asr_l2_worst": 0.7, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.00869565226137638}
+smsr|f=0.1|rho=0.7 {"asr_mean": 0.32, "asr_worst": 0.8, "asr_l2_worst": 0.7, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.01130434788763523}
+smsr|f=0.15|rho=0.2 {"asr_mean": 0.4, "asr_worst": 0.9, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.011304347962141036}
+smsr|f=0.15|rho=0.4 {"asr_mean": 0.36, "asr_worst": 0.9, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.020000000074505805}
+smsr|f=0.15|rho=0.7 {"asr_mean": 0.36, "asr_worst": 0.9, "asr_l2_worst": 0.9, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.02695652171969414}
+robustrag|f=0.1|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.730434775352478, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.008695652186870574}
+robustrag|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.882608687877655, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.02869565226137638}
+robustrag|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.921739137172699, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.02869565226137638}
+robustrag|f=0.15|rho=0.2 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.8956521630287171, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.04086956456303596}
+robustrag|f=0.15|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.947826087474823, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.0895652163028717}
+robustrag|f=0.15|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 1.0, "clean_recall": 0.9695652186870575, "clean_recall_l2": 0.0, "attacked_recall_l2": 0.09652173697948456}
+tma_corr|f=0.1|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.856521737575531, "clean_recall_l2": 0.8043478190898895, "attacked_recall_l2": 0.8408695602416992}
+tma_corr|f=0.1|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.986956524848938, "clean_recall_l2": 0.982608699798584, "attacked_recall_l2": 0.9860869598388672}
+tma_corr|f=0.1|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tma_corr|f=0.15|rho=0.2 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.6304347723722458, "clean_recall_l2": 0.547826087474823, "attacked_recall_l2": 0.6347826099395752}
+tma_corr|f=0.15|rho=0.4 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 0.991304349899292, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.9791304397583008}
+tma_corr|f=0.15|rho=0.7 {"asr_mean": 0.4, "asr_worst": 1.0, "asr_l2_worst": 1.0, "amnesia_worst": 1.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.1|rho=0.2 {"asr_mean": 0.08, "asr_worst": 0.1, "asr_l2_worst": 0.1, "amnesia_worst": 0.2, "clean_recall": 0.856521737575531, "clean_recall_l2": 0.8043478190898895, "attacked_recall_l2": 0.8408695602416992}
+tabayyun_anchored2|f=0.1|rho=0.4 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 0.986956524848938, "clean_recall_l2": 0.982608699798584, "attacked_recall_l2": 0.9860869598388672}
+tabayyun_anchored2|f=0.1|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+tabayyun_anchored2|f=0.15|rho=0.2 {"asr_mean": 0.36, "asr_worst": 0.5, "asr_l2_worst": 0.1, "amnesia_worst": 0.5, "clean_recall": 0.6304347723722458, "clean_recall_l2": 0.547826087474823, "attacked_recall_l2": 0.6347826099395752}
+tabayyun_anchored2|f=0.15|rho=0.4 {"asr_mean": 0.08, "asr_worst": 0.1, "asr_l2_worst": 0.0, "amnesia_worst": 0.1, "clean_recall": 0.991304349899292, "clean_recall_l2": 0.973913049697876, "attacked_recall_l2": 0.9791304397583008}
+tabayyun_anchored2|f=0.15|rho=0.7 {"asr_mean": 0.0, "asr_worst": 0.0, "asr_l2_worst": 0.0, "amnesia_worst": 0.0, "clean_recall": 1.0, "clean_recall_l2": 1.0, "attacked_recall_l2": 1.0}
+SUMMARY {"n_runs": 5400, "seconds": 120.1, "cert_violations": 0, "cert_runs": 360, "max_drift_over_cert": 1.000000128795706}
+--- exit 0 in 123.1s
+
+=== python.exe scripts/analyze_e02.py --method tabayyun_anchored2 --out scorecard_amend2 --baselines agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,agg_cclip,agg_median_anc,agg_krum_anc,smsr,robustrag,tma_corr,miras_yaad,titans_clip results/e02/e02_dense_amend2.json results/e02/e02_locality_amend2.json
+
+===== DENSE  (results/e02/e02_dense_amend2.json)
+
+f=0.1|rho=0.2
+  agg_cclip          ASR_worst=0.00  amnesia_worst=0.40  clean_RecallL2=0.99
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.30  clean_RecallL2=0.99
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=0.97
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=0.97
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.98
+  agg_median         ASR_worst=0.00  amnesia_worst=0.10  clean_RecallL2=0.99
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=0.98
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.40  clean_RecallL2=0.99
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.96
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=0.20  amnesia_worst=0.40  clean_RecallL2=0.99
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.84
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.98
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_krum), recall +0.00 [+0.00,+0.00] (tma_corr) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.1, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.4}
+
+f=0.1|rho=0.4
+  agg_cclip          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_median         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.98
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=0.10  amnesia_worst=0.10  clean_RecallL2=1.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.90
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.99
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_trmean), recall +0.00 [+0.00,+0.00] (agg_mean) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+f=0.1|rho=0.7
+  agg_cclip          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_median         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=0.10  amnesia_worst=0.10  clean_RecallL2=1.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.90
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_trmean), recall +0.00 [+0.00,+0.00] (agg_mean) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+f=0.2|rho=0.2
+  agg_cclip          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.95
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.90  clean_RecallL2=0.96
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=0.97
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=0.97
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.88
+  agg_median         ASR_worst=0.00  amnesia_worst=0.60  clean_RecallL2=0.96
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.20  clean_RecallL2=0.95
+  agg_trmean         ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.94
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.96
+  robustrag          ASR_worst=0.00  amnesia_worst=0.10  clean_RecallL2=0.95
+  smsr               ASR_worst=0.50  amnesia_worst=0.60  clean_RecallL2=0.94
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.83
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_krum), recall +0.00 [+0.00,+0.00] (tma_corr) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 0.99 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.7, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.4}
+
+f=0.2|rho=0.4
+  agg_cclip          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_median         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=0.50  amnesia_worst=0.50  clean_RecallL2=1.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.88
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.98
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_trmean), recall +0.00 [+0.00,+0.00] (agg_mean) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.9}
+
+f=0.2|rho=0.7
+  agg_cclip          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_median         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=0.50  amnesia_worst=0.50  clean_RecallL2=1.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.91
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_trmean), recall +0.00 [+0.00,+0.00] (agg_mean) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 1.0}
+
+f=0.3|rho=0.2
+  agg_cclip          ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.70
+  agg_geomed         ASR_worst=0.30  amnesia_worst=1.00  clean_RecallL2=0.88
+  agg_krum           ASR_worst=0.10  amnesia_worst=0.10  clean_RecallL2=0.94
+  agg_krum_anc       ASR_worst=0.10  amnesia_worst=0.10  clean_RecallL2=0.93
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.67
+  agg_median         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.80
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.10  clean_RecallL2=0.78
+  agg_trmean         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.82
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  robustrag          ASR_worst=0.00  amnesia_worst=0.10  clean_RecallL2=0.81
+  smsr               ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.79
+  tabayyun_anchored2 ASR_worst=0.20  amnesia_worst=0.60  clean_RecallL2=0.36
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.78
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.36
+  P1 (tab - 0.5*titans ASR) -0.30 [-0.50,+0.00] -> PASS
+  vs best: ASR +0.20 [+0.00,+0.50] (agg_median_anc), amnesia +0.50 [+0.20,+0.80] (agg_krum), recall -0.60 [-0.65,-0.55] (miras_yaad) -> P2 FAIL
+  H7 Thm3b: observed recall 0.36 vs predicted 0.36 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+f=0.3|rho=0.4
+  agg_cclip          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_geomed         ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.10  clean_RecallL2=1.00
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.99
+  agg_median         ASR_worst=0.00  amnesia_worst=0.70  clean_RecallL2=1.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.90  clean_RecallL2=1.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.95
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.30  clean_RecallL2=0.96
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.88
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.96
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.30 [+0.00,+0.60] (agg_median_anc), recall -0.04 [-0.07,-0.02] (agg_trmean) -> P2 FAIL
+  H7 Thm3b: observed recall 0.96 vs predicted 0.93 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+f=0.3|rho=0.7
+  agg_cclip          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_geomed         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum           ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_krum_anc       ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  agg_median         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  agg_trmean         ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  robustrag          ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  smsr               ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.98
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.89
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_trmean), amnesia +0.00 [+0.00,+0.00] (agg_trmean), recall +0.00 [+0.00,+0.00] (agg_mean) -> P2 PASS
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.0, 'agg_krum_anc': 0.0, 'agg_mean': 0.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.0, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+SUMMARY dense {"P1_pass": "9/9", "P2_pass": "7/9", "A2_pass": "0/0", "A6_pass": "0/0", "H7_pass": "9/9", "H3_violations": "0/540"}
+
+===== LOCALITY  (results/e02/e02_locality_amend2.json)
+
+f=0.1|rho=0.2
+  agg_cclip          ASR_worst=0.30  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_geomed         ASR_worst=0.30  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum           ASR_worst=0.70  amnesia_worst=0.90  clean_RecallL2=0.00
+  agg_krum_anc       ASR_worst=0.60  amnesia_worst=0.90  clean_RecallL2=0.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_trmean         ASR_worst=0.30  amnesia_worst=1.00  clean_RecallL2=0.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.95
+  robustrag          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  smsr               ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  tabayyun_anchored2 ASR_worst=0.10  amnesia_worst=0.20  clean_RecallL2=0.80
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.73
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.80
+  P1 (tab - 0.5*titans ASR) -0.40 [-0.50,-0.20] -> PASS
+  vs best: ASR +0.10 [+0.00,+0.30] (agg_median_anc), amnesia -0.70 [-1.00,-0.40] (agg_krum), recall -0.17 [-0.20,-0.13] (titans_clip) -> P2 FAIL
+  H7 Thm3b: observed recall 0.80 vs predicted 0.85 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.5, 'agg_krum_anc': 0.4, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.6, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.2}
+
+f=0.1|rho=0.4
+  agg_cclip          ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_geomed         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum           ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum_anc       ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median         ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_trmean         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  robustrag          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  smsr               ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=0.98
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.83
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.98
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_median), amnesia -1.00 [-1.00,-1.00] (agg_mean), recall +0.00 [+0.00,+0.00] (tma_corr) -> P2 FAIL
+  H7 Thm3b: observed recall 0.98 vs predicted 0.99 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.6, 'agg_krum_anc': 0.6, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.6, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.6}
+
+f=0.1|rho=0.7
+  agg_cclip          ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_geomed         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum           ASR_worst=0.70  amnesia_worst=0.90  clean_RecallL2=0.00
+  agg_krum_anc       ASR_worst=0.70  amnesia_worst=0.90  clean_RecallL2=0.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median         ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_trmean         ASR_worst=0.10  amnesia_worst=1.00  clean_RecallL2=0.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  robustrag          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  smsr               ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.89
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_median), amnesia -0.90 [-1.00,-0.70] (agg_krum), recall +0.00 [+0.00,+0.00] (tma_corr) -> P2 FAIL
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.5, 'agg_krum_anc': 0.5, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.6, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.6}
+
+f=0.15|rho=0.2
+  agg_cclip          ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_geomed         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum_anc       ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median         ASR_worst=0.60  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_trmean         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.94
+  robustrag          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  smsr               ASR_worst=0.90  amnesia_worst=1.00  clean_RecallL2=0.00
+  tabayyun_anchored2 ASR_worst=0.50  amnesia_worst=0.50  clean_RecallL2=0.55
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.80
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.55
+  P1 (tab - 0.5*titans ASR) +0.00 [-0.30,+0.30] -> FAIL
+  vs best: ASR +0.50 [+0.20,+0.80] (agg_median_anc), amnesia -0.50 [-0.80,-0.20] (agg_mean), recall -0.43 [-0.50,-0.36] (titans_clip) -> P2 FAIL
+  H7 Thm3b: observed recall 0.55 vs predicted 0.54 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 1.0, 'agg_krum_anc': 1.0, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.9, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+f=0.15|rho=0.4
+  agg_cclip          ASR_worst=0.90  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_geomed         ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum_anc       ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median         ASR_worst=0.20  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_trmean         ASR_worst=0.90  amnesia_worst=1.00  clean_RecallL2=0.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.99
+  robustrag          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  smsr               ASR_worst=0.90  amnesia_worst=1.00  clean_RecallL2=0.00
+  tabayyun_anchored2 ASR_worst=0.10  amnesia_worst=0.10  clean_RecallL2=0.97
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.83
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.97
+  P1 (tab - 0.5*titans ASR) -0.40 [-0.50,-0.20] -> PASS
+  vs best: ASR +0.10 [+0.00,+0.30] (agg_median_anc), amnesia -0.90 [-1.00,-0.70] (agg_mean), recall -0.02 [-0.04,-0.00] (titans_clip) -> P2 FAIL
+  H7 Thm3b: observed recall 0.97 vs predicted 0.96 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.9, 'agg_krum_anc': 0.9, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.9, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+f=0.15|rho=0.7
+  agg_cclip          ASR_worst=0.60  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_geomed         ASR_worst=0.60  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_krum_anc       ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_mean           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median         ASR_worst=0.20  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_median_anc     ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  agg_trmean         ASR_worst=0.80  amnesia_worst=1.00  clean_RecallL2=0.00
+  miras_yaad         ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  robustrag          ASR_worst=0.00  amnesia_worst=1.00  clean_RecallL2=0.00
+  smsr               ASR_worst=0.90  amnesia_worst=1.00  clean_RecallL2=0.00
+  tabayyun_anchored2 ASR_worst=0.00  amnesia_worst=0.00  clean_RecallL2=1.00
+  titans             ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=0.86
+  titans_clip        ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  tma_corr           ASR_worst=1.00  amnesia_worst=1.00  clean_RecallL2=1.00
+  P1 (tab - 0.5*titans ASR) -0.50 [-0.50,-0.50] -> PASS
+  vs best: ASR +0.00 [+0.00,+0.00] (agg_median_anc), amnesia -1.00 [-1.00,-1.00] (agg_mean), recall +0.00 [+0.00,+0.00] (tma_corr) -> P2 FAIL
+  H7 Thm3b: observed recall 1.00 vs predicted 1.00 -> PASS
+  installed (secondary): {'agg_cclip': 0.0, 'agg_geomed': 0.0, 'agg_krum': 0.9, 'agg_krum_anc': 0.9, 'agg_mean': 1.0, 'agg_median': 0.0, 'agg_median_anc': 0.0, 'agg_trmean': 0.0, 'miras_yaad': 1.0, 'robustrag': 0.0, 'smsr': 0.9, 'tabayyun_anchored2': 0.0, 'titans': 1.0, 'titans_clip': 1.0, 'tma_corr': 0.0}
+
+SUMMARY locality {"P1_pass": "5/6", "P2_pass": "0/6", "A2_pass": "0/0", "A6_pass": "0/0", "H7_pass": "6/6", "H3_violations": "0/360"}
+--- exit 0 in 14.3s
+
+# finished 2026-11-10 17:10:56; failed: none
