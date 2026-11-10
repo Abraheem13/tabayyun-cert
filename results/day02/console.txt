@@ -1,9 +1,9 @@
-# Day 2  device=cuda  started 2026-11-10 14:29:59
+# Day 2  device=cuda  started 2026-11-10 14:53:49
 
 === python.exe -m pytest -q
 ..................................................                       [100%]
-50 passed in 2.70s
---- exit 0 in 3.6s
+50 passed in 4.56s
+--- exit 0 in 5.7s
 
 === python.exe experiments/e01_persistence.py --device cuda --seeds 5
 C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e01_persistence.py:127: RuntimeWarning: divide by zero encountered in log
@@ -97,6 +97,6 @@ C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\.venv\Lib\site-
 {"kind": "mlp", "eta": 0.95, "alpha": 0.05, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 34}
 {"kind": "mlp", "eta": 0.95, "alpha": 0.1, "half_life_measured": 0.0, "half_life_pred_v1_asymptotic": 13.513407333964874, "half_life_pred": 25}
 SUMMARY {"loglog_corr_pred_vs_measured": NaN, "rayn_cos_target_mean": 0.9951961636543274, "single_cos_target_mean": -0.03370494544506073, "rayn_max_norm_over_single": 0.10000001080334249}
---- exit 0 in 1412.6s
+--- exit 0 in 1405.7s
 
-# finished 2026-11-10 14:53:35; failed: none
+# finished 2026-11-10 15:17:21; failed: none
