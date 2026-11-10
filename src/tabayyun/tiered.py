@@ -47,7 +47,10 @@ class TabayyunConfig:
     eps_P: float = 0.0                        # decay of unpromoted directions (ema)
     tau: int = 50                             # promotion period
     gate: GateConfig = field(default_factory=GateConfig)
-    basis: str = "identity"                   # identity | keys_svd | robust_keys_svd
+    basis: str = "identity"                   # identity | anchored | keys_svd | robust_keys_svd
+    anchor_cos: float = 0.98                  # anchored: keys this close are the same direction
+    anchor_min_resid: float = 0.3             # anchored: min new component to add a direction
+    anchor_window: int = 5                    # anchored: rounds of key history kept
     K: int | None = None                      # number of directions (default dk)
     after_promotion: str = "keep"             # keep | reset | decay   (quarantine)
     post_decay: float = 0.5
@@ -69,7 +72,11 @@ class TabayyunMemory:
         self.rounds = 0
         self.K = cfg.K or dk
         self.U: torch.Tensor | None = None
-        self.drift = DirectionalDrift(self.K, dv, cfg.rule, cfg.alpha_P, cfg.eps_P, cfg.device)
+        if cfg.basis == "anchored":
+            self.U = torch.zeros(0, dk, device=cfg.device)
+            self._hist: list[list[tuple[int, torch.Tensor]]] = []
+        K0 = 0 if cfg.basis == "anchored" else self.K
+        self.drift = DirectionalDrift(K0, dv, cfg.rule, cfg.alpha_P, cfg.eps_P, cfg.device)
         self._keys: list[list[torch.Tensor]] = [[] for _ in range(n)]
         self.last: GateOutput | None = None
         # white-box adversary: may rewrite the rows of the sources it controls
@@ -89,7 +96,7 @@ class TabayyunMemory:
         if len(src):
             Kf[src], Vf[src], mask[src] = k, v, True
             self.Q.write(Kf, Vf, mask=mask)
-            if self.cfg.basis != "identity" and self.U is None:
+            if self.cfg.basis == "anchored" or (self.cfg.basis != "identity" and self.U is None):
                 for s, kk in zip(src.tolist(), k):
                     self._keys[s].append(kk.detach())
         self.t += 1
@@ -113,6 +120,8 @@ class TabayyunMemory:
 
     # ------------------------------------------------------------ promotion
     def basis(self) -> torch.Tensor:
+        if self.cfg.basis == "anchored":
+            return self._grow_anchored()
         if self.U is not None:
             return self.U
         dk, dev = self.cfg.dk, self.MP.device
@@ -132,9 +141,57 @@ class TabayyunMemory:
         self.U = evecs[:, -self.K:].T.contiguous()   # frozen from now on
         return self.U
 
-    def promote(self) -> GateOutput:
+    def _grow_anchored(self) -> torch.Tensor:
+        """Key-anchored, growing, frozen basis (v2.1).
+
+        A key direction becomes a basis direction once >= k distinct sources
+        wrote (a key within anchor_cos of) it during the last anchor_window
+        rounds; so >= k - f honest sources must have written it, and keys
+        written only by the adversary never become directions (Thm 1).  The
+        new direction is the robust (coordinate-median) cluster centre,
+        orthogonalised against the existing directions.  Existing directions
+        never change, so the per-direction certificate stays valid; M^P lives
+        in span(U) because it is only ever updated along U.
+        """
+        cfg, dev = self.cfg, self.MP.device
+        self._hist.append([(s, k) for s, ks in enumerate(self._keys) for k in ks])
+        self._hist = self._hist[-cfg.anchor_window:]
+        pool = [x for rnd in self._hist for x in rnd]
+        if not pool or self.U.shape[0] >= self.K:
+            return self.U
+        src = torch.tensor([p[0] for p in pool], device=dev)
+        X = torch.nn.functional.normalize(torch.stack([p[1] for p in pool]), dim=1)
+        close = (X @ X.T).abs() >= cfg.anchor_cos                          # (P,P)
+        onehot = torch.nn.functional.one_hot(src, cfg.n_sources).to(X.dtype)  # (P,n)
+        n_src = ((close.to(X.dtype) @ onehot) > 0).sum(1)                   # distinct sources per key
+        order = torch.argsort(n_src, descending=True)
+        U = self.U
+        for i in order.tolist():
+            if int(n_src[i]) < cfg.gate.k or U.shape[0] >= self.K:
+                break
+            members = X[close[i]]
+            sign = torch.sign(members @ X[i]).unsqueeze(1)
+            c = torch.nn.functional.normalize((members * sign).median(0).values, dim=0)
+            if U.shape[0]:
+                if (U @ c).abs().max() >= cfg.anchor_cos:
+                    continue
+                r = c - U.T @ (U @ c)
+            else:
+                r = c
+            if r.norm() >= cfg.anchor_min_resid:
+                U = torch.cat([U, (r / r.norm()).unsqueeze(0)])
+        self.U = U
+        return U
+
+    def promote(self) -> GateOutput | None:
         U = self.basis()                                   # (K, dk)
         n = self.cfg.n_sources
+        self._keys = [[] for _ in range(n)]
+        self.drift.resize(U.shape[0])
+        if U.shape[0] == 0:
+            self.Q.snapshot()
+            self.rounds += 1
+            return None
         Uq = U.unsqueeze(0).expand(n, *U.shape)
         cur = self.Q.read(Uq)                              # (n, K, dv)
         D = cur if self.cfg.rule == "ema" else cur - self.Q.read_snapshot(Uq)

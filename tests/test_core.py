@@ -134,11 +134,12 @@ def _world(**kw):
     return FactWorld(WorldConfig(**base))
 
 
+@pytest.mark.parametrize("basis", ["identity", "anchored"])
 @pytest.mark.parametrize("rule", ["ema", "additive"])
 @pytest.mark.parametrize("attack", ["edge", "unbounded", "median_shift"])
-def test_end_to_end_certificate_sound(rule, attack):
+def test_end_to_end_certificate_sound(rule, attack, basis):
     w = _world()
-    cfg = TabayyunConfig(n_sources=10, dk=16, dv=16, tau=40, rule=rule,
+    cfg = TabayyunConfig(n_sources=10, dk=16, dv=16, tau=40, rule=rule, basis=basis,
                          alpha_P=0.5 if rule == "ema" else 0.1,
                          gate=GateConfig(k=5, f=2, gamma=0.3, nu=0.05))
     mem = TabayyunMemory(cfg)
@@ -206,3 +207,20 @@ def test_mean_field_law_reduces_to_lemma1_and_matches_day2():
     lam = 2 * 0.05 / 64
     assert abs(mean_field_half_life(0.0, 0.001, lam) / 271.8 - 1) < 0.1
     assert abs(mean_field_half_life(0.9, 0.001, lam) / 45.6 - 1) < 0.1
+
+
+def test_anchored_basis_recovers_fact_keys_and_ignores_adversary_keys():
+    w = _world(n_facts=8, rho=0.9)
+    mem = TabayyunMemory(TabayyunConfig(n_sources=10, dk=16, dv=16, tau=40, basis="anchored",
+                                        gate=GateConfig(k=5, f=2, gamma=0.3, nu=0.05)))
+    junk = torch.nn.functional.normalize(torch.randn(16), dim=0)
+    atk = TargetedWrite(w.adv, junk, w.values[0])             # adversary-only key
+    for _ in range(3):
+        run_round(mem, w, atk)
+    U = mem.basis()
+    assert U.shape[0] >= 7                                     # fact keys found
+    assert (U @ U.T - torch.eye(U.shape[0])).abs().max() < 1e-6  # orthonormal
+    align = (U @ w.keys.T).abs().max(0).values               # each fact key ~ a direction
+    assert (align > 0.97).float().mean() >= 7 / 8
+    assert U.shape[0] == 8                                     # exactly the 8 fact keys
+    assert float((U @ junk).abs().max()) < 0.9                 # adversary key not a direction

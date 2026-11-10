@@ -2,6 +2,16 @@
 
 All design and code changes. Experiment results go in `EXPERIMENT_LOG.md`.
 
+## [0.3.0] - 2026-11-10 (Day 3)
+### Added
+- `basis="anchored"`: key-anchored, growing, frozen basis (F13); `DirectionalDrift.resize`.
+- Locality regime (`WorldConfig.support_min/max`, E02 `--support minority`), magnitude-aware metrics (`l2_recall`, `l2_flip`, `amnesia`).
+- E02: same white-box adversary for the robust-aggregation baselines (`RobustAggMemory.delta_hook`), parallel workers, `--seed_offset`, `--alpha_q`, `--n`, `--tag`.
+- `paper/proofs.md`: Lemma 1, Lemma 1′, Prop. 0.
+- 7 new tests (58 total).
+### Changed
+- α^Q = 0.005 (clean-tuned). Pre-registration v1 frozen (tag `prereg-v1`), confirmatory seeds 100+.
+
 ## [0.2.0] - 2026-11-10 (Day 2)
 ### Added
 - `certify.mean_field_half_life` (Lemma 1′) and its unit test.

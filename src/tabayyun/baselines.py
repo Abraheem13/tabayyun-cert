@@ -48,6 +48,7 @@ class RobustAggMemory:
         self.cclip_tau = cclip_tau
         self.t = 0
         self.U = torch.eye(dk, device=device)
+        self.delta_hook = None          # same white-box adversary as for TabayyunMemory
 
     def write(self, src, k, v):
         if len(src):
@@ -63,6 +64,8 @@ class RobustAggMemory:
     def promote(self):
         Uq = self.U.unsqueeze(0).expand(self.n, *self.U.shape)
         D = self.Q.read(Uq)                                      # (n, dk, dv): states
+        if self.delta_hook is not None:
+            D = self.delta_hook(D, self.U)
         if self.agg == "cclip":
             ref = (self.U @ self.MP.T)
             val = centered_clipping(D, ref, self.cclip_tau)

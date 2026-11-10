@@ -30,7 +30,11 @@ def plan(day: int, dev: str) -> list[list[str]]:
             [PY, "experiments/e01_persistence.py", "--device", dev, "--part", "halflife",
              "--kinds", "linear", "--streams", "orthogonal", "--tag", "linear_orth"],
             [PY, "experiments/e01_persistence.py", "--device", dev, "--part", "rayn", "--seeds", "10"]],
-        4: [[PY, "experiments/e02_synthetic_defence.py", "--device", dev, "--seeds", "10", "--rounds", "10"]],
+        # E02 runs on CPU workers (tiny per-step ops are faster on CPU than on the GPU)
+        4: [[PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "100",
+             "--n", "10", "--support", "all", "--tag", "dense"],
+            [PY, "experiments/e02_synthetic_defence.py", "--seeds", "10", "--seed_offset", "100",
+             "--n", "20", "--support", "minority", "--fracs", "0.1,0.15", "--tag", "locality"]],
     }
     if day not in days:
         sys.exit(f"Day {day}: its commands are added to scripts/run_day.py on that day (see ROADMAP.md)")

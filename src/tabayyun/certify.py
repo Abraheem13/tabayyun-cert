@@ -108,6 +108,13 @@ class DirectionalDrift:
         self.rule, self.a, self.eps = rule, alpha_P, eps_P
         self.history: list[float] = []
 
+    def resize(self, K: int) -> None:
+        """Grow for newly added (frozen) directions; their error starts at 0
+        because M^P and the reference are both 0 along a new direction."""
+        if K > self.E.shape[0]:
+            pad = torch.zeros(K - self.E.shape[0], self.E.shape[1], device=self.E.device, dtype=self.E.dtype)
+            self.E = torch.cat([self.E, pad])
+
     def update(self, e: torch.Tensor, promoted: torch.Tensor) -> None:
         pm = promoted.to(self.E.dtype).unsqueeze(1)
         if self.rule == "ema":

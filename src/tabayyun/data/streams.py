@@ -30,6 +30,8 @@ class WorldConfig:
     unique_frac: float = 0.0
     dirichlet: float = float("inf")
     value_scale: float = 1.0
+    support_min: int | None = None   # locality: each shared fact is known to a random subset of
+    support_max: int | None = None   # m ~ U[support_min, support_max] honest sources (None = all)
     seed: int = 0
 
 
@@ -67,6 +69,18 @@ class FactWorld:
             torch.manual_seed(cfg.seed)
             w = d.sample((F,)).T                      # (n, F) columns sum to 1
             self.obs_p = (w * len(self.honest) * cfg.rho).clamp(max=1.0)
+        self.support = torch.full((F,), len(self.honest))
+        if cfg.support_min is not None:
+            hi = min(cfg.support_max or len(self.honest), len(self.honest))
+            for f in range(F):
+                if self.unique[f]:
+                    continue
+                m = int(torch.randint(cfg.support_min, hi + 1, (1,), generator=g))
+                keep = self.honest[torch.randperm(len(self.honest), generator=g)[:m]]
+                mask = torch.ones(n, dtype=torch.bool)
+                mask[keep] = False
+                self.obs_p[mask, f] = 0.0
+                self.support[f] = m
         for f in range(F):
             if self.unique[f]:
                 self.obs_p[:, f] = 0.0

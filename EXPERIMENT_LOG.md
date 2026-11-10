@@ -62,3 +62,46 @@ Smoke runs are **not results** and are never quoted in the paper.
 - Smoke (2 seeds): with filter G = 0.05, **single-shot ASR 0, rayn ASR 1.0 at 0.2% of the unfiltered single-shot norm, about 33 writes to flip**, despite honest refresh. This is direct support for Prop. 0 / H5. The full sweep runs on Day 3.
 
 **Decision:** Day 3 = MLP rerun (random stream), linear orthogonal stream (pure Lemma-1 check), rayn sweep (6 filters × 2 momenta × 10 seeds). Estimated 30–40 min.
+
+---
+
+## Day 3 (2026-11-10): E01 completed, new regime design, pre-registration frozen
+
+**Runs (RTX 5080, commit `ab49140`):** `results/e01/e01_halflife_mlp_random.json` (1072 s), `e01_halflife_linear_orth.json` (358 s), `e01_rayn.json` (89 s). 51/51 tests passed.
+
+### H1 persistence: confirmed
+- **Linear, orthogonal stream:** measured = Lemma 1 **exactly** in 42/42 cells (zero error, all seeds). The v1 formula is off by up to 2.6×.
+- **Linear, random stream (Day 2):** Lemma 1′ within −9%…+4%, r = 0.9996.
+- **MLP, random stream:** 0 divergences after the fix. Lemma 1 upper-bounds 41/41 finite cells. One cell (η = 0.95, α = 0.001) has 2/5 seeds whose poison **never halves within 3000 steps**: a deep memory can retain poison indefinitely at high momentum and tiny forget. This is reported as a finding. MLP persistence is about 0.5× the linear one, because the forget gate scales both layers (α_eff ≈ 2α). With α_eff = 2α and one interference constant fitted on the 6 η = 0 cells, the mean-field law predicts the other 35 cells with r = 0.994 and median ratio 1.00 (exploratory).
+
+### H5 necessity: confirmed (10 seeds × η ∈ {0, 0.9})
+| per-write filter G | single-shot ASR (end) | rayn ASR (end) | rayn median writes to flip | rayn max write norm |
+|---|---|---|---|---|
+| none | 0.00 (transient flip only) | **1.00** | 28 | 0.010 |
+| 0.5 | 0.00 | **1.00** | 27.5 | 0.010 |
+| 0.2 | 0.00 | **1.00** | 21.5 | 0.009 |
+| 0.1 | 0.00 | **1.00** | 25.5 | 0.0045 |
+| 0.05 | 0.00 | **1.00** | 33.5 | 0.0023 |
+| 0.02 | 0.00 | **1.00** | 35 | 0.0009 |
+
+Writes-to-flip barely depend on G, because the filter clips the honest refresh too. That is the core of **Prop. 0 (proof sketch in `paper/proofs.md`)**: norm filters turn the contest into one of write frequency, which the attacker controls. Momentum helps the attacker (η = 0.9: 11 writes unfiltered vs 45 at η = 0).
+
+### Design finding: a fixed basis mixes facts → key-anchored basis (v2.1)
+With the identity basis, every basis direction mixes many facts, so honest sources that saw different facts "disagree", and the gate does not really check per-fact corroboration. New `basis="anchored"`: a key becomes a frozen basis direction once ≥ k distinct sources wrote it (in the last 5 rounds). The cluster centre is a coordinate median, orthogonalised against the existing directions. Existing directions never change, so the per-direction certificate stays valid; new directions start with zero error. Tests: certificate soundness with the anchored basis (6 new cases), and fact keys recovered while adversary-only keys are ignored. **58/58 tests pass.**
+
+### Exploratory probes (seeds 0–2, CPU, not results): why the regime matters
+1. **Dense regime** (n = 10, every source can see every fact, f/n = 0.2): median, Krum and TrMean also reach ASR 0. Tabayyun ties on security and adds only the certificate. **The v1 H2 claim (≥ 25% better than the best robust baseline) would have failed here.**
+2. **Clean-only tuning:** the magnitude-aware Recall_L2 showed that α^Q = 0.02 shrinks stored values for every quarantine method. α^Q = 0.005 gives clean Recall_L2 = 1.00 for all of them → adopted.
+3. **Locality regime** (n = 20, each fact known to only k…(n−f)/2 honest sources), 648 runs:
+   - Tabayyun-anchored: worst-attack ASR 0, amnesia 0, Recall_L2 0.91–1.00 (clean and attacked).
+   - mean / TrMean / median / GeoMed / Krum: **clean Recall_L2 = 0.00**. They erase every minority-held fact, since they need a global majority. Worst-case ASR goes up to 0.67 (median, GeoMed) and 1.00 (Krum, TrMean at f = 3).
+   - Titans: ASR 1.00. Tabayyun-identity (A6): Recall_L2 0.03–0.13. Tabayyun-noCorr (A2): fails. **Both new components are necessary.**
+   - 0 certificate violations / 216 runs. Max true-drift / certificate = 1.0000 (float32), so the certificate is **attained** by the edge-of-range attacker: evidence for tightness (Thm 4).
+   - Caveat to test later: give the baselines the anchored basis too (expected not to help them, since they still need a majority per direction). Added to Day 6.
+
+**Thesis sharpened:** *robust aggregation protects against a minority by requiring a majority, so it also silences minority-held truths. Corroboration needs only k independent sources.* This matches the O-RAN reality that most facts are local to a few neighbouring cells.
+
+### Pre-registration frozen (`docs/preregistration.md`, tag `prereg-v1`)
+Regimes, metrics (Recall_L2, L2 flip, amnesia), success criteria (P1, P2-dense non-inferiority, P2-loc/H6, A2, A6, H3) and **confirmatory seeds 100–109** are fixed before any confirmatory run.
+
+**Decision:** Day 4 = confirmatory E02, dense (6480 runs) and locality (4320 runs), on CPU workers.

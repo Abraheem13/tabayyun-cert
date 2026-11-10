@@ -4,9 +4,9 @@ A result may be called a *Theorem* in the paper only when its proof is written i
 
 | Result | Statement (short) | Proof | Numerical check | Status |
 |---|---|---|---|---|
-| Lemma 1 | Single-write persistence, exact for orthogonal streams | Sketch (proposal) | `test_persistence_lemma_exact` (rel. err ≤ 1e-8) | ✅ checked |
-| Lemma 1′ | Mean-field persistence with benign self-correction λ = 2θ/d_k; momentum amplifies correction | Derivation to write (expected dynamics of a 2×2 linear system) | Day-2 E01: 42/42 linear cells within −9%…+4%, log-log r = 0.9996; `test_mean_field_law_reduces_to_lemma1_and_matches_day2` | ✅ empirical, proof Day 3 |
-| Prop. 0 | Necessity: a single-tier memory cannot bound one source under any norm filter | To write (rayn construction) | E01 rayn (smoke: cos 0.99 at 10% norm) | ⏳ proof Day 3 |
+| Lemma 1 | Single-write persistence, exact for orthogonal streams | `paper/proofs.md` | unit test (1e-8) + Day 3 E01 orthogonal: 42/42 cells exact | ✅ proved + checked |
+| Lemma 1′ | Mean-field persistence with benign self-correction λ = 2θ/d_k; momentum amplifies correction; MLP α_eff ≈ 2α | `paper/proofs.md` | Day 2: 42/42 linear cells −9%…+4%, r = 0.9996; Day 3 MLP r = 0.994 (exploratory) | ✅ proof written |
+| Prop. 0 | Necessity: norm filters cannot bound one source; contest becomes write frequency | Sketch in `paper/proofs.md` | Day 3: rayn ASR 1.0 under 6 filters (20/20 each), single-shot 0 | ✅ sketch + checked; full proof Day 7 |
 | Thm 1 | Sybil-limited promotion, zero influence on unsupported directions | Sketch | `test_theorem1_no_honest_support_zero_influence` | ✅ checked |
 | Lemma 2 | Hull of honest corroborators | Standard order statistics | `test_hull_and_runtime_certificate_fuzz` (30 seeds) | ✅ checked |
 | Thm 2′ | EMA drift ≤ √(d_v K) Δ_H^C, with no 1/α^P | To write | via Prop. R test | ⏳ Day 5 |
