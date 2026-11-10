@@ -236,6 +236,7 @@ def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences):
 
 
 def main():
+    global NU_REL, GAMMA, DEFENCES
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True)
     ap.add_argument("--smoke", action="store_true")
@@ -249,7 +250,6 @@ def main():
     ap.add_argument("--attacks", default=",".join(ATTACKS))
     ap.add_argument("--defences", default=",".join(DEFENCES))
     a = ap.parse_args()
-    global NU_REL, GAMMA, DEFENCES
     NU_REL, GAMMA = a.nu_rel, a.gamma
     DEFENCES = a.defences.split(",")
     torch.set_grad_enabled(False)
@@ -288,6 +288,7 @@ def main():
                 e["violations"] = int(sum(r["violations"] for r in rr))
                 e["action_violations"] = int(sum(r["action_violations"] for r in rr))
                 e["certified_frac_clean"] = float(np.mean([r["certified_frac"] for r in cl]))
+                e["certified_correct_clean"] = float(np.mean([r["certified_correct_frac"] for r in cl]))
                 e["certified_frac_attacked"] = float(np.mean([r["certified_frac"] for r in att])) if att else float("nan")
             summ[f"{rg}|f={f}|rho={rho}|{d}"] = e
             print(f"{rg:8} f={f} rho={rho} {d:11} " + " ".join(f"{k}={v:.2f}" if isinstance(v, float) else f"{k}={v}" for k, v in e.items()))
