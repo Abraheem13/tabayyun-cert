@@ -1,0 +1,21 @@
+# Day 8  device=cuda  started 2026-11-10 21:44:42
+
+=== python.exe -m pytest -q
+...............................................................          [100%]
+63 passed in 6.69s
+--- exit 0 in 7.9s
+
+=== python.exe scripts/tune_e04_clean.py
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e04_mqar_attack.py", line 252
+    global NU_REL, GAMMA, DEFENCES
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: name 'DEFENCES' is used prior to global declaration
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\scripts\tune_e04_clean.py", line 21, in <module>
+    subprocess.run(cmd, cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:\\Users\\athawerani\\Documents\\Abraheem_work\\Paper4\\tabayyun-cert\\.venv\\Scripts\\python.exe', 'experiments/e04_mqar_attack.py', '--ckpt', 'checkpoints/memlm_d128.pt', '--trials', '100', '--trial_offset', '0', '--attacks', 'none', '--defences', 'tabayyun', '--gamma', '0.3', '--tag', 'tune_d128_nunone_g0.3']' returned non-zero exit status 1.
+--- exit 1 in 0.2s
+
+# finished 2026-11-10 21:44:50; failed: ['python.exe scripts/tune_e04_clean.py']
