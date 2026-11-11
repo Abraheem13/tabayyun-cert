@@ -344,3 +344,13 @@ The activity threshold ν = 1e−3 came from Tier A, where fact keys are exactly
 3. Robust aggregators are competitive in token recall when facts are well observed, but they are attacker-steerable (installed up to 0.42) and certify nothing.
 
 **Next:** adaptive gradient attacker (PGD on a differentiable relaxation of the gate, plus BPDA; Day 13 of the roadmap, pulled forward), then federation (Days 15–16) and O-RAN (Days 17–18). While I build the attacker, the GPU trains a larger model (d512) for the scaling ablation.
+
+---
+
+## Day 10 (2026-11-11): d512 model; adaptive gradient attacker built and pre-registered
+
+**d512 / dk256 (2.36 M params): MQAR 99.98%**, checkpoint released. **But training took 21.3 h** (76,785 s), against 24 min for d128. My estimate (30–40 min) was wrong. Likely cause: the scan's autograd graph (B·d_v·d_k·L ≈ 128·256·256·300 floats per state tensor) exceeds the 16 GB of VRAM, and the Windows driver silently falls back to shared system memory. **Action before any larger model:** chunked scan with gradient checkpointing, or a smaller batch with gradient accumulation. Logged as a known compute issue.
+
+**E05 adaptive attacker** (`experiments/e05_adaptive.py`): PGD/BPDA with unbounded white-box control of the adversarial sources' memory states, CW token loss, 3 restarts, run through each defence's exact forward pass. Smoke (trials 0–1, debugging only): PGD installs **0.25–1.00 against TrMean / median / GeoMed** (the static edge-of-range attack installed 0.00 on them), and 0.25 against primary Tabayyun in one locality cell. Strict: 0.00. 0 certificate violations.
+
+**Amendment 5 registered before the confirmatory run** (trials 300–329, both models; H8a/b/c). The run executes on CPU in this environment from the released checkpoints (≈ 25 min per model).

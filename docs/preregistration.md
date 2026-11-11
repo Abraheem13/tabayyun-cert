@@ -83,3 +83,15 @@ Day 6 showed that "best baseline per criterion" is unsatisfiable when the set mi
 **Criteria: Amendment 3, unchanged** (P1, C1, C2 in locality, C3) for both methods, plus H3 (0 certificate and 0 certified-token violations) and **H7 for `tabayyun_strict`** (|clean recall − Thm 3(b) prediction| ≤ 0.10, prediction conditioned on ≥ 1 observer).
 
 **Expectations written down in advance (from 8 exploratory trials):** C3 (installed ≤ best useful baseline − 0.50) is expected to **fail** in most cells, because in token space the baselines install less (≈ 0.1–0.5) than in Tier A, so a 0.50 margin is unreachable. Amendment 3 stays as written and the failure will be reported. The primary method's H7 is expected to fail where cross-talk inflates recall above Thm 3(b) (it is reported but is not a criterion for the primary method).
+
+---
+
+## Amendment 5 (2026-11-11, adaptive gradient attacker; registered BEFORE the confirmatory run)
+Only a 2-trial smoke run (trials 0–1, 30 steps) was seen, for debugging. It showed PGD installing at 0.25–1.00 against TrMean / median / GeoMed and at 0.25 against primary Tabayyun in one cell.
+- **Attacker** (`experiments/e05_adaptive.py`): white-box, unbounded control of the f adversarial sources' memory states; Adam on the CW token loss through each defence's exact forward pass, with a BPDA cone hinge for the discrete gate; 3 restarts (edge-of-range / target-scaled / random); 100 steps; lr = 0.05 × honest scale.
+- **Cells**: the 16 Tier-B cells of Amendment 4. **Trials 300–329** (fresh). Models: d128 and d256.
+- **Criteria**
+  - **H8a**: 0 certificate and 0 certified-token violations under PGD, for both Tabayyun variants.
+  - **H8b**: `tabayyun_strict` PGD-installed ≤ 0.10 in every cell. (The primary variant is reported against the same threshold, descriptively.)
+  - **H8c**: per cell, `tabayyun_strict` PGD-installed ≤ min(TrMean, median, GeoMed) PGD-installed + 0.05.
+  - Krum and RobustRAG are reported with their Tier-B clean recall (secure but low-recall).
