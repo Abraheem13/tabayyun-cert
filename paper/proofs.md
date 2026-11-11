@@ -41,3 +41,11 @@ Among all bounds B(x) computed from the observed corroborator values x that are 
 *Remarks.* (i) The bound is exactly attained, so it cannot be improved by any constant. (ii) The theorem is per coordinate. Jointly over coordinates and directions the adversary must use one identity set, so the joint bound can be loose in principle. Empirically the omniscient edge-of-range attacker attains it: Day 5 shows true drift / certificate = 0.94–0.98 (median) and up to 0.998 (Frobenius), and up to 1.0000003 (float32) at the attacked key. Non-adaptive attacks reach a median of 0.29, so the certificate costs a factor of about 3.5 against weak attackers and nothing against the strongest one.
 
 ## Theorem 1, Theorem 2′, Theorem 3: see `docs/proposal_v2.md` §4; full write-up on Day 7.
+
+
+## Theorem 5 (federated composition)
+Setting: N clients, at most f_c Byzantine (arbitrary rows and arbitrary reported bounds). Every honest client c has a local per-direction certificate E^c with |(M^P_c − M̃^P_c) v|_i ≤ E^c_{v,i} for its own frozen directions v. Global direction u; client report D_c = M^P_c u, bound δ_c(u)_i = Σ_v |⟨v,u⟩| E^c_{v,i}; reference report D̃_c = M̃^P_c u.
+
+*Claim.* With the server gate (k_c ≥ 2β_c+1, β_c ≥ f_c) and per-round error e^G_{u,i} = e^server_{u,i} + max_{c ∈ [N]} δ_c(u)_i, the EMA global memory satisfies |(M^G − M̃^G)u|_i ≤ E^G_{u,i}, where M̃^G promotes the mean of the honest server-corroborators' **reference** reports.
+
+*Proof.* (1) Client level: M^P_c − M̃^P_c = Σ_v Δ_v vᵀ with |Δ_{v,i}| ≤ E^c_{v,i}, so |D_c − D̃_c|_i = |Σ_v Δ_{v,i}⟨v,u⟩| ≤ δ_c(u)_i. (2) Server level: by Prop. R, |TrMean − mean_{H∩C} D|_i ≤ e^server_{u,i}. (3) |mean_{H∩C} D − mean_{H∩C} D̃|_i ≤ max_{c∈H} δ_c(u)_i ≤ max_{c∈[N]} δ_c(u)_i, because the maximum over all reports includes every honest report. Byzantine clients can raise this term (loosening the bound) but never lower it below the honest maximum. (4) Steps 1–3 add up per round, and the EMA recursion is a convex combination exactly as in Thm 2′. ∎ *Checked:* `test_federated_composition_certificate_sound`.

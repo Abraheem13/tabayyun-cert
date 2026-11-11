@@ -15,4 +15,4 @@ A result may be called a *Theorem* in the paper only when its proof is written i
 | Thm 3b | Promotion-delay law (= cost of security) | Short | unit test + **H7 confirmatory: predicts recall within 0.02–0.03 in 15/15 cells (Day 5)** | ✅ checked |
 | Thm 4 | **Instance-optimality**: Prop. R is the smallest sound certificate computable from the observed values (attained exactly) | `paper/proofs.md` (short, complete) | Day 5: edge-of-range attains 0.94–0.998 Frobenius, 1.0000003 at k* | ✅ proved + checked |
 | Prop. 5 | Liveness under median shift | Open | E02 promotion fraction under `MedianShift` | 🔲 Day 20 |
-| Fed. composition | Two-level certificate | Open | E05 | 🔲 Day 16 |
+| Thm 5 | Federated composition: e^server + max reported client bound; sound under lying Byzantine clients | `paper/proofs.md` | `test_federated_composition_certificate_sound` | ✅ proved + checked |

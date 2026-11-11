@@ -10,6 +10,7 @@ so the run can be reviewed from GitHub.
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 import time
@@ -80,6 +81,9 @@ def plan(day: int, dev: str) -> list[list[str]]:
              "--trials", "100", "--trial_offset", "200", "--obs_rounds", "1,3", "--tag", "d256_confirm"],
             [PY, "scripts/analyze_e04.py", "results/e04/e04_d256_confirm.json"]],
         # scaling ablation (Day 26 pulled forward): a larger memory LM
+        # Amendment 6: federation confirmatory (CPU workers), trials 400-419
+        11: [[PY, "experiments/e06_federated.py", "--trials", "20", "--trial_offset", "400", "--rounds", "8",
+              "--workers", str(max(1, (os.cpu_count() or 2) - 1)), "--tag", "confirm"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

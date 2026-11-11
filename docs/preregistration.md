@@ -95,3 +95,16 @@ Only a 2-trial smoke run (trials 0–1, 30 steps) was seen, for debugging. It sh
   - **H8b**: `tabayyun_strict` PGD-installed ≤ 0.10 in every cell. (The primary variant is reported against the same threshold, descriptively.)
   - **H8c**: per cell, `tabayyun_strict` PGD-installed ≤ min(TrMean, median, GeoMed) PGD-installed + 0.05.
   - Krum and RobustRAG are reported with their Tier-B clean recall (secure but low-recall).
+
+---
+
+## Amendment 6 (2026-11-11, federation; registered BEFORE the confirmatory run)
+Only a 2-trial smoke run (trials 0–1, 4 rounds) was seen.
+- **Setup** (`experiments/e06_federated.py`): N = 12 clients × n = 7 sources (f = 1 adversarial source inside every client), 16 facts, 8 rounds. Byzantine clients f_c ∈ {1, 2} (first clients) send crafted rows **and** under-report their local bounds. Regimes: dense (every honest client relevant) and locality (each fact relevant at m ~ U[2f_c+1, N−f_c] honest clients), ρ ∈ {0.4, 0.7}. Attacks: none, local (edge-of-range inside clients + targeted writes), server_edge, server_unbounded, both.
+- **Defences**: fed_tabayyun (local Tabayyun + server gate, Thm 5 certificate); local Tabayyun + server {mean, TrMean, median, Krum, GeoMed}; FedAvg over local ungated Titans (FedNL-style substrate).
+- **Trials 400–419** (fresh).
+- **Criteria**
+  - **H9a**: 0 violations of the Theorem 5 certificate.
+  - **H9b**: fed_tabayyun worst-case installed ≤ 0.05 **and** worst-case flip ≤ 0.10 in every cell.
+  - **H9c**: fed_tabayyun is Pareto-non-dominated (worst flip, worst amnesia, −clean Recall_L2) by every federated baseline in every cell.
+  - **H9d** (necessity at federation scale): FedAvg-Titans worst-case flip ≥ 0.5 in every cell.

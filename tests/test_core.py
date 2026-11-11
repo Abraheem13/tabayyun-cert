@@ -291,3 +291,44 @@ def test_relative_activity_threshold_robust_to_adversary():
     assert out.active[sup].all()                               # supporters stay active
     assert not out.active[f + 6:].any()                        # crosstalk-only sources dropped
     assert out.promoted.all()
+
+
+def test_federated_composition_certificate_sound():
+    """Theorem 5: global drift <= server runtime bound + max reported client bound,
+    with Byzantine clients sending crafted rows AND under-reporting their bounds."""
+    from tabayyun.attacks import EdgeOfRange as Edge
+    from tabayyun.federated import FederatedTabayyun
+    g = torch.Generator().manual_seed(0)
+    N, n, f, f_c, dk, dv = 7, 6, 1, 1, 12, 12
+    Q, _ = torch.linalg.qr(torch.randn(dk, dk, generator=g))
+    keys = Q[:, :6].T.contiguous()
+    vals = torch.nn.functional.normalize(torch.randn(6, dv, generator=g), dim=1)
+    k_star, v_star = keys[0], -vals[0]
+    clients = []
+    for c in range(N):
+        m = TabayyunMemory(TabayyunConfig(n_sources=n, dk=dk, dv=dv, tau=20, basis="anchored",
+                                          anchor_min_writers="f+1", q_gates=Gates(theta=0.5, alpha=0.005),
+                                          gate=GateConfig(k=3, f=f, gamma=0.3, nu=0.05)))
+        m.oracle_honest = torch.arange(f, n)
+        m.delta_hook = Edge([0], list(range(f, n)), k_star, v_star, nu=0.05)
+        clients.append(m)
+    fed = FederatedTabayyun(clients, GateConfig(k=3, f=f_c, gamma=0.3, nu=0.05))
+    fed.byzantine = [0]
+    fed.server_hook = Edge([0], list(range(1, N)), k_star, v_star, nu=0.05)
+    for _ in range(4):
+        for c, cl in enumerate(clients):
+            for t in range(20):
+                src, ks, vs = [], [], []
+                for s in range(f, n):
+                    j = int(torch.randint(0, 6, (1,), generator=g))
+                    if torch.rand(1, generator=g) < 0.7:
+                        src.append(s); ks.append(keys[j]); vs.append(vals[j] + 0.1 * torch.randn(dv, generator=g) / dv ** 0.5)
+                if src:
+                    cl.write(torch.tensor(src), torch.stack(ks), torch.stack(vs))
+                else:
+                    cl.write(torch.zeros(0, dtype=torch.long), torch.zeros(0, dk), torch.zeros(0, dv))
+        fed.sync()
+        assert fed.true_drift() <= fed.certificate + 1e-9
+        dq = (keys @ (fed.MG - fed.MG_ref).T).norm(dim=-1)
+        assert (dq <= fed.query_certificate(keys) + 1e-9).all()
+    assert fed.U.shape[0] >= 3
