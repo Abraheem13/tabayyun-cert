@@ -1,0 +1,346 @@
+{
+ "dense|fc=1|rho=0.4|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "dense|fc=1|rho=0.4|fed_mean": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=1|rho=0.4|fed_trmean": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.4|fed_median": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.4|fed_krum": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.4|fed_geomed": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.4|fedavg_titans": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=1|rho=0.7|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "dense|fc=1|rho=0.7|fed_mean": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=1|rho=0.7|fed_trmean": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.7|fed_median": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.7|fed_krum": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.7|fed_geomed": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=1|rho=0.7|fedavg_titans": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=2|rho=0.4|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "dense|fc=2|rho=0.4|fed_mean": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=2|rho=0.4|fed_trmean": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.4|fed_median": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.4|fed_krum": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.4|fed_geomed": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.4|fedavg_titans": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=2|rho=0.7|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "dense|fc=2|rho=0.7|fed_mean": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "dense|fc=2|rho=0.7|fed_trmean": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.7|fed_median": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.7|fed_krum": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.7|fed_geomed": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0
+ },
+ "dense|fc=2|rho=0.7|fedavg_titans": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=1|rho=0.4|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "locality|fc=1|rho=0.4|fed_mean": {
+  "clean_recall": 0.676666684448719,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=1|rho=0.4|fed_trmean": {
+  "clean_recall": 0.676666684448719,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.65
+ },
+ "locality|fc=1|rho=0.4|fed_median": {
+  "clean_recall": 0.6800000190734863,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.65
+ },
+ "locality|fc=1|rho=0.4|fed_krum": {
+  "clean_recall": 0.7733333468437195,
+  "worst_flip": 0.05,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.45
+ },
+ "locality|fc=1|rho=0.4|fed_geomed": {
+  "clean_recall": 0.676666684448719,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.65
+ },
+ "locality|fc=1|rho=0.4|fedavg_titans": {
+  "clean_recall": 0.6800000175833703,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=1|rho=0.7|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "locality|fc=1|rho=0.7|fed_mean": {
+  "clean_recall": 0.676666684448719,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=1|rho=0.7|fed_trmean": {
+  "clean_recall": 0.676666684448719,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.65
+ },
+ "locality|fc=1|rho=0.7|fed_median": {
+  "clean_recall": 0.6866666853427887,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.65
+ },
+ "locality|fc=1|rho=0.7|fed_krum": {
+  "clean_recall": 0.7733333468437195,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.45
+ },
+ "locality|fc=1|rho=0.7|fed_geomed": {
+  "clean_recall": 0.6800000175833703,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.65
+ },
+ "locality|fc=1|rho=0.7|fedavg_titans": {
+  "clean_recall": 0.6800000175833703,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=2|rho=0.4|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "locality|fc=2|rho=0.4|fed_mean": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=2|rho=0.4|fed_trmean": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.85
+ },
+ "locality|fc=2|rho=0.4|fed_median": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.75
+ },
+ "locality|fc=2|rho=0.4|fed_krum": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.05,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.1
+ },
+ "locality|fc=2|rho=0.4|fed_geomed": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.75
+ },
+ "locality|fc=2|rho=0.4|fedavg_titans": {
+  "clean_recall": 0.9966666668653488,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=2|rho=0.7|fed_tabayyun": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.0,
+  "violations": 0
+ },
+ "locality|fc=2|rho=0.7|fed_mean": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 1.0
+ },
+ "locality|fc=2|rho=0.7|fed_trmean": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.8
+ },
+ "locality|fc=2|rho=0.7|fed_median": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.75
+ },
+ "locality|fc=2|rho=0.7|fed_krum": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.15
+ },
+ "locality|fc=2|rho=0.7|fed_geomed": {
+  "clean_recall": 1.0,
+  "worst_flip": 0.0,
+  "worst_installed": 0.0,
+  "worst_amnesia": 0.75
+ },
+ "locality|fc=2|rho=0.7|fedavg_titans": {
+  "clean_recall": 1.0,
+  "worst_flip": 1.0,
+  "worst_installed": 1.0,
+  "worst_amnesia": 1.0
+ }
+}

@@ -1,0 +1,68 @@
+# Day 11  device=cuda  started 2026-11-11 23:59:48
+
+=== python.exe -m pytest -q
+................................................................         [100%]
+64 passed in 7.67s
+--- exit 0 in 8.9s
+
+=== python.exe experiments/e06_federated.py --trials 20 --trial_offset 400 --rounds 8 --workers 19 --tag confirm
+dense    fc=1 rho=0.4 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+dense    fc=1 rho=0.4 fed_mean       clean_recall=1.00 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+dense    fc=1 rho=0.4 fed_trmean     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.4 fed_median     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.4 fed_krum       clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.4 fed_geomed     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.4 fedavg_titans  clean_recall=1.00 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+dense    fc=1 rho=0.7 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+dense    fc=1 rho=0.7 fed_mean       clean_recall=1.00 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+dense    fc=1 rho=0.7 fed_trmean     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.7 fed_median     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.7 fed_krum       clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.7 fed_geomed     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=1 rho=0.7 fedavg_titans  clean_recall=1.00 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+dense    fc=2 rho=0.4 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+dense    fc=2 rho=0.4 fed_mean       clean_recall=1.00 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+dense    fc=2 rho=0.4 fed_trmean     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.4 fed_median     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.4 fed_krum       clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.4 fed_geomed     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.4 fedavg_titans  clean_recall=1.00 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+dense    fc=2 rho=0.7 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+dense    fc=2 rho=0.7 fed_mean       clean_recall=1.00 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+dense    fc=2 rho=0.7 fed_trmean     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.7 fed_median     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.7 fed_krum       clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.7 fed_geomed     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00
+dense    fc=2 rho=0.7 fedavg_titans  clean_recall=1.00 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+locality fc=1 rho=0.4 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+locality fc=1 rho=0.4 fed_mean       clean_recall=0.68 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+locality fc=1 rho=0.4 fed_trmean     clean_recall=0.68 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.65
+locality fc=1 rho=0.4 fed_median     clean_recall=0.68 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.65
+locality fc=1 rho=0.4 fed_krum       clean_recall=0.77 worst_flip=0.05 worst_installed=0.00 worst_amnesia=0.45
+locality fc=1 rho=0.4 fed_geomed     clean_recall=0.68 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.65
+locality fc=1 rho=0.4 fedavg_titans  clean_recall=0.68 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+locality fc=1 rho=0.7 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+locality fc=1 rho=0.7 fed_mean       clean_recall=0.68 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+locality fc=1 rho=0.7 fed_trmean     clean_recall=0.68 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.65
+locality fc=1 rho=0.7 fed_median     clean_recall=0.69 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.65
+locality fc=1 rho=0.7 fed_krum       clean_recall=0.77 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.45
+locality fc=1 rho=0.7 fed_geomed     clean_recall=0.68 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.65
+locality fc=1 rho=0.7 fedavg_titans  clean_recall=0.68 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+locality fc=2 rho=0.4 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+locality fc=2 rho=0.4 fed_mean       clean_recall=1.00 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+locality fc=2 rho=0.4 fed_trmean     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.85
+locality fc=2 rho=0.4 fed_median     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.75
+locality fc=2 rho=0.4 fed_krum       clean_recall=1.00 worst_flip=0.05 worst_installed=0.00 worst_amnesia=0.10
+locality fc=2 rho=0.4 fed_geomed     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.75
+locality fc=2 rho=0.4 fedavg_titans  clean_recall=1.00 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+locality fc=2 rho=0.7 fed_tabayyun   clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.00 violations=0
+locality fc=2 rho=0.7 fed_mean       clean_recall=1.00 worst_flip=1.00 worst_installed=0.00 worst_amnesia=1.00
+locality fc=2 rho=0.7 fed_trmean     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.80
+locality fc=2 rho=0.7 fed_median     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.75
+locality fc=2 rho=0.7 fed_krum       clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.15
+locality fc=2 rho=0.7 fed_geomed     clean_recall=1.00 worst_flip=0.00 worst_installed=0.00 worst_amnesia=0.75
+locality fc=2 rho=0.7 fedavg_titans  clean_recall=1.00 worst_flip=1.00 worst_installed=1.00 worst_amnesia=1.00
+SUMMARY {"rows": 5600, "violations": 0, "seconds": 959.8}
+--- exit 0 in 962.8s
+
+# finished 2026-11-12 00:15:59; failed: none
