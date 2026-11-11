@@ -1,0 +1,482 @@
+{
+ "dense|f=1|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.05,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.26666666666666666,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=1|agg_median": {
+  "pgd_installed": 0.05,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=1|agg_geomed": {
+  "pgd_installed": 0.25,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=1|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=1|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=3|agg_median": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=3|agg_geomed": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=3|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=1|agg_median": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=1|agg_geomed": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=1|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=1|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=3|agg_median": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=3|agg_geomed": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=3|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.03333333333333333,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.8833333333333333,
+  "edge_installed": 0.16666666666666666
+ },
+ "dense|f=2|rho=0.4|R=1|agg_median": {
+  "pgd_installed": 0.2833333333333333,
+  "edge_installed": 0.15
+ },
+ "dense|f=2|rho=0.4|R=1|agg_geomed": {
+  "pgd_installed": 0.9666666666666667,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=1|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=1|robustrag": {
+  "pgd_installed": 0.05,
+  "edge_installed": 0.03333333333333333
+ },
+ "dense|f=2|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.08333333333333333,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=3|agg_median": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=3|agg_geomed": {
+  "pgd_installed": 0.26666666666666666,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=3|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.15,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=1|agg_median": {
+  "pgd_installed": 0.03333333333333333,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=1|agg_geomed": {
+  "pgd_installed": 0.3333333333333333,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=1|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=1|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=3|agg_median": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=3|agg_geomed": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=3|robustrag": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=2|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.21666666666666667,
+  "edge_installed": 0.016666666666666666,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.03333333333333333,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.7,
+  "edge_installed": 0.26666666666666666
+ },
+ "locality|f=2|rho=0.4|R=1|agg_median": {
+  "pgd_installed": 0.13333333333333333,
+  "edge_installed": 0.06666666666666667
+ },
+ "locality|f=2|rho=0.4|R=1|agg_geomed": {
+  "pgd_installed": 0.7,
+  "edge_installed": 0.06666666666666667
+ },
+ "locality|f=2|rho=0.4|R=1|agg_krum": {
+  "pgd_installed": 0.03333333333333333,
+  "edge_installed": 0.03333333333333333
+ },
+ "locality|f=2|rho=0.4|R=1|robustrag": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=2|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.55,
+  "edge_installed": 0.06666666666666667
+ },
+ "locality|f=2|rho=0.4|R=3|agg_median": {
+  "pgd_installed": 0.08333333333333333,
+  "edge_installed": 0.05
+ },
+ "locality|f=2|rho=0.4|R=3|agg_geomed": {
+  "pgd_installed": 0.4166666666666667,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=2|rho=0.4|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=2|rho=0.4|R=3|robustrag": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=2|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.5,
+  "edge_installed": 0.1
+ },
+ "locality|f=2|rho=0.7|R=1|agg_median": {
+  "pgd_installed": 0.11666666666666667,
+  "edge_installed": 0.05
+ },
+ "locality|f=2|rho=0.7|R=1|agg_geomed": {
+  "pgd_installed": 0.45,
+  "edge_installed": 0.03333333333333333
+ },
+ "locality|f=2|rho=0.7|R=1|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=2|rho=0.7|R=1|robustrag": {
+  "pgd_installed": 0.03333333333333333,
+  "edge_installed": 0.03333333333333333
+ },
+ "locality|f=2|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.03333333333333333,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.2833333333333333,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=2|rho=0.7|R=3|agg_median": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=2|rho=0.7|R=3|agg_geomed": {
+  "pgd_installed": 0.21666666666666667,
+  "edge_installed": 0.0
+ },
+ "locality|f=2|rho=0.7|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=2|rho=0.7|R=3|robustrag": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=3|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.31666666666666665,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.016666666666666666,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 1.0,
+  "edge_installed": 0.45
+ },
+ "locality|f=3|rho=0.4|R=1|agg_median": {
+  "pgd_installed": 0.4,
+  "edge_installed": 0.31666666666666665
+ },
+ "locality|f=3|rho=0.4|R=1|agg_geomed": {
+  "pgd_installed": 1.0,
+  "edge_installed": 0.26666666666666666
+ },
+ "locality|f=3|rho=0.4|R=1|agg_krum": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=3|rho=0.4|R=1|robustrag": {
+  "pgd_installed": 0.05,
+  "edge_installed": 0.03333333333333333
+ },
+ "locality|f=3|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.16666666666666666,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.9666666666666667,
+  "edge_installed": 0.2
+ },
+ "locality|f=3|rho=0.4|R=3|agg_median": {
+  "pgd_installed": 0.26666666666666666,
+  "edge_installed": 0.13333333333333333
+ },
+ "locality|f=3|rho=0.4|R=3|agg_geomed": {
+  "pgd_installed": 1.0,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=3|rho=0.4|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=3|rho=0.4|R=3|robustrag": {
+  "pgd_installed": 0.1,
+  "edge_installed": 0.06666666666666667
+ },
+ "locality|f=3|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.18333333333333332,
+  "edge_installed": 0.016666666666666666,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.03333333333333333,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.95,
+  "edge_installed": 0.2833333333333333
+ },
+ "locality|f=3|rho=0.7|R=1|agg_median": {
+  "pgd_installed": 0.36666666666666664,
+  "edge_installed": 0.13333333333333333
+ },
+ "locality|f=3|rho=0.7|R=1|agg_geomed": {
+  "pgd_installed": 0.9833333333333333,
+  "edge_installed": 0.05
+ },
+ "locality|f=3|rho=0.7|R=1|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=3|rho=0.7|R=1|robustrag": {
+  "pgd_installed": 0.06666666666666667,
+  "edge_installed": 0.06666666666666667
+ },
+ "locality|f=3|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.016666666666666666,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.8833333333333333,
+  "edge_installed": 0.06666666666666667
+ },
+ "locality|f=3|rho=0.7|R=3|agg_median": {
+  "pgd_installed": 0.15,
+  "edge_installed": 0.016666666666666666
+ },
+ "locality|f=3|rho=0.7|R=3|agg_geomed": {
+  "pgd_installed": 0.9333333333333333,
+  "edge_installed": 0.0
+ },
+ "locality|f=3|rho=0.7|R=3|agg_krum": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0
+ },
+ "locality|f=3|rho=0.7|R=3|robustrag": {
+  "pgd_installed": 0.06666666666666667,
+  "edge_installed": 0.05
+ }
+}
