@@ -332,3 +332,19 @@ def test_federated_composition_certificate_sound():
         dq = (keys @ (fed.MG - fed.MG_ref).T).norm(dim=-1)
         assert (dq <= fed.query_certificate(keys) + 1e-9).all()
     assert fed.U.shape[0] >= 3
+
+
+def test_certified_regret_sound_fuzz():
+    """Thm 3(a'): eps_hat bounds the reference regret of the chosen action."""
+    from tabayyun.certify import certified_regret
+    g = torch.Generator().manual_seed(0)
+    for _ in range(300):
+        A, dv = 20, 6
+        y_ref = torch.randn(A, dv, generator=g)
+        B = torch.rand(A, dv, generator=g) * 0.3
+        y = y_ref + (2 * torch.rand(A, dv, generator=g) - 1) * B          # |y - y_ref| <= B
+        w = torch.randn(dv, generator=g)
+        u, u_ref = y @ w, y_ref @ w
+        eps = certified_regret(u, B, w)
+        a = int(u.argmax())
+        assert float(u_ref.max() - u_ref[a]) <= eps + 1e-5

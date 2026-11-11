@@ -131,6 +131,10 @@ class DirectionalDrift:
         w = (q @ U.T).abs()                     # (m, K)
         return (w @ self.E).norm(dim=-1)
 
+    def query_coord_bound(self, q: torch.Tensor, U: torch.Tensor) -> torch.Tensor:
+        """Per-coordinate: |(M^P - M~^P) q|_i <= sum_u |<u,q>| E_{u,i}.  Returns (m, dv)."""
+        return (q @ U.T).abs() @ self.E
+
 
 def action_certified(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tensor) -> torch.Tensor:
     """Theorem 3(a), pairwise form for a linear head z = W y + b.
@@ -147,6 +151,19 @@ def action_certified(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tenso
     ok = (za - logits) > wdiff * drift_q.view(-1, 1)
     ok.scatter_(1, top.view(-1, 1), True)
     return ok.all(-1)
+
+
+def certified_regret(util: torch.Tensor, coord_bound: torch.Tensor, w: torch.Tensor) -> float:
+    """Theorem 3(a'), certified epsilon-optimality for a linear utility u_a = w . y_a.
+
+    util: (A,) utilities of the reads; coord_bound: (A, dv) per-coordinate bounds on
+    |y_a - y~_a|; w: (dv,).  With s_a = sum_i |w_i| B_{a,i} >= |u_a - u~_a|,
+        max_j u~_j - u~_{a_hat} <= eps_hat = max_j (u_j - u_{a_hat} + s_j + s_{a_hat})^+,
+    a_hat = argmax_a u_a.  eps_hat = 0 iff a_hat is certified exactly (Thm 3a).
+    """
+    s = coord_bound @ w.abs()
+    a = int(util.argmax())
+    return float((util - util[a] + s + s[a]).clamp(min=0).max())
 
 
 def action_certified_lipschitz(margin: torch.Tensor, L: float, q_norm: torch.Tensor,

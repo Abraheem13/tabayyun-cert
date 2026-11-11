@@ -117,3 +117,30 @@ Only a 2-trial smoke run (trials 0–1, 4 rounds) was seen.
 - **A4** (momentum η_P > 0 in M^P): the momentum-free certificate is **not** valid. Violations are expected, with drift/cert > 1 that grows with η_P, as Thm 2′'s convexity argument predicts.
 - **A5**: lower ν or γ trades recall for security only weakly. Removing the cone test keeps the certificate valid (Prop. R does not use it) but raises installed under edge-of-range. k + 2 lowers locality recall (Thm 3b). Every A5 variant keeps 0 violations.
 - **A10**: reset or decay of the quarantine after promotion lowers recall in the locality regime (facts must be re-observed). Certificates stay valid.
+
+---
+
+## Amendment 8 (2026-11-12, Tier C: O-RAN slicing control on real ColO-RAN traces; registered BEFORE the confirmatory run)
+**What was seen before registration** (exploratory only):
+- clean-only tuning of the shared write step θ on trials 0–4 (`results/e08/tuning_clean.json`; θ = 0.05 is selected and used for **every** defence; it is the edge of the grid);
+- a 2-trial smoke run of all attacks (trials 0–1).
+
+**Design change disclosed before the run.** On real KPIs, the top configurations are near-ties (top-1 vs top-2 utility gap ≈ 0.005 in z units), so the exact-action form of Thm 3(a) certifies 0% of decisions. **Thm 3(a′)** (certified ε-optimality, `certify.certified_regret`, fuzz-tested) bounds the regret of the chosen action under the honest reference. The proposal's "certified-action fraction" is therefore measured as the fraction of decisions certified **10%-optimal** (ε̂ ≤ 0.1 × utility range). The exact fraction is also reported.
+
+**Setup** (`experiments/e08_oran.py`):
+- One xApp per base station (7 BSs, BS = trial mod 7) chooses among 84 actions (3 schedulers × 28 slice-PRB splits) by a linear SLA utility (eMBB throughput − URLLC buffer − 0.5 MTC buffer).
+- Honest reports are real ColO-RAN measurement windows. Compromised reporters spoof KPIs so that the worst action looks best.
+- Cells: dense (n = 10, f ∈ {1, 2}) and locality (n = 20, f ∈ {2, 3}), ρ ∈ {0.4, 0.7}, 10 control epochs.
+- Attacks: spoof (targeted), rayn, edge-of-range, unbounded.
+- Baselines: Titans, Titans+clip, Miras-Yaad, mean / TrMean / median / GeoMed / Krum, median+anchored, RobustRAG, SMSR, TMA-NM.
+
+**Trials 600–619** (fresh).
+
+**Criteria (8 cells):**
+- **H10a**: 0 drift-certificate and 0 ε-certificate violations.
+- **H10b**: Tabayyun worst-case final-epoch hijack ≤ 0.05 in every cell.
+- **H10c**: Tabayyun is not Pareto-dominated on (worst hijack, worst regret, clean regret) by any baseline, in every cell.
+- **H10d**: fraction of clean decisions certified 10%-optimal ≥ 0.60, averaged over cells (proposal H3, O-RAN).
+- **H10e** (necessity): Titans worst-case hijack ≥ 0.5 in every cell.
+
+**Expectations stated now:** `hijack_any` (any epoch, transient) is reported descriptively and may be > 0 for Tabayyun. The exact-action certified fraction is expected to be ≈ 0. In the 2-trial smoke, **H10c failed in 2/8 dense cells**: robust aggregators matched Tabayyun on security with ≈ 0.1 lower clean regret, a difference between near-tie actions. H10c is kept as written, and a fail there is possible.

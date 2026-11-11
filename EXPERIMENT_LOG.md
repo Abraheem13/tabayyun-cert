@@ -444,3 +444,24 @@ PGD/BPDA on the attackers' memory states (CW token loss, 100 steps, 3 restarts),
 - **k + 2 confirmed.**
 - **No cone: prediction wrong.** I predicted higher installed. Installed stays 0 (the trimmed mean already removes the edge values), but the certificate becomes 20× looser. The cone test is a **tightness** component, not a security one.
 - ν, γ, τ and α_P are inert in Tier A, so the method is not fragile to these hyper-parameters.
+
+---
+
+## Day 13 build (2026-11-12): Tier C on real O-RAN data (ColO-RAN), Amendment 8
+
+**Data.** ColO-RAN (wineslab; Colosseum Rome, 7 BSs, 3 schedulers × 28 slice-PRB splits × 5 repetitions; 9 GB) is reduced by `scripts/prep_coloran.py` to a 0.5 MB KPI bank (`data/oran/coloran_kpi.npz`): per slice, DL throughput, log DL buffer and granted PRBs, in 8 windows per run.
+- **Bug caught before use:** pandas `usecols` keeps the file's column order, so throughput and buffer were swapped (throughput read as 272k "Mbps"). Fixed by explicit reordering. After the fix, the data are physically sensible: eMBB throughput rises with eMBB PRBs (1.2 → 7.4 Mbps), and the URLLC buffer falls with URLLC PRBs.
+- DL tx-error is 0 throughout the dataset, so granted PRBs are used instead.
+
+**Task.** A memory-augmented slicing xApp picks one of 84 actions by an SLA utility. KPI reporters are the sources, and compromised reporters spoof KPIs so that the worst action looks best.
+
+**Clean-only tuning** (trials 0–4, attack = none): the write step θ is shared by all defences. θ = 0.05 maximises Tabayyun's clean optimality + certified fraction. It also helps every baseline (Titans 0.40 → 0.89 of optimal).
+
+**Finding that changed the certificate (disclosed in Amendment 8).** The exact Thm 3(a) certifies 0% of decisions on real KPIs because the top configurations are near-ties (gap ≈ 0.005). Added **Thm 3(a′), certified ε-optimality**: a sound bound ε̂ on the regret of the chosen action under the honest reference, from per-coordinate per-query bounds (`DirectionalDrift.query_coord_bound`). Fuzz-tested (300 cases).
+
+**Smoke (trials 0–1).**
+- Tabayyun: final hijack 0 in 8/8 cells, 0 violations, 50–100% of clean decisions certified 10%-optimal.
+- Titans, TMA-NM: hijack 1.0. TrMean / median: up to 1.0.
+- RobustRAG: secure but 0.26–0.34 clean regret in several cells.
+
+**Day 13 run:** confirmatory trials 600–619 (`run_day.py 13`), CPU, about 10 min.

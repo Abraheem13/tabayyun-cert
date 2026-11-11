@@ -12,6 +12,7 @@ A result may be called a *Theorem* in the paper only when its proof is written i
 | Thm 2′ | EMA drift ≤ √(d_v K) Δ_H^C, with no 1/α^P | To write | via Prop. R test | ⏳ Day 5 |
 | Prop. R | Runtime certificate, per query | `paper/proofs.md` | unit tests + 0 violations in 7,200 Tabayyun runs (Days 4–5) | ✅ proved + checked |
 | Thm 3a | Pairwise action certificate | Short | `test_action_certificate_sound` | ✅ checked |
+| Thm 3a′ | Certified ε-optimality for a linear utility: ε̂ = max_j (u_j − u_â + s_j + s_â)^+ with s from per-coordinate per-query bounds | short (in `certify.certified_regret` docstring; to `proofs.md`) | `test_certified_regret_sound_fuzz` (300 cases) | ✅ checked |
 | Thm 3b | Promotion-delay law (= cost of security) | Short | unit test + **H7 confirmatory: predicts recall within 0.02–0.03 in 15/15 cells (Day 5)** | ✅ checked |
 | Thm 4 | **Instance-optimality**: Prop. R is the smallest sound certificate computable from the observed values (attained exactly) | `paper/proofs.md` (short, complete) | Day 5: edge-of-range attains 0.94–0.998 Frobenius, 1.0000003 at k* | ✅ proved + checked |
 | Prop. 5 | Liveness under median shift | Open | E02 promotion fraction under `MedianShift` | 🔲 Day 20 |

@@ -1,0 +1,91 @@
+{
+ "0.5": {
+  "tabayyun_anchored2": {
+   "opt_frac": 0.937,
+   "certified": 0.025,
+   "objective": 0.962
+  },
+  "titans": {
+   "opt_frac": 0.404
+  },
+  "agg_trmean": {
+   "opt_frac": 0.968
+  },
+  "agg_median": {
+   "opt_frac": 0.953
+  },
+  "robustrag": {
+   "opt_frac": 0.915
+  },
+  "tma_corr": {
+   "opt_frac": 0.967
+  }
+ },
+ "0.2": {
+  "tabayyun_anchored2": {
+   "opt_frac": 0.969,
+   "certified": 0.25,
+   "objective": 1.219
+  },
+  "titans": {
+   "opt_frac": 0.824
+  },
+  "agg_trmean": {
+   "opt_frac": 0.971
+  },
+  "agg_median": {
+   "opt_frac": 0.964
+  },
+  "robustrag": {
+   "opt_frac": 0.924
+  },
+  "tma_corr": {
+   "opt_frac": 0.971
+  }
+ },
+ "0.1": {
+  "tabayyun_anchored2": {
+   "opt_frac": 0.971,
+   "certified": 0.5,
+   "objective": 1.471
+  },
+  "titans": {
+   "opt_frac": 0.879
+  },
+  "agg_trmean": {
+   "opt_frac": 0.97
+  },
+  "agg_median": {
+   "opt_frac": 0.968
+  },
+  "robustrag": {
+   "opt_frac": 0.929
+  },
+  "tma_corr": {
+   "opt_frac": 0.976
+  }
+ },
+ "0.05": {
+  "tabayyun_anchored2": {
+   "opt_frac": 0.971,
+   "certified": 0.875,
+   "objective": 1.846
+  },
+  "titans": {
+   "opt_frac": 0.889
+  },
+  "agg_trmean": {
+   "opt_frac": 0.969
+  },
+  "agg_median": {
+   "opt_frac": 0.967
+  },
+  "robustrag": {
+   "opt_frac": 0.927
+  },
+  "tma_corr": {
+   "opt_frac": 0.976
+  }
+ },
+ "selected_theta": 0.05
+}

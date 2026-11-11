@@ -89,6 +89,9 @@ def plan(day: int, dev: str) -> list[list[str]]:
              [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d512.pt", "--device", dev,
               "--trials", "100", "--trial_offset", "200", "--obs_rounds", "1,3", "--tag", "d512_confirm"],
              [PY, "scripts/analyze_e04.py", "results/e04/e04_d512_confirm.json"]],
+        # Amendment 8: Tier C, O-RAN slicing on real ColO-RAN KPIs (CPU workers), trials 600-619
+        13: [[PY, "experiments/e08_oran.py", "--trials", "20", "--trial_offset", "600", "--tag", "confirm"],
+             [PY, "scripts/analyze_e08.py", "results/e08/e08_confirm_summary.json"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }
