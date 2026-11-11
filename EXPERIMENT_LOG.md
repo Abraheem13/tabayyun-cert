@@ -404,3 +404,43 @@ PGD/BPDA on the attackers' memory states (CW token loss, 100 steps, 3 restarts),
 - **Strict Tabayyun holds** against the adaptive attacker.
 - **The primary variant does not hold**: up to 0.42 installed, in locality cells with R = 1. The cause is the cross-talk corroboration diagnosed on Day 8: adversarial writes leak into directions that honest sources corroborate. The certificate is still sound in those runs (0 violations), because it bounds drift from the honest-corroborator reference and the leak passes through honest reads. **Consequence for the paper:** strict (ν_rel = 0.3) is the recommended secure configuration; primary is the high-recall setting.
 - Krum and RobustRAG also resist PGD here. Their cost is utility: Krum keeps one source and RobustRAG has lower recall (Tier B Day 9). Both certify nothing.
+
+---
+
+## Day 12 (2026-11-12): Amendment 7: d512 scaling replication + E07 ablations
+
+**Git note.** The first two pushes did not reach GitHub because the local repository was in a detached-HEAD state left by an interrupted `pull --rebase`. Fixed with `git checkout -B main`.
+
+### (a) d512 replication of Amendment 4 (trials 200–299, 96,000 rows, 2,293 s on the RTX 5080: inference only, no VRAM spill)
+| Criterion | primary | strict | (d128 / d256, Day 9) |
+|---|---|---|---|
+| H3: certificate + certified-token violations | **0** | **0** | 0 / 0 |
+| P1 (better than Titans) | **16/16** | **16/16** | 32/32 |
+| C1 (never Pareto-dominated) | 15/16 | 15/16 | 32/32 |
+| H7 (Thm 3b predicts recall) | 9/16 (not a criterion) | **16/16** | strict 32/32 |
+| C2 (locality recall) | 3/8 | 0/8 | 10/16, 3/16 |
+| C3 | 0/16 | 0/16 | 0/32 (expected) |
+
+- **New failure: C1 in one cell** (dense, f = 2, ρ = 0.4, R = 3). RobustRAG dominates both variants: recall 0.98 vs 0.92, both with installed 0.00. Reported as a fail. RobustRAG certifies nothing; Tabayyun certifies-and-is-correct on 0.68–0.70 of tokens in that cell.
+- **C2 is weaker at d512** (3/8 and 0/8, against 10/16 and 3/16 at d128/d256). The token-level recall advantage over robust aggregators shrinks further with model size. The Tier-B claim stays **security plus certification at comparable recall**, not recall.
+- Certified-and-correct tokens: dense 0.96–1.00 at R = 3, ρ = 0.7. Strict locality R = 3: 0.29–0.84.
+- **The scaling conclusions replicate:** 0 violations, P1 everywhere, and the strict variant's utility is predicted by Thm 3(b) in every cell.
+
+### (b) E07 ablations (3,200 runs, 211 s; seeds 500–509; descriptive). Full rows in `ABLATIONS.md`.
+| variant | recall dense | recall locality | worst installed | worst amnesia | violations | max drift/cert | certificate (Frobenius) |
+|---|---|---|---|---|---|---|---|
+| base | 1.00 | 0.99 | 0.00 | 0.00 | 0 | 1.00 | 0.23 |
+| η_P = 0.5 (A4) | 1.00 | 0.99 | 0.00 | 0.00 | **40** | **1.45** | 0.23 |
+| η_P = 0.9 (A4) | 0.91 | 0.41 | 0.00 | 0.70 | **40** | **2.13** | 0.23 |
+| no cone (A5) | 1.00 | 0.99 | 0.00 | 0.00 | 0 | 1.00 | **4.62** |
+| k + 2 (A5) | 1.00 | 0.58 | 0.00 | 0.60 | 0 | 1.00 | 0.18 |
+| reset (A10) | 1.00 | 0.61 | 0.00 | 0.90 | 0 | 1.00 | 0.23 |
+| decay (A10) | 0.95 | 0.82 | 0.00 | 0.80 | 0 | 1.00 | 0.68 |
+| ν, γ, τ, α_P sweeps | 1.00 | 0.97–1.00 | 0.00 | ≤ 0.10 | 0 | 1.00 | 0.20–0.24 |
+
+**Predictions vs outcome (Amendment 7b):**
+- **A4 confirmed.** The momentum-free promoted tier is necessary for the certificate. Even η_P = 0.5, which costs no utility, violates it in 40 runs. This motivates the design and is good for the paper.
+- **A10 confirmed.**
+- **k + 2 confirmed.**
+- **No cone: prediction wrong.** I predicted higher installed. Installed stays 0 (the trimmed mean already removes the edge values), but the certificate becomes 20× looser. The cone test is a **tightness** component, not a security one.
+- ν, γ, τ and α_P are inert in Tier A, so the method is not fragile to these hyper-parameters.
