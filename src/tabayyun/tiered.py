@@ -45,6 +45,7 @@ class TabayyunConfig:
     rule: str = "ema"                         # ema (v2) | additive (v1)
     alpha_P: float = 0.5                      # promoted-tier step (ema) or decay (additive)
     eps_P: float = 0.0                        # decay of unpromoted directions (ema)
+    eta_P: float = 0.0                        # ABLATION A4 only: momentum in M^P (breaks Thm 2')
     tau: int = 50                             # promotion period
     gate: GateConfig = field(default_factory=GateConfig)
     basis: str = "identity"                   # identity | anchored | keys_svd | robust_keys_svd
@@ -115,6 +116,8 @@ class TabayyunMemory:
         # evaluation-only oracle: ids of honest sources, to build the reference M~^P
         self.oracle_honest: torch.Tensor | None = None
         self.MP_ref = torch.zeros_like(self.MP)
+        self.SP = torch.zeros_like(self.MP)       # momentum buffers (A4 ablation; zero by default)
+        self.SP_ref = torch.zeros_like(self.MP)
         self.Q.snapshot()
 
     # ----------------------------------------------------------------- io
@@ -211,7 +214,11 @@ class TabayyunMemory:
         if self.cfg.rule == "ema":
             cur_P = U @ self.MP.T                          # (K, dv) = M^P u
             step = self.cfg.alpha_P * pm * (out.values - cur_P)
-            self.MP = self.MP + step.T @ U
+            if self.cfg.eta_P > 0:
+                self.SP = self.cfg.eta_P * self.SP + step.T @ U
+                self.MP = self.MP + self.SP
+            else:
+                self.MP = self.MP + step.T @ U
             if self.cfg.eps_P > 0:
                 keep = (1 - pm) * (1 - self.cfg.eps_P) + pm   # decay unpromoted only
                 self.MP = self.MP - ((1 - keep) * (U @ self.MP.T)).T @ U
@@ -238,7 +245,12 @@ class TabayyunMemory:
         ref_val = (D * CH.unsqueeze(-1)).sum(0) / cnt * pm          # (K,dv)
         if self.cfg.rule == "ema":
             cur = U @ self.MP_ref.T
-            self.MP_ref = self.MP_ref + (self.cfg.alpha_P * pm * (ref_val - cur)).T @ U
+            step_ref = (self.cfg.alpha_P * pm * (ref_val - cur)).T @ U
+            if self.cfg.eta_P > 0:
+                self.SP_ref = self.cfg.eta_P * self.SP_ref + step_ref
+                self.MP_ref = self.MP_ref + self.SP_ref
+            else:
+                self.MP_ref = self.MP_ref + step_ref
             if self.cfg.eps_P > 0:
                 keep = (1 - pm) * (1 - self.cfg.eps_P) + pm
                 self.MP_ref = self.MP_ref - ((1 - keep) * (U @ self.MP_ref.T)).T @ U

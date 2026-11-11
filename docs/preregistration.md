@@ -108,3 +108,12 @@ Only a 2-trial smoke run (trials 0–1, 4 rounds) was seen.
   - **H9b**: fed_tabayyun worst-case installed ≤ 0.05 **and** worst-case flip ≤ 0.10 in every cell.
   - **H9c**: fed_tabayyun is Pareto-non-dominated (worst flip, worst amnesia, −clean Recall_L2) by every federated baseline in every cell.
   - **H9d** (necessity at federation scale): FedAvg-Titans worst-case flip ≥ 0.5 in every cell.
+
+---
+
+## Amendment 7 (2026-11-12, scaling replication + ablations; registered BEFORE either run)
+**(a) Scaling replication of Amendment 4 on MemLM d512/dk256** (released checkpoint, trained Day 10). Only the `--smoke` pipeline check (exploratory trials, outside 200–299) was run on it, to confirm the checkpoint loads. Same cells, attacks, methods (ν_rel, γ unchanged, no re-tuning), baselines and **trials 200–299** as Amendment 4. Criteria are **Amendment 4, unchanged**, scored by `scripts/analyze_e04.py`. Expectations stated in advance: C3 fails (as at d128/d256), and C2 holds only partly.
+**(b) E07 component ablations** (`experiments/e07_ablations.py`, seeds 500–509, descriptive, no pass/fail). Only a 1-seed smoke run was seen. Predictions written down now:
+- **A4** (momentum η_P > 0 in M^P): the momentum-free certificate is **not** valid. Violations are expected, with drift/cert > 1 that grows with η_P, as Thm 2′'s convexity argument predicts.
+- **A5**: lower ν or γ trades recall for security only weakly. Removing the cone test keeps the certificate valid (Prop. R does not use it) but raises installed under edge-of-range. k + 2 lowers locality recall (Thm 3b). Every A5 variant keeps 0 violations.
+- **A10**: reset or decay of the quarantine after promotion lowers recall in the locality regime (facts must be re-observed). Certificates stay valid.

@@ -84,6 +84,11 @@ def plan(day: int, dev: str) -> list[list[str]]:
         # Amendment 6: federation confirmatory (CPU workers), trials 400-419
         11: [[PY, "experiments/e06_federated.py", "--trials", "20", "--trial_offset", "400", "--rounds", "8",
               "--workers", str(max(1, (os.cpu_count() or 2) - 1)), "--tag", "confirm"]],
+        # Amendment 7: ablations (CPU workers, seeds 500-509) + d512 scaling replication of Amendment 4
+        12: [[PY, "experiments/e07_ablations.py", "--seeds", "10", "--seed_offset", "500", "--tag", "amend7"],
+             [PY, "experiments/e04_mqar_attack.py", "--ckpt", "checkpoints/memlm_d512.pt", "--device", dev,
+              "--trials", "100", "--trial_offset", "200", "--obs_rounds", "1,3", "--tag", "d512_confirm"],
+             [PY, "scripts/analyze_e04.py", "results/e04/e04_d512_confirm.json"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

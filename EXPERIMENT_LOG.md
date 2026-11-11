@@ -354,3 +354,32 @@ The activity threshold ν = 1e−3 came from Tier A, where fact keys are exactly
 **E05 adaptive attacker** (`experiments/e05_adaptive.py`): PGD/BPDA with unbounded white-box control of the adversarial sources' memory states, CW token loss, 3 restarts, run through each defence's exact forward pass. Smoke (trials 0–1, debugging only): PGD installs **0.25–1.00 against TrMean / median / GeoMed** (the static edge-of-range attack installed 0.00 on them), and 0.25 against primary Tabayyun in one locality cell. Strict: 0.00. 0 certificate violations.
 
 **Amendment 5 registered before the confirmatory run** (trials 300–329, both models; H8a/b/c). The run executes on CPU in this environment from the released checkpoints (≈ 25 min per model).
+
+---
+
+## Day 11 (2026-11-12): federation confirmatory (Amendment 6), PASS 4/4
+
+E06, trials 400–419, 8 rounds, 5,600 runs, 960 s on 19 workers. N = 12 clients × 7 sources (1 adversarial source inside every client); f_c ∈ {1, 2} Byzantine clients send crafted rows **and under-report their own bounds**. Scored by `scripts/analyze_e06.py` → `results/e06/scorecard_amend6.json`.
+
+| Criterion | Result |
+|---|---|
+| H9a: 0 Theorem 5 violations | **8/8 cells, 0 violations in 800 fed_tabayyun runs** |
+| H9b: worst installed ≤ 0.05 and worst flip ≤ 0.10 | **8/8** (all 0.00) |
+| H9c: never Pareto-dominated | **8/8** |
+| H9d: FedAvg-Titans worst flip ≥ 0.5 | **8/8** (1.00 everywhere, installed 1.00) |
+
+**Reading.**
+- **Federated Tabayyun:** clean recall 1.00, worst flip 0.00, worst amnesia 0.00 in every cell.
+- **FedAvg (plain mean) of Tabayyun clients:** flip 1.00 in every cell. The server mean is the weak link even when every client is protected.
+- **Dense regime:** robust server aggregators (TrMean, median, GeoMed, Krum) tie with Tabayyun.
+- **Locality regime:** robust server aggregators **erase minority-held facts**.
+  - Clean recall 0.68–0.77 at f_c = 1.
+  - Worst amnesia 0.45–0.85 at the attacked key.
+  - This reproduces the Tier-A locality finding one level up: majority aggregation over clients deletes facts known to a few clients.
+- Krum flips 0.05 in two locality cells.
+
+---
+
+## Day 12 plan (Amendment 7, registered before the runs)
+1. **E07 ablations** (A4 momentum in M^P, A5 ν/γ/cone/k/τ/α_P, A10 after-promotion policy), seeds 500–509, CPU, about 2 min. A4 adds `eta_P` to `TabayyunConfig` (default 0, so behaviour is unchanged). Smoke result: η_P = 0.9 gives drift/cert ≈ 2.1, i.e. the certificate fails without the momentum-free design, as predicted.
+2. **d512 scaling replication** of Amendment 4 (trials 200–299, GPU inference only, so no VRAM spill expected).
