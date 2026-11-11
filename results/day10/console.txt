@@ -1,0 +1,48 @@
+# Day 10  device=cuda  started 2026-11-10 23:39:03
+
+=== python.exe -m pytest -q
+...............................................................          [100%]
+63 passed in 6.46s
+--- exit 0 in 7.8s
+
+=== python.exe experiments/e03_mqar_train.py --device cuda --steps 8000 --batch 128 --d_model 512 --dk 256 --max_pairs 24 --max_segments 6 --tag memlm_d512
+params 2.36M  device cuda
+C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e03_mqar_train.py:83: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:837.)
+  curve.append({"step": step, "loss": float(loss), "acc": acc, "sec": round(time.time() - t0, 1)})
+{"step": 250, "loss": 0.1972753256559372, "acc": 0.5361328125, "sec": 19.6}
+{"step": 500, "loss": 0.015489451587200165, "acc": 0.9703369140625, "sec": 47.0}
+{"step": 750, "loss": 0.01109134592115879, "acc": 0.972900390625, "sec": 80.2}
+{"step": 1000, "loss": 0.010022252798080444, "acc": 0.9730224609375, "sec": 119.0}
+{"step": 1250, "loss": 0.07483748346567154, "acc": 0.9803466796875, "sec": 171.4}
+{"step": 1500, "loss": 0.09256820380687714, "acc": 0.9832763671875, "sec": 229.6}
+{"step": 1750, "loss": 0.029898064211010933, "acc": 0.98583984375, "sec": 302.3}
+{"step": 2000, "loss": 0.06254617124795914, "acc": 0.9871826171875, "sec": 385.3}
+{"step": 2250, "loss": 0.0647091269493103, "acc": 0.99072265625, "sec": 489.8}
+{"step": 2500, "loss": 0.1122785285115242, "acc": 0.9918212890625, "sec": 918.5}
+{"step": 2750, "loss": 0.02869538590312004, "acc": 0.9937744140625, "sec": 2457.4}
+{"step": 3000, "loss": 0.04048643261194229, "acc": 0.9925537109375, "sec": 4883.4}
+{"step": 3250, "loss": 0.03630824387073517, "acc": 0.9947509765625, "sec": 8331.9}
+{"step": 3500, "loss": 0.08973178267478943, "acc": 0.9935302734375, "sec": 11830.8}
+{"step": 3750, "loss": 0.0367874838411808, "acc": 0.9935302734375, "sec": 15312.1}
+{"step": 4000, "loss": 0.04169796034693718, "acc": 0.9949951171875, "sec": 18844.7}
+{"step": 4250, "loss": 0.09503307938575745, "acc": 0.9937744140625, "sec": 22401.2}
+{"step": 4500, "loss": 0.12141241133213043, "acc": 0.9942626953125, "sec": 25911.6}
+{"step": 4750, "loss": 0.07075226306915283, "acc": 0.9971923828125, "sec": 29468.3}
+{"step": 5000, "loss": 0.011828461661934853, "acc": 0.99609375, "sec": 32993.8}
+{"step": 5250, "loss": 0.0721365287899971, "acc": 0.9959716796875, "sec": 36534.4}
+{"step": 5500, "loss": 0.03532757982611656, "acc": 0.995849609375, "sec": 40060.4}
+{"step": 5750, "loss": 0.02744237706065178, "acc": 0.9971923828125, "sec": 43509.9}
+{"step": 6000, "loss": 0.08742662519216537, "acc": 0.995361328125, "sec": 46980.0}
+{"step": 6250, "loss": 0.17014339566230774, "acc": 0.995361328125, "sec": 50490.9}
+{"step": 6500, "loss": 0.02468913421034813, "acc": 0.9951171875, "sec": 54046.7}
+{"step": 6750, "loss": 0.0045789433643221855, "acc": 0.997314453125, "sec": 57730.6}
+{"step": 7000, "loss": 0.0764503926038742, "acc": 0.9974365234375, "sec": 62031.5}
+{"step": 7250, "loss": 0.007182657718658447, "acc": 0.9976806640625, "sec": 65704.2}
+{"step": 7500, "loss": 0.020535532385110855, "acc": 0.9990234375, "sec": 69334.5}
+{"step": 7750, "loss": 0.0, "acc": 1.0, "sec": 72982.4}
+{"step": 8000, "loss": 0.010217808187007904, "acc": 1.0, "sec": 76650.2}
+SUMMARY {"final_acc": 0.999847412109375, "params": 2363651, "sec": 76785.0}
+--- exit 0 in 76793.4s
+
+# finished 2026-11-11 20:59:05; failed: none
