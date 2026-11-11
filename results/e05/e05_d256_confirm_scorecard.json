@@ -1,0 +1,19 @@
+{
+ "file": "e05_d256_confirm_summary.json",
+ "cells": 16,
+ "H8a_violations": 0,
+ "H8b_strict": "16/16",
+ "H8b_primary_descr": "12/16",
+ "H8c": "16/16",
+ "H8c_fails": [],
+ "worst_pgd": {
+  "tabayyun": 0.417,
+  "tabayyun_strict": 0.083,
+  "agg_trmean": 1.0,
+  "agg_median": 0.483,
+  "agg_geomed": 1.0,
+  "agg_krum": 0.033,
+  "robustrag": 0.133
+ },
+ "verdict": "PASS"
+}

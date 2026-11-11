@@ -383,3 +383,24 @@ E06, trials 400–419, 8 rounds, 5,600 runs, 960 s on 19 workers. N = 12 clients
 ## Day 12 plan (Amendment 7, registered before the runs)
 1. **E07 ablations** (A4 momentum in M^P, A5 ν/γ/cone/k/τ/α_P, A10 after-promotion policy), seeds 500–509, CPU, about 2 min. A4 adds `eta_P` to `TabayyunConfig` (default 0, so behaviour is unchanged). Smoke result: η_P = 0.9 gives drift/cert ≈ 2.1, i.e. the certificate fails without the momentum-free design, as predicted.
 2. **d512 scaling replication** of Amendment 4 (trials 200–299, GPU inference only, so no VRAM spill expected).
+
+---
+
+## Day 10/11 addendum: E05 adaptive-attack confirmatory (Amendment 5), PASS on both models
+
+PGD/BPDA on the attackers' memory states (CW token loss, 100 steps, 3 restarts), trials 300–329, 16 cells × 7 defences per model. CPU runtime: d128 about 45 min, d256 4,465 s. Scored by `scripts/analyze_e05.py`.
+
+| | d128 | d256 |
+|---|---|---|
+| H8a: certificate and certified-token violations | **0** | **0** |
+| H8b: strict PGD-installed ≤ 0.10, every cell | **16/16** (worst 0.033) | **16/16** (worst 0.083) |
+| H8c: strict ≤ min(TrMean, median, GeoMed) + 0.05 | **16/16** | **16/16** |
+| Worst PGD-installed: TrMean / median / GeoMed | 1.00 / 0.40 / 1.00 | 1.00 / 0.48 / 1.00 |
+| Worst PGD-installed: Krum / RobustRAG | 0.03 / 0.10 | 0.03 / 0.13 |
+| Primary `tabayyun` (descriptive) | 12/16 ≤ 0.10, worst 0.32 | 12/16 ≤ 0.10, worst 0.42 |
+
+**Reading (honest).**
+- The gradient attacker **breaks TrMean and GeoMed completely**, even though the static edge-of-range attack did not. Robustness to hand-crafted attacks was overstated for those baselines.
+- **Strict Tabayyun holds** against the adaptive attacker.
+- **The primary variant does not hold**: up to 0.42 installed, in locality cells with R = 1. The cause is the cross-talk corroboration diagnosed on Day 8: adversarial writes leak into directions that honest sources corroborate. The certificate is still sound in those runs (0 violations), because it bounds drift from the honest-corroborator reference and the leak passes through honest reads. **Consequence for the paper:** strict (ν_rel = 0.3) is the recommended secure configuration; primary is the high-recall setting.
+- Krum and RobustRAG also resist PGD here. Their cost is utility: Krum keeps one source and RobustRAG has lower recall (Tier B Day 9). Both certify nothing.
