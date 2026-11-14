@@ -1,0 +1,119 @@
+# Day 15  device=cuda  started 2026-11-15 00:18:42
+
+=== python.exe -m pytest -q
+...................................................................      [100%]
+67 passed in 7.39s
+--- exit 0 in 8.6s
+
+=== python.exe -m pip install -q transformers>=4.45
+--- exit 0 in 6.1s
+
+=== python.exe experiments/e10_lm_retrofit.py --model gpt2-xl --device cuda --tune
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 314, in <module>
+    main()
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 252, in main
+    S = Substrate(a.model, a.device, layer, 50.0 if boost is None else boost)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 56, in __init__
+    recs = json.loads((ROOT / "data" / "counterfact" / "counterfact_4k.json").read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1059, in read_text
+    return f.read()
+           ^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 13119: character maps to <undefined>
+--- exit 1 in 2.6s
+
+=== python.exe experiments/e10_lm_retrofit.py --model gpt2-xl --device cuda --trials 100 --trial_offset 800 --obs_rounds 1,3 --tag gpt2xl_confirm
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 314, in <module>
+    main()
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 252, in main
+    S = Substrate(a.model, a.device, layer, 50.0 if boost is None else boost)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 56, in __init__
+    recs = json.loads((ROOT / "data" / "counterfact" / "counterfact_4k.json").read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1059, in read_text
+    return f.read()
+           ^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 13119: character maps to <undefined>
+--- exit 1 in 2.7s
+
+=== python.exe scripts/analyze_e04.py results/e10/e10_gpt2xl_confirm.json
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\scripts\analyze_e04.py", line 115, in <module>
+    main()
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\scripts\analyze_e04.py", line 34, in main
+    rows = json.loads(Path(a.rows).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results\\e10\\e10_gpt2xl_confirm.json'
+--- exit 1 in 0.2s
+
+=== python.exe experiments/e10_lm_retrofit.py --model Qwen/Qwen2.5-1.5B --device cuda --tune
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 314, in <module>
+    main()
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 252, in main
+    S = Substrate(a.model, a.device, layer, 50.0 if boost is None else boost)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 56, in __init__
+    recs = json.loads((ROOT / "data" / "counterfact" / "counterfact_4k.json").read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1059, in read_text
+    return f.read()
+           ^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 13119: character maps to <undefined>
+--- exit 1 in 2.6s
+
+=== python.exe experiments/e10_lm_retrofit.py --model Qwen/Qwen2.5-1.5B --device cuda --trials 100 --trial_offset 800 --obs_rounds 1,3 --tag qwen15b_confirm
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 314, in <module>
+    main()
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 252, in main
+    S = Substrate(a.model, a.device, layer, 50.0 if boost is None else boost)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\experiments\e10_lm_retrofit.py", line 56, in __init__
+    recs = json.loads((ROOT / "data" / "counterfact" / "counterfact_4k.json").read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1059, in read_text
+    return f.read()
+           ^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 13119: character maps to <undefined>
+--- exit 1 in 2.6s
+
+=== python.exe scripts/analyze_e04.py results/e10/e10_qwen15b_confirm.json
+Traceback (most recent call last):
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\scripts\analyze_e04.py", line 115, in <module>
+    main()
+  File "C:\Users\athawerani\Documents\Abraheem_work\Paper4\tabayyun-cert\scripts\analyze_e04.py", line 34, in main
+    rows = json.loads(Path(a.rows).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\athawerani\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results\\e10\\e10_qwen15b_confirm.json'
+--- exit 1 in 0.2s
+
+# finished 2026-11-15 00:19:07; failed: ['python.exe experiments/e10_lm_retrofit.py --model gpt2-xl --device cuda --tune', 'python.exe experiments/e10_lm_retrofit.py --model gpt2-xl --device cuda --trials 100 --trial_offset 800 --obs_rounds 1,3 --tag gpt2xl_confirm', 'python.exe scripts/analyze_e04.py results/e10/e10_gpt2xl_confirm.json', 'python.exe experiments/e10_lm_retrofit.py --model Qwen/Qwen2.5-1.5B --device cuda --tune', 'python.exe experiments/e10_lm_retrofit.py --model Qwen/Qwen2.5-1.5B --device cuda --trials 100 --trial_offset 800 --obs_rounds 1,3 --tag qwen15b_confirm', 'python.exe scripts/analyze_e04.py results/e10/e10_qwen15b_confirm.json']
