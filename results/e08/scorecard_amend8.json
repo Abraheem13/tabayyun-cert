@@ -1,0 +1,32 @@
+{
+ "H10a_violations": 0,
+ "H10b": "8/8",
+ "H10c": "5/8",
+ "H10c_dominated_by": {
+  "dense|f=1|rho=0.4": [
+   "agg_median",
+   "agg_median_anc",
+   "agg_trmean",
+   "robustrag",
+   "smsr"
+  ],
+  "dense|f=1|rho=0.7": [
+   "agg_median",
+   "agg_trmean"
+  ],
+  "dense|f=2|rho=0.7": [
+   "agg_median",
+   "agg_median_anc",
+   "robustrag"
+  ]
+ },
+ "H10d_certified_10pct": 0.888,
+ "H10e": "8/8",
+ "verdict": {
+  "H10a": true,
+  "H10b": true,
+  "H10c": false,
+  "H10d": true,
+  "H10e": true
+ }
+}

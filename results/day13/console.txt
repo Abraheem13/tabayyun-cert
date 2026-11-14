@@ -1,1 +1,172 @@
-# Day 13  device=cuda  started 2026-11-14 23:23:29
+# Day 13  device=cuda  started 2026-11-14 23:25:01
+
+=== python.exe -m pytest -q
+.................................................................        [100%]
+65 passed in 8.00s
+--- exit 0 in 9.2s
+
+=== python.exe experiments/e08_oran.py --trials 20 --trial_offset 600 --tag confirm
+10400 runs on 19 workers
+  500/10400  17s
+  1000/10400  29s
+  1500/10400  43s
+  2000/10400  62s
+  2500/10400  77s
+  3000/10400  90s
+  3500/10400  107s
+  4000/10400  123s
+  4500/10400  141s
+  5000/10400  162s
+  5500/10400  175s
+  6000/10400  191s
+  6500/10400  206s
+  7000/10400  224s
+  7500/10400  242s
+  8000/10400  258s
+  8500/10400  278s
+  9000/10400  293s
+  9500/10400  312s
+  10000/10400  340s
+dense|f=1|rho=0.4|titans                   clean_regret=0.12 clean_opt_frac=0.94 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.4|titans_clip              clean_regret=0.12 clean_opt_frac=0.93 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.4|miras_yaad               clean_regret=0.12 clean_opt_frac=0.93 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.4|agg_mean                 clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.4|agg_trmean               clean_regret=0.05 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.55 worst_regret=0.05
+dense|f=1|rho=0.4|agg_median               clean_regret=0.05 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.30 worst_regret=0.08
+dense|f=1|rho=0.4|agg_geomed               clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=0.20 worst_hijack_any=0.95 worst_regret=0.38
+dense|f=1|rho=0.4|agg_krum                 clean_regret=0.98 clean_opt_frac=0.47 worst_hijack=0.05 worst_hijack_any=1.00 worst_regret=0.18
+dense|f=1|rho=0.4|agg_median_anc           clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.08
+dense|f=1|rho=0.4|robustrag                clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.07
+dense|f=1|rho=0.4|smsr                     clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.07
+dense|f=1|rho=0.4|tma_corr                 clean_regret=0.03 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.4|tabayyun_anchored2       clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.09 violations=0 action_violations=0 certified_clean=1.00 certified_exact_clean=0.00 eps_rel_clean=0.02 certified_attacked=0.95
+dense|f=1|rho=0.7|titans                   clean_regret=0.19 clean_opt_frac=0.89 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.7|titans_clip              clean_regret=0.10 clean_opt_frac=0.94 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.7|miras_yaad               clean_regret=0.19 clean_opt_frac=0.89 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.7|agg_mean                 clean_regret=0.02 clean_opt_frac=0.99 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.7|agg_trmean               clean_regret=0.03 clean_opt_frac=0.98 worst_hijack=0.00 worst_hijack_any=0.30 worst_regret=0.04
+dense|f=1|rho=0.7|agg_median               clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.04
+dense|f=1|rho=0.7|agg_geomed               clean_regret=0.03 clean_opt_frac=0.99 worst_hijack=0.10 worst_hijack_any=0.95 worst_regret=0.20
+dense|f=1|rho=0.7|agg_krum                 clean_regret=0.61 clean_opt_frac=0.67 worst_hijack=0.00 worst_hijack_any=1.00 worst_regret=0.11
+dense|f=1|rho=0.7|agg_median_anc           clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.08
+dense|f=1|rho=0.7|robustrag                clean_regret=0.10 clean_opt_frac=0.95 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.10
+dense|f=1|rho=0.7|smsr                     clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.06
+dense|f=1|rho=0.7|tma_corr                 clean_regret=0.02 clean_opt_frac=0.99 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=1|rho=0.7|tabayyun_anchored2       clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.09 violations=0 action_violations=0 certified_clean=1.00 certified_exact_clean=0.00 eps_rel_clean=0.02 certified_attacked=0.96
+dense|f=2|rho=0.4|titans                   clean_regret=0.13 clean_opt_frac=0.93 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.4|titans_clip              clean_regret=0.17 clean_opt_frac=0.91 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.4|miras_yaad               clean_regret=0.10 clean_opt_frac=0.95 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.4|agg_mean                 clean_regret=0.03 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.4|agg_trmean               clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.10 worst_hijack_any=1.00 worst_regret=0.23
+dense|f=2|rho=0.4|agg_median               clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.95 worst_regret=0.08
+dense|f=2|rho=0.4|agg_geomed               clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.4|agg_krum                 clean_regret=1.22 clean_opt_frac=0.34 worst_hijack=0.95 worst_hijack_any=1.00 worst_regret=1.79
+dense|f=2|rho=0.4|agg_median_anc           clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.08
+dense|f=2|rho=0.4|robustrag                clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.15
+dense|f=2|rho=0.4|smsr                     clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.80 worst_hijack_any=0.80 worst_regret=1.50
+dense|f=2|rho=0.4|tma_corr                 clean_regret=0.02 clean_opt_frac=0.99 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.4|tabayyun_anchored2       clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.09 violations=0 action_violations=0 certified_clean=0.95 certified_exact_clean=0.00 eps_rel_clean=0.07 certified_attacked=0.85
+dense|f=2|rho=0.7|titans                   clean_regret=0.18 clean_opt_frac=0.90 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.7|titans_clip              clean_regret=0.11 clean_opt_frac=0.94 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.7|miras_yaad               clean_regret=0.11 clean_opt_frac=0.94 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.7|agg_mean                 clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.7|agg_trmean               clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.10 worst_hijack_any=0.85 worst_regret=0.25
+dense|f=2|rho=0.7|agg_median               clean_regret=0.08 clean_opt_frac=0.95 worst_hijack=0.00 worst_hijack_any=0.70 worst_regret=0.08
+dense|f=2|rho=0.7|agg_geomed               clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.7|agg_krum                 clean_regret=1.22 clean_opt_frac=0.34 worst_hijack=0.85 worst_hijack_any=1.00 worst_regret=1.60
+dense|f=2|rho=0.7|agg_median_anc           clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.07
+dense|f=2|rho=0.7|robustrag                clean_regret=0.09 clean_opt_frac=0.95 worst_hijack=0.00 worst_hijack_any=0.00 worst_regret=0.09
+dense|f=2|rho=0.7|smsr                     clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.80 worst_hijack_any=0.80 worst_regret=1.51
+dense|f=2|rho=0.7|tma_corr                 clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+dense|f=2|rho=0.7|tabayyun_anchored2       clean_regret=0.10 clean_opt_frac=0.94 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.10 violations=0 action_violations=0 certified_clean=0.90 certified_exact_clean=0.00 eps_rel_clean=0.06 certified_attacked=0.88
+locality|f=2|rho=0.4|titans                clean_regret=0.16 clean_opt_frac=0.92 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.4|titans_clip           clean_regret=0.11 clean_opt_frac=0.94 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.4|miras_yaad            clean_regret=0.13 clean_opt_frac=0.93 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.4|agg_mean              clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.4|agg_trmean            clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.40 worst_hijack_any=1.00 worst_regret=0.81
+locality|f=2|rho=0.4|agg_median            clean_regret=0.10 clean_opt_frac=0.95 worst_hijack=0.10 worst_hijack_any=0.75 worst_regret=0.28
+locality|f=2|rho=0.4|agg_geomed            clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.95 worst_hijack_any=1.00 worst_regret=1.78
+locality|f=2|rho=0.4|agg_krum              clean_regret=1.22 clean_opt_frac=0.34 worst_hijack=0.90 worst_hijack_any=0.95 worst_regret=1.71
+locality|f=2|rho=0.4|agg_median_anc        clean_regret=0.20 clean_opt_frac=0.89 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.43
+locality|f=2|rho=0.4|robustrag             clean_regret=0.34 clean_opt_frac=0.82 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.41
+locality|f=2|rho=0.4|smsr                  clean_regret=0.10 clean_opt_frac=0.94 worst_hijack=0.55 worst_hijack_any=0.65 worst_regret=1.07
+locality|f=2|rho=0.4|tma_corr              clean_regret=0.05 clean_opt_frac=0.97 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.4|tabayyun_anchored2    clean_regret=0.05 clean_opt_frac=0.97 worst_hijack=0.00 worst_hijack_any=0.15 worst_regret=0.12 violations=0 action_violations=0 certified_clean=0.80 certified_exact_clean=0.00 eps_rel_clean=0.07 certified_attacked=0.69
+locality|f=2|rho=0.7|titans                clean_regret=0.18 clean_opt_frac=0.91 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.7|titans_clip           clean_regret=0.15 clean_opt_frac=0.92 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.7|miras_yaad            clean_regret=0.19 clean_opt_frac=0.90 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.7|agg_mean              clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.7|agg_trmean            clean_regret=0.03 clean_opt_frac=0.98 worst_hijack=0.15 worst_hijack_any=0.90 worst_regret=0.34
+locality|f=2|rho=0.7|agg_median            clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.00 worst_hijack_any=0.45 worst_regret=0.07
+locality|f=2|rho=0.7|agg_geomed            clean_regret=0.05 clean_opt_frac=0.98 worst_hijack=0.80 worst_hijack_any=1.00 worst_regret=1.49
+locality|f=2|rho=0.7|agg_krum              clean_regret=1.22 clean_opt_frac=0.34 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.7|agg_median_anc        clean_regret=0.23 clean_opt_frac=0.87 worst_hijack=0.05 worst_hijack_any=0.05 worst_regret=0.45
+locality|f=2|rho=0.7|robustrag             clean_regret=0.21 clean_opt_frac=0.89 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.43
+locality|f=2|rho=0.7|smsr                  clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.55 worst_hijack_any=0.55 worst_regret=1.07
+locality|f=2|rho=0.7|tma_corr              clean_regret=0.02 clean_opt_frac=0.99 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=2|rho=0.7|tabayyun_anchored2    clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.08 violations=0 action_violations=0 certified_clean=0.95 certified_exact_clean=0.00 eps_rel_clean=0.06 certified_attacked=0.91
+locality|f=3|rho=0.4|titans                clean_regret=0.19 clean_opt_frac=0.90 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|titans_clip           clean_regret=0.17 clean_opt_frac=0.91 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|miras_yaad            clean_regret=0.15 clean_opt_frac=0.92 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|agg_mean              clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|agg_trmean            clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=0.90 worst_hijack_any=1.00 worst_regret=1.68
+locality|f=3|rho=0.4|agg_median            clean_regret=0.10 clean_opt_frac=0.94 worst_hijack=0.45 worst_hijack_any=1.00 worst_regret=0.87
+locality|f=3|rho=0.4|agg_geomed            clean_regret=0.06 clean_opt_frac=0.97 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|agg_krum              clean_regret=1.22 clean_opt_frac=0.34 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|agg_median_anc        clean_regret=0.31 clean_opt_frac=0.83 worst_hijack=0.15 worst_hijack_any=0.30 worst_regret=0.58
+locality|f=3|rho=0.4|robustrag             clean_regret=0.29 clean_opt_frac=0.85 worst_hijack=0.00 worst_hijack_any=0.15 worst_regret=0.38
+locality|f=3|rho=0.4|smsr                  clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|tma_corr              clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.4|tabayyun_anchored2    clean_regret=0.09 clean_opt_frac=0.95 worst_hijack=0.05 worst_hijack_any=0.15 worst_regret=0.23 violations=0 action_violations=0 certified_clean=0.70 certified_exact_clean=0.00 eps_rel_clean=0.08 certified_attacked=0.59
+locality|f=3|rho=0.7|titans                clean_regret=0.19 clean_opt_frac=0.90 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|titans_clip           clean_regret=0.17 clean_opt_frac=0.91 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|miras_yaad            clean_regret=0.16 clean_opt_frac=0.91 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|agg_mean              clean_regret=0.04 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|agg_trmean            clean_regret=0.05 clean_opt_frac=0.97 worst_hijack=0.85 worst_hijack_any=1.00 worst_regret=1.63
+locality|f=3|rho=0.7|agg_median            clean_regret=0.08 clean_opt_frac=0.96 worst_hijack=0.35 worst_hijack_any=0.90 worst_regret=0.71
+locality|f=3|rho=0.7|agg_geomed            clean_regret=0.03 clean_opt_frac=0.98 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|agg_krum              clean_regret=1.22 clean_opt_frac=0.34 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|agg_median_anc        clean_regret=0.21 clean_opt_frac=0.89 worst_hijack=0.10 worst_hijack_any=0.10 worst_regret=0.62
+locality|f=3|rho=0.7|robustrag             clean_regret=0.31 clean_opt_frac=0.84 worst_hijack=0.00 worst_hijack_any=0.10 worst_regret=0.41
+locality|f=3|rho=0.7|smsr                  clean_regret=0.07 clean_opt_frac=0.96 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|tma_corr              clean_regret=0.02 clean_opt_frac=0.99 worst_hijack=1.00 worst_hijack_any=1.00 worst_regret=1.88
+locality|f=3|rho=0.7|tabayyun_anchored2    clean_regret=0.10 clean_opt_frac=0.94 worst_hijack=0.00 worst_hijack_any=0.05 worst_regret=0.12 violations=0 action_violations=0 certified_clean=0.80 certified_exact_clean=0.00 eps_rel_clean=0.08 certified_attacked=0.75
+SUMMARY {"rows": 10400, "violations": 0, "action_violations": 0, "seconds": 368.3}
+--- exit 0 in 371.1s
+
+=== python.exe scripts/analyze_e08.py results/e08/e08_confirm_summary.json
+{
+ "H10a_violations": 0,
+ "H10b": "8/8",
+ "H10c": "5/8",
+ "H10c_dominated_by": {
+  "dense|f=1|rho=0.4": [
+   "agg_median",
+   "agg_median_anc",
+   "agg_trmean",
+   "robustrag",
+   "smsr"
+  ],
+  "dense|f=1|rho=0.7": [
+   "agg_median",
+   "agg_trmean"
+  ],
+  "dense|f=2|rho=0.7": [
+   "agg_median",
+   "agg_median_anc",
+   "robustrag"
+  ]
+ },
+ "H10d_certified_10pct": 0.888,
+ "H10e": "8/8",
+ "verdict": {
+  "H10a": true,
+  "H10b": true,
+  "H10c": false,
+  "H10d": true,
+  "H10e": true
+ }
+}
+--- exit 0 in 0.1s
+
+# finished 2026-11-14 23:31:21; failed: none
