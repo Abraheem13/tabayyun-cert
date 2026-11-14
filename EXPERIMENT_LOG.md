@@ -465,3 +465,32 @@ PGD/BPDA on the attackers' memory states (CW token loss, 100 steps, 3 restarts),
 - RobustRAG: secure but 0.26–0.34 clean regret in several cells.
 
 **Day 13 run:** confirmatory trials 600–619 (`run_day.py 13`), CPU, about 10 min.
+
+---
+
+## Day 13 (2026-11-14): Tier C confirmatory on real ColO-RAN KPIs (Amendment 8): 4/5 criteria pass, H10c FAILS
+
+E08, trials 600–619, 10,400 runs, 368 s. Scorecard: `results/e08/scorecard_amend8.json`.
+
+| Criterion | Result |
+|---|---|
+| H10a: drift-certificate and ε-certificate violations | **0 and 0** (PASS) |
+| H10b: Tabayyun worst final-epoch hijack ≤ 0.05 | **8/8** (PASS; 0.00 in 7 cells, 0.05 in one) |
+| H10c: never Pareto-dominated on (worst hijack, worst regret, clean regret) | **5/8: FAIL** |
+| H10d: clean decisions certified 10%-optimal ≥ 0.60 | **0.888** (PASS; per cell 0.70–1.00; under attack 0.59–0.96) |
+| H10e: Titans worst hijack ≥ 0.5 | **8/8** (PASS; 1.00 everywhere) |
+
+**H10c failure (reported as a fail).** In 3 of 4 **dense** cells, TrMean / median / median+anchored / RobustRAG / SMSR match Tabayyun's final hijack (0.00) with slightly lower regret. The gaps are 0.002–0.028 in a utility range of 1.88 (≤ 1.5%), and no paired 95% bootstrap CI excludes 0 (post-hoc, descriptive). When every reporter has measured every action, plain robust aggregation is as good as Tabayyun on these three metrics. This matches Tier A dense and federation dense.
+
+**Locality cells: Tabayyun is non-dominated in 4/4.** The gaps are large:
+- TrMean / GeoMed / Krum / SMSR are hijacked in 40–100% of trials (f = 3: TrMean 0.85–0.90, median 0.35–0.45). Tabayyun: 0.00–0.05.
+- RobustRAG and median+anchored are secure, but their clean regret is 0.20–0.34, against 0.04–0.10 for Tabayyun.
+- Tabayyun's worst regret under attack is 0.08–0.23, against 0.38–0.62 for the secure baselines.
+
+**Other observations.**
+- **Transient hijacks** (any epoch, not a criterion): TrMean 0.30–1.00 and median 0.05–1.00 even in dense cells; Tabayyun 0.00–0.15. Final-epoch hijack hides this.
+- The exact-action certificate certifies 0% of decisions, as expected. The ε-certificate is what makes certification usable on real KPIs (median ε̂ = 2–8% of the utility range).
+- TMA-NM (count-only corroboration) is hijacked 100% in every cell.
+- Clean optimality of Tabayyun: 0.94–0.98 of the utility range.
+
+**Paper message for Tier C.** On real RAN telemetry, uncertified memories and count-only corroboration are fully hijackable. Robust aggregation suffices only when all reporters see everything. When knowledge is local, only Tabayyun is both secure and near-optimal, and it certifies 70–100% of clean decisions as 10%-optimal with zero violations.
