@@ -92,6 +92,8 @@ def plan(day: int, dev: str) -> list[list[str]]:
         # Amendment 8: Tier C, O-RAN slicing on real ColO-RAN KPIs (CPU workers), trials 600-619
         13: [[PY, "experiments/e08_oran.py", "--trials", "20", "--trial_offset", "600", "--tag", "confirm"],
              [PY, "scripts/analyze_e08.py", "results/e08/e08_confirm_summary.json"]],
+        # Amendment 9: limits and failure modes (H4 negative regime, Sybils beyond f, upstream, liveness)
+        14: [[PY, "experiments/e09_limits.py", "--seeds", "10", "--seed_offset", "700", "--tag", "amend9"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

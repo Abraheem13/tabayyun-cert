@@ -144,3 +144,20 @@ Only a 2-trial smoke run (trials 0–1, 4 rounds) was seen.
 - **H10e** (necessity): Titans worst-case hijack ≥ 0.5 in every cell.
 
 **Expectations stated now:** `hijack_any` (any epoch, transient) is reported descriptively and may be > 0 for Tabayyun. The exact-action certified fraction is expected to be ≈ 0. In the 2-trial smoke, **H10c failed in 2/8 dense cells**: robust aggregators matched Tabayyun on security with ≈ 0.1 lower clean regret, a difference between near-tie actions. H10c is kept as written, and a fail there is possible.
+
+---
+
+## Amendment 9 (2026-11-14, limits and failure modes; registered BEFORE the run)
+These are the negative regimes pre-declared in v1 ("reported whatever happens"). Only a 1-seed smoke run (seed 0, ρ = 0.7) of `experiments/e09_limits.py` was seen. **Seeds 700–709** (fresh), ρ ∈ {0.4, 0.7}, Tier A, n = 10.
+
+- **H4 (expected failure, v1 criterion unchanged):** with client-unique facts (25% and 50% of facts known to one honest source) and with Dirichlet(0.1) observation, Tabayyun's high-risk Recall_L2 over all facts drops by **> 10 points** against the unique = 0 control.
+  - H4-i: high-risk recall of unique facts ≤ 0.05 (never promoted, by design).
+  - H4-ii: the owner's low-risk read of its own unique facts ≥ 0.90.
+  - H4-iii: security is unaffected: installed ≤ 0.05 and 0 certificate violations in every H4 cell.
+- **SYB (Sybils beyond f; gate assumes f = 2, world has f_act ∈ {1..5}):**
+  - S-i: for f_act ≤ 2, installed = 0 and 0 violations.
+  - S-ii: for f_act > 2, certificate violations are **expected** (the certificate is not claimed outside the threat model).
+  - S-iii: at f_act = 5 = 2f+1, worst flip ≥ 0.5 (the adversary alone reaches k witnesses).
+  - The breakdown curve of the baselines is reported next to it, descriptively.
+- **UPS (correlated upstream feed: f = 2 adversaries + c ∈ {0..3} honest sources relaying a poisoned feed):** descriptive, no criterion. Stated in advance: the certificate bounds drift from the honest-source consensus, not from the truth, so it can stay "sound" while the read is wrong.
+- **LIV (liveness under MedianShift):** in every cell, Recall_L2 under MedianShift ≥ clean recall − 0.05, and 0 violations.
