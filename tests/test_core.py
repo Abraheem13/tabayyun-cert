@@ -348,3 +348,32 @@ def test_certified_regret_sound_fuzz():
         eps = certified_regret(u, B, w)
         a = int(u.argmax())
         assert float(u_ref.max() - u_ref[a]) <= eps + 1e-5
+
+
+def test_action_certified_gram_never_less_strict():
+    from tabayyun.certify import action_certified, action_certified_gram
+    g = torch.Generator().manual_seed(1)
+    n_cert = 0
+    for _ in range(50):
+        W = torch.randn(200, 24, generator=g)
+        y = torch.randn(8, 24, generator=g) * 3
+        logits = y @ W.T
+        drift = torch.rand(8, generator=g) * 0.5
+        a, b = action_certified(logits, W, drift), action_certified_gram(logits, W, drift)
+        assert not (b & ~a).any()                 # gram-certified implies exactly certified
+        n_cert += int(b.sum())
+    assert n_cert > 0
+
+
+def test_keymap_whitening_gives_near_orthogonal_keys():
+    """Tier D key map: anisotropic features -> whitened unit keys with small cross-talk."""
+    from tabayyun.models.lm_retrofit import KeyMap
+    g = torch.Generator().manual_seed(0)
+    A = torch.randn(96, 96, generator=g) * torch.linspace(5, 0.1, 96)        # anisotropic mixing
+    feats = torch.randn(1500, 96, generator=g) @ A + 60.0                    # large common offset
+    km = KeyMap(feats[:1000], 64)
+    K = km(feats[1000:])
+    assert torch.allclose(K.norm(dim=1), torch.ones(len(K)), atol=1e-5)
+    raw = torch.nn.functional.normalize(feats[1000:], dim=1)
+    off = lambda X: float((X[:200] @ X[:200].T - torch.eye(200)).abs().mean())  # noqa: E731
+    assert off(raw) > 0.5 and off(K) < 0.15

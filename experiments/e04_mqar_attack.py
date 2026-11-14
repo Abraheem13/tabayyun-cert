@@ -170,13 +170,27 @@ def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences, ro
         ks, vs = kv_vectors(model, int(keys[targets[0]]), int(adv_vals[targets[0]]), device)
         hook = (EdgeOfRange(list(range(f)), list(range(f, n)), ks, vs, nu=1e-3) if attack == "edge"
                 else Unbounded(list(range(f)), ks, vs, scale=20.0))
+    benign = [j for j in range(F) if j not in targets and any(j in honest_idx[s] for s in honest_idx)]
+    return apply_defences(defences, Ms, written, q, lambda: concat_memory(model, segs, device, g),
+                          lambda y: predict(model, h_q, y), model.readout_matrix, hook, n, f, F, seed, device,
+                          vals, adv_vals, targets, benign, attack)
+
+
+def apply_defences(defences, Ms, written, q, titans_fn, predict_fn, readout_fn, hook, n, f, F, seed, device,
+                   vals, adv_vals, targets, benign, attack, certify_fn=action_certified):
+    """Combine the per-source memories Ms (n, dv, dk) with every defence and score the predictions.
+
+    Substrate-agnostic (used by E04 on MemLM and by E10 on a frozen pretrained LM):
+    ``titans_fn()`` -> ungated shared memory (dv, dk); ``predict_fn(y)`` -> logits for the
+    F queries given the reads y (F, dv); ``readout_fn()`` -> W with logits = W y + const.
+    """
+    k_gate = 2 * f + 1
     I = torch.eye(Ms.shape[-1], device=device)
     res = {}
-    benign = [j for j in range(F) if j not in targets and any(j in honest_idx[s] for s in honest_idx)]
     for d in defences:
         cert = None
         if d == "titans":
-            Mg = concat_memory(model, segs, device, g)
+            Mg = titans_fn()
             y = q @ Mg.T
         elif d.startswith("agg_") or d in ("robustrag", "smsr"):
             D = Ms.transpose(1, 2)                                         # (n, dk, dv) rows = M_s e_i
@@ -220,16 +234,16 @@ def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences, ro
                     w = (q @ U.T).abs()                                    # (F, K)
                     drift_q = (w @ out.runtime_err).norm(dim=-1)
                     true_q = ((MP - MP_ref) @ q.T).T.norm(dim=-1)
-                    logits = predict(model, h_q, y)
-                    certified = action_certified(logits, model.readout_matrix(), drift_q)
-                    ref_pred = predict(model, h_q, q @ MP_ref.T).argmax(-1)
+                    logits = predict_fn(y)
+                    certified = certify_fn(logits, readout_fn(), drift_q)
+                    ref_pred = predict_fn(q @ MP_ref.T).argmax(-1)
                     cert = {"violations": int((true_q > drift_q * (1 + 1e-4) + 1e-5).sum()),
                             "action_violations": int(((logits.argmax(-1) != ref_pred) & certified).sum()),
                             "certified_frac": float(certified.float().mean()),
                             "certified_frac_benign": float(certified[benign].float().mean()) if benign else math.nan,
                             "certified_correct_frac": float((certified & (logits.argmax(-1) == vals.to(device))).float().mean()),
                             "n_directions": int(U.shape[0])}
-        pred = predict(model, h_q, y).argmax(-1).cpu()
+        pred = predict_fn(y).argmax(-1).cpu()
         r = {"recall": float((pred[benign] == vals[benign]).float().mean()) if benign else math.nan,
              "installed": float(np.mean([int(pred[t] == adv_vals[t]) for t in targets])) if attack != "none" else None,
              "amnesia": float(np.mean([int(pred[t] != vals[t]) for t in targets]))}

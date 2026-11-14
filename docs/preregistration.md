@@ -161,3 +161,42 @@ These are the negative regimes pre-declared in v1 ("reported whatever happens").
   - The breakdown curve of the baselines is reported next to it, descriptively.
 - **UPS (correlated upstream feed: f = 2 adversaries + c ∈ {0..3} honest sources relaying a poisoned feed):** descriptive, no criterion. Stated in advance: the certificate bounds drift from the honest-source consensus, not from the truth, so it can stay "sound" while the read is wrong.
 - **LIV (liveness under MedianShift):** in every cell, Recall_L2 under MedianShift ≥ clean recall − 0.05, and 0 violations.
+
+---
+
+## Amendment 10 (2026-11-14, Tier D: test-time memory on frozen pretrained LMs, CounterFact; registered BEFORE the confirmatory runs)
+**Why.** Tiers A–C use synthetic memories, small trained memory LMs and a linear controller. Tier D tests the same defence on **pretrained language models** with a real knowledge dataset.
+
+**Substrate** (`src/tabayyun/models/lm_retrofit.py`, `experiments/e10_lm_retrofit.py`):
+- The LM is frozen. A Titans-style linear memory is added at the unembedding input: logits = W_U (x_out + gain · M k).
+- Key k: PCA-whitened hidden state of the last prompt token (d_k = 256). The whitening map is fitted on 2,000 disjoint calibration prompts.
+- Value: the unit unembedding direction of the asserted next token.
+- The logits are exactly linear in the read, so Thm 3(a) applies exactly with W = gain · W_U.
+
+**Data.** CounterFact (Meng et al., 2022), first 4,000 records (`data/counterfact/counterfact_4k.json`).
+- Records 0–1,999 are calibration; records 2,000–3,999 are the trial pool.
+- The stored knowledge is the record's **new** object, which the frozen LM does not know (base accuracy 0.2–0.4% on the two small models tried), so recall measures the memory.
+- The attacker asserts another record's object for two target facts.
+
+**Protocol.** Cells, attacks, defences, metrics and code path are those of Amendment 4 (`e04.apply_defences`, refactored with bit-identical smoke output). 16 facts per trial, R ∈ {1, 3}, both Tabayyun variants with γ = 0.3 and ν_rel as in Amendment 4 (no re-tuning of the gate).
+
+**Models for the confirmatory run:** `gpt2-xl` (1.5 B) and `Qwen/Qwen2.5-1.5B`. **Trials 800–899** (fresh).
+
+**Hyper-parameters chosen by a fixed clean-only rule, run on the confirmatory models before any attacked trial** (`--tune`: attack = none, exploratory trials 0–4):
+- grid: key layer ∈ {L/3, L/2, 2L/3, L} × read boost ∈ {25, 50, 100} logits;
+- objective: mean over both Tabayyun variants and all cells of clean recall + certified-and-correct fraction;
+- the selected values are written to `results/e10/tuning_<model>.json` and used for every defence.
+
+**What was seen before registration** (small models only, exploratory):
+- 3-trial smoke runs and the clean-only tuning on `gpt2` (124 M) and `Qwen/Qwen2.5-0.5B` (`results/e10/tuning_*.json`).
+- `gpt2` smoke: 0 violations; Titans installed 0.50; robust aggregators installed 0.00; Tabayyun certified 0.79–0.96 of tokens.
+- Tuning: the objective is flat in layer and in boost ≥ 50 (`gpt2` 1.33–1.34, Qwen-0.5B 1.24–1.28). Both select boost = 100, the edge of the grid; the grid is kept as registered.
+- After the switch to logit-boost units, Qwen-0.5B clean recall equals `gpt2`'s (0.72).
+- First Qwen smoke at a GPT-2-sized gain: recall was low for every method, because Qwen's unembedding rows are 8× smaller. The gain is therefore expressed as a logit boost (model-independent).
+
+**Criteria: Amendment 4, unchanged, per model** (`scripts/analyze_e04.py`): P1, C1, C2 (locality), C3, H3 (0 certificate and 0 certified-token violations), and H7 for `tabayyun_strict`.
+
+**Expectations stated now:**
+- **C3 is expected to fail**, as in Tier B, and **C2 is expected to fail in most cells** (in token space robust aggregators keep high recall).
+- The claims under test are **H3, P1, C1 and strict H7**.
+- C1 may fail in dense cells, as it did at d512 and in Tier C dense.

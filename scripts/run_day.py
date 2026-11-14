@@ -94,6 +94,13 @@ def plan(day: int, dev: str) -> list[list[str]]:
              [PY, "scripts/analyze_e08.py", "results/e08/e08_confirm_summary.json"]],
         # Amendment 9: limits and failure modes (H4 negative regime, Sybils beyond f, upstream, liveness)
         14: [[PY, "experiments/e09_limits.py", "--seeds", "10", "--seed_offset", "700", "--tag", "amend9"]],
+        # Amendment 10: Tier D, memory retrofitted on frozen pretrained LMs (CounterFact), trials 800-899
+        15: [[PY, "-m", "pip", "install", "-q", "transformers>=4.45"]] + [c for m, tag in
+             [("gpt2-xl", "gpt2xl"), ("Qwen/Qwen2.5-1.5B", "qwen15b")] for c in
+             [[PY, "experiments/e10_lm_retrofit.py", "--model", m, "--device", dev, "--tune"],
+              [PY, "experiments/e10_lm_retrofit.py", "--model", m, "--device", dev, "--trials", "100",
+               "--trial_offset", "800", "--obs_rounds", "1,3", "--tag", f"{tag}_confirm"],
+              [PY, "scripts/analyze_e04.py", f"results/e10/e10_{tag}_confirm.json"]]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

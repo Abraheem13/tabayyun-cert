@@ -153,6 +153,21 @@ def action_certified(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tenso
     return ok.all(-1)
 
 
+def action_certified_gram(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tensor) -> torch.Tensor:
+    """Theorem 3(a) for large vocabularies: same test as ``action_certified`` but with
+    ||w_a - w_j|| from the Gram identity (O(A d) memory instead of O(B A d)).
+    The distance is rounded UP by a relative 1e-4, so this is never less strict.
+    """
+    top = logits.argmax(-1)
+    n2 = (W * W).sum(-1)                                             # (A,)
+    d2 = n2[top].unsqueeze(1) + n2.unsqueeze(0) - 2.0 * (W[top] @ W.T)   # (B, A)
+    wdiff = d2.clamp(min=0).sqrt() * (1 + 1e-4) + 1e-4 * n2.max().sqrt()
+    za = logits.gather(1, top.view(-1, 1))
+    ok = (za - logits) > wdiff * drift_q.view(-1, 1)
+    ok.scatter_(1, top.view(-1, 1), True)
+    return ok.all(-1)
+
+
 def certified_regret(util: torch.Tensor, coord_bound: torch.Tensor, w: torch.Tensor) -> float:
     """Theorem 3(a'), certified epsilon-optimality for a linear utility u_a = w . y_a.
 

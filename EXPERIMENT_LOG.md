@@ -536,3 +536,27 @@ E09, seeds 700–709, 2,900 runs, 71 s. Scorecard: `results/e09/scorecard_amend9
 Recall and promoted fraction are identical to clean in all 10 cells, with 0 violations. I verified that the hook is applied (adversarial rows are rewritten every round).
 - Reason: an adversarial minority of the active set cannot move the coordinate median out of the honest range, so honest sources still pass the cone test.
 - **Caveat:** MedianShift is a weak liveness attacker. A formal liveness statement (Prop. 5: promotion is guaranteed when honest sources are a majority of the active set and their spread is small relative to γ) is not yet written, so liveness stays an empirical claim.
+
+---
+
+## Day 15 build (2026-11-14): Tier D on pretrained LMs + CounterFact (Amendment 10)
+
+**Gap closed.** Until now there was no experiment on a pretrained language model. Tier D retrofits a Titans-style linear memory on a **frozen** LM at the unembedding input (logits = W_U (x_out + gain · M k)), so the action certificate stays exact.
+
+**Environment.** This cloud session could not reach Hugging Face. A separate environment (`tabayyun-cert`) now allows the Hugging Face hosts, so the code is tested here before it is sent to the GPU.
+
+**Data.** CounterFact reduced to 4,000 records in the repo (`data/counterfact/counterfact_4k.json`, built by `scripts/prep_counterfact.py`). The memory stores each record's *new* object, which the LM does not know.
+
+**Feasibility on `gpt2` (124 M), clean, before any attack code:**
+- raw LM accuracy on the new objects: 0.35%;
+- with one ungated memory and whitened keys: 96–100% (boost ≥ 8, d_k ≥ 128, any key layer);
+- whitened keys of different prompts are near-orthogonal (mean |cos| 0.03–0.05).
+
+**Code.**
+- `e04.apply_defences` is factored out of the Tier-B experiment so that both tiers run the identical defence code. Regression check: the E04 smoke rows are bit-identical before and after.
+- `certify.action_certified_gram`: the pairwise certificate for 50k–150k-token vocabularies (never less strict than the exact form; tested).
+- The read gain is expressed as a logit boost, because unembedding scales differ 8× between GPT-2 and Qwen.
+
+**Smoke and clean tuning (small models, exploratory):** see Amendment 10. `gpt2`: 0 violations, Tabayyun certifies 0.79–0.96 of tokens, objective flat in layer and boost.
+
+**Day 15 run (GPU):** clean-only tuning, then confirmatory trials 800–899, for `gpt2-xl` and `Qwen/Qwen2.5-1.5B`.
