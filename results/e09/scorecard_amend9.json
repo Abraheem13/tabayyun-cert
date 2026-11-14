@@ -1,0 +1,45 @@
+{
+ "H4_drop_points": {
+  "unique=0.25": 26.1,
+  "unique=0.5": 52.2,
+  "dirichlet=0.1": 30.0
+ },
+ "H4-i_unique_highrisk_recall": [
+  0.0,
+  0.0
+ ],
+ "H4-ii_owner_lowrisk_recall": [
+  1.0,
+  1.0
+ ],
+ "H4-iii_max_installed": 0.0,
+ "H4-iii_violations": 0,
+ "S-i": {
+  "f_act=1": [
+   0.0,
+   0.0
+  ],
+  "f_act=2": [
+   0.0,
+   0.0
+  ]
+ },
+ "S-ii_violation_rate": {
+  "f_act=3": 0.333,
+  "f_act=4": 0.333,
+  "f_act=5": 0.983
+ },
+ "S-iii_flip_at_f_act=5": 1.0,
+ "LIV_min_margin": 0.0,
+ "LIV_violations": 0,
+ "verdict": {
+  "H4": true,
+  "H4-i": true,
+  "H4-ii": true,
+  "H4-iii": true,
+  "S-i": true,
+  "S-ii": true,
+  "S-iii": true,
+  "LIV": true
+ }
+}

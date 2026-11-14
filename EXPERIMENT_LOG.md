@@ -494,3 +494,45 @@ E08, trials 600–619, 10,400 runs, 368 s. Scorecard: `results/e08/scorecard_ame
 - Clean optimality of Tabayyun: 0.94–0.98 of the utility range.
 
 **Paper message for Tier C.** On real RAN telemetry, uncertified memories and count-only corroboration are fully hijackable. Robust aggregation suffices only when all reporters see everything. When knowledge is local, only Tabayyun is both secure and near-optimal, and it certifies 70–100% of clean decisions as 10%-optimal with zero violations.
+
+---
+
+## Day 14 (2026-11-14): limits and failure modes (Amendment 9): every prediction held
+
+E09, seeds 700–709, 2,900 runs, 71 s. Scorecard: `results/e09/scorecard_amend9.json`.
+
+### H4, the pre-declared negative regime (confirmed as a real limit)
+| Setting | Tabayyun high-risk recall (all facts) | drop | robust aggregators | Titans |
+|---|---|---|---|---|
+| control | 1.00 | — | 1.00 | 0.89 (flip 1.0) |
+| 25% unique facts | 0.74 | **−26 points** | 0.74 | 0.82 (flip 1.0) |
+| 50% unique facts | 0.48 | **−52 points** | 0.48 | 0.77 (flip 1.0) |
+| Dirichlet(0.1) | 0.70 | **−30 points** | **0.04–0.05** | 0.86 (flip 1.0) |
+
+- H4-i: facts known to one source are **never** served by the certified read (recall 0.00). This is by design, and no k-witness scheme can avoid it.
+- H4-ii: the owner still reads its own unique facts from its quarantine at low risk (recall 1.00).
+- H4-iii: security is unaffected (installed 0.00, 0 violations).
+- **Not predicted:** under Dirichlet(0.1) heterogeneity, Tabayyun keeps 0.70 recall, while TrMean / median / RobustRAG collapse to 0.04–0.05. In this negative regime the locality advantage is at its largest.
+- Only the uncertified, fully poisonable Titans memory keeps unique facts. This is the price of certification.
+
+### SYB, Sybils beyond f (gate assumes f = 2, k = 5)
+| f_act | Tabayyun installed / flip | certificate violation rate (max drift/cert) | TrMean flip | median flip | RobustRAG flip |
+|---|---|---|---|---|---|
+| 1 | 0 / 0 | 0 (0.51) | 0 | 0 | 0 |
+| 2 (= f) | 0 / 0 | 0 (**1.00**, tight) | 0 | 0 | 0 |
+| 3 | 0 / 0 | 0.33 (1.47) | **1.0** | 0 | 0 |
+| 4 | 0 / 0 | 0.33 (1.87) | **1.0** | 0 (amnesia 1.0) | 0 |
+| 5 (= 2f+1) | 0.65 / 1.0 | 0.98 | 1.0 | 1.0 | 1.0 |
+
+- Inside the threat model: exactly sound, and the bound is attained (drift/cert = 1.00 at f_act = f).
+- **Graceful degradation, f < f_act < k:** the certificate is no longer valid (as stated in advance), but the attacker still cannot flip or erase the fact, while TrMean is already flipped at f + 1. The drift exceeds the bound by at most 1.9×.
+- **Breakdown at f_act = k:** the adversaries are k witnesses on their own. Everything fails, as it must.
+
+### UPS, poisoned upstream feed (f = 2 adversaries + c honest relays)
+- c = 1, 2 (f + c < k): Tabayyun installed 0, flip 0, amnesia 0. TrMean amnesia is 0.25 at c = 1 and 1.00 at c = 2.
+- c = 3 (f + c = k): Tabayyun installed 0.35, flip 0.50, **with 0 certificate violations**. As stated in advance, the certificate bounds drift from the honest-source consensus, not from the truth. **Independence of sources is an assumption the paper must state as such.**
+
+### LIV, liveness under MedianShift
+Recall and promoted fraction are identical to clean in all 10 cells, with 0 violations. I verified that the hook is applied (adversarial rows are rewritten every round).
+- Reason: an adversarial minority of the active set cannot move the coordinate median out of the honest range, so honest sources still pass the cone test.
+- **Caveat:** MedianShift is a weak liveness attacker. A formal liveness statement (Prop. 5: promotion is guaranteed when honest sources are a majority of the active set and their spread is small relative to γ) is not yet written, so liveness stays an empirical claim.
