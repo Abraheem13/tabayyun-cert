@@ -26,5 +26,5 @@ for _, r in df.iterrows():
     if len(out) == 4000:
         break
 dst = ROOT / "data" / "counterfact"; dst.mkdir(parents=True, exist_ok=True)
-(dst / "counterfact_4k.json").write_text(json.dumps(out, ensure_ascii=False))
+(dst / "counterfact_4k.json").write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
 print("saved", len(out), "records;", len({o["relation_id"] for o in out}), "relations")

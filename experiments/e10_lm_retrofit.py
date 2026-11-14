@@ -53,7 +53,7 @@ class Substrate:
     """Frozen-LM features of the fact pool + the key map; everything the trials need."""
 
     def __init__(self, model: str, device: str, layer: int | None, boost: float):
-        recs = json.loads((ROOT / "data" / "counterfact" / "counterfact_4k.json").read_text())
+        recs = json.loads((ROOT / "data" / "counterfact" / "counterfact_4k.json").read_text(encoding="utf-8"))
         seen, keep = set(), []
         for i, r in enumerate(recs):                    # identical prompts would be identical keys
             if i < N_CALIB or r["prompt"] not in seen:
@@ -249,6 +249,8 @@ def main():
         sel = json.loads(tune_file.read_text())["selected"]
         layer = sel["layer"] if layer is None else layer
         boost = sel["boost"] if boost is None else boost
+    if not (a.tune or a.smoke) and (layer is None or boost is None):
+        sys.exit(f"no clean-tuned (layer, boost) for {a.model}: run with --tune first (Amendment 10)")
     S = Substrate(a.model, a.device, layer, 50.0 if boost is None else boost)
     print(f"model={a.model} layers={S.layer_grid} key_layer={S.layer} boost={S.boost} gain={S.gain:.2f} dk={S.dk} "
           f"pool={len(S.pool)} base_acc={S.base_accuracy()}", flush=True)

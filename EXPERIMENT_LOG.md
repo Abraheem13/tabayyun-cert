@@ -560,3 +560,5 @@ Recall and promoted fraction are identical to clean in all 10 cells, with 0 viol
 **Smoke and clean tuning (small models, exploratory):** see Amendment 10. `gpt2`: 0 violations, Tabayyun certifies 0.79–0.96 of tokens, objective flat in layer and boost.
 
 **Day 15 run (GPU):** clean-only tuning, then confirmatory trials 800–899, for `gpt2-xl` and `Qwen/Qwen2.5-1.5B`.
+
+**Day 15, first attempt (2026-11-15): did not run; my bug.** `e10_lm_retrofit.py` read the CounterFact file with the platform default encoding, which is cp1252 on Windows, and crashed on the first accented name before any model was loaded. No tuning and no trial ran, so nothing confirmatory was seen. Fixed (`encoding="utf-8"`). Added a guard: the confirmatory run now refuses to start without the clean-tuned (layer, boost) file, so a failed tuning step can never fall back to defaults silently.
