@@ -1,0 +1,70 @@
+{
+ "layer=16|boost=25.0": {
+  "clean_recall": 0.6680116753093899,
+  "certified_correct": 0.553515625,
+  "objective": 1.2215273003093898
+ },
+ "layer=16|boost=50.0": {
+  "clean_recall": 0.7154876364860684,
+  "certified_correct": 0.601953125,
+  "objective": 1.3174407614860684
+ },
+ "layer=16|boost=100.0": {
+  "clean_recall": 0.7195398345123977,
+  "certified_correct": 0.608984375,
+  "objective": 1.3285242095123977
+ },
+ "layer=24|boost=25.0": {
+  "clean_recall": 0.6807635059580207,
+  "certified_correct": 0.55859375,
+  "objective": 1.2393572559580206
+ },
+ "layer=24|boost=50.0": {
+  "clean_recall": 0.7212625902611762,
+  "certified_correct": 0.609765625,
+  "objective": 1.3310282152611763
+ },
+ "layer=24|boost=100.0": {
+  "clean_recall": 0.7254521508235484,
+  "certified_correct": 0.621875,
+  "objective": 1.3473271508235483
+ },
+ "layer=32|boost=25.0": {
+  "clean_recall": 0.6828582877293229,
+  "certified_correct": 0.57421875,
+  "objective": 1.257077037729323
+ },
+ "layer=32|boost=50.0": {
+  "clean_recall": 0.7189961079508066,
+  "certified_correct": 0.62265625,
+  "objective": 1.3416523579508066
+ },
+ "layer=32|boost=100.0": {
+  "clean_recall": 0.7226362179033459,
+  "certified_correct": 0.632421875,
+  "objective": 1.355058092903346
+ },
+ "layer=48|boost=25.0": {
+  "clean_recall": 0.6855311348102987,
+  "certified_correct": 0.571484375,
+  "objective": 1.2570155098102989
+ },
+ "layer=48|boost=50.0": {
+  "clean_recall": 0.7235634143464267,
+  "certified_correct": 0.625390625,
+  "objective": 1.3489540393464265
+ },
+ "layer=48|boost=100.0": {
+  "clean_recall": 0.7273122702725232,
+  "certified_correct": 0.629296875,
+  "objective": 1.356609145272523
+ },
+ "selected": {
+  "layer": 48,
+  "boost": 100.0
+ },
+ "base_lm_accuracy": {
+  "target_new": 0.002501250710338354,
+  "target_true": 0.1020510271191597
+ }
+}
