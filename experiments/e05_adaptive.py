@@ -69,7 +69,7 @@ def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_i
     scale = float(D_hon[f:].norm(dim=-1).max().clamp(min=1e-3))
     inits = [EdgeOfRange(list(range(f)), honest_ids, ks, vs, nu=1e-3)(D_hon, U)[:f],
              ((U @ ks).unsqueeze(1) * vs.unsqueeze(0)).unsqueeze(0).expand(f, K, dv) * 3.0,
-             torch.randn(f, K, dv) * scale]
+             torch.randn(f, K, dv).to(D_hon.device) * scale]
     best, best_loss = None, float("inf")
     for init in inits:
         A = init.clone().detach().requires_grad_(True)
@@ -103,14 +103,23 @@ def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu"):
         Ms, written = E.per_source_memories(model, segs, device)
         h_q, q = E.query_features(model, keys, V, device)
         ks, vs = E.kv_vectors(model, int(keys[targets[0]]), int(adv_vals[targets[0]]), device)
-    k_gate = 2 * f + 1
-    honest_ids = list(range(f, n))
     # adversary is a writer of the target keys (it asserts them), so they get anchored as for E04 attacks
     adv_written = [(s, E.kv_vectors(model, int(keys[t]), int(adv_vals[t]), device)[0]) for s in range(f) for t in targets]
-    Ua = grow_anchored_basis(torch.zeros(0, Ms.shape[-1]), [written + adv_written], n, f + 1, Ms.shape[-1])
-    I = torch.eye(Ms.shape[-1])
+    return attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr)
+
+
+def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr,
+               certify_fn=action_certified):
+    """Run the adaptive attacker against every defence in DEFS.  Substrate-agnostic: ``model`` only
+    needs ``logits_from_read(h, y)`` and ``readout_matrix()`` (MemLM in E05, a frozen-LM shim in E11)."""
+    dev = Ms.device
+    k_gate = 2 * f + 1
+    honest_ids = list(range(f, n))
+    Ua = grow_anchored_basis(torch.zeros(0, Ms.shape[-1], device=dev), [written + adv_written], n, f + 1, Ms.shape[-1])
+    I = torch.eye(Ms.shape[-1], device=dev)
     tq, th = q[targets], h_q[targets]
-    adv_tok = adv_vals[targets]
+    adv_tok = adv_vals[targets].to(dev)
+    true_tok = vals[targets].to(dev)
     res = {}
     for d in DEFS:
         U = Ua if d.startswith("tabayyun") else I
@@ -127,11 +136,11 @@ def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu"):
             ye, _ = defence_read(d, De, U, tq, f, n, k_gate)
             pe = model.logits_from_read(th, ye).argmax(-1)
             r = {"installed": float((pred == adv_tok).float().mean()),
-                 "amnesia": float((pred != vals[targets]).float().mean()),
+                 "amnesia": float((pred != true_tok).float().mean()),
                  "edge_installed": float((pe == adv_tok).float().mean())}
             if out is not None:
                 # certificate soundness under the adaptive attack (oracle reference = honest-corroborator mean)
-                H = torch.zeros(n, dtype=torch.bool); H[f:] = True
+                H = torch.zeros(n, dtype=torch.bool, device=dev); H[f:] = True
                 CH = out.corroborators & H.unsqueeze(1)
                 ref = (D * CH.unsqueeze(-1)).sum(0) / CH.sum(0).clamp(min=1).unsqueeze(-1)
                 ref = ref * out.promoted.unsqueeze(1).to(ref.dtype)
@@ -139,7 +148,7 @@ def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu"):
                 drift_q = ((tq @ U.T).abs() @ out.runtime_err).norm(dim=-1)
                 true_q = ((MP - MPr) @ tq.T).T.norm(dim=-1)
                 logits = model.logits_from_read(th, y)
-                cert = action_certified(logits, model.readout_matrix(), drift_q)
+                cert = certify_fn(logits, model.readout_matrix(), drift_q)
                 ref_pred = model.logits_from_read(th, tq @ MPr.T).argmax(-1)
                 r["violations"] = int((true_q > drift_q * (1 + 1e-4) + 1e-5).sum())
                 r["action_violations"] = int(((logits.argmax(-1) != ref_pred) & cert).sum())

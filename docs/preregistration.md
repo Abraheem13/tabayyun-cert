@@ -200,3 +200,23 @@ These are the negative regimes pre-declared in v1 ("reported whatever happens").
 - **C3 is expected to fail**, as in Tier B, and **C2 is expected to fail in most cells** (in token space robust aggregators keep high recall).
 - The claims under test are **H3, P1, C1 and strict H7**.
 - C1 may fail in dense cells, as it did at d512 and in Tier C dense.
+
+---
+
+## Amendment 11 (2026-11-15, adaptive gradient attacker on Tier D; registered BEFORE the confirmatory runs)
+**Why.** Amendment 10 used static attacks, under which TrMean / median / GeoMed look secure in dense cells. On Tier B the adaptive attacker installed at 1.00 against TrMean and GeoMed (Amendment 5). The same attacker is now run on the pretrained-LM substrate.
+
+**Setup** (`experiments/e11_lm_adaptive.py`):
+- attacker code: `e05.attack_all` (refactored out of E05 with bit-identical smoke output); 100 Adam steps, 3 restarts, CW token loss, unbounded adversarial rows;
+- substrate, facts, cells and clean-tuned (layer, boost): those of Amendment 10 (`results/e10/tuning_<model>.json`, already fixed);
+- defences: both Tabayyun variants, TrMean, median, GeoMed, Krum, RobustRAG;
+- models: `gpt2-xl` and `Qwen/Qwen2.5-1.5B`; **trials 900–919** (fresh), 16 cells.
+
+**What was seen before registration:** a 2-trial, 30-step smoke run on `gpt2` (124 M), 4 cells: PGD installed 0.25 against TrMean, median or GeoMed in 3 of 4 cells, 0.00 against both Tabayyun variants, 0 violations.
+
+**Criteria: Amendment 5, unchanged, per model** (`scripts/analyze_e05.py`):
+- **H8a**: 0 certificate and 0 certified-token violations under PGD, both Tabayyun variants.
+- **H8b**: `tabayyun_strict` PGD-installed ≤ 0.10 in every cell (primary reported against the same threshold, descriptively).
+- **H8c**: per cell, `tabayyun_strict` PGD-installed ≤ min(TrMean, median, GeoMed) PGD-installed + 0.05.
+
+**Expectation stated now:** the primary variant may exceed 0.10 in locality R = 1 cells, as on Tier B.
