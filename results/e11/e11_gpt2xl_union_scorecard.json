@@ -1,0 +1,31 @@
+{
+ "file": "e11_gpt2xl_union_summary.json",
+ "cells": 16,
+ "H12a_violations": 0,
+ "H12b_strict": "16/16",
+ "H12c_attack_sanity": {
+  "tabayyun": {
+   "union_mean": 0.0031,
+   "static_mean": 0.0031
+  },
+  "tabayyun_strict": {
+   "union_mean": 0.0,
+   "static_mean": 0.0
+  },
+  "agg_trmean": {
+   "union_mean": 0.2094,
+   "static_mean": 0.0109
+  }
+ },
+ "primary_cells_le_0.10": "16/16",
+ "worst_installed": {
+  "tabayyun": 0.025,
+  "tabayyun_strict": 0.0,
+  "agg_trmean": 0.75
+ },
+ "verdict": {
+  "H12a": true,
+  "H12b": true,
+  "H12c": true
+ }
+}

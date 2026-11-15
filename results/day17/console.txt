@@ -1,0 +1,214 @@
+# Day 17  device=cuda  started 2026-11-15 15:25:50
+
+=== python.exe -m pytest -q
+...................................................................      [100%]
+67 passed in 7.54s
+--- exit 0 in 8.8s
+
+=== python.exe experiments/e11_lm_adaptive.py --model gpt2-xl --device cuda --union --trials 20 --trial_offset 920 --tag gpt2xl_union
+model=gpt2-xl key_layer=48 boost=100.0 dk=256
+  20/320 trials  121s
+  40/320 trials  240s
+  60/320 trials  358s
+  80/320 trials  478s
+  100/320 trials  596s
+  120/320 trials  715s
+  140/320 trials  833s
+  160/320 trials  952s
+  180/320 trials  1077s
+  200/320 trials  1201s
+  220/320 trials  1324s
+  240/320 trials  1449s
+  260/320 trials  1572s
+  280/320 trials  1696s
+  300/320 trials  1821s
+  320/320 trials  1946s
+dense    f=1 rho=0.4 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=1 agg_trmean      pgd_installed=0.12 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=1 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.62 edge_installed=0.07 static_installed=0.10
+dense    f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.03 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.12 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.03 edge_installed=0.00 static_installed=0.03 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.25 edge_installed=0.12 static_installed=0.00
+locality f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.10 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.10 edge_installed=0.03 static_installed=0.00
+locality f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.05 edge_installed=0.00 static_installed=0.00
+locality f=3 rho=0.4 R=1 tabayyun        pgd_installed=0.03 edge_installed=0.00 static_installed=0.03 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.4 R=1 agg_trmean      pgd_installed=0.75 edge_installed=0.30 static_installed=0.07
+locality f=3 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.4 R=3 agg_trmean      pgd_installed=0.50 edge_installed=0.00 static_installed=0.00
+locality f=3 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=1 agg_trmean      pgd_installed=0.60 edge_installed=0.03 static_installed=0.00
+locality f=3 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=3 agg_trmean      pgd_installed=0.10 edge_installed=0.00 static_installed=0.00
+SUMMARY {"rows": 960, "violations": 0, "seconds": 1945.7}
+--- exit 0 in 1959.5s
+
+=== python.exe scripts/analyze_e11u.py results/e11/e11_gpt2xl_union_summary.json
+{
+ "file": "e11_gpt2xl_union_summary.json",
+ "cells": 16,
+ "H12a_violations": 0,
+ "H12b_strict": "16/16",
+ "H12c_attack_sanity": {
+  "tabayyun": {
+   "union_mean": 0.0031,
+   "static_mean": 0.0031
+  },
+  "tabayyun_strict": {
+   "union_mean": 0.0,
+   "static_mean": 0.0
+  },
+  "agg_trmean": {
+   "union_mean": 0.2094,
+   "static_mean": 0.0109
+  }
+ },
+ "primary_cells_le_0.10": "16/16",
+ "worst_installed": {
+  "tabayyun": 0.025,
+  "tabayyun_strict": 0.0,
+  "agg_trmean": 0.75
+ },
+ "verdict": {
+  "H12a": true,
+  "H12b": true,
+  "H12c": true
+ }
+}
+--- exit 0 in 0.2s
+
+=== python.exe experiments/e11_lm_adaptive.py --model Qwen/Qwen2.5-1.5B --device cuda --union --trials 20 --trial_offset 920 --tag qwen15b_union
+model=Qwen/Qwen2.5-1.5B key_layer=28 boost=100.0 dk=256
+  20/320 trials  221s
+  40/320 trials  439s
+  60/320 trials  658s
+  80/320 trials  884s
+  100/320 trials  1109s
+  120/320 trials  1335s
+  140/320 trials  1560s
+  160/320 trials  1787s
+  180/320 trials  2018s
+  200/320 trials  2252s
+  220/320 trials  2484s
+  240/320 trials  2718s
+  260/320 trials  2951s
+  280/320 trials  3185s
+  300/320 trials  3418s
+  320/320 trials  3653s
+dense    f=1 rho=0.4 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=1 agg_trmean      pgd_installed=0.10 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.4 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=1 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=1 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.72 edge_installed=0.05 static_installed=0.07
+dense    f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.10 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+dense    f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.03 edge_installed=0.00 static_installed=0.03 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.23 edge_installed=0.10 static_installed=0.03
+locality f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.10 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.17 edge_installed=0.03 static_installed=0.03
+locality f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.05 edge_installed=0.00 static_installed=0.00
+locality f=3 rho=0.4 R=1 tabayyun        pgd_installed=0.05 edge_installed=0.00 static_installed=0.03 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_strict pgd_installed=0.03 edge_installed=0.00 static_installed=0.03 violations=0
+locality f=3 rho=0.4 R=1 agg_trmean      pgd_installed=0.75 edge_installed=0.38 static_installed=0.07
+locality f=3 rho=0.4 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.4 R=3 agg_trmean      pgd_installed=0.53 edge_installed=0.03 static_installed=0.00
+locality f=3 rho=0.7 R=1 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=1 agg_trmean      pgd_installed=0.60 edge_installed=0.05 static_installed=0.03
+locality f=3 rho=0.7 R=3 tabayyun        pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 edge_installed=0.00 static_installed=0.00 violations=0
+locality f=3 rho=0.7 R=3 agg_trmean      pgd_installed=0.33 edge_installed=0.00 static_installed=0.00
+SUMMARY {"rows": 960, "violations": 0, "seconds": 3653.2}
+--- exit 0 in 3668.6s
+
+=== python.exe scripts/analyze_e11u.py results/e11/e11_qwen15b_union_summary.json
+{
+ "file": "e11_qwen15b_union_summary.json",
+ "cells": 16,
+ "H12a_violations": 0,
+ "H12b_strict": "16/16",
+ "H12c_attack_sanity": {
+  "tabayyun": {
+   "union_mean": 0.0047,
+   "static_mean": 0.0031
+  },
+  "tabayyun_strict": {
+   "union_mean": 0.0016,
+   "static_mean": 0.0016
+  },
+  "agg_trmean": {
+   "union_mean": 0.2297,
+   "static_mean": 0.0141
+  }
+ },
+ "primary_cells_le_0.10": "16/16",
+ "worst_installed": {
+  "tabayyun": 0.05,
+  "tabayyun_strict": 0.025,
+  "agg_trmean": 0.75
+ },
+ "verdict": {
+  "H12a": true,
+  "H12b": true,
+  "H12c": true
+ }
+}
+--- exit 0 in 0.2s
+
+# finished 2026-11-15 16:59:47; failed: none

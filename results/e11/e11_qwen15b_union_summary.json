@@ -1,0 +1,274 @@
+{
+ "dense|f=1|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.1,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "dense|f=1|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "dense|f=1|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=1|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "dense|f=2|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.725,
+  "edge_installed": 0.05,
+  "static_installed": 0.075
+ },
+ "dense|f=2|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.1,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "dense|f=2|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "dense|f=2|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "locality|f=2|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.025,
+  "edge_installed": 0.0,
+  "static_installed": 0.025,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.225,
+  "edge_installed": 0.1,
+  "static_installed": 0.025
+ },
+ "locality|f=2|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.1,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "locality|f=2|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.175,
+  "edge_installed": 0.025,
+  "static_installed": 0.025
+ },
+ "locality|f=2|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=2|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.05,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ },
+ "locality|f=3|rho=0.4|R=1|tabayyun": {
+  "pgd_installed": 0.05,
+  "edge_installed": 0.0,
+  "static_installed": 0.025,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=1|tabayyun_strict": {
+  "pgd_installed": 0.025,
+  "edge_installed": 0.0,
+  "static_installed": 0.025,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=1|agg_trmean": {
+  "pgd_installed": 0.75,
+  "edge_installed": 0.375,
+  "static_installed": 0.075
+ },
+ "locality|f=3|rho=0.4|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.4|R=3|agg_trmean": {
+  "pgd_installed": 0.525,
+  "edge_installed": 0.025,
+  "static_installed": 0.0
+ },
+ "locality|f=3|rho=0.7|R=1|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=1|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=1|agg_trmean": {
+  "pgd_installed": 0.6,
+  "edge_installed": 0.05,
+  "static_installed": 0.025
+ },
+ "locality|f=3|rho=0.7|R=3|tabayyun": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=3|tabayyun_strict": {
+  "pgd_installed": 0.0,
+  "edge_installed": 0.0,
+  "static_installed": 0.0,
+  "violations": 0
+ },
+ "locality|f=3|rho=0.7|R=3|agg_trmean": {
+  "pgd_installed": 0.325,
+  "edge_installed": 0.0,
+  "static_installed": 0.0
+ }
+}
