@@ -1,0 +1,115 @@
+{
+ "thresholds": {
+  "n=10,f=2": {
+   "titans": 1,
+   "tma_corr": 5,
+   "agg_mean": 6,
+   "agg_trmean": 6,
+   "agg_median": 6,
+   "agg_geomed": 6,
+   "robustrag": 6,
+   "tabayyun_anchored2": 5,
+   "tabayyun_w": 3
+  },
+  "n=20,f=2": {
+   "titans": 1,
+   "tma_corr": 5,
+   "agg_mean": 11,
+   "agg_trmean": 11,
+   "agg_median": 11,
+   "agg_geomed": 11,
+   "robustrag": 11,
+   "tabayyun_anchored2": 5,
+   "tabayyun_w": 3
+  },
+  "n=40,f=1": {
+   "titans": 1,
+   "tma_corr": 3,
+   "agg_mean": 21,
+   "agg_trmean": 21,
+   "agg_median": 21,
+   "agg_geomed": 21,
+   "robustrag": 21,
+   "tabayyun_anchored2": 3,
+   "tabayyun_w": 2
+  },
+  "n=40,f=2": {
+   "titans": 2,
+   "tma_corr": 5,
+   "agg_mean": 21,
+   "agg_trmean": 21,
+   "agg_median": 21,
+   "agg_geomed": 21,
+   "robustrag": 21,
+   "tabayyun_anchored2": 5,
+   "tabayyun_w": 3
+  },
+  "n=40,f=3": {
+   "titans": 1,
+   "tma_corr": 7,
+   "agg_mean": 21,
+   "agg_trmean": 21,
+   "agg_median": 21,
+   "agg_geomed": 21,
+   "robustrag": 21,
+   "tabayyun_anchored2": 7,
+   "tabayyun_w": 4
+  },
+  "n=80,f=2": {
+   "titans": 1,
+   "tma_corr": 5,
+   "agg_mean": 60,
+   "agg_trmean": 60,
+   "agg_median": 41,
+   "agg_geomed": 41,
+   "robustrag": 41,
+   "tabayyun_anchored2": 5,
+   "tabayyun_w": 3
+  }
+ },
+ "W1_cone_threshold_is_2f+1": "6/6",
+ "W2_agree_threshold_is_f+1": "6/6",
+ "W3_majority_threshold_ge_0.4n": "25/25",
+ "W3_exceptions": [],
+ "W4_security": {
+  "tabayyun_anchored2": {
+   "worst_installed": 0.0,
+   "worst_flip": 0.0,
+   "worst_amnesia_when_served": 0.0,
+   "violations": 0,
+   "max_drift_over_cert": 0.9988892447211534
+  },
+  "tabayyun_w": {
+   "worst_installed": 0.0,
+   "worst_flip": 0.0,
+   "worst_amnesia_when_served": 0.0,
+   "violations": 0,
+   "max_drift_over_cert": 0.9988892447211534
+  }
+ },
+ "W5_forgeable": {
+  "titans": "6/6",
+  "tma_corr": "6/6"
+ },
+ "baseline_worst_flip": {
+  "agg_mean": 1.0,
+  "agg_trmean": 1.0,
+  "agg_median": 1.0,
+  "agg_geomed": 1.0,
+  "robustrag": 0.0
+ },
+ "baseline_worst_amnesia_when_served": {
+  "agg_mean": 1.0,
+  "agg_trmean": 1.0,
+  "agg_median": 0.8,
+  "agg_geomed": 1.0,
+  "robustrag": 0.0
+ },
+ "verdict": {
+  "W1": true,
+  "W2": true,
+  "W3": true,
+  "W4": true,
+  "W5": true
+ }
+}
