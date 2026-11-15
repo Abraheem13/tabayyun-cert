@@ -377,3 +377,79 @@ def test_keymap_whitening_gives_near_orthogonal_keys():
     raw = torch.nn.functional.normalize(feats[1000:], dim=1)
     off = lambda X: float((X[:200] @ X[:200].T - torch.eye(200)).abs().mean())  # noqa: E731
     assert off(raw) > 0.5 and off(K) < 0.15
+
+
+def _agree_cfg(f, eps=0.3):
+    from tabayyun.gate import GateConfig
+    return GateConfig(k=f + 1, f=f, rule="agree", eps=eps, nu=0.05)
+
+
+def test_agreement_gate_needs_f_plus_1_agreeing_witnesses():
+    """f adversaries alone cannot promote; f+1 agreeing honest sources can."""
+    from tabayyun.gate import tabayyun_gate
+    g = torch.Generator().manual_seed(0)
+    n, dv, f = 10, 16, 2
+    v = torch.randn(dv, generator=g); v = v / v.norm()
+    D = torch.zeros(n, 1, dv)
+    D[:f, 0] = -v                                   # adversaries assert the opposite, nobody else knows
+    assert not tabayyun_gate(D, _agree_cfg(f)).promoted[0]
+    D[f:2 * f, 0] = v + 0.02 * torch.randn(f, dv, generator=g)          # only f honest witnesses: tie, 2 balls of f
+    assert not tabayyun_gate(D, _agree_cfg(f)).promoted[0]
+    D[2 * f, 0] = v + 0.02 * torch.randn(dv, generator=g)               # f+1 honest witnesses
+    out = tabayyun_gate(D, _agree_cfg(f))
+    assert out.promoted[0] and (out.values[0] - v).norm() < 0.1
+    assert not out.corroborators[:f, 0].any()
+
+
+def test_agreement_gate_certificate_sound_fuzz():
+    """Prop. R / R': |value - honest-corroborator mean| <= runtime_err per coordinate, for any
+    adversarial rows, any number of honest witnesses; and every coordinate shifts by at most 2 r."""
+    from tabayyun.gate import tabayyun_gate
+    g = torch.Generator().manual_seed(1)
+    promoted = 0
+    for trial in range(160):
+        n, dv = 12, 8
+        f = int(torch.randint(1, 4, (1,), generator=g))
+        m = int(torch.randint(1, n - f + 1, (1,), generator=g))          # honest witnesses
+        eps = 0.3
+        v = torch.randn(dv, generator=g); v = v / v.norm()
+        D = torch.zeros(n, 1, dv)
+        D[f:f + m, 0] = v + 0.03 * torch.randn(m, dv, generator=g)
+        mode = trial % 4
+        if mode == 0:                                # far away
+            D[:f, 0] = 5 * torch.randn(f, dv, generator=g)
+        elif mode == 1:                              # just inside the tolerance, towards -v
+            D[:f, 0] = v + 0.9 * eps * (-v)
+        elif mode == 2:                              # random points near the honest values
+            D[:f, 0] = v + eps * torch.randn(f, dv, generator=g) / dv ** 0.5
+        else:                                        # split: some inside, some far
+            D[:f, 0] = v + 0.5 * eps * torch.randn(f, dv, generator=g) / dv ** 0.5
+            D[0, 0] = -3 * v
+        out = tabayyun_gate(D, _agree_cfg(f, eps))
+        if not out.promoted[0]:
+            continue
+        promoted += 1
+        C = out.corroborators[:, 0]
+        H = C.clone(); H[:f] = False
+        assert H.any()                               # a promoted ball always contains an honest source
+        mu = D[H, 0].mean(0)
+        assert ((out.values[0] - mu).abs() <= out.runtime_err[0] + 1e-6).all()
+        s = D[f:f + m, 0].norm(dim=-1).max()
+        assert (out.values[0] - mu).abs().max() <= 2 * eps * s + 1e-5      # Thm 6(b): l_inf shift <= 2r
+    assert promoted > 60
+
+
+def test_agreement_gate_is_hull_valid_with_2f_plus_1_witnesses():
+    """With >= 2f+1 corroborators the value stays inside the honest coordinate range."""
+    from tabayyun.gate import tabayyun_gate
+    g = torch.Generator().manual_seed(2)
+    for _ in range(100):
+        n, dv, f = 12, 8, 2
+        v = torch.randn(dv, generator=g); v = v / v.norm()
+        D = torch.zeros(n, 1, dv)
+        D[f:f + 5, 0] = v + 0.03 * torch.randn(5, dv, generator=g)
+        D[:f, 0] = v + 0.25 * (-v)                   # inside the tolerance
+        out = tabayyun_gate(D, _agree_cfg(f))
+        assert out.promoted[0]
+        H = D[f:f + 5, 0]
+        assert (out.values[0] >= H.min(0).values - 1e-6).all() and (out.values[0] <= H.max(0).values + 1e-6).all()

@@ -44,10 +44,16 @@ class GateConfig:
     corroborate: bool = True  # ablation: False -> trimmed mean only, no gate
     cone: bool = True         # baseline TMA-NM-style: False -> count active writers only
     trim: bool = True         # baseline TMA-NM-style: False -> plain mean (no certificate)
+    rule: str = "cone"        # "cone" (hull-valid, k >= 2f+1) | "agree" (witness-optimal, k >= f+1)
+    eps: float = 0.3          # agree: sources agree if within eps * (robust norm scale) of a common centre
 
     def __post_init__(self):
         if self.beta is None:
             self.beta = self.f if self.trim else 0
+        if self.rule == "agree":
+            if self.k < self.f + 1:
+                raise ValueError(f"agreement gate needs k >= f+1; got k={self.k}, f={self.f}")
+            return
         if self.corroborate and self.trim and self.k < max(2 * self.beta + 1, self.f + 1):
             raise ValueError(
                 f"need k >= max(2*beta+1, f+1); got k={self.k}, beta={self.beta}, f={self.f}")
@@ -91,6 +97,50 @@ class GateOutput:
     runtime_err: torch.Tensor  # (K, dv) e_{u,i} (0 where not promoted)
 
 
+def _agreement_gate(D: torch.Tensor, cfg: GateConfig, norms: torch.Tensor, active: torch.Tensor) -> GateOutput:
+    """Witness-optimal gate (Theorem 6): promote u iff >= k >= f+1 active sources AGREE.
+
+    Agreement: all lie within r_u = eps * s_u of one of them (the centre), where s_u is the
+    (f+1)-th largest active norm along u (<= the largest honest norm, so the adversary cannot
+    widen the tolerance).  The corroborators C_u are the members of the most populated ball.
+    A ball with >= f+1 members contains an honest source, hence every member is within 2 r_u
+    of an honest report: f adversaries can shift the value by at most 2 r_u, but cannot forge it.
+
+    Value: trimmed mean over C_u with beta_u = min(f, (|C_u|-1)//2).
+    Certificate (sound whenever |C_u| >= f+1):
+        |C_u| >= 2f+1 : Proposition R (order statistics; error within the HONEST range);
+        otherwise     : Proposition R' (range): e = max(value - min_C, max_C - value).
+    """
+    n, K, dv = D.shape
+    na = torch.where(active, norms, torch.zeros_like(norms))
+    s = torch.topk(na, min(cfg.f + 1, n), dim=0).values[-1]             # (K,) robust scale
+    r = cfg.eps * s
+    X = D.permute(1, 0, 2)                                               # (K, n, dv)
+    dist = torch.cdist(X, X)                                             # (K, centre, member)
+    act = active.T                                                       # (K, n)
+    inball = (dist <= r.view(K, 1, 1)) & act.unsqueeze(1) & act.unsqueeze(2)
+    cnt = inball.sum(-1)                                                 # (K, n)
+    tot = (dist * inball).sum(-1)
+    key = cnt.to(torch.float64) - 0.5 * tot.to(torch.float64) / (tot.max().to(torch.float64) + 1e-12)
+    centre = key.argmax(1)                                               # most members, then tightest
+    C = inball[torch.arange(K, device=D.device), centre].T               # (n, K)
+    srt, c = _masked_sorted(D, C)
+    promoted = (c >= cfg.k) & (s > 0)
+    beta = torch.minimum(torch.full_like(c, cfg.f), (c - 1).clamp(min=0) // 2)
+    values = _range_mean(srt, beta, c - beta)
+    one = torch.ones_like(c)
+    lo = _range_mean(srt, torch.zeros_like(c), one)                      # min over C
+    hi = _range_mean(srt, (c - 1).clamp(min=0), c)                       # max over C
+    err = torch.maximum(values - lo, hi - values).clamp(min=0)           # Prop. R'
+    hf = (c - cfg.f).clamp(min=1)
+    L = _range_mean(srt, torch.zeros_like(c), hf)
+    U = _range_mean(srt, c - hf, c)
+    err_R = torch.maximum(values - L, U - values).clamp(min=0)           # Prop. R
+    err = torch.where((c >= 2 * cfg.f + 1).view(K, 1), err_R, err)
+    pm = promoted.view(K, 1).to(D.dtype)
+    return GateOutput(values * pm, promoted, active, C, c, err * pm)
+
+
 def tabayyun_gate(D: torch.Tensor, cfg: GateConfig) -> GateOutput:
     n, K, dv = D.shape
     norms = D.norm(dim=-1)                                  # (n,K)
@@ -102,6 +152,8 @@ def tabayyun_gate(D: torch.Tensor, cfg: GateConfig) -> GateOutput:
         # small cross-talk reads of sources that never asserted the fact.
         kth = torch.topk(norms, min(cfg.f + 1, n), dim=0).values[-1]      # (K,)
         active = active & (norms >= cfg.nu_rel * kth.unsqueeze(0))
+    if cfg.rule == "agree":
+        return _agreement_gate(D, cfg, norms, active)
     if cfg.corroborate and not cfg.cone:
         C = active
         promoted = C.sum(0) >= cfg.k

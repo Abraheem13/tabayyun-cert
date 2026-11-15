@@ -90,6 +90,44 @@ class EdgeOfRange:
         return D
 
 
+class AgreeEdge:
+    """Adaptive attack on the agreement gate (omniscient): the adversarial rows sit at distance
+    rho * eps * (the gate's own scale) from the honest mean, pushed towards the attacker's target, so that they
+    are accepted as agreeing witnesses while shifting the promoted value as far as allowed.
+    Directions with no honest support get the full target (no effect, by Theorem 1)."""
+
+    def __init__(self, adv_ids, honest_ids, k_star, v_star, eps, nu=1e-3, rho=0.95):
+        self.adv = torch.as_tensor(adv_ids)
+        self.h = torch.as_tensor(honest_ids)
+        self.k, self.v, self.eps, self.nu, self.rho = k_star, v_star, eps, nu, rho
+
+    def __call__(self, D, U):
+        D = D.clone()
+        target = (U @ self.k).unsqueeze(1) * self.v.unsqueeze(0)       # (K, dv)
+        Hd = D[self.h]
+        nrm = Hd.norm(dim=-1)                                          # (nh, K)
+        active = nrm >= self.nu
+        cnt = active.sum(0).clamp(min=1)
+        mean = (Hd * active.unsqueeze(-1)).sum(0) / cnt.unsqueeze(-1)
+        scale = (nrm * active).sum(0) / cnt                            # mean honest norm
+        d = target - mean
+        d = d / d.norm(dim=-1, keepdim=True).clamp(min=1e-12)
+        # The gate's tolerance is eps * (f+1)-th largest active norm, which depends on the adversarial
+        # rows themselves (moving towards the target changes their norm).  Solve for the largest
+        # admissible step by fixed-point iteration on the gate's own scale.
+        f = len(self.adv)
+        hn = nrm * active                                              # (nh, K), 0 where inactive
+        step = self.eps * scale                                        # (K,)
+        for _ in range(8):
+            an = (mean + step.unsqueeze(-1) * d).norm(dim=-1)          # adversarial norm, (K,)
+            alln = torch.cat([hn, an.unsqueeze(0).expand(f, -1)])
+            s_gate = torch.topk(alln, min(f + 1, alln.shape[0]), dim=0).values[-1]
+            step = self.rho * self.eps * s_gate
+        val = torch.where(active.any(0).unsqueeze(-1), mean + step.unsqueeze(-1) * d, target)
+        D[self.adv] = val.unsqueeze(0).expand(len(self.adv), *val.shape)
+        return D
+
+
 class Unbounded:
     """Arbitrary rows (e.g. huge values towards v*): tests that trimming and
     the cone test, not norm filtering, provide the guarantee."""

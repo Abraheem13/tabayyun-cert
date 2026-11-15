@@ -653,3 +653,39 @@ E11 `--union`, trials 920–939, 320 trials per model (`gpt2-xl` 1,946 s, `Qwen2
   - strict Tabayyun 0.025 (union, 1 of 40 targets; 0.015 static);
   - TrMean 0.75, GeoMed 0.83, median 0.33 (adaptive).
 - **Limit of the claim.** No gradient attack found beats the write attack on the gate, but that is not a proof that none exists; a combinatorial attacker over which sources enter the cone is untested. The formal guarantee is the certificate (0 violations in every run), whose scope is drift from the honest-source consensus.
+
+---
+
+## Re-evaluation after Day 17 (2026-11-15): where the paper stands against a Q1 bar, and what changes
+
+**What is strong (evidence in hand).**
+1. Zero certificate violations in every confirmatory run (≈ 800k rows; Tiers A–D, federation, adaptive attackers).
+2. The strict variant is never installed above 2.5% under any attack run, including the union gradient attacker; TrMean and GeoMed reach 75–83%.
+3. Theory that predicts measurements: Thm 3(b) predicts strict recall in 80/80 cells; Thm 4 tightness is attained (drift/cert = 1.00).
+4. Breadth: synthetic, trained memory LMs (3 sizes), federation, real O-RAN traces, two pretrained LMs.
+5. Pre-registered throughout, with failures reported.
+
+**What a Q1 reviewer will attack.**
+- R1. "The advantage over robust aggregation exists only when facts are held by few sources." True in every tier (C1/H10c fail in dense cells).
+- R2. "The method loses recall when facts are observed once" (C2 fails; strict recall 0.03–0.60 in locality R = 1).
+- R3. "Toy scale": 16–24 facts, n ≤ 20 sources.
+- R4. Tier D's memory sits at the output layer; the LM is passive.
+- R5. Missing proofs (Thm 1, 2′, liveness) and no cost table.
+
+**Decision: turn R1 and R2 from weaknesses into the paper's central result.**
+- **Theorem 6 (witness complexity)** proves what the experiments keep showing: a rule needs f+1 honest witnesses for bounded error, 2f+1 for hull validity, and majority aggregation needs ≈ n/2. The first two do not grow with the population; the third does. The "advantage only under locality" is then the theorem, not a caveat.
+- **Tabayyun-W, a new variant** from part (b) of the theorem: promote on f+1 *agreeing* witnesses (the BFT "f+1 matching replies" rule, in vector form, with a runtime certificate, Prop. R′). It lowers the witness threshold from 2f+1 to f+1, which is exactly what R2 asks for. Its price is stated: with fewer than 2f+1 witnesses the adversary can shift the value by up to 2r, a tolerance the defender chooses.
+- Smoke (2 seeds): thresholds are exactly f+1 (Tabayyun-W), 2f+1 (Tabayyun) and ≈ n/2 (TrMean, median, GeoMed, RobustRAG) at n = 10 and n = 40; no flips and no violations for both variants; TMA-NM (counts witnesses without checking agreement) is flipped.
+- Bugs caught while building: (i) my first attack on the new gate ignored that moving towards the target shrinks the adversary's norm and so the gate's tolerance, which made the attack fail; it now solves for the largest admissible shift. (ii) "flip" was a floating-point coin toss for unserved facts; the definition is fixed in Amendment 14.
+
+**Revised plan for the remaining days.**
+| Day | Work | Addresses |
+|---|---|---|
+| 18 | Tier B union attacker (Amendment 13) | attack rigour |
+| 19 | E12 witness complexity, n up to 80 (Amendment 14) | R1, R3 (sources) |
+| 20–21 | Tabayyun-W on Tiers B and D, static + union attacks | R2 |
+| 22 | Capacity scaling (16 → 1,024 facts) and cost table on Tier D | R3, R5 |
+| 23 | Complete proofs: Thm 1, Thm 2′, liveness (Prop. 5) | R5 |
+| 24–26 | Final reruns from a clean checkout, CIs, Holm | rigour |
+| 27–30 | Paper |  |
+R4 (memory inside the network) stays a stated limitation; the certificate is exact only for a read that enters linearly.

@@ -25,7 +25,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from tabayyun import GateConfig, Gates, TabayyunConfig, TabayyunMemory  # noqa: E402
-from tabayyun.attacks import EdgeOfRange, Rayn, TargetedWrite, Unbounded  # noqa: E402
+from tabayyun.attacks import AgreeEdge, EdgeOfRange, Rayn, TargetedWrite, Unbounded  # noqa: E402
 from tabayyun.baselines import (HuberSharedMemory, IsolateAggregateMemory, RobustAggMemory,  # noqa: E402
                                 SharedMemory, SMSRMemory)
 from tabayyun.data import FactWorld, WorldConfig, run_round  # noqa: E402
@@ -40,6 +40,7 @@ ATTACKS = ["none", "targeted", "single_shot", "rayn", "edge_of_range", "unbounde
 QUARANTINE = ("agg_", "tab")
 
 
+EPS_W = 0.3        # agreement tolerance of tabayyun_w; set from CLEAN runs only (scripts/tune_e12_clean.py)
 ALPHA_Q = 0.005    # forget gate of quarantines and shared memory; tuned on CLEAN runs only (Day 3)
 
 
@@ -69,6 +70,11 @@ def build(defence, wc: WorldConfig, f, k, device, alpha_q=None):
         anc = defence.endswith("_anc")
         return RobustAggMemory(n, dk, dv, gates, agg=defence[4:].removesuffix("_anc"), f=f, tau=tau,
                                device=device, basis="anchored" if anc else "identity")
+    if defence == "tabayyun_w":
+        # witness-optimal variant (Thm 6): f+1 AGREEING witnesses, anchored basis
+        gate = GateConfig(k=f + 1, f=f, rule="agree", eps=EPS_W, nu=0.05)
+        return TabayyunMemory(TabayyunConfig(n_sources=n, dk=dk, dv=dv, tau=tau, q_gates=gates, gate=gate,
+                                             basis="anchored", anchor_min_writers="f+1", device=device))
     if defence.startswith("tab"):
         gate = GateConfig(k=k, f=f, gamma=0.3, nu=0.05, corroborate=(defence != "tab_nocorr"))
         return TabayyunMemory(TabayyunConfig(n_sources=n, dk=dk, dv=dv, tau=tau, q_gates=gates, gate=gate,
@@ -94,6 +100,10 @@ def make_attack(name, w: FactWorld, mem, k_star, v_star):
     if name == "edge_of_range":
         if quarantined:
             return TargetedWrite(w.adv, k_star, v_star), EdgeOfRange(w.adv, w.honest, k_star, v_star, nu=0.05)
+        return TargetedWrite(w.adv, k_star, v_star), None
+    if name == "agree_edge":
+        if quarantined:
+            return TargetedWrite(w.adv, k_star, v_star), AgreeEdge(w.adv, w.honest, k_star, v_star, eps=EPS_W, nu=0.05)
         return TargetedWrite(w.adv, k_star, v_star), None
     if name == "unbounded":
         if quarantined:

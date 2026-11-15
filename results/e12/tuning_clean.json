@@ -1,0 +1,33 @@
+{
+ "0.1": {
+  "clean_recall_m_ge_f+1": 0.1391304347826087,
+  "clean_recall_m_le_f": 0.0,
+  "violations": 0
+ },
+ "0.15": {
+  "clean_recall_m_ge_f+1": 0.9739130434782609,
+  "clean_recall_m_le_f": 0.0,
+  "violations": 0
+ },
+ "0.2": {
+  "clean_recall_m_ge_f+1": 1.0,
+  "clean_recall_m_le_f": 0.0,
+  "violations": 0
+ },
+ "0.3": {
+  "clean_recall_m_ge_f+1": 1.0,
+  "clean_recall_m_le_f": 0.0,
+  "violations": 0
+ },
+ "0.4": {
+  "clean_recall_m_ge_f+1": 1.0,
+  "clean_recall_m_le_f": 0.0,
+  "violations": 0
+ },
+ "0.5": {
+  "clean_recall_m_ge_f+1": 1.0,
+  "clean_recall_m_le_f": 0.0,
+  "violations": 0
+ },
+ "selected_eps": 0.2
+}

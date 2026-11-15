@@ -264,3 +264,25 @@ So the union attacker is at least as strong as the static write attacks on the s
 **Criteria, per model: those of Amendment 12** (`scripts/analyze_e11u.py`): H12a (0 violations), H12b (`tabayyun_strict` installed ≤ 0.10 in every cell), H12c (union ≥ static − 0.02 on average, for each defence).
 
 **Expectations stated now:** the primary variant exceeds 0.10 in locality R = 1 cells (it reached 0.32–0.42 under Amendment 5). **H12b may fail on Tier B**; if it does, it is reported as a fail and the strict variant's secure-configuration claim is limited accordingly.
+
+---
+
+## Amendment 14 (2026-11-15, witness complexity, Theorem 6, and the witness-optimal variant; registered BEFORE the confirmatory run)
+**Why.** Across Tiers A–D, Tabayyun's advantage over robust aggregators appears only when facts are known to few sources. Theorem 6 (`paper/proofs.md`) states this as a result: the number of honest witnesses a rule needs is f+1 for bounded error, 2f+1 for hull validity, and about n/2 for majority aggregation. It also yields a **new variant, Tabayyun-W** (`GateConfig(rule="agree")`, defence `tabayyun_w`): promote when f+1 active sources agree within a tolerance ε, with the range certificate Prop. R′.
+
+**Experiment** (`experiments/e12_witness.py`): Tier A; (n, f) ∈ {(10,2), (20,2), (40,2), (80,2), (40,1), (40,3)}; every fact is known to exactly m honest sources, m on a grid from 1 to n − f; witnesses re-assert every round (ρ = 1), 6 rounds. Clean recall per m; attacks on one fact per m: targeted writes, edge-of-range, unbounded, and `agree_edge` (omniscient attack on the agreement gate that solves for the largest admissible shift). Defences: Titans, mean, TrMean, median, GeoMed, RobustRAG, TMA-NM, Tabayyun (cone, k = 2f+1), Tabayyun-W (agree, k = f+1). **Seeds 1000–1009** (fresh).
+
+**Definitions fixed now.** Witness threshold m\* = the smallest grid m from which clean recall ≥ 0.5 at that m and every larger m. Flip = a non-negligible read (‖y‖ ≥ 0.1‖v‖) that is closer to v\* than to v (for an unserved fact the read is ≈ 0 and "closer" is a floating-point coin toss; found in the smoke run and fixed before registration).
+
+**ε chosen by a fixed clean-only rule** (`scripts/tune_e12_clean.py`, seeds 0–4, attack = none): the smallest ε on {0.1, 0.15, 0.2, 0.3, 0.4, 0.5} whose clean recall at m ≥ f+1 is within 0.02 of the best. Result: **ε = 0.2** (`results/e12/tuning_clean.json`).
+
+**What was seen before registration:** the clean tuning, and a 2-seed smoke on (10,2) and (40,2): thresholds 5 / 3 / ≈ n/2, Tabayyun variants 0 flips and 0 violations, TMA-NM and Titans flipped.
+
+**Criteria** (`scripts/analyze_e12.py`):
+- **W1**: Tabayyun (cone) has m\* = 2f+1 in all 6 configurations.
+- **W2**: Tabayyun-W has m\* = f+1 in all 6 configurations.
+- **W3**: mean, TrMean, median, GeoMed and RobustRAG have m\* ≥ 0.4·n in every configuration with n ≥ 20.
+- **W4**: both Tabayyun variants: worst installed ≤ 0.05 and worst flip ≤ 0.05 over every (m, attack); amnesia ≤ 0.10 at every served m; 0 certificate violations.
+- **W5**: Titans and TMA-NM have worst flip ≥ 0.5 in every configuration.
+
+**If W2 and W4 hold**, Tabayyun-W is carried to Tiers B and D under new amendments (same trials protocol, adaptive attacks included) before any claim about it is made.
