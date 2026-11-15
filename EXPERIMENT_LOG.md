@@ -562,3 +562,38 @@ Recall and promoted fraction are identical to clean in all 10 cells, with 0 viol
 **Day 15 run (GPU):** clean-only tuning, then confirmatory trials 800–899, for `gpt2-xl` and `Qwen/Qwen2.5-1.5B`.
 
 **Day 15, first attempt (2026-11-15): did not run; my bug.** `e10_lm_retrofit.py` read the CounterFact file with the platform default encoding, which is cp1252 on Windows, and crashed on the first accented name before any model was loaded. No tuning and no trial ran, so nothing confirmatory was seen. Fixed (`encoding="utf-8"`). Added a guard: the confirmatory run now refuses to start without the clean-tuned (layer, boost) file, so a failed tuning step can never fall back to defaults silently.
+
+---
+
+## Day 15 (2026-11-15): Tier D confirmatory on pretrained LMs (Amendment 10): H3, P1, strict H7 pass; C1, C2, C3 fail
+
+E10, trials 800–899, `gpt2-xl` (1.5 B) and `Qwen/Qwen2.5-1.5B`, 96,000 rows each (2,006 s and 2,291 s on the RTX 5080). Clean-only tuning selected layer = last, boost = 100 for both (objective flat for boost ≥ 50). Base LM accuracy on the stored objects: 0.25% and 0.10%.
+
+| Criterion | gpt2-xl primary / strict | Qwen2.5-1.5B primary / strict | Verdict |
+|---|---|---|---|
+| H3: certificate + certified-token violations | 0 / 0 | 0 / 0 | **PASS** |
+| P1 (≤ half of Titans' installed) | 16/16, 16/16 | 16/16, 16/16 | **PASS** |
+| H7 strict (Thm 3b predicts recall) | 16/16 | 16/16 | **PASS** |
+| C1 (never Pareto-dominated) | 10/16, 11/16 | 13/16, 13/16 | **FAIL** |
+| C2 (locality recall ≥ best secure + 0.20) | 3/8, 1/8 | 3/8, 1/8 | FAIL (expected) |
+| C3 | 0/16 | 0/16 | FAIL (expected) |
+
+**Averages over cells (gpt2-xl; Qwen is within 0.02 everywhere):**
+| defence | dense recall | dense installed (mean / max) | locality recall | locality installed (mean / max) |
+|---|---|---|---|---|
+| Titans | 0.98 | 0.46 / 0.58 | 0.97 | 0.56 / 0.68 |
+| mean, TMA-NM | 0.93–0.98 | 0.50 / 0.50 | 0.82–0.92 | 0.50 / 0.50 |
+| TrMean / median / GeoMed | 0.97–0.98 | 0.04–0.06 / 0.27–0.32 | 0.79–0.87 | 0.09–0.16 / 0.28–0.42 |
+| SMSR | 0.96 | 0.14 / 0.28 | 0.91 | 0.39 / 0.49 |
+| Krum, RobustRAG | 0.69–0.78 | ≤ 0.01 / 0.07 | 0.00–0.09 | ≤ 0.01 / 0.04 |
+| **Tabayyun (primary)** | 0.87 | 0.01 / 0.04 | 0.76 | 0.02 / 0.14 |
+| **Tabayyun (strict)** | 0.83 | 0.00 / 0.01 | 0.50 | 0.00 / 0.01 |
+
+**Reading (honest).**
+- **What holds on pretrained LMs:** zero violations in 192,000 rows; the attacker's object is installed in ≤ 1% of cases under strict Tabayyun in every cell; Thm 3(b) predicts strict recall in 32/32 cells; in well-observed cells 91–100% of tokens are certified and correct.
+- **C1 fails in 9 of 32 (primary) and 8 of 32 (strict) model-cells**, almost all dense with R = 3. There TrMean / median / GeoMed reach the same installed (0.00) with recall 0.99–1.00, against 0.93–1.00 for Tabayyun. As in Tiers B and C, **when every source sees every fact, robust aggregation is as good on these three metrics.** Tabayyun adds only the certificate there.
+- **Robust aggregators are not secure everywhere:** TrMean / median / GeoMed install up to 0.27–0.42 in the f = 2 dense and f = 3 locality cells. Tabayyun primary: at most 0.14. Strict: at most 0.01.
+- **Where Tabayyun is clearly better:** locality with f = 3. The only secure baselines there (RobustRAG, Krum) recall 0.00–0.10, against 0.33–0.92 for primary Tabayyun.
+- **The cost of security is visible:** with one observation round (R = 1), Tabayyun's recall is lower than the aggregators' (dense 0.38–0.82, strict locality 0.03–0.60), exactly as Thm 3(b) predicts.
+- **Both LMs give almost identical numbers.** The memory sits at the unembedding input and its keys are near-orthogonal, so the outcome is driven by the memory mechanics, not by the LM. Tier D therefore adds external validity (real LM, 50k–150k vocabulary, real facts) rather than a new phenomenon. A memory inside the network (mid-layer, MEMIT-style) would be a stronger test and is not done.
+- These attacks are static. On Tier B the adaptive gradient attacker broke TrMean and GeoMed (installed 1.00), so the aggregators' apparent security in dense cells here must be re-tested with the adaptive attacker.
