@@ -1,0 +1,31 @@
+{
+ "file": "e05_d512_union_summary.json",
+ "cells": 16,
+ "H12a_violations": 0,
+ "H12b_strict": "15/16",
+ "H12c_attack_sanity": {
+  "tabayyun": {
+   "union_mean": 0.0979,
+   "static_mean": 0.0083
+  },
+  "tabayyun_strict": {
+   "union_mean": 0.0302,
+   "static_mean": 0.0042
+  },
+  "agg_trmean": {
+   "union_mean": 0.5719,
+   "static_mean": 0.0698
+  }
+ },
+ "primary_cells_le_0.10": "13/16",
+ "worst_installed": {
+  "tabayyun": 0.683,
+  "tabayyun_strict": 0.283,
+  "agg_trmean": 1.0
+ },
+ "verdict": {
+  "H12a": true,
+  "H12b": false,
+  "H12c": true
+ }
+}
