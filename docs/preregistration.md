@@ -247,3 +247,20 @@ So the union attacker is at least as strong as the static write attacks on the s
 - **H12c** (attack sanity): for each of the three defences, the union attacker's installed rate averaged over cells ≥ the static write attacks' rate on the same trials − 0.02.
 
 **Expectation stated now:** primary Tabayyun exceeds 0.10 in the locality f = 3, R = 1 cells. It is reported descriptively and is not a criterion. The paper will report, for every defence, the **worst over all attacks run** (static, PGD, union).
+
+---
+
+## Amendment 13 (2026-11-15, union adaptive attacker on Tier B; registered BEFORE the confirmatory runs)
+**Why.** Amendment 5 (Tier B, MemLM) used the same optimiser that Amendment 12 showed to be no stronger than a plain write attack against the Tabayyun gate. Its Tabayyun numbers (strict ≤ 0.083, primary ≤ 0.42) are therefore re-tested with the union attacker. Tier B is the harder case for the gate, because honest quarantines differ from each other there (cross-talk), which leaves the attacker more room than on Tier D.
+
+**Setup** (`experiments/e05_adaptive.py --union`; default path unchanged and bit-identical on smoke):
+- the union attacker of Amendment 12: starts from the adversary's real quarantines under `assert` and `assert_x4` (camouflage keys counted as written keys), every start kept, optimisation with and without the cone hinge, selection by number of targets won;
+- models: MemLM d128, d256 and d512 (released checkpoints); 16 cells; 100 steps;
+- defences: both Tabayyun variants and TrMean (reference);
+- **trials 330–359** (fresh).
+
+**What was seen before registration:** a 2-trial, 30-step union smoke on d128 (4 cells): Tabayyun 0.00 in all 4, TrMean 0.25 / 0.00 / 1.00 / 1.00, 0 violations.
+
+**Criteria, per model: those of Amendment 12** (`scripts/analyze_e11u.py`): H12a (0 violations), H12b (`tabayyun_strict` installed ≤ 0.10 in every cell), H12c (union ≥ static − 0.02 on average, for each defence).
+
+**Expectations stated now:** the primary variant exceeds 0.10 in locality R = 1 cells (it reached 0.32–0.42 under Amendment 5). **H12b may fail on Tier B**; if it does, it is reported as a fail and the strict variant's secure-configuration claim is limited accordingly.

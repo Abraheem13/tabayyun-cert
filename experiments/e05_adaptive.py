@@ -111,7 +111,10 @@ def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_i
     return best
 
 
-def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu"):
+UNION_DEFS = ["tabayyun", "tabayyun_strict", "agg_trmean"]
+
+
+def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu", union=False):
     keys, vals, adv_vals, targets, hidx, g = E.build_trial(V, F, n, f, rho, regime, seed, R)
     segs = [torch.zeros(0, dtype=torch.long)] * f + [
         segment(keys, vals, torch.tensor(hidx[s], dtype=torch.long), g) if hidx[s] else torch.zeros(0, dtype=torch.long)
@@ -122,7 +125,19 @@ def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu"):
         ks, vs = E.kv_vectors(model, int(keys[targets[0]]), int(adv_vals[targets[0]]), device)
     # adversary is a writer of the target keys (it asserts them), so they get anchored as for E04 attacks
     adv_written = [(s, E.kv_vectors(model, int(keys[t]), int(adv_vals[t]), device)[0]) for s in range(f) for t in targets]
-    return attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr)
+    if not union:
+        return attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr)
+    # Amendment 13: the adversary's REAL quarantines under the static write attacks as extra starts
+    adv_states = []
+    with torch.no_grad():
+        for i, at in enumerate(("assert", "assert_x4")):
+            g2 = torch.Generator().manual_seed(seed * 7919 + i + 1)
+            Madv, w_adv = E.per_source_memories(model, E.adversarial_segments(keys, vals, adv_vals, targets, f, at, g2, F),
+                                                device)
+            adv_states.append(Madv)
+            adv_written = adv_written + w_adv          # camouflage keys count as written keys, as in E04
+    return attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr,
+                      defs=UNION_DEFS, adv_states=adv_states)
 
 
 def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr,
@@ -198,8 +213,8 @@ def _init(ckpt):
 
 
 def _job(job):
-    (rg, n, f, rho, R), s, steps, lr = job
-    out = run(_MODEL, _MODEL.cfg.vocab, 16, n, f, rho, rg, R, s, steps, lr)
+    (rg, n, f, rho, R), s, steps, lr = job[:4]
+    out = run(_MODEL, _MODEL.cfg.vocab, 16, n, f, rho, rg, R, s, steps, lr, union=len(job) > 4 and job[4])
     return [{"regime": rg, "f": f, "rho": rho, "R": R, "trial": s, "defence": d, **r} for d, r in out.items()]
 
 
@@ -213,6 +228,7 @@ def main():
     ap.add_argument("--tag", default="")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--union", action="store_true", help="Amendment 13 union attacker (see attack_defence)")
     a = ap.parse_args()
     cells = [(rg, n, f, rho, R) for rg, n, fs in [("dense", 10, (1, 2)), ("locality", 20, (2, 3))]
              for f in fs for rho in (0.4, 0.7) for R in (1, 3)]
@@ -220,7 +236,7 @@ def main():
     if a.smoke:
         cells, trials, a.steps = cells[:2] + cells[-2:], range(2), 30
     rows, t0 = [], time.time()
-    jobs = [(c, s, a.steps, a.lr) for c, s in itertools.product(cells, trials)]
+    jobs = [(c, s, a.steps, a.lr, a.union) for c, s in itertools.product(cells, trials)]
     from concurrent.futures import ProcessPoolExecutor
     with ProcessPoolExecutor(a.workers, initializer=_init, initargs=(a.ckpt,)) as ex:
         for i, rr in enumerate(ex.map(_job, jobs)):
@@ -228,16 +244,19 @@ def main():
             if (i + 1) % 40 == 0:
                 print(f"  {i + 1}/{len(jobs)} jobs  {time.time() - t0:.0f}s", flush=True)
     out = ROOT / "results" / "e05"; out.mkdir(parents=True, exist_ok=True)
-    name = "smoke" if a.smoke else f"e05{('_' + a.tag) if a.tag else ''}"
+    name = ("smoke_union" if a.union else "smoke") if a.smoke else f"e05{('_' + a.tag) if a.tag else ''}"
+    defs = UNION_DEFS if a.union else DEFS
     (out / f"{name}.json").write_text(json.dumps(rows))
     summ = {}
     for (rg, n, f, rho, R) in cells:
-        for d in DEFS:
+        for d in defs:
             rr = [r for r in rows if (r["regime"], r["f"], r["rho"], r["R"], r["defence"]) == (rg, f, rho, R, d)]
             e = {"pgd_installed": float(np.mean([r["installed"] for r in rr])),
                  "edge_installed": float(np.mean([r["edge_installed"] for r in rr]))}
-            if "violations" in rr[0]:
-                e["violations"] = int(sum(r["violations"] + r["action_violations"] for r in rr))
+            if a.union:
+                e["static_installed"] = float(np.mean([r["static_installed"] for r in rr]))
+            if any("violations" in r for r in rr):
+                e["violations"] = int(sum(r.get("violations", 0) + r.get("action_violations", 0) for r in rr))
             summ[f"{rg}|f={f}|rho={rho}|R={R}|{d}"] = e
             print(f"{rg:8} f={f} rho={rho} R={R} {d:15} " + " ".join(f"{k}={v:.2f}" if isinstance(v, float) else f"{k}={v}" for k, v in e.items()))
     (out / f"{name}_summary.json").write_text(json.dumps(summ, indent=1))

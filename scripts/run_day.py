@@ -111,6 +111,12 @@ def plan(day: int, dev: str) -> list[list[str]]:
              [[PY, "experiments/e11_lm_adaptive.py", "--model", m, "--device", dev, "--union", "--trials", "20",
                "--trial_offset", "920", "--tag", f"{tag}_union"],
               [PY, "scripts/analyze_e11u.py", f"results/e11/e11_{tag}_union_summary.json"]]],
+        # Amendment 13: union adaptive attacker on Tier B (CPU workers), trials 330-359
+        18: [c for tag in ("d128", "d256", "d512") for c in
+             [[PY, "experiments/e05_adaptive.py", "--ckpt", f"checkpoints/memlm_{tag}.pt", "--union", "--trials", "30",
+               "--trial_offset", "330", "--steps", "100", "--workers", str(max(1, (os.cpu_count() or 2) - 1)),
+               "--tag", f"{tag}_union"],
+              [PY, "scripts/analyze_e11u.py", f"results/e05/e05_{tag}_union_summary.json"]]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }
