@@ -220,3 +220,30 @@ These are the negative regimes pre-declared in v1 ("reported whatever happens").
 - **H8c**: per cell, `tabayyun_strict` PGD-installed ≤ min(TrMean, median, GeoMed) PGD-installed + 0.05.
 
 **Expectation stated now:** the primary variant may exceed 0.10 in locality R = 1 cells, as on Tier B.
+
+---
+
+## Amendment 12 (2026-11-15, union adaptive attacker on Tier D; registered BEFORE the confirmatory runs)
+**Why.** The Amendment 11 run passed, but the gradient attacker installed **0.00** against primary Tabayyun in every cell, while the plain write attack of Amendment 10 installed 0.09–0.14 in the hardest cell (locality, f = 3, ρ = 0.4, R = 1). An adaptive attack that is weaker than a static one is a failed attack, not evidence of security. Two causes were found on `gpt2` (exploratory trials 0–59):
+- the Amendment 11 adversary set its rows directly but did not write camouflage keys, so fewer directions were anchored;
+- the optimiser never started from, or kept, the state a plain write attack produces.
+
+**Union attacker** (`e11_lm_adaptive.py --union`, `e05.attack_defence` with the new options; E05 defaults unchanged and bit-identical on smoke):
+- extra starting points: the adversary's **real quarantines** under `assert` and `assert_x4`, with its camouflage keys counted as written keys;
+- every start is also kept un-optimised;
+- for Tabayyun the optimisation runs with **and** without the cone hinge;
+- the final choice per trial maximises the number of targets where the attacker's token wins, then the CW loss.
+So the union attacker is at least as strong as the static write attacks on the same trial, by construction.
+
+**Setup.** Models `gpt2-xl` and `Qwen/Qwen2.5-1.5B`, clean-tuned (layer, boost) of Amendment 10, 16 cells, 100 steps. Defences: both Tabayyun variants and TrMean (reference). **Trials 920–939** (fresh).
+
+**What was seen before registration** (`gpt2`, 124 M, exploratory):
+- static replica vs the Amendment 10 code on trials 0–59: primary 0.108 vs 0.125 (locality f = 3) and 0.042 vs 0.067 (dense f = 2); strict 0.008 vs 0.008; TrMean 0.158 vs 0.192;
+- a 4-trial, 30-step union smoke on two cells: Tabayyun 0.00, TrMean 0.12 and 1.00, 0 violations.
+
+**Criteria, per model** (`scripts/analyze_e11u.py`):
+- **H12a**: 0 certificate and 0 certified-token violations.
+- **H12b**: `tabayyun_strict` installed ≤ 0.10 in every cell under the union attacker.
+- **H12c** (attack sanity): for each of the three defences, the union attacker's installed rate averaged over cells ≥ the static write attacks' rate on the same trials − 0.02.
+
+**Expectation stated now:** primary Tabayyun exceeds 0.10 in the locality f = 3, R = 1 cells. It is reported descriptively and is not a criterion. The paper will report, for every defence, the **worst over all attacks run** (static, PGD, union).

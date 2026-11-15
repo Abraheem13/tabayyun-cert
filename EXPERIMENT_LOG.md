@@ -599,3 +599,33 @@ E10, trials 800–899, `gpt2-xl` (1.5 B) and `Qwen/Qwen2.5-1.5B`, 96,000 rows ea
 - These attacks are static. On Tier B the adaptive gradient attacker broke TrMean and GeoMed (installed 1.00), so the aggregators' apparent security in dense cells here must be re-tested with the adaptive attacker.
 
 **Day 16 build (2026-11-15): adaptive attacker on Tier D (Amendment 11).** `e05.attack_all` is factored out of E05 (smoke rows bit-identical) and reused by `experiments/e11_lm_adaptive.py` on the frozen-LM substrate. Smoke on `gpt2` (2 trials, 30 steps): PGD installs 0.25 against TrMean / median / GeoMed in 3 of 4 cells, 0.00 against both Tabayyun variants, 0 violations. Confirmatory: trials 900–919 on `gpt2-xl` and `Qwen/Qwen2.5-1.5B` (`run_day.py 16`). GPU time is not measured here (CPU: 44 s per trial at 30 steps on `gpt2`).
+
+---
+
+## Day 16 (2026-11-15): adaptive gradient attacker on Tier D (Amendment 11): criteria PASS, but the attack on Tabayyun is not trustworthy
+
+E11, trials 900–919, 320 trials per model (`gpt2-xl` 3,762 s, `Qwen2.5-1.5B` 5,157 s on the RTX 5080).
+
+| Criterion | gpt2-xl | Qwen2.5-1.5B |
+|---|---|---|
+| H8a: violations | **0** | **0** |
+| H8b: strict PGD-installed ≤ 0.10 | **16/16** (0.00 everywhere) | **16/16** (0.00 everywhere) |
+| H8c: strict ≤ min(TrMean, median, GeoMed) + 0.05 | **16/16** | **16/16** |
+| Worst PGD-installed: TrMean / median / GeoMed | 0.70 / 0.30 / 0.83 | 0.60 / 0.33 / 0.78 |
+| Worst PGD-installed: Krum / RobustRAG | 0.03 / 0.08 | 0.03 / 0.05 |
+| Primary Tabayyun (descriptive) | 0.00 everywhere | 0.00 everywhere |
+
+**What is solid.**
+- The gradient attacker is much stronger than the static attacks against the aggregators. TrMean: 0.70 against 0.42 static. GeoMed: 0.83 against 0.41. Mean over locality cells: TrMean 0.31–0.35, GeoMed 0.33.
+- **In dense cells with R = 3 the aggregators stay at 0.00–0.03 even under PGD.** The dense tie reported on Day 15 is real, not an artefact of weak attacks.
+- Krum and RobustRAG resist, at the price of amnesia 0.44–0.55 (they forget the true fact about half the time).
+
+**What is NOT solid (my finding, against our own method).** PGD installed 0.00 against primary Tabayyun in every cell, but the plain write attack of Day 15 installed 0.09–0.14 in the hardest cell. The adaptive attacker is therefore **weaker than a static attack** on primary Tabayyun, which is the textbook sign of a failed attack (gradient masking by the discrete gate), not of security. Causes found on `gpt2`:
+1. the E11 adversary did not write camouflage keys, so fewer directions were anchored and the cross-talk leak path was closed by accident;
+2. the optimiser neither started from nor kept the state that a plain write attack produces.
+
+**Consequences.**
+- The H8b/H8c passes stand as registered (they concern the strict variant, whose static worst case is also ≤ 0.015).
+- The primary variant's 0.00 under PGD must **not** be reported as robustness.
+- Amendment 12 registers a union attacker that is at least as strong as the static attacks by construction (Day 17).
+- The same weakness may affect the Tier-B result of Amendment 5 for Tabayyun (E05 used the same optimiser). There the primary variant was already broken up to 0.42, and strict was at most 0.08. A union re-run on Tier B is added to the to-do list.

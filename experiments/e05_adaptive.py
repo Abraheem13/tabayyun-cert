@@ -63,32 +63,49 @@ def defence_read(d, D, U, q, f, n, k_gate):
     return q @ M.T, None
 
 
-def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_ids, ks, vs, steps, lr):
-    """Optimise the f adversarial rows of D. Returns best adversarial rows."""
+def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_ids, ks, vs, steps, lr,
+                   extra_inits=(), hinge_modes=(True,), keep_inits=False, select="loss"):
+    """Optimise the f adversarial rows of D. Returns best adversarial rows.
+
+    Defaults reproduce E05 (Amendment 5).  The union attacker (Amendment 12) adds ``extra_inits``
+    (e.g. the adversary's real quarantine states under the static write attacks), runs the
+    optimisation with and without the cone hinge (``hinge_modes``), and with ``keep_inits`` also
+    keeps every un-optimised start, so it is never weaker than the static attacks it starts from."""
     K, dv = D_hon.shape[1], D_hon.shape[2]
     scale = float(D_hon[f:].norm(dim=-1).max().clamp(min=1e-3))
     inits = [EdgeOfRange(list(range(f)), honest_ids, ks, vs, nu=1e-3)(D_hon, U)[:f],
              ((U @ ks).unsqueeze(1) * vs.unsqueeze(0)).unsqueeze(0).expand(f, K, dv) * 3.0,
-             torch.randn(f, K, dv).to(D_hon.device) * scale]
-    best, best_loss = None, float("inf")
-    for init in inits:
+             torch.randn(f, K, dv).to(D_hon.device) * scale] + list(extra_inits)
+    best, best_loss = None, (0, float("inf"))
+
+    def exact_loss(A_):
+        """Selection key, lower is better: summed CW loss (E05), or for select="count" the number
+        of targets where the attacker's token wins first and the loss second."""
+        with torch.no_grad():
+            y_, _ = defence_read(d, torch.cat([A_, D_hon[f:]]), U, q_t, f, n, k_gate)
+            cw = cw_loss(model.logits_from_read(h_t, y_), adv_tok)
+            return (-int((cw < 0).sum()) if select == "count" else 0, float(cw.sum()))
+
+    if keep_inits:
+        for init in inits:
+            fl = exact_loss(init)
+            if fl < best_loss:
+                best_loss, best = fl, init.detach().clone()
+    for hinge, init in itertools.product(hinge_modes, inits):
         A = init.clone().detach().requires_grad_(True)
         opt = torch.optim.Adam([A], lr=lr * scale)
         for _ in range(steps):
             D = torch.cat([A, D_hon[f:]])
             y, out = defence_read(d, D, U, q_t, f, n, k_gate)
             loss = cw_loss(model.logits_from_read(h_t, y), adv_tok).clamp(min=-1.0).sum()
-            if out is not None:   # BPDA surrogate: keep adversarial rows active and inside the cone
+            if out is not None and hinge:   # BPDA surrogate: keep adversarial rows active and inside the cone
                 med = D.detach()[f:].median(0).values                      # honest-majority reference
                 cos = torch.nn.functional.cosine_similarity(A, med.unsqueeze(0), dim=-1)
                 loss = loss + torch.relu(0.35 - cos).sum()
             opt.zero_grad()
             loss.backward()
             opt.step()
-        with torch.no_grad():
-            D = torch.cat([A, D_hon[f:]])
-            y, _ = defence_read(d, D, U, q_t, f, n, k_gate)
-            fl = float(cw_loss(model.logits_from_read(h_t, y), adv_tok).sum())
+        fl = exact_loss(A.detach())
         if fl < best_loss:
             best_loss, best = fl, A.detach().clone()
     return best
@@ -109,7 +126,7 @@ def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu"):
 
 
 def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets, ks, vs, f, n, steps, lr,
-               certify_fn=action_certified):
+               certify_fn=action_certified, defs=None, adv_states=None):
     """Run the adaptive attacker against every defence in DEFS.  Substrate-agnostic: ``model`` only
     needs ``logits_from_read(h, y)`` and ``readout_matrix()`` (MemLM in E05, a frozen-LM shim in E11)."""
     dev = Ms.device
@@ -121,13 +138,20 @@ def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets,
     adv_tok = adv_vals[targets].to(dev)
     true_tok = vals[targets].to(dev)
     res = {}
-    for d in DEFS:
+    union = adv_states is not None           # Amendment 12 union attacker (see attack_defence)
+    for d in (defs or DEFS):
         U = Ua if d.startswith("tabayyun") else I
         if U.shape[0] == 0:
             res[d] = {"installed": 0.0, "edge_installed": 0.0}
             continue
         D_hon = torch.einsum("nvk,uk->nuv", Ms, U)
-        A = attack_defence(model, d, D_hon, U, tq, th, adv_tok, f, n, k_gate, honest_ids, ks, vs, steps, lr)
+        if union:
+            statics = [torch.einsum("nvk,uk->nuv", Ma, U) for Ma in adv_states]
+            A = attack_defence(model, d, D_hon, U, tq, th, adv_tok, f, n, k_gate, honest_ids, ks, vs, steps, lr,
+                               extra_inits=statics, keep_inits=True, select="count",
+                               hinge_modes=(True, False) if d.startswith("tabayyun") else (True,))
+        else:
+            A = attack_defence(model, d, D_hon, U, tq, th, adv_tok, f, n, k_gate, honest_ids, ks, vs, steps, lr)
         with torch.no_grad():
             D = torch.cat([A, D_hon[f:]])
             y, out = defence_read(d, D, U, tq, f, n, k_gate)
@@ -138,6 +162,10 @@ def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets,
             r = {"installed": float((pred == adv_tok).float().mean()),
                  "amnesia": float((pred != true_tok).float().mean()),
                  "edge_installed": float((pe == adv_tok).float().mean())}
+            if union:      # what the plain write attacks achieve on the same trial (no optimisation)
+                st = [defence_read(d, torch.cat([A_s, D_hon[f:]]), U, tq, f, n, k_gate)[0] for A_s in statics]
+                r["static_installed"] = float(max((model.logits_from_read(th, y_s).argmax(-1) == adv_tok)
+                                                  .float().mean() for y_s in st))
             if out is not None:
                 # certificate soundness under the adaptive attack (oracle reference = honest-corroborator mean)
                 H = torch.zeros(n, dtype=torch.bool, device=dev); H[f:] = True
