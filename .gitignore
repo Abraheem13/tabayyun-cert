@@ -15,3 +15,5 @@ wandb/
 !checkpoints/memlm_d128.pt
 !checkpoints/memlm_d256.pt
 !checkpoints/memlm_d512.pt
+results/**/smoke_union.json
+results/**/smoke_union_summary.json
