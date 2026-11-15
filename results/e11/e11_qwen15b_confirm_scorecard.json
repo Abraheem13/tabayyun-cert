@@ -1,0 +1,19 @@
+{
+ "file": "e11_qwen15b_confirm_summary.json",
+ "cells": 16,
+ "H8a_violations": 0,
+ "H8b_strict": "16/16",
+ "H8b_primary_descr": "16/16",
+ "H8c": "16/16",
+ "H8c_fails": [],
+ "worst_pgd": {
+  "tabayyun": 0.0,
+  "tabayyun_strict": 0.0,
+  "agg_trmean": 0.6,
+  "agg_median": 0.325,
+  "agg_geomed": 0.775,
+  "agg_krum": 0.025,
+  "robustrag": 0.05
+ },
+ "verdict": "PASS"
+}
