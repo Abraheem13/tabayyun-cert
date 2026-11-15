@@ -629,3 +629,27 @@ E11, trials 900–919, 320 trials per model (`gpt2-xl` 3,762 s, `Qwen2.5-1.5B` 5
 - The primary variant's 0.00 under PGD must **not** be reported as robustness.
 - Amendment 12 registers a union attacker that is at least as strong as the static attacks by construction (Day 17).
 - The same weakness may affect the Tier-B result of Amendment 5 for Tabayyun (E05 used the same optimiser). There the primary variant was already broken up to 0.42, and strict was at most 0.08. A union re-run on Tier B is added to the to-do list.
+
+---
+
+## Day 17 (2026-11-15): union adaptive attacker on Tier D (Amendment 12): PASS; my expectation for the primary variant was wrong on these trials
+
+E11 `--union`, trials 920–939, 320 trials per model (`gpt2-xl` 1,946 s, `Qwen2.5-1.5B` 3,653 s).
+
+| | gpt2-xl | Qwen2.5-1.5B |
+|---|---|---|
+| H12a: violations | **0** | **0** |
+| H12b: strict installed ≤ 0.10, every cell | **16/16** (0 of 320 trials with an install) | **16/16** (1 of 320; worst cell 0.025) |
+| H12c: union ≥ static − 0.02 (mean over cells) | **pass** (primary 0.003 vs 0.003; TrMean 0.209 vs 0.011) | **pass** (primary 0.005 vs 0.003; TrMean 0.230 vs 0.014) |
+| Primary Tabayyun, worst cell | 0.025 | 0.05 |
+| TrMean, worst cell | 0.75 | 0.75 |
+
+**Reading.**
+- **Against TrMean the union attacker is devastating:** an install in 98 and 111 of 320 trials, against 7 and 9 for the plain write attacks.
+- **Against Tabayyun, gradient optimisation adds nothing over the plain write attack:** primary 2 → 2 and 2 → 3 trials with an install out of 320; strict 0 → 0 and 1 → 1. Every success comes from the write-leak path (thin honest support plus cross-talk), which the strict variant closes almost entirely.
+- **My stated expectation was wrong here.** I expected primary > 0.10 in the locality f = 3, R = 1 cells; it was 0.025–0.05. Check on `gpt2`: the replica is faithful (0.140 vs 0.130 for the Amendment 10 code on trials 800–899), and trials 920–939 are simply easier (0.075 vs 0.050). With 40 targets per cell the estimate is coarse.
+- **Numbers the paper must use (worst over every attack run, Tier D):**
+  - primary Tabayyun 0.135 (static, Day 15, 100 trials);
+  - strict Tabayyun 0.025 (union, 1 of 40 targets; 0.015 static);
+  - TrMean 0.75, GeoMed 0.83, median 0.33 (adaptive).
+- **Limit of the claim.** No gradient attack found beats the write attack on the gate, but that is not a proof that none exists; a combinatorial attacker over which sources enter the cone is untested. The formal guarantee is the certificate (0 violations in every run), whose scope is drift from the honest-source consensus.
