@@ -1,0 +1,11 @@
+{
+ "locality|f=3|rho=0.4|R=1|tabayyun_w": {
+  "pgd_installed": 0.5666666666666667,
+  "amnesia_mean": 0.7333333333333333,
+  "edge_installed": 0.03333333333333333,
+  "static_installed": 0.0,
+  "served_installed": 0.0,
+  "served_correct": 0.0,
+  "violations": 0
+ }
+}

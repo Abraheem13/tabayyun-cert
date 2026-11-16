@@ -1,0 +1,118 @@
+{
+ "e05_d128_w_summary.json": {
+  "violations": 0,
+  "w_worst_installed": 0.016666666666666666,
+  "served_installed_worst": {
+   "tabayyun_strict": 0.0,
+   "tabayyun_w": 0.0
+  },
+  "amnesia_mean": {
+   "tabayyun_strict": 0.342,
+   "tabayyun_w": 0.125
+  },
+  "union_vs_static_mean": {
+   "tabayyun_strict": [
+    0.0219,
+    0.0042
+   ],
+   "tabayyun_w": [
+    0.0021,
+    0.0
+   ],
+   "agg_trmean": [
+    0.5333,
+    0.0542
+   ]
+  },
+  "served_correct_mean": {
+   "tabayyun_strict": 0.02,
+   "tabayyun_w": 0.575
+  },
+  "worst_installed": {
+   "tabayyun_strict": 0.067,
+   "tabayyun_w": 0.017,
+   "agg_trmean": 1.0
+  }
+ },
+ "e05_d256_w_summary.json": {
+  "violations": 0,
+  "w_worst_installed": 0.05,
+  "served_installed_worst": {
+   "tabayyun_strict": 0.016666666666666666,
+   "tabayyun_w": 0.0
+  },
+  "amnesia_mean": {
+   "tabayyun_strict": 0.349,
+   "tabayyun_w": 0.125
+  },
+  "union_vs_static_mean": {
+   "tabayyun_strict": [
+    0.0354,
+    0.0094
+   ],
+   "tabayyun_w": [
+    0.0063,
+    0.0021
+   ],
+   "agg_trmean": [
+    0.6052,
+    0.0667
+   ]
+  },
+  "served_correct_mean": {
+   "tabayyun_strict": 0.013,
+   "tabayyun_w": 0.45
+  },
+  "worst_installed": {
+   "tabayyun_strict": 0.283,
+   "tabayyun_w": 0.05,
+   "agg_trmean": 1.0
+  }
+ },
+ "e05_d512_w_summary.json": {
+  "violations": 0,
+  "w_worst_installed": 0.016666666666666666,
+  "served_installed_worst": {
+   "tabayyun_strict": 0.0,
+   "tabayyun_w": 0.0
+  },
+  "amnesia_mean": {
+   "tabayyun_strict": 0.35,
+   "tabayyun_w": 0.133
+  },
+  "union_vs_static_mean": {
+   "tabayyun_strict": [
+    0.0135,
+    0.0083
+   ],
+   "tabayyun_w": [
+    0.0021,
+    0.0021
+   ],
+   "agg_trmean": [
+    0.5958,
+    0.076
+   ]
+  },
+  "served_correct_mean": {
+   "tabayyun_strict": 0.061,
+   "tabayyun_w": 0.61
+  },
+  "worst_installed": {
+   "tabayyun_strict": 0.1,
+   "tabayyun_w": 0.017,
+   "agg_trmean": 1.0
+  }
+ },
+ "control_installed_at_loose_eps": [
+  0.5666666666666667
+ ],
+ "verdict": {
+  "H15a": true,
+  "H15b": true,
+  "H15c": true,
+  "H15d": true,
+  "H15e": true,
+  "control": true
+ }
+}

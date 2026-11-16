@@ -1,0 +1,374 @@
+# Day 20  device=cuda  started 2026-11-16 13:48:14
+
+=== python.exe -m pytest -q
+......................................................................   [100%]
+70 passed in 11.89s
+--- exit 0 in 15.2s
+
+=== python.exe experiments/e05_adaptive.py --ckpt checkpoints/memlm_d128.pt --union --trials 30 --trial_offset 360 --steps 100 --workers 19 --defences tabayyun,tabayyun_strict,tabayyun_w,agg_trmean --tag d128_w
+  40/480 jobs  32s
+  80/480 jobs  49s
+  120/480 jobs  65s
+  160/480 jobs  83s
+  200/480 jobs  103s
+  240/480 jobs  122s
+  280/480 jobs  159s
+  320/480 jobs  202s
+  360/480 jobs  233s
+  400/480 jobs  256s
+  440/480 jobs  283s
+  480/480 jobs  309s
+dense    f=1 rho=0.4 R=1 tabayyun        pgd_installed=0.03 amnesia_mean=0.23 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.30 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.13 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.75 violations=0
+dense    f=1 rho=0.4 R=1 agg_trmean      pgd_installed=0.48 amnesia_mean=0.52 edge_installed=0.05 static_installed=0.03
+dense    f=1 rho=0.4 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.95 violations=0
+dense    f=1 rho=0.4 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=1 tabayyun        pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.93 violations=0
+dense    f=1 rho=0.7 R=1 agg_trmean      pgd_installed=0.00 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=1.00 violations=0
+dense    f=1 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.17 amnesia_mean=0.60 edge_installed=0.02 static_installed=0.03 served_installed=0.00 served_correct=0.02 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.07 amnesia_mean=0.83 edge_installed=0.02 static_installed=0.05 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.37 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.28 violations=0
+dense    f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.97 amnesia_mean=0.97 edge_installed=0.27 static_installed=0.25
+dense    f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.60 violations=0
+dense    f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.17 amnesia_mean=0.17 edge_installed=0.02 static_installed=0.02
+dense    f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.12 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.48 violations=0
+dense    f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.30 amnesia_mean=0.30 edge_installed=0.02 static_installed=0.00
+dense    f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.90 violations=0
+dense    f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.42 amnesia_mean=0.60 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.05 amnesia_mean=0.92 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.03 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.45 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.45 violations=0
+locality f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.87 amnesia_mean=0.92 edge_installed=0.25 static_installed=0.10
+locality f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.08 amnesia_mean=0.25 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.28 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.08 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.67 violations=0
+locality f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.67 amnesia_mean=0.70 edge_installed=0.08 static_installed=0.05
+locality f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.10 amnesia_mean=0.32 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.03 amnesia_mean=0.42 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.08 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.55 violations=0
+locality f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.72 amnesia_mean=0.73 edge_installed=0.10 static_installed=0.08
+locality f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.02 amnesia_mean=0.07 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.05 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.83 violations=0
+locality f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.45 amnesia_mean=0.47 edge_installed=0.03 static_installed=0.02
+locality f=3 rho=0.4 R=1 tabayyun        pgd_installed=0.65 amnesia_mean=0.87 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_strict pgd_installed=0.07 amnesia_mean=0.95 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.75 edge_installed=0.02 static_installed=0.00 served_installed=0.00 served_correct=0.20 violations=0
+locality f=3 rho=0.4 R=1 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.40 static_installed=0.18
+locality f=3 rho=0.4 R=3 tabayyun        pgd_installed=0.08 amnesia_mean=0.42 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_strict pgd_installed=0.03 amnesia_mean=0.63 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.12 violations=0
+locality f=3 rho=0.4 R=3 agg_trmean      pgd_installed=0.97 amnesia_mean=0.97 edge_installed=0.12 static_installed=0.08
+locality f=3 rho=0.7 R=1 tabayyun        pgd_installed=0.18 amnesia_mean=0.52 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_strict pgd_installed=0.05 amnesia_mean=0.77 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.08 violations=0
+locality f=3 rho=0.7 R=1 agg_trmean      pgd_installed=0.97 amnesia_mean=0.97 edge_installed=0.17 static_installed=0.05
+locality f=3 rho=0.7 R=3 tabayyun        pgd_installed=0.03 amnesia_mean=0.13 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.12 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.40 violations=0
+locality f=3 rho=0.7 R=3 agg_trmean      pgd_installed=0.98 amnesia_mean=0.98 edge_installed=0.03 static_installed=0.00
+SUMMARY {"rows": 1920, "violations": 0, "seconds": 310.1}
+--- exit 0 in 313.4s
+
+=== python.exe experiments/e05_adaptive.py --ckpt checkpoints/memlm_d256.pt --union --trials 30 --trial_offset 360 --steps 100 --workers 19 --defences tabayyun,tabayyun_strict,tabayyun_w,agg_trmean --tag d256_w
+  40/480 jobs  46s
+  80/480 jobs  72s
+  120/480 jobs  99s
+  160/480 jobs  123s
+  200/480 jobs  150s
+  240/480 jobs  178s
+  280/480 jobs  237s
+  320/480 jobs  289s
+  360/480 jobs  352s
+  400/480 jobs  400s
+  440/480 jobs  455s
+  480/480 jobs  516s
+dense    f=1 rho=0.4 R=1 tabayyun        pgd_installed=0.03 amnesia_mean=0.25 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_strict pgd_installed=0.03 amnesia_mean=0.32 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.02 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.77 violations=0
+dense    f=1 rho=0.4 R=1 agg_trmean      pgd_installed=0.53 amnesia_mean=0.53 edge_installed=0.05 static_installed=0.07
+dense    f=1 rho=0.4 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.93 violations=0
+dense    f=1 rho=0.4 R=3 agg_trmean      pgd_installed=0.02 amnesia_mean=0.03 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=1 tabayyun        pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.95 violations=0
+dense    f=1 rho=0.7 R=1 agg_trmean      pgd_installed=0.03 amnesia_mean=0.07 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=1.00 violations=0
+dense    f=1 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.13 amnesia_mean=0.75 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.05 amnesia_mean=0.87 edge_installed=0.02 static_installed=0.03 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.40 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.20 violations=0
+dense    f=2 rho=0.4 R=1 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.30 static_installed=0.22
+dense    f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.42 violations=0
+dense    f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.27 amnesia_mean=0.28 edge_installed=0.00 static_installed=0.02
+dense    f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.02 amnesia_mean=0.15 edge_installed=0.02 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.15 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.02 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.03 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.22 violations=0
+dense    f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.48 amnesia_mean=0.48 edge_installed=0.02 static_installed=0.03
+dense    f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.68 violations=0
+dense    f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.48 amnesia_mean=0.63 edge_installed=0.02 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.05 amnesia_mean=0.90 edge_installed=0.00 static_installed=0.03 served_installed=0.00 served_correct=0.02 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.47 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.27 violations=0
+locality f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.93 amnesia_mean=0.95 edge_installed=0.30 static_installed=0.12
+locality f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.10 amnesia_mean=0.30 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.30 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.45 violations=0
+locality f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.83 amnesia_mean=0.83 edge_installed=0.15 static_installed=0.03
+locality f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.10 amnesia_mean=0.40 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.42 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.05 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.07 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.38 violations=0
+locality f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.90 amnesia_mean=0.92 edge_installed=0.13 static_installed=0.03
+locality f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.02 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.62 violations=0
+locality f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.72 amnesia_mean=0.72 edge_installed=0.02 static_installed=0.02
+locality f=3 rho=0.4 R=1 tabayyun        pgd_installed=0.70 amnesia_mean=0.88 edge_installed=0.10 static_installed=0.07 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_strict pgd_installed=0.28 amnesia_mean=0.97 edge_installed=0.07 static_installed=0.02 served_installed=0.02 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_w      pgd_installed=0.05 amnesia_mean=0.73 edge_installed=0.02 static_installed=0.00 served_installed=0.00 served_correct=0.17 violations=0
+locality f=3 rho=0.4 R=1 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.47 static_installed=0.40
+locality f=3 rho=0.4 R=3 tabayyun        pgd_installed=0.18 amnesia_mean=0.45 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_strict pgd_installed=0.05 amnesia_mean=0.67 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.05 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.05 violations=0
+locality f=3 rho=0.4 R=3 agg_trmean      pgd_installed=0.98 amnesia_mean=0.98 edge_installed=0.17 static_installed=0.03
+locality f=3 rho=0.7 R=1 tabayyun        pgd_installed=0.23 amnesia_mean=0.55 edge_installed=0.00 static_installed=0.03 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_strict pgd_installed=0.07 amnesia_mean=0.77 edge_installed=0.00 static_installed=0.03 served_installed=0.00 served_correct=0.03 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.08 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=1 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.18 static_installed=0.10
+locality f=3 rho=0.7 R=3 tabayyun        pgd_installed=0.08 amnesia_mean=0.20 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.12 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.10 violations=0
+locality f=3 rho=0.7 R=3 agg_trmean      pgd_installed=0.98 amnesia_mean=0.98 edge_installed=0.03 static_installed=0.00
+SUMMARY {"rows": 1920, "violations": 0, "seconds": 517.5}
+--- exit 0 in 525.2s
+
+=== python.exe experiments/e05_adaptive.py --ckpt checkpoints/memlm_d512.pt --union --trials 30 --trial_offset 360 --steps 100 --workers 19 --defences tabayyun,tabayyun_strict,tabayyun_w,agg_trmean --tag d512_w
+  40/480 jobs  97s
+  80/480 jobs  160s
+  120/480 jobs  227s
+  160/480 jobs  287s
+  200/480 jobs  352s
+  240/480 jobs  417s
+  280/480 jobs  617s
+  320/480 jobs  787s
+  360/480 jobs  960s
+  400/480 jobs  1119s
+  440/480 jobs  1291s
+  480/480 jobs  1451s
+dense    f=1 rho=0.4 R=1 tabayyun        pgd_installed=0.02 amnesia_mean=0.20 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.05 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.32 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=1 rho=0.4 R=1 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.10 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.85 violations=0
+dense    f=1 rho=0.4 R=1 agg_trmean      pgd_installed=0.58 amnesia_mean=0.58 edge_installed=0.00 static_installed=0.03
+dense    f=1 rho=0.4 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=1 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.98 violations=0
+dense    f=1 rho=0.4 R=3 agg_trmean      pgd_installed=0.02 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=1 tabayyun        pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=1 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.97 violations=0
+dense    f=1 rho=0.7 R=1 agg_trmean      pgd_installed=0.02 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00
+dense    f=1 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=1 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=1.00 violations=0
+dense    f=1 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.07 amnesia_mean=0.80 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.02 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.03 amnesia_mean=0.87 edge_installed=0.00 static_installed=0.03 served_installed=0.00 served_correct=0.03 violations=0
+dense    f=2 rho=0.4 R=1 tabayyun_w      pgd_installed=0.02 amnesia_mean=0.43 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.27 violations=0
+dense    f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.98 amnesia_mean=0.98 edge_installed=0.22 static_installed=0.30
+dense    f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.10 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.68 violations=0
+dense    f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.20 amnesia_mean=0.20 edge_installed=0.00 static_installed=0.00
+dense    f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.02 amnesia_mean=0.17 edge_installed=0.02 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.17 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.02 violations=0
+dense    f=2 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.05 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.53 violations=0
+dense    f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.55 amnesia_mean=0.55 edge_installed=0.02 static_installed=0.00
+dense    f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+dense    f=2 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.92 violations=0
+dense    f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00
+locality f=2 rho=0.4 R=1 tabayyun        pgd_installed=0.48 amnesia_mean=0.72 edge_installed=0.02 static_installed=0.02 served_installed=0.00 served_correct=0.00 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_strict pgd_installed=0.03 amnesia_mean=0.92 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.02 violations=0
+locality f=2 rho=0.4 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.48 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.37 violations=0
+locality f=2 rho=0.4 R=1 agg_trmean      pgd_installed=0.97 amnesia_mean=0.97 edge_installed=0.28 static_installed=0.20
+locality f=2 rho=0.4 R=3 tabayyun        pgd_installed=0.03 amnesia_mean=0.28 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.02 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.30 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.22 violations=0
+locality f=2 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.07 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.65 violations=0
+locality f=2 rho=0.4 R=3 agg_trmean      pgd_installed=0.80 amnesia_mean=0.82 edge_installed=0.13 static_installed=0.00
+locality f=2 rho=0.7 R=1 tabayyun        pgd_installed=0.07 amnesia_mean=0.38 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.02 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.42 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.13 violations=0
+locality f=2 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.08 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.60 violations=0
+locality f=2 rho=0.7 R=1 agg_trmean      pgd_installed=0.88 amnesia_mean=0.88 edge_installed=0.10 static_installed=0.08
+locality f=2 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.03 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.12 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.02 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.30 violations=0
+locality f=2 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.90 violations=0
+locality f=2 rho=0.7 R=3 agg_trmean      pgd_installed=0.55 amnesia_mean=0.55 edge_installed=0.02 static_installed=0.00
+locality f=3 rho=0.4 R=1 tabayyun        pgd_installed=0.68 amnesia_mean=0.80 edge_installed=0.02 static_installed=0.03 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_strict pgd_installed=0.10 amnesia_mean=0.93 edge_installed=0.00 static_installed=0.05 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.4 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.73 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.22 violations=0
+locality f=3 rho=0.4 R=1 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.45 static_installed=0.50
+locality f=3 rho=0.4 R=3 tabayyun        pgd_installed=0.03 amnesia_mean=0.58 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_strict pgd_installed=0.02 amnesia_mean=0.63 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.08 violations=0
+locality f=3 rho=0.4 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.08 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.22 violations=0
+locality f=3 rho=0.4 R=3 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.15 static_installed=0.02
+locality f=3 rho=0.7 R=1 tabayyun        pgd_installed=0.08 amnesia_mean=0.52 edge_installed=0.00 static_installed=0.02 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.80 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.03 violations=0
+locality f=3 rho=0.7 R=1 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.07 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.23 violations=0
+locality f=3 rho=0.7 R=1 agg_trmean      pgd_installed=1.00 amnesia_mean=1.00 edge_installed=0.25 static_installed=0.08
+locality f=3 rho=0.7 R=3 tabayyun        pgd_installed=0.00 amnesia_mean=0.12 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_strict pgd_installed=0.00 amnesia_mean=0.12 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.05 violations=0
+locality f=3 rho=0.7 R=3 tabayyun_w      pgd_installed=0.00 amnesia_mean=0.00 edge_installed=0.00 static_installed=0.00 served_installed=0.00 served_correct=0.38 violations=0
+locality f=3 rho=0.7 R=3 agg_trmean      pgd_installed=0.98 amnesia_mean=0.98 edge_installed=0.03 static_installed=0.00
+SUMMARY {"rows": 1920, "violations": 0, "seconds": 1452.6}
+--- exit 0 in 1455.3s
+
+=== python.exe experiments/e05_adaptive.py --ckpt checkpoints/memlm_d128.pt --union --trials 30 --trial_offset 360 --steps 100 --workers 19 --defences tabayyun_w --eps_w 2.0 --cells 12 --tag d128_wcontrol
+locality f=3 rho=0.4 R=1 tabayyun_w      pgd_installed=0.57 amnesia_mean=0.73 edge_installed=0.03 static_installed=0.00 served_installed=0.00 served_correct=0.00 violations=0
+SUMMARY {"rows": 30, "violations": 0, "seconds": 13.4}
+--- exit 0 in 16.3s
+
+=== python.exe scripts/analyze_e15.py results/e05/e05_d128_w_summary.json results/e05/e05_d256_w_summary.json results/e05/e05_d512_w_summary.json --control results/e05/e05_d128_wcontrol_summary.json
+{
+ "e05_d128_w_summary.json": {
+  "violations": 0,
+  "w_worst_installed": 0.016666666666666666,
+  "served_installed_worst": {
+   "tabayyun_strict": 0.0,
+   "tabayyun_w": 0.0
+  },
+  "amnesia_mean": {
+   "tabayyun_strict": 0.342,
+   "tabayyun_w": 0.125
+  },
+  "union_vs_static_mean": {
+   "tabayyun_strict": [
+    0.0219,
+    0.0042
+   ],
+   "tabayyun_w": [
+    0.0021,
+    0.0
+   ],
+   "agg_trmean": [
+    0.5333,
+    0.0542
+   ]
+  },
+  "served_correct_mean": {
+   "tabayyun_strict": 0.02,
+   "tabayyun_w": 0.575
+  },
+  "worst_installed": {
+   "tabayyun_strict": 0.067,
+   "tabayyun_w": 0.017,
+   "agg_trmean": 1.0
+  }
+ },
+ "e05_d256_w_summary.json": {
+  "violations": 0,
+  "w_worst_installed": 0.05,
+  "served_installed_worst": {
+   "tabayyun_strict": 0.016666666666666666,
+   "tabayyun_w": 0.0
+  },
+  "amnesia_mean": {
+   "tabayyun_strict": 0.349,
+   "tabayyun_w": 0.125
+  },
+  "union_vs_static_mean": {
+   "tabayyun_strict": [
+    0.0354,
+    0.0094
+   ],
+   "tabayyun_w": [
+    0.0063,
+    0.0021
+   ],
+   "agg_trmean": [
+    0.6052,
+    0.0667
+   ]
+  },
+  "served_correct_mean": {
+   "tabayyun_strict": 0.013,
+   "tabayyun_w": 0.45
+  },
+  "worst_installed": {
+   "tabayyun_strict": 0.283,
+   "tabayyun_w": 0.05,
+   "agg_trmean": 1.0
+  }
+ },
+ "e05_d512_w_summary.json": {
+  "violations": 0,
+  "w_worst_installed": 0.016666666666666666,
+  "served_installed_worst": {
+   "tabayyun_strict": 0.0,
+   "tabayyun_w": 0.0
+  },
+  "amnesia_mean": {
+   "tabayyun_strict": 0.35,
+   "tabayyun_w": 0.133
+  },
+  "union_vs_static_mean": {
+   "tabayyun_strict": [
+    0.0135,
+    0.0083
+   ],
+   "tabayyun_w": [
+    0.0021,
+    0.0021
+   ],
+   "agg_trmean": [
+    0.5958,
+    0.076
+   ]
+  },
+  "served_correct_mean": {
+   "tabayyun_strict": 0.061,
+   "tabayyun_w": 0.61
+  },
+  "worst_installed": {
+   "tabayyun_strict": 0.1,
+   "tabayyun_w": 0.017,
+   "agg_trmean": 1.0
+  }
+ },
+ "control_installed_at_loose_eps": [
+  0.5666666666666667
+ ],
+ "verdict": {
+  "H15a": true,
+  "H15b": true,
+  "H15c": true,
+  "H15d": true,
+  "H15e": true,
+  "control": true
+ }
+}
+--- exit 0 in 0.1s
+
+# finished 2026-11-16 14:27:00; failed: none
