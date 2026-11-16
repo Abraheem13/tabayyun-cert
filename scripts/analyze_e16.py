@@ -18,6 +18,8 @@ for p in static:
     W = {c: v["tabayyun_w"] for c, v in cells.items()}
     viol = sum(w["H3_violations"] for w in W.values())
     p1 = sum(w["P1_pass"] for w in W.values()); c1 = sum(w["C1_pass"] for w in W.values())
+    c1_strict = sum(v["tabayyun_strict"]["C1_pass"] for v in cells.values())
+    tier_d = "e10" in Path(p).parts
     h7 = sum(w["H7_pass"] for w in W.values())
     loc = [c for c in cells if c.startswith("locality")]
     rw = sum(cells[c]["tabayyun_w"]["table"]["tabayyun_w"]["rec"] for c in loc) / len(loc)
@@ -25,14 +27,15 @@ for p in static:
     c2 = sum(cells[c]["tabayyun_w"].get("C2_pass", False) for c in loc)
     served = max(v["worst_served_installed"] for k, v in summ.items() if k.endswith("|tabayyun_w"))
     n = len(cells)
-    out[Path(p).name] = {"violations": viol, "P1": f"{p1}/{n}", "C1": f"{c1}/{n}", "C1_dominated_by":
+    out[Path(p).name] = {"violations": viol, "P1": f"{p1}/{n}", "C1": f"{c1}/{n}", "C1_strict": f"{c1_strict}/{n}",
+                         "C1_criterion": "W >= strict (Tier D)" if tier_d else "every cell (Tier B)", "C1_dominated_by":
                          {c: w["C1_dominated_by"] for c, w in W.items() if not w["C1_pass"]},
                          "H7_f+1": f"{h7}/{n}", "locality_recall_W": round(rw, 3), "locality_recall_strict": round(rs, 3),
                          "C2_descriptive": f"{c2}/{len(loc)}", "worst_installed_W": max(w["table"]["tabayyun_w"]["inst"] for w in W.values()),
                          "worst_served_installed_W": served}
     ok["H16a"] &= viol == 0
     ok["H16b"] &= p1 == n
-    ok["H16c"] &= c1 == n
+    ok["H16c"] &= (c1 >= c1_strict) if tier_d else (c1 == n)
     ok["H16d"] &= h7 == n
     ok["H16e"] &= rw >= rs + 0.10
 for p in union:

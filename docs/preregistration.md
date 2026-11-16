@@ -319,3 +319,32 @@ So the union attacker is at least as strong as the static write attacks on the s
 - **Control**: union-installed ≥ 0.20 against W at ε = 2.0.
 
 **Expectation stated now:** Tabayyun-W has larger worst-case drift per promoted fact than strict (shift up to 2r when it is promoted on fewer than 2f+1 witnesses). Its clean recall against the other variants on Tiers B and D is tested separately (Day 21), not here.
+
+---
+
+## Amendment 16 (2026-11-16, Tabayyun-W across Tiers B and D; registered BEFORE the confirmatory runs)
+**Why.** Amendment 15 confirmed Tabayyun-W's security on Tier B under the union attacker. This amendment tests its **utility** (the recall-when-observed-once weakness, R2) under the full static protocol on Tiers B and D, and its security under the union attacker on Tier D.
+
+**Defence.** `tabayyun_w` = agreement gate, k = f+1, ν_rel = 0.3, Prop. R/R′ certificate. ε is clean-tuned per tier:
+- Tier B: ε = 0.4 (Amendment 15);
+- Tier D: `e10_lm_retrofit.py --tune_w` on the confirmatory model, attack = none, exploratory trials 0–4, same rule as the other tiers, run as the first step of the Day-21 plan before any attacked trial. On `gpt2` the rule gave ε = 0.2.
+
+**Runs.**
+1. Tier B, E04 static protocol, MemLM d128 / d256 / d512, all baselines plus the three Tabayyun variants, **trials 1100–1199**.
+2. Tier D, E10 static protocol, `gpt2-xl` and `Qwen2.5-1.5B` (layer and boost of Amendment 10), same defences, **trials 1100–1199**.
+3. Tier D, E11 union attacker on strict, W and TrMean, **trials 1200–1219**.
+
+**What was seen before registration:**
+- Tier B, d128, trials 0–19, static protocol: W P1 16/16, C1 16/16, f+1 recall law 16/16, C2 5/8, worst installed 0.00, locality recall 0.83 vs strict 0.50.
+- Tier D on `gpt2`: the clean ε tuning, and a 2-trial union smoke (W installed 0.00 and served-correct 0.38 in the hardest cell, where strict serves 0.00 and TrMean is installed at 1.00).
+- No static-protocol run of W on Tier D was completed: the exploratory `gpt2` run was stopped as too slow on CPU and its partial outputs were deleted unread.
+
+**Criteria** (`scripts/analyze_e16.py`, every model):
+- **H16a**: 0 certificate and 0 certified-token violations (static and union).
+- **H16b**: P1 for W in every cell.
+- **H16c**: C1 for W in every cell on Tier B. On Tier D, W is non-dominated in at least as many cells as strict (both variants failed C1 in dense cells on Day 15, where robust aggregation ties).
+- **H16d**: the f+1 recall law, |clean recall − P(Bin(m, 1−(1−ρ)^R) ≥ f+1 | ≥ 1)| ≤ 0.10, in every cell.
+- **H16e**: W's mean locality clean recall ≥ strict's + 0.10.
+- **H16f** (Tier D union): W installed ≤ 0.05 and served-installed ≤ 0.02 in every cell.
+
+C2 and C3 are reported descriptively.
