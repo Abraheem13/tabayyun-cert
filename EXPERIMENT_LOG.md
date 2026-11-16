@@ -735,3 +735,42 @@ E12, seeds 1000–1009, 26,550 rows, 499 s.
 - New metric: served-installed (certify-or-abstain).
 - Gate-specific attack moves for W (AgreeEdge start, ball hinge), plus a control run at loose ε.
 - **Exploratory** (trials 0–9): W installed 0.000 at d128 and d512 (strict worst 0.20 / 0.35); W amnesia 0.13 vs 0.35; W serves 54–58% of attacked targets certified-correct vs ≤ 7% for strict. Control at ε = 2.0: 0.55 installed, so the attacker works.
+
+---
+
+## Day 20 (2026-11-16): Tabayyun-W and certify-or-abstain under the union attacker (Amendment 15): **all 6 criteria PASS**
+
+E05 `--union`, trials 360–389, MemLM d128 / d256 / d512 (310 s, 518 s, 1,453 s), plus the control run.
+
+| | d128 | d256 | d512 |
+|---|---|---|---|
+| H15a: violations (strict, W) | 0 | 0 | 0 |
+| **H15b: Tabayyun-W installed, worst cell** | **0.017** | **0.050** | **0.017** |
+| strict, worst cell (for reference) | 0.067 | 0.283 | 0.100 |
+| primary, worst cell | 0.650 | 0.700 | 0.683 |
+| TrMean, worst cell | 1.00 | 1.00 | 1.00 |
+| **H15c: served-installed (certify-or-abstain), worst cell**: strict / W | 0.00 / **0.00** | 0.017 / **0.00** | 0.00 / **0.00** |
+| **H15d: mean amnesia under attack**: strict / W | 0.342 / **0.125** | 0.349 / **0.125** | 0.350 / **0.133** |
+| served certified-and-correct under attack: strict / W | 0.02 / **0.58** | 0.01 / **0.45** | 0.06 / **0.61** |
+| H15e: union ≥ static | pass | pass | pass |
+
+**Control:** at ε = 2.0 the same attacker installs 0.57 against Tabayyun-W, so the attacker is capable and the low numbers at the clean-tuned ε = 0.4 are not gradient masking.
+
+**Reading.**
+- **Tabayyun-W fixes the Day-18 failure.** In the thinnest cell (locality f = 3, ρ = 0.4, R = 1) strict was installed at up to 0.283; W at 0.017–0.050. It is worse than strict nowhere.
+- **It also forgets a third as much** (amnesia 0.13 vs 0.35), and under attack it still serves 45–61% of attacked facts certified and correct, against 1–6% for strict.
+- **Certify-or-abstain closes the remaining leak for both variants:** a wrong token was served in at most 1 target in 60 (strict, d256) and never for W.
+
+## Day 21 build (2026-11-16): Tabayyun-W across Tiers B and D (Amendment 16)
+- The f+1 recall prediction (Thm 6 + Thm 3b) is added to both summaries; `analyze_e04.py` scores `tabayyun_w`; E10 gains a clean-only ε tuning for W (`--tune_w`); E11 can attack W.
+- **Exploratory, Tier B, d128, trials 0–19:**
+
+| criterion | strict | **Tabayyun-W** |
+|---|---|---|
+| P1 | 16/16 | **16/16** |
+| C1 (never Pareto-dominated) | 15/16 | **16/16** |
+| H7 (recall law: 2f+1 for strict, f+1 for W) | 16/16 | **16/16** |
+| C2 (locality recall ≥ best secure + 0.20) | 1/8 | **5/8** |
+| worst installed | 0.07 | **0.00** |
+
+Locality recall of W vs strict: 0.38 vs 0.02 (f = 3, ρ = 0.4, R = 1), 0.58 vs 0.14, 0.89 vs 0.25, 0.96 vs 0.37. **Tier D (`gpt2`) clean ε tuning:** ε = 0.2 (objective flat for ε ≥ 0.2).

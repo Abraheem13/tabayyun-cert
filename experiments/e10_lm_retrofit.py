@@ -39,9 +39,8 @@ from tabayyun.memory import LinearMemory  # noqa: E402
 from tabayyun.models.lm_retrofit import KeyMap, LMRetrofit, cached_features  # noqa: E402
 from tabayyun.registry import log_run  # noqa: E402
 
-_spec = importlib.util.spec_from_file_location("e04", ROOT / "experiments" / "e04_mqar_attack.py")
-e04 = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(e04)
+sys.path.insert(0, str(ROOT / "experiments"))
+import e04_mqar_attack as e04  # noqa: E402  (one module object, shared with e05 / e11)
 
 DK = 256
 N_CALIB = 2000
@@ -224,12 +223,33 @@ def tune(S: Substrate, a):
     return out
 
 
+def tune_w(S: Substrate, a):
+    """Clean-only choice of eps for Tabayyun-W on Tier D (attack = none, exploratory trials 0-4,
+    clean-tuned (layer, boost) already fixed).  Objective: clean recall + certified-and-correct;
+    rule: the smallest eps within 0.02 of the best (as on Tiers A and B)."""
+    out, grid = {}, (0.1, 0.2, 0.3, 0.4, 0.6)
+    for eps in grid:
+        e04.EPS_W = eps
+        rec, cc = [], []
+        for (rg, n, f, rho, R) in cells_for([1, 3]):
+            for s in range(5):
+                r = run_trial(S, a.facts, n, f, rho, rg, "none", s, ["tabayyun_w"], R)["tabayyun_w"]
+                rec.append(r["recall"]); cc.append(r["certified_correct_frac"])
+        out[str(eps)] = {"clean_recall": float(np.nanmean(rec)), "certified_correct": float(np.mean(cc)),
+                         "objective": float(np.nanmean(rec) + np.mean(cc))}
+        print(f"eps={eps} {out[str(eps)]}", flush=True)
+    best = max(v["objective"] for v in out.values())
+    out["selected_eps"] = min(e for e in grid if out[str(e)]["objective"] >= best - 0.02)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gpt2")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--tune", action="store_true")
+    ap.add_argument("--tune_w", action="store_true", help="clean-only eps of tabayyun_w (after --tune)")
     ap.add_argument("--trials", type=int, default=100)
     ap.add_argument("--trial_offset", type=int, default=0)
     ap.add_argument("--facts", type=int, default=16)
@@ -254,6 +274,14 @@ def main():
     S = Substrate(a.model, a.device, layer, 50.0 if boost is None else boost)
     print(f"model={a.model} layers={S.layer_grid} key_layer={S.layer} boost={S.boost} gain={S.gain:.2f} dk={S.dk} "
           f"pool={len(S.pool)} base_acc={S.base_accuracy()}", flush=True)
+    w_file = out / f"tuning_w_{safe}.json"
+    if w_file.exists():
+        e04.EPS_W = json.loads(w_file.read_text())["selected_eps"]
+    if a.tune_w:
+        res = tune_w(S, a)
+        w_file.write_text(json.dumps(res, indent=1))
+        print("selected eps", res["selected_eps"])
+        return
     if a.tune:
         res = tune(S, a)
         tune_file.write_text(json.dumps(res, indent=1))
@@ -281,6 +309,7 @@ def main():
         k_ = 2 * f + 1
         ms = [n - f] if rg == "dense" else list(range(k_, (n - f) // 2 + 1))
         p = 1 - (1 - rho) ** R
+        h7w = float(np.mean([binom.sf(f, m, p) / max(binom.sf(0, m, p), 1e-12) for m in ms]))   # Thm 6: f+1 witnesses
         h7 = float(np.mean([binom.sf(k_ - 1, m, p) / max(binom.sf(0, m, p), 1e-12) for m in ms]))
         for d in defences:
             rr = [r for r in rows if (r["regime"], r["f"], r["rho"], r["R"], r["defence"]) == (rg, f, rho, R, d)]
@@ -292,8 +321,10 @@ def main():
                                               default=float("nan"))),
                  "worst_amnesia": float(max((np.mean([r["amnesia"] for r in att if r["attack"] == x]) for x in ax),
                                             default=float("nan")))}
-            if d in e04.TAB_METHODS:
-                e.update({"H7_pred": h7, "violations": int(sum(r["violations"] for r in rr)),
+            if d in e04.CERT_METHODS:
+                e.update({"H7_pred": h7w if d == "tabayyun_w" else h7,
+                          "worst_served_installed": float(max((np.mean([r["served_installed"] for r in att if r["attack"] == x])
+                                                               for x in ax), default=float("nan"))), "violations": int(sum(r["violations"] for r in rr)),
                           "action_violations": int(sum(r["action_violations"] for r in rr)),
                           "certified_frac_clean": float(np.mean([r["certified_frac"] for r in cl])),
                           "certified_correct_clean": float(np.mean([r["certified_correct_frac"] for r in cl])),

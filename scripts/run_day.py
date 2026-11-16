@@ -130,6 +130,25 @@ def plan(day: int, dev: str) -> list[list[str]]:
               "--defences", "tabayyun_w", "--eps_w", "2.0", "--cells", "12", "--tag", "d128_wcontrol"],
              [PY, "scripts/analyze_e15.py", "results/e05/e05_d128_w_summary.json", "results/e05/e05_d256_w_summary.json",
               "results/e05/e05_d512_w_summary.json", "--control", "results/e05/e05_d128_wcontrol_summary.json"]],
+        # Amendment 16: Tabayyun-W, static protocol on Tier B (GPU) and Tier D (GPU), union attacker on Tier D
+        21: [c for t in ("d128", "d256", "d512") for c in
+             [[PY, "experiments/e04_mqar_attack.py", "--ckpt", f"checkpoints/memlm_{t}.pt", "--device", dev,
+               "--trials", "100", "--trial_offset", "1100", "--obs_rounds", "1,3",
+               "--defences", "titans,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,robustrag,smsr,tma_corr,"
+               "tabayyun,tabayyun_strict,tabayyun_w", "--tag", f"{t}_w_confirm"],
+              [PY, "scripts/analyze_e04.py", f"results/e04/e04_{t}_w_confirm.json"]]] +
+            [c for m, t in [("gpt2-xl", "gpt2xl"), ("Qwen/Qwen2.5-1.5B", "qwen15b")] for c in
+             [[PY, "experiments/e10_lm_retrofit.py", "--model", m, "--device", dev, "--tune_w"],
+              [PY, "experiments/e10_lm_retrofit.py", "--model", m, "--device", dev, "--trials", "100",
+               "--trial_offset", "1100", "--obs_rounds", "1,3",
+               "--defences", "titans,agg_mean,agg_trmean,agg_median,agg_krum,agg_geomed,robustrag,smsr,tma_corr,"
+               "tabayyun,tabayyun_strict,tabayyun_w", "--tag", f"{t}_w_confirm"],
+              [PY, "scripts/analyze_e04.py", f"results/e10/e10_{t}_w_confirm.json"],
+              [PY, "experiments/e11_lm_adaptive.py", "--model", m, "--device", dev, "--union", "--trials", "20",
+               "--trial_offset", "1200", "--defences", "tabayyun_strict,tabayyun_w,agg_trmean", "--tag", f"{t}_w_union"]]] +
+            [[PY, "scripts/analyze_e16.py", "--static"] + [f"results/e04/e04_{t}_w_confirm.json" for t in ("d128", "d256", "d512")]
+             + [f"results/e10/e10_{t}_w_confirm.json" for t in ("gpt2xl", "qwen15b")]
+             + ["--union"] + [f"results/e11/e11_{t}_w_union_summary.json" for t in ("gpt2xl", "qwen15b")]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

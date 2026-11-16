@@ -308,6 +308,7 @@ def main():
         ms = [n - f] if rg == "dense" else list(range(k_, (n - f) // 2 + 1))
         p = 1 - (1 - rho) ** R
         from scipy.stats import binom
+        h7w = float(np.mean([binom.sf(f, m, p) / max(binom.sf(0, m, p), 1e-12) for m in ms]))   # Thm 6: f+1 witnesses
         h7 = float(np.mean([binom.sf(k_ - 1, m, p) / max(binom.sf(0, m, p), 1e-12) for m in ms]))
         for d in DEFENCES:
             rr = [r for r in rows if r["regime"] == rg and r["f"] == f and r["rho"] == rho and r["R"] == R
@@ -319,8 +320,10 @@ def main():
             worst_amn = max((np.mean([r["amnesia"] for r in att if r["attack"] == x]) for x in ax), default=float("nan"))
             e = {"clean_recall": float(np.nanmean([r["recall"] for r in cl])), "worst_installed": float(worst_inst),
                  "worst_amnesia": float(worst_amn)}
-            if d in TAB_METHODS:
-                e["H7_pred"] = h7
+            if d in CERT_METHODS:
+                e["H7_pred"] = h7w if d == "tabayyun_w" else h7
+                e["worst_served_installed"] = float(max((np.mean([r["served_installed"] for r in att if r["attack"] == x])
+                                                         for x in ax), default=float("nan")))
                 e["violations"] = int(sum(r["violations"] for r in rr))
                 e["action_violations"] = int(sum(r["action_violations"] for r in rr))
                 e["certified_frac_clean"] = float(np.mean([r["certified_frac"] for r in cl]))

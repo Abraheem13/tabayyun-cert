@@ -82,6 +82,7 @@ def main():
     ap.add_argument("--lr", type=float, default=0.05)
     ap.add_argument("--tag", default="")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--defences", default=None, help="comma list for --union (default: UNION_DEFS)")
     ap.add_argument("--union", action="store_true",
                     help="Amendment 12 union attacker: static write attacks + PGD with/without the cone hinge")
     a = ap.parse_args()
@@ -90,6 +91,11 @@ def main():
     if not tune_file.exists():
         sys.exit(f"no clean-tuned (layer, boost) for {a.model}: run e10_lm_retrofit.py --tune first")
     sel = json.loads(tune_file.read_text())["selected"]
+    w_file = ROOT / "results" / "e10" / f"tuning_w_{a.model.replace('/', '_')}.json"
+    if w_file.exists():                        # clean-tuned eps of tabayyun_w (shared e04 module)
+        e10.e04.EPS_W = json.loads(w_file.read_text())["selected_eps"]
+    if a.defences:
+        UNION_DEFS[:] = a.defences.split(",")
     S = e10.Substrate(a.model, a.device, sel["layer"], sel["boost"])
     print(f"model={a.model} key_layer={S.layer} boost={S.boost} dk={S.dk}", flush=True)
     cells = [(rg, n, f, rho, R) for rg, n, fs in [("dense", 10, (1, 2)), ("locality", 20, (2, 3))]
@@ -116,6 +122,10 @@ def main():
                  "edge_installed": float(np.mean([r["edge_installed"] for r in rr]))}
             if a.union:
                 e["static_installed"] = float(np.mean([r["static_installed"] for r in rr]))
+                e["amnesia_mean"] = float(np.mean([r["amnesia"] for r in rr]))
+                if any("served_installed" in r for r in rr):
+                    e["served_installed"] = float(np.mean([r["served_installed"] for r in rr]))
+                    e["served_correct"] = float(np.mean([r["served_correct"] for r in rr]))
             if any("violations" in r for r in rr):
                 e["violations"] = int(sum(r.get("violations", 0) + r.get("action_violations", 0) for r in rr))
             summ[f"{rg}|f={f}|rho={rho}|R={R}|{d}"] = e

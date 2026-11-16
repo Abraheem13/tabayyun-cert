@@ -63,7 +63,7 @@ def main():
             return [fn(all_i), float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))]
 
         c = {}
-        for M in ("tabayyun", "tabayyun_strict"):
+        for M in ("tabayyun", "tabayyun_strict", "tabayyun_w"):
             if M not in rec:
                 continue
             e = {}
