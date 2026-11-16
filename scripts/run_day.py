@@ -120,6 +120,16 @@ def plan(day: int, dev: str) -> list[list[str]]:
         # Amendment 14: witness complexity (Thm 6), CPU workers, seeds 1000-1009
         19: [[PY, "experiments/e12_witness.py", "--seeds", "10", "--seed_offset", "1000", "--tag", "amend14"],
              [PY, "scripts/analyze_e12.py", "results/e12/e12_amend14_summary.json"]],
+        # Amendment 15: Tabayyun-W + certify-or-abstain under the union attacker (Tier B, CPU), trials 360-389
+        20: [c for tag in ("d128", "d256", "d512") for c in
+             [[PY, "experiments/e05_adaptive.py", "--ckpt", f"checkpoints/memlm_{tag}.pt", "--union", "--trials", "30",
+               "--trial_offset", "360", "--steps", "100", "--workers", str(max(1, (os.cpu_count() or 2) - 1)),
+               "--defences", "tabayyun,tabayyun_strict,tabayyun_w,agg_trmean", "--tag", f"{tag}_w"]]] +
+            [[PY, "experiments/e05_adaptive.py", "--ckpt", "checkpoints/memlm_d128.pt", "--union", "--trials", "30",
+              "--trial_offset", "360", "--steps", "100", "--workers", str(max(1, (os.cpu_count() or 2) - 1)),
+              "--defences", "tabayyun_w", "--eps_w", "2.0", "--cells", "12", "--tag", "d128_wcontrol"],
+             [PY, "scripts/analyze_e15.py", "results/e05/e05_d128_w_summary.json", "results/e05/e05_d256_w_summary.json",
+              "results/e05/e05_d512_w_summary.json", "--control", "results/e05/e05_d128_wcontrol_summary.json"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

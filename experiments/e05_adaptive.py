@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "experiments"))
 import e04_mqar_attack as E  # noqa: E402
-from tabayyun.attacks import EdgeOfRange  # noqa: E402
+from tabayyun.attacks import AgreeEdge, EdgeOfRange  # noqa: E402
 from tabayyun.certify import action_certified  # noqa: E402
 from tabayyun.data.mqar import segment  # noqa: E402
 from tabayyun.gate import AGGREGATORS, GateConfig, tabayyun_gate  # noqa: E402
@@ -52,6 +52,10 @@ def cw_loss(logits, adv_tok):
 
 def defence_read(d, D, U, q, f, n, k_gate):
     """Exact forward of defence d given per-source direction reads D (n,K,dv) along basis U (K,dk)."""
+    if d == "tabayyun_w":
+        gc = GateConfig(k=f + 1, f=f, rule="agree", eps=E.EPS_W, nu=1e-3, nu_rel=0.3)
+        out = tabayyun_gate(D, gc)
+        return q @ (out.values.T @ U).T, out
     if d.startswith("tabayyun"):
         gc = GateConfig(k=k_gate, f=f, gamma=0.3, nu=1e-3, nu_rel=None if d == "tabayyun" else 0.3)
         out = tabayyun_gate(D, gc)
@@ -76,6 +80,8 @@ def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_i
     inits = [EdgeOfRange(list(range(f)), honest_ids, ks, vs, nu=1e-3)(D_hon, U)[:f],
              ((U @ ks).unsqueeze(1) * vs.unsqueeze(0)).unsqueeze(0).expand(f, K, dv) * 3.0,
              torch.randn(f, K, dv).to(D_hon.device) * scale] + list(extra_inits)
+    if d == "tabayyun_w":        # gate-specific start: just inside the agreement ball, towards the target
+        inits.append(AgreeEdge(list(range(f)), honest_ids, ks, vs, eps=E.EPS_W, nu=1e-3)(D_hon, U)[:f])
     best, best_loss = None, (0, float("inf"))
 
     def exact_loss(A_):
@@ -98,7 +104,15 @@ def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_i
             D = torch.cat([A, D_hon[f:]])
             y, out = defence_read(d, D, U, q_t, f, n, k_gate)
             loss = cw_loss(model.logits_from_read(h_t, y), adv_tok).clamp(min=-1.0).sum()
-            if out is not None and hinge:   # BPDA surrogate: keep adversarial rows active and inside the cone
+            if out is not None and hinge and d == "tabayyun_w":
+                # BPDA surrogate for the agreement gate: stay inside the ball of an honest witness
+                Hn = D_hon[f:]
+                act = Hn.norm(dim=-1) >= 1e-3                              # (nh, K)
+                mean_h = (Hn * act.unsqueeze(-1)).sum(0) / act.sum(0).clamp(min=1).unsqueeze(-1)
+                r = E.EPS_W * Hn.norm(dim=-1).max(0).values                # (K,)
+                dist = (A - mean_h.unsqueeze(0)).norm(dim=-1)              # (f, K)
+                loss = loss + (torch.relu(dist - 0.9 * r.unsqueeze(0)) / r.clamp(min=1e-6).unsqueeze(0)).sum()
+            elif out is not None and hinge:   # BPDA surrogate: keep adversarial rows active and inside the cone
                 med = D.detach()[f:].median(0).values                      # honest-majority reference
                 cos = torch.nn.functional.cosine_similarity(A, med.unsqueeze(0), dim=-1)
                 loss = loss + torch.relu(0.35 - cos).sum()
@@ -111,7 +125,7 @@ def attack_defence(model, d, D_hon, U, q_t, h_t, adv_tok, f, n, k_gate, honest_i
     return best
 
 
-UNION_DEFS = ["tabayyun", "tabayyun_strict", "agg_trmean"]
+UNION_DEFS = ["tabayyun", "tabayyun_strict", "agg_trmean", "tabayyun_w"]
 
 
 def run(model, V, F, n, f, rho, regime, R, seed, steps, lr, device="cpu", union=False):
@@ -196,6 +210,9 @@ def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets,
                 r["violations"] = int((true_q > drift_q * (1 + 1e-4) + 1e-5).sum())
                 r["action_violations"] = int(((logits.argmax(-1) != ref_pred) & cert).sum())
                 r["certified_targets"] = float(cert.float().mean())
+                # certify-or-abstain serving: a target counts as installed only if its token is certified
+                r["served_installed"] = float(((logits.argmax(-1) == adv_tok) & cert).float().mean())
+                r["served_correct"] = float(((logits.argmax(-1) == true_tok) & cert).float().mean())
             res[d] = r
     return res
 
@@ -203,8 +220,12 @@ def attack_all(model, Ms, written, adv_written, q, h_q, vals, adv_vals, targets,
 _MODEL = None
 
 
-def _init(ckpt):
+def _init(ckpt, eps_w=None, union_defs=None):
     global _MODEL
+    if eps_w is not None:
+        E.EPS_W = eps_w
+    if union_defs:                      # spawn-safe (Windows): workers re-import this module
+        UNION_DEFS[:] = union_defs
     torch.set_num_threads(1)
     torch.manual_seed(0)
     _MODEL = E.load(ckpt, "cpu")
@@ -229,16 +250,23 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--union", action="store_true", help="Amendment 13 union attacker (see attack_defence)")
+    ap.add_argument("--eps_w", type=float, default=None, help="override the clean-tuned eps of tabayyun_w (control runs)")
+    ap.add_argument("--defences", default=None, help="comma list (default: all for --union)")
+    ap.add_argument("--cells", default=None, help="comma list of cell indices (default: all 16)")
     a = ap.parse_args()
     cells = [(rg, n, f, rho, R) for rg, n, fs in [("dense", 10, (1, 2)), ("locality", 20, (2, 3))]
              for f in fs for rho in (0.4, 0.7) for R in (1, 3)]
     trials = range(a.trial_offset, a.trial_offset + a.trials)
+    if a.defences:
+        UNION_DEFS[:] = a.defences.split(",")
+    if a.cells:
+        cells = [cells[int(i)] for i in a.cells.split(",")]
     if a.smoke:
         cells, trials, a.steps = cells[:2] + cells[-2:], range(2), 30
     rows, t0 = [], time.time()
     jobs = [(c, s, a.steps, a.lr, a.union) for c, s in itertools.product(cells, trials)]
     from concurrent.futures import ProcessPoolExecutor
-    with ProcessPoolExecutor(a.workers, initializer=_init, initargs=(a.ckpt,)) as ex:
+    with ProcessPoolExecutor(a.workers, initializer=_init, initargs=(a.ckpt, a.eps_w, list(UNION_DEFS))) as ex:
         for i, rr in enumerate(ex.map(_job, jobs)):
             rows.extend(rr)
             if (i + 1) % 40 == 0:
@@ -252,9 +280,13 @@ def main():
         for d in defs:
             rr = [r for r in rows if (r["regime"], r["f"], r["rho"], r["R"], r["defence"]) == (rg, f, rho, R, d)]
             e = {"pgd_installed": float(np.mean([r["installed"] for r in rr])),
+                 "amnesia_mean": float(np.mean([r["amnesia"] for r in rr])),
                  "edge_installed": float(np.mean([r["edge_installed"] for r in rr]))}
             if a.union:
                 e["static_installed"] = float(np.mean([r["static_installed"] for r in rr]))
+                if any("served_installed" in r for r in rr):
+                    e["served_installed"] = float(np.mean([r["served_installed"] for r in rr]))
+                    e["served_correct"] = float(np.mean([r["served_correct"] for r in rr]))
             if any("violations" in r for r in rr):
                 e["violations"] = int(sum(r.get("violations", 0) + r.get("action_violations", 0) for r in rr))
             summ[f"{rg}|f={f}|rho={rho}|R={R}|{d}"] = e

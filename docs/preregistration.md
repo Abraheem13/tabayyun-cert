@@ -286,3 +286,36 @@ So the union attacker is at least as strong as the static write attacks on the s
 - **W5**: Titans and TMA-NM have worst flip ≥ 0.5 in every configuration.
 
 **If W2 and W4 hold**, Tabayyun-W is carried to Tiers B and D under new amendments (same trials protocol, adaptive attacks included) before any claim about it is made.
+
+---
+
+## Amendment 15 (2026-11-16, Tabayyun-W and certify-or-abstain serving on Tier B under the union attacker; registered BEFORE the confirmatory run)
+**Why.** Amendment 13 failed (H12b: strict installed 0.15 at d256 and 0.283 at d512 in locality f = 3, ρ = 0.4, R = 1). The leak path: when a target fact is not promoted, its read is near zero, so a bounded push through cross-talk from other promoted directions decides the argmax. Two remedies follow from the theory, and neither has been confirmed yet:
+1. **Tabayyun-W** (Thm 6b): f+1 agreeing witnesses promote, so fewer target facts are left unpromoted and open to the leak.
+2. **Certify-or-abstain serving:** emit a token only if Thm 3(a) certifies it, otherwise abstain. Under the certificate, a served token equals the token of the honest-corroborator reference.
+
+**ε of Tabayyun-W on Tier B** was chosen by a fixed clean-only rule (`scripts/tune_e13_clean.py`: attack = none, exploratory trials 0–4, d128 and d256, objective clean recall + certified-and-correct, smallest ε within 0.02 of the best): **ε = 0.4** (`results/e05/tuning_w_clean.json`). The gate uses ν_rel = 0.3, as the strict variant does.
+
+**Attacker.** The union attacker of Amendment 13, plus two moves specific to Tabayyun-W:
+- an `AgreeEdge` start (just inside the agreement ball, towards the target);
+- a BPDA hinge that keeps adversarial rows within 0.9 r of the honest mean.
+
+**What was seen before registration** (exploratory trials 0–9, 60 steps):
+- Tabayyun-W installed 0.000 in every cell at d128 and d512, with the gate-specific moves included;
+- strict 0.034 / 0.044 mean, worst cell 0.20 / 0.35;
+- amnesia: W 0.13–0.14, strict 0.35;
+- certified-and-correct targets under attack: W 0.54–0.58, strict 0.006–0.066;
+- 0 violations.
+- **Control:** at ε = 2.0 the same attacker installs 0.55 against Tabayyun-W (locality f = 3, ρ = 0.4, R = 1, trials 0–9), so the attacker is capable.
+
+**Confirmatory run:** MemLM d128, d256, d512; 16 cells; 100 steps; defences `tabayyun`, `tabayyun_strict`, `tabayyun_w`, `agg_trmean`; **trials 360–389** (fresh). Plus a control run: d128, ε = 2.0, locality f = 3, ρ = 0.4, R = 1, same trials.
+
+**Criteria** (`scripts/analyze_e15.py`, all three models):
+- **H15a**: 0 certificate and 0 certified-token violations (strict and W).
+- **H15b**: Tabayyun-W union-installed ≤ 0.05 in every cell.
+- **H15c** (certify-or-abstain): served-installed ≤ 0.02 in every cell, for strict and W.
+- **H15d**: Tabayyun-W mean amnesia under attack ≤ strict − 0.10.
+- **H15e** (attack sanity): union ≥ static − 0.02 on average, for strict, W and TrMean.
+- **Control**: union-installed ≥ 0.20 against W at ε = 2.0.
+
+**Expectation stated now:** Tabayyun-W has larger worst-case drift per promoted fact than strict (shift up to 2r when it is promoted on fewer than 2f+1 witnesses). Its clean recall against the other variants on Tiers B and D is tested separately (Day 21), not here.

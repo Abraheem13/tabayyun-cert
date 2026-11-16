@@ -689,3 +689,49 @@ E11 `--union`, trials 920–939, 320 trials per model (`gpt2-xl` 1,946 s, `Qwen2
 | 24–26 | Final reruns from a clean checkout, CIs, Holm | rigour |
 | 27–30 | Paper |  |
 R4 (memory inside the network) stays a stated limitation; the certificate is exact only for a read that enters linearly.
+
+---
+
+## Day 18 (2026-11-15): union attacker on Tier B (Amendment 13): **H12b FAILS** at d256 and d512
+
+E05 `--union`, trials 330–359, MemLM d128 / d256 / d512 (195 s, 399 s, 1,228 s on 19 CPU workers).
+
+| | d128 | d256 | d512 |
+|---|---|---|---|
+| H12a: violations | 0 | 0 | 0 |
+| H12b: strict ≤ 0.10, every cell | **16/16** | **15/16 (FAIL)** | **15/16 (FAIL)** |
+| H12c: union ≥ static | pass | pass | pass |
+| strict, worst cell | 0.10 | **0.15** | **0.283** |
+| primary, worst cell | 0.65 | 0.683 | 0.683 |
+| TrMean, worst cell | 1.00 | 1.00 | 1.00 |
+
+- **The failing cell is the thinnest one** (locality, f = 3, ρ = 0.4, R = 1). There the target fact usually has fewer than k = 7 witnesses, so it is not promoted and its read is near zero; a bounded push through cross-talk from other promoted directions then decides the token. Static attacks reach only 0.017–0.067 there.
+- The union attacker is far stronger than static on every Tier-B defence: primary 0.10–0.12 vs 0.004–0.008 on average; TrMean 0.53–0.57 vs 0.06–0.07.
+- The certificate correctly refused almost all of these: strict certified only 0.02–0.08 of attacked targets, and only 1–2 trials per model had an installed and certified target (each consistent with the reference, 0 violations).
+- **The Day-10 claim "strict holds against the adaptive attacker on Tier B" is withdrawn as stated.** It holds on Tier D (Day 17) but not in the thinnest Tier-B cell. The paper reports the worst case: 0.283.
+
+## Day 19 (2026-11-15): witness complexity (Amendment 14, Theorem 6): **all 5 criteria PASS**
+
+E12, seeds 1000–1009, 26,550 rows, 499 s.
+
+| (n, f) | Titans | TMA-NM | mean | TrMean | median | GeoMed | RobustRAG | **Tabayyun** | **Tabayyun-W** |
+|---|---|---|---|---|---|---|---|---|---|
+| (10, 2) | 1 | 5 | 6 | 6 | 6 | 6 | 6 | **5** | **3** |
+| (20, 2) | 1 | 5 | 11 | 11 | 11 | 11 | 11 | **5** | **3** |
+| (40, 1) | 1 | 3 | 21 | 21 | 21 | 21 | 21 | **3** | **2** |
+| (40, 2) | 2 | 5 | 21 | 21 | 21 | 21 | 21 | **5** | **3** |
+| (40, 3) | 1 | 7 | 21 | 21 | 21 | 21 | 21 | **7** | **4** |
+| (80, 2) | 1 | 5 | 60 | 60 | 41 | 41 | 41 | **5** | **3** |
+
+(witness threshold m\*: the number of honest sources that must know a fact before it is served)
+
+- **W1** cone = 2f+1: 6/6. **W2** agreement = f+1: 6/6. **W3** majority ≥ 0.4n: 25/25. **W5** Titans / TMA-NM forgeable: 6/6.
+- **W4:** both Tabayyun variants have worst installed 0.00, worst flip 0.00 and amnesia 0.00 at every served m, under all four attacks including `agree_edge`, with 0 violations and drift/cert up to 0.999 (the bound is attained).
+- **Every number is exactly as Theorem 6 predicts.** The witness need of Tabayyun stays fixed as the population grows from 10 to 80, while every majority aggregator's grows linearly (6 → 60). Titans and TMA-NM serve with 1–7 witnesses but are forged in every configuration.
+- This is the paper's central result: it explains, as a theorem, the locality pattern seen in every tier.
+
+## Day 20 build (2026-11-16): Tabayyun-W and certify-or-abstain on Tier B (Amendment 15)
+- Tabayyun-W added to the Tier-B defence code (E04, E05); clean-only ε = 0.4.
+- New metric: served-installed (certify-or-abstain).
+- Gate-specific attack moves for W (AgreeEdge start, ball hinge), plus a control run at loose ε.
+- **Exploratory** (trials 0–9): W installed 0.000 at d128 and d512 (strict worst 0.20 / 0.35); W amnesia 0.13 vs 0.35; W serves 54–58% of attacked targets certified-correct vs ≤ 7% for strict. Control at ε = 2.0: 0.55 installed, so the attacker works.

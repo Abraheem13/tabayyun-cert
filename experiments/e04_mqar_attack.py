@@ -48,6 +48,11 @@ GAMMA = 0.3
 DEFENCES = ["titans", "agg_mean", "agg_trmean", "agg_median", "agg_krum", "agg_geomed",
             "robustrag", "smsr", "tma_corr", "tab_nocorr", "tabayyun", "tabayyun_strict"]
 TAB_METHODS = ("tabayyun", "tabayyun_strict")
+CERT_METHODS = TAB_METHODS + ("tabayyun_w",)      # every gate variant with a runtime certificate
+EPS_W = 0.2        # agreement tolerance of tabayyun_w on Tier B; set from CLEAN runs only (tune_e13_clean.py)
+_TW = ROOT / "results" / "e05" / "tuning_w_clean.json"
+if _TW.exists():
+    EPS_W = json.loads(_TW.read_text())["selected_eps"]
 NU_REL_STRICT = 0.3   # secondary variant (Amendment 4): strict k-witness semantics
 ATTACKS = ["none", "assert", "assert_x4", "edge", "unbounded"]
 
@@ -219,12 +224,13 @@ def apply_defences(defences, Ms, written, q, titans_fn, predict_fn, readout_fn, 
                     D = hook(D, U)
                 gc = {"tabayyun": GateConfig(k=k_gate, f=f, gamma=GAMMA, nu=1e-3, nu_rel=NU_REL),
                       "tabayyun_strict": GateConfig(k=k_gate, f=f, gamma=GAMMA, nu=1e-3, nu_rel=NU_REL_STRICT),
+                      "tabayyun_w": GateConfig(k=f + 1, f=f, rule="agree", eps=EPS_W, nu=1e-3, nu_rel=NU_REL_STRICT),
                       "tab_nocorr": GateConfig(k=k_gate, f=f, corroborate=False),
                       "tma_corr": GateConfig(k=k_gate, f=f, nu=1e-3, nu_rel=NU_REL, cone=False, trim=False)}[d]
                 out = tabayyun_gate(D, gc)
                 MP = out.values.T @ U                                      # single promotion round, alpha_P = 1
                 y = q @ MP.T
-                if d in TAB_METHODS:
+                if d in CERT_METHODS:
                     # reference: honest-corroborator mean under the same decisions (oracle, evaluation only)
                     H = torch.zeros(n, dtype=torch.bool, device=device); H[f:] = True
                     CH = out.corroborators & H.unsqueeze(1)
@@ -242,6 +248,9 @@ def apply_defences(defences, Ms, written, q, titans_fn, predict_fn, readout_fn, 
                             "certified_frac": float(certified.float().mean()),
                             "certified_frac_benign": float(certified[benign].float().mean()) if benign else math.nan,
                             "certified_correct_frac": float((certified & (logits.argmax(-1) == vals.to(device))).float().mean()),
+                            # certify-or-abstain serving: only certified tokens are emitted
+                            "served_installed": float(np.mean([int(bool(certified[t]) and int(logits[t].argmax()) == int(adv_vals[t]))
+                                                               for t in targets])) if attack != "none" else None,
                             "n_directions": int(U.shape[0])}
         pred = predict_fn(y).argmax(-1).cpu()
         r = {"recall": float((pred[benign] == vals[benign]).float().mean()) if benign else math.nan,
