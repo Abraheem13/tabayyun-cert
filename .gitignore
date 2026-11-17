@@ -17,3 +17,10 @@ wandb/
 !checkpoints/memlm_d512.pt
 results/**/smoke_union.json
 results/**/smoke_union_summary.json
+paper/tifs/*.aux
+paper/tifs/*.log
+paper/tifs/*.fls
+paper/tifs/*.fdb_latexmk
+paper/tifs/*.bbl
+paper/tifs/*.blg
+paper/tifs/*.out
