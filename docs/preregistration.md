@@ -348,3 +348,24 @@ So the union attacker is at least as strong as the static write attacks on the s
 - **H16f** (Tier D union): W installed ≤ 0.05 and served-installed ≤ 0.02 in every cell.
 
 C2 and C3 are reported descriptively.
+
+---
+
+## Amendment 17 (2026-11-17, capacity and cost scaling on Tier D; registered BEFORE the confirmatory run)
+**Why.** Reviewer point R3: all earlier runs store 16–24 facts. `experiments/e13_scale.py` stores F ∈ {16, 64, 256, 1024} facts in one memory on `gpt2-xl`. It uses d_k = 1024 whitened key dimensions (calibration as in Amendment 10) and the clean-tuned layer and boost of Amendment 10. Defences: Titans, TrMean, median, GeoMed, RobustRAG, strict, Tabayyun-W. Cells: dense (n = 10, f = 2, ρ = 0.7, R = 3), locality (n = 20, f = 3, ρ = 0.7, R = 3), locality (n = 20, f = 3, ρ = 0.4, R = 1). Attacks: none, assert, edge, unbounded. **Trials 1300–1309** (fresh).
+
+**What was seen before registration** (`gpt2`, d_k = 767, exploratory trials 0–1, clean runs unless stated):
+- (i) **Tabayyun-W's ε must grow with load.** At F = 256, ε = 0.2 recalls 0.02 and ε = 0.6 recalls 0.79. Interference between near-orthogonal keys grows like √(F/d_k), so the agreement ball must widen. ε is therefore calibrated **per F** by the same clean-only rule as before (`e13_scale.py --tune_w`, trials 0–4, attack = none, grid {0.2, 0.3, 0.4, 0.6, 0.8, 1.0}, smallest ε within 0.02 of the best), run first on the confirmatory model.
+- (ii) **Certified-and-correct collapses with load for both Tabayyun variants:** 0.91–1.00 at F = 16, 0.72–0.88 at F = 64, 0.01–0.04 at F = 256. Interference makes honest quarantines disagree, so the order-statistic certificate widens.
+- (iii) A 2-trial smoke with attacks at F ≤ 256: 0 violations; installed 0.00 for both variants; TrMean installed 0.50 in one locality cell.
+
+**Criteria** (`scripts/analyze_e13.py`):
+- **S1**: 0 certificate and 0 certified-token violations at every F.
+- **S2**: strict and Tabayyun-W worst installed ≤ 0.05 at every F, in every cell (security does not degrade with load).
+- **S5**: with per-F ε, Tabayyun-W's mean clean recall ≥ strict's − 0.05 at every F.
+
+**Descriptive (no criterion), with the prediction stated now:**
+- certified-and-correct falls with F and is below 0.5 at F ≥ 256 (d_k = 1024);
+- wall-clock cost per combine + certificate step and per quarantine write, by F and defence.
+
+If (ii) is confirmed, the paper states the capacity limit of certification for this substrate: certification needs F ≪ d_k, or a quarantine with lower interference, such as a least-squares or orthogonalised write. That is future work.

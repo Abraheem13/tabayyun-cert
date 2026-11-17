@@ -149,6 +149,11 @@ def plan(day: int, dev: str) -> list[list[str]]:
             [[PY, "scripts/analyze_e16.py", "--static"] + [f"results/e04/e04_{t}_w_confirm.json" for t in ("d128", "d256", "d512")]
              + [f"results/e10/e10_{t}_w_confirm.json" for t in ("gpt2xl", "qwen15b")]
              + ["--union"] + [f"results/e11/e11_{t}_w_union_summary.json" for t in ("gpt2xl", "qwen15b")]],
+        # Amendment 17: capacity and cost scaling on Tier D (GPU), trials 1300-1309
+        22: [[PY, "experiments/e13_scale.py", "--model", "gpt2-xl", "--device", dev, "--tune_w"],
+             [PY, "experiments/e13_scale.py", "--model", "gpt2-xl", "--device", dev, "--trials", "10",
+              "--trial_offset", "1300", "--tag", "gpt2xl_scale"],
+             [PY, "scripts/analyze_e13.py", "results/e13/e13_gpt2xl_scale_summary.json"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

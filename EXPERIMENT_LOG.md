@@ -799,3 +799,9 @@ Tier B static (MemLM d128 / d256 / d512, trials 1100–1199, 96k rows each); Tie
 - **The f+1 law of Theorem 6 predicts W's recall in 80/80 model-cells.**
 - **Tier D C1 still fails in 4–5 dense cells**, as for strict. TrMean / median / GeoMed recall 0.98–1.00 against W's 0.97–0.99 under static attacks. These same aggregators are installed at 0.75–0.875 (TrMean, union) and 0.33–0.83 (median, GeoMed, PGD, Day 16) under adaptive attacks, so the "tie" holds only against static attackers. The paper's main table will report each defence's worst case over all attacks run.
 - In Tier D dense R = 1 cells W also beats strict: 0.91 vs 0.77 and 0.95 vs 0.79.
+
+## Day 22 build (2026-11-17): capacity and cost scaling (Amendment 17)
+`experiments/e13_scale.py` stores F = 16 → 1,024 facts in one Tier-D memory (d_k = 1024) and times every defence. Exploratory findings on `gpt2`, which shaped the amendment:
+- **Tabayyun-W's agreement tolerance has to grow with load** (interference ∝ √(F/d_k)), so ε is calibrated per F on clean runs.
+- **Certification collapses with load for both variants:** certified-and-correct 0.91–1.00 at F = 16, 0.01–0.04 at F = 256 (d_k = 767). Security does not (installed 0.00, 0 violations). If this holds on `gpt2-xl` it is a stated capacity limit of the certified tier on this substrate, not something to hide.
+- Cost on CPU at F = 256: Tabayyun combine + certificate ≈ 0.8 s per round against 0.1 s for TrMean; quarantine writes dominate (15–25 s per round, shared by every per-source defence).
