@@ -1,0 +1,399 @@
+# Day 22  device=cuda  started 2026-11-17 12:08:29
+
+=== python.exe -m pytest -q
+......................................................................   [100%]
+70 passed in 7.69s
+--- exit 0 in 9.1s
+
+=== python.exe experiments/e13_scale.py --model gpt2-xl --device cuda --tune_w
+F=16 eps=0.2 recall=1.000 cert_correct=1.000
+F=16 eps=0.3 recall=1.000 cert_correct=1.000
+F=16 eps=0.4 recall=1.000 cert_correct=1.000
+F=16 eps=0.6 recall=1.000 cert_correct=1.000
+F=16 eps=0.8 recall=1.000 cert_correct=1.000
+F=16 eps=1.0 recall=1.000 cert_correct=1.000
+F=16 selected eps 0.2
+F=64 eps=0.2 recall=0.952 cert_correct=0.881
+F=64 eps=0.3 recall=0.995 cert_correct=0.938
+F=64 eps=0.4 recall=0.998 cert_correct=0.950
+F=64 eps=0.6 recall=1.000 cert_correct=0.952
+F=64 eps=0.8 recall=1.000 cert_correct=0.938
+F=64 eps=1.0 recall=1.000 cert_correct=0.931
+F=64 selected eps 0.3
+F=256 eps=0.2 recall=0.054 cert_correct=0.042
+F=256 eps=0.3 recall=0.360 cert_correct=0.086
+F=256 eps=0.4 recall=0.687 cert_correct=0.057
+F=256 eps=0.6 recall=0.841 cert_correct=0.045
+F=256 eps=0.8 recall=0.945 cert_correct=0.038
+F=256 eps=1.0 recall=0.976 cert_correct=0.038
+F=256 selected eps 1.0
+F=1024 eps=0.2 recall=0.003 cert_correct=0.003
+F=1024 eps=0.3 recall=0.004 cert_correct=0.004
+F=1024 eps=0.4 recall=0.008 cert_correct=0.002
+F=1024 eps=0.6 recall=0.046 cert_correct=0.000
+F=1024 eps=0.8 recall=0.230 cert_correct=0.000
+F=1024 eps=1.0 recall=0.480 cert_correct=0.000
+F=1024 selected eps 1.0
+--- exit 0 in 759.4s
+
+=== python.exe experiments/e13_scale.py --model gpt2-xl --device cuda --trials 10 --trial_offset 1300 --tag gpt2xl_scale
+model=gpt2-xl dk=1024 layer=48 boost=100.0 eps_w_by_F={16: 0.2, 64: 0.3, 256: 1.0, 1024: 1.0} facts=[16, 64, 256, 1024]
+F=16 dense f=2 rho=0.7 R=3 none: 3s
+F=16 dense f=2 rho=0.7 R=3 assert: 6s
+F=16 dense f=2 rho=0.7 R=3 edge: 9s
+F=16 dense f=2 rho=0.7 R=3 unbounded: 12s
+F=16 locality f=3 rho=0.7 R=3 none: 15s
+F=16 locality f=3 rho=0.7 R=3 assert: 19s
+F=16 locality f=3 rho=0.7 R=3 edge: 23s
+F=16 locality f=3 rho=0.7 R=3 unbounded: 26s
+F=16 locality f=3 rho=0.4 R=1 none: 27s
+F=16 locality f=3 rho=0.4 R=1 assert: 29s
+F=16 locality f=3 rho=0.4 R=1 edge: 31s
+F=16 locality f=3 rho=0.4 R=1 unbounded: 32s
+F=64 dense f=2 rho=0.7 R=3 none: 43s
+F=64 dense f=2 rho=0.7 R=3 assert: 53s
+F=64 dense f=2 rho=0.7 R=3 edge: 63s
+F=64 dense f=2 rho=0.7 R=3 unbounded: 74s
+F=64 locality f=3 rho=0.7 R=3 none: 84s
+F=64 locality f=3 rho=0.7 R=3 assert: 95s
+F=64 locality f=3 rho=0.7 R=3 edge: 106s
+F=64 locality f=3 rho=0.7 R=3 unbounded: 117s
+F=64 locality f=3 rho=0.4 R=1 none: 120s
+F=64 locality f=3 rho=0.4 R=1 assert: 124s
+F=64 locality f=3 rho=0.4 R=1 edge: 128s
+F=64 locality f=3 rho=0.4 R=1 unbounded: 132s
+F=256 dense f=2 rho=0.7 R=3 none: 171s
+F=256 dense f=2 rho=0.7 R=3 assert: 212s
+F=256 dense f=2 rho=0.7 R=3 edge: 253s
+F=256 dense f=2 rho=0.7 R=3 unbounded: 300s
+F=256 locality f=3 rho=0.7 R=3 none: 357s
+F=256 locality f=3 rho=0.7 R=3 assert: 419s
+F=256 locality f=3 rho=0.7 R=3 edge: 480s
+F=256 locality f=3 rho=0.7 R=3 unbounded: 539s
+F=256 locality f=3 rho=0.4 R=1 none: 551s
+F=256 locality f=3 rho=0.4 R=1 assert: 571s
+F=256 locality f=3 rho=0.4 R=1 edge: 592s
+F=256 locality f=3 rho=0.4 R=1 unbounded: 611s
+F=1024 dense f=2 rho=0.7 R=3 none: 848s
+F=1024 dense f=2 rho=0.7 R=3 assert: 1090s
+F=1024 dense f=2 rho=0.7 R=3 edge: 1338s
+F=1024 dense f=2 rho=0.7 R=3 unbounded: 1584s
+F=1024 locality f=3 rho=0.7 R=3 none: 1802s
+F=1024 locality f=3 rho=0.7 R=3 assert: 2038s
+F=1024 locality f=3 rho=0.7 R=3 edge: 2274s
+F=1024 locality f=3 rho=0.7 R=3 unbounded: 2509s
+F=1024 locality f=3 rho=0.4 R=1 none: 2555s
+F=1024 locality f=3 rho=0.4 R=1 assert: 2629s
+F=1024 locality f=3 rho=0.4 R=1 edge: 2706s
+F=1024 locality f=3 rho=0.4 R=1 unbounded: 2783s
+F=   16 dense    f=2 rho=0.7 R=3 titans          clean_recall=1.000 worst_installed=0.450 seconds_combine=0.056 seconds_write=0.117
+F=   16 dense    f=2 rho=0.7 R=3 agg_trmean      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.005 seconds_write=0.117
+F=   16 dense    f=2 rho=0.7 R=3 agg_median      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.004 seconds_write=0.117
+F=   16 dense    f=2 rho=0.7 R=3 agg_geomed      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.023 seconds_write=0.117
+F=   16 dense    f=2 rho=0.7 R=3 robustrag       clean_recall=1.000 worst_installed=0.000 seconds_combine=0.001 seconds_write=0.117
+F=   16 dense    f=2 rho=0.7 R=3 tabayyun_strict clean_recall=1.000 worst_installed=0.000 seconds_combine=0.048 seconds_write=0.117 violations=0 certified_correct_clean=1.000 worst_served_installed=0.000
+F=   16 dense    f=2 rho=0.7 R=3 tabayyun_w      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.045 seconds_write=0.117 violations=0 certified_correct_clean=1.000 worst_served_installed=0.000 eps_w=0.200
+F=   16 locality f=3 rho=0.7 R=3 titans          clean_recall=1.000 worst_installed=0.200 seconds_combine=0.056 seconds_write=0.143
+F=   16 locality f=3 rho=0.7 R=3 agg_trmean      clean_recall=1.000 worst_installed=0.150 seconds_combine=0.007 seconds_write=0.143
+F=   16 locality f=3 rho=0.7 R=3 agg_median      clean_recall=1.000 worst_installed=0.050 seconds_combine=0.005 seconds_write=0.143
+F=   16 locality f=3 rho=0.7 R=3 agg_geomed      clean_recall=1.000 worst_installed=0.100 seconds_combine=0.047 seconds_write=0.143
+F=   16 locality f=3 rho=0.7 R=3 robustrag       clean_recall=0.093 worst_installed=0.150 seconds_combine=0.002 seconds_write=0.143
+F=   16 locality f=3 rho=0.7 R=3 tabayyun_strict clean_recall=0.921 worst_installed=0.000 seconds_combine=0.044 seconds_write=0.143 violations=0 certified_correct_clean=0.919 worst_served_installed=0.000
+F=   16 locality f=3 rho=0.7 R=3 tabayyun_w      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.045 seconds_write=0.143 violations=0 certified_correct_clean=0.994 worst_served_installed=0.000 eps_w=0.200
+F=   16 locality f=3 rho=0.4 R=1 titans          clean_recall=0.928 worst_installed=0.500 seconds_combine=0.014 seconds_write=0.041
+F=   16 locality f=3 rho=0.4 R=1 agg_trmean      clean_recall=0.654 worst_installed=0.450 seconds_combine=0.007 seconds_write=0.041
+F=   16 locality f=3 rho=0.4 R=1 agg_median      clean_recall=0.396 worst_installed=0.250 seconds_combine=0.005 seconds_write=0.041
+F=   16 locality f=3 rho=0.4 R=1 agg_geomed      clean_recall=0.532 worst_installed=0.350 seconds_combine=0.047 seconds_write=0.041
+F=   16 locality f=3 rho=0.4 R=1 robustrag       clean_recall=0.000 worst_installed=0.000 seconds_combine=0.002 seconds_write=0.041
+F=   16 locality f=3 rho=0.4 R=1 tabayyun_strict clean_recall=0.014 worst_installed=0.000 seconds_combine=0.022 seconds_write=0.041 violations=0 certified_correct_clean=0.013 worst_served_installed=0.000
+F=   16 locality f=3 rho=0.4 R=1 tabayyun_w      clean_recall=0.387 worst_installed=0.000 seconds_combine=0.021 seconds_write=0.041 violations=0 certified_correct_clean=0.381 worst_served_installed=0.000 eps_w=0.200
+F=   64 dense    f=2 rho=0.7 R=3 titans          clean_recall=0.997 worst_installed=0.300 seconds_combine=0.215 seconds_write=0.432
+F=   64 dense    f=2 rho=0.7 R=3 agg_trmean      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.004 seconds_write=0.432
+F=   64 dense    f=2 rho=0.7 R=3 agg_median      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.004 seconds_write=0.432
+F=   64 dense    f=2 rho=0.7 R=3 agg_geomed      clean_recall=1.000 worst_installed=0.000 seconds_combine=0.022 seconds_write=0.432
+F=   64 dense    f=2 rho=0.7 R=3 robustrag       clean_recall=1.000 worst_installed=0.000 seconds_combine=0.001 seconds_write=0.432
+F=   64 dense    f=2 rho=0.7 R=3 tabayyun_strict clean_recall=1.000 worst_installed=0.000 seconds_combine=0.176 seconds_write=0.432 violations=0 certified_correct_clean=0.995 worst_served_installed=0.000
+F=   64 dense    f=2 rho=0.7 R=3 tabayyun_w      clean_recall=0.997 worst_installed=0.000 seconds_combine=0.178 seconds_write=0.432 violations=0 certified_correct_clean=0.984 worst_served_installed=0.000 eps_w=0.300
+F=   64 locality f=3 rho=0.7 R=3 titans          clean_recall=0.989 worst_installed=0.100 seconds_combine=0.206 seconds_write=0.462
+F=   64 locality f=3 rho=0.7 R=3 agg_trmean      clean_recall=1.000 worst_installed=0.500 seconds_combine=0.007 seconds_write=0.462
+F=   64 locality f=3 rho=0.7 R=3 agg_median      clean_recall=1.000 worst_installed=0.500 seconds_combine=0.005 seconds_write=0.462
+F=   64 locality f=3 rho=0.7 R=3 agg_geomed      clean_recall=1.000 worst_installed=0.500 seconds_combine=0.047 seconds_write=0.462
+F=   64 locality f=3 rho=0.7 R=3 robustrag       clean_recall=0.382 worst_installed=0.050 seconds_combine=0.002 seconds_write=0.462
+F=   64 locality f=3 rho=0.7 R=3 tabayyun_strict clean_recall=0.903 worst_installed=0.000 seconds_combine=0.170 seconds_write=0.462 violations=0 certified_correct_clean=0.847 worst_served_installed=0.000
+F=   64 locality f=3 rho=0.7 R=3 tabayyun_w      clean_recall=0.994 worst_installed=0.000 seconds_combine=0.173 seconds_write=0.462 violations=0 certified_correct_clean=0.895 worst_served_installed=0.000 eps_w=0.300
+F=   64 locality f=3 rho=0.4 R=1 titans          clean_recall=0.932 worst_installed=0.550 seconds_combine=0.049 seconds_write=0.129
+F=   64 locality f=3 rho=0.4 R=1 agg_trmean      clean_recall=0.704 worst_installed=0.500 seconds_combine=0.007 seconds_write=0.129
+F=   64 locality f=3 rho=0.4 R=1 agg_median      clean_recall=0.597 worst_installed=0.500 seconds_combine=0.005 seconds_write=0.129
+F=   64 locality f=3 rho=0.4 R=1 agg_geomed      clean_recall=0.620 worst_installed=0.500 seconds_combine=0.048 seconds_write=0.129
+F=   64 locality f=3 rho=0.4 R=1 robustrag       clean_recall=0.015 worst_installed=0.000 seconds_combine=0.002 seconds_write=0.129
+F=   64 locality f=3 rho=0.4 R=1 tabayyun_strict clean_recall=0.018 worst_installed=0.000 seconds_combine=0.062 seconds_write=0.129 violations=0 certified_correct_clean=0.009 worst_served_installed=0.000
+F=   64 locality f=3 rho=0.4 R=1 tabayyun_w      clean_recall=0.358 worst_installed=0.000 seconds_combine=0.061 seconds_write=0.129 violations=0 certified_correct_clean=0.334 worst_served_installed=0.000 eps_w=0.300
+F=  256 dense    f=2 rho=0.7 R=3 titans          clean_recall=0.721 worst_installed=0.100 seconds_combine=0.925 seconds_write=1.727
+F=  256 dense    f=2 rho=0.7 R=3 agg_trmean      clean_recall=0.989 worst_installed=0.500 seconds_combine=0.005 seconds_write=1.727
+F=  256 dense    f=2 rho=0.7 R=3 agg_median      clean_recall=0.989 worst_installed=0.500 seconds_combine=0.005 seconds_write=1.727
+F=  256 dense    f=2 rho=0.7 R=3 agg_geomed      clean_recall=0.989 worst_installed=0.500 seconds_combine=0.024 seconds_write=1.727
+F=  256 dense    f=2 rho=0.7 R=3 robustrag       clean_recall=0.974 worst_installed=0.000 seconds_combine=0.003 seconds_write=1.727
+F=  256 dense    f=2 rho=0.7 R=3 tabayyun_strict clean_recall=0.977 worst_installed=0.000 seconds_combine=0.744 seconds_write=1.727 violations=0 certified_correct_clean=0.050 worst_served_installed=0.000
+F=  256 dense    f=2 rho=0.7 R=3 tabayyun_w      clean_recall=0.975 worst_installed=0.000 seconds_combine=0.755 seconds_write=1.727 violations=0 certified_correct_clean=0.052 worst_served_installed=0.000 eps_w=1.000
+F=  256 locality f=3 rho=0.7 R=3 titans          clean_recall=0.726 worst_installed=0.250 seconds_combine=1.481 seconds_write=2.008
+F=  256 locality f=3 rho=0.7 R=3 agg_trmean      clean_recall=0.988 worst_installed=0.500 seconds_combine=0.010 seconds_write=2.008
+F=  256 locality f=3 rho=0.7 R=3 agg_median      clean_recall=0.987 worst_installed=0.500 seconds_combine=0.007 seconds_write=2.008
+F=  256 locality f=3 rho=0.7 R=3 agg_geomed      clean_recall=0.987 worst_installed=0.500 seconds_combine=0.051 seconds_write=2.008
+F=  256 locality f=3 rho=0.7 R=3 robustrag       clean_recall=0.669 worst_installed=0.000 seconds_combine=0.006 seconds_write=2.008
+F=  256 locality f=3 rho=0.7 R=3 tabayyun_strict clean_recall=0.907 worst_installed=0.000 seconds_combine=1.185 seconds_write=2.008 violations=0 certified_correct_clean=0.048 worst_served_installed=0.000
+F=  256 locality f=3 rho=0.7 R=3 tabayyun_w      clean_recall=0.986 worst_installed=0.000 seconds_combine=1.178 seconds_write=2.008 violations=0 certified_correct_clean=0.021 worst_served_installed=0.000 eps_w=1.000
+F=  256 locality f=3 rho=0.4 R=1 titans          clean_recall=0.760 worst_installed=0.350 seconds_combine=0.337 seconds_write=0.547
+F=  256 locality f=3 rho=0.4 R=1 agg_trmean      clean_recall=0.666 worst_installed=0.500 seconds_combine=0.009 seconds_write=0.547
+F=  256 locality f=3 rho=0.4 R=1 agg_median      clean_recall=0.579 worst_installed=0.500 seconds_combine=0.008 seconds_write=0.547
+F=  256 locality f=3 rho=0.4 R=1 agg_geomed      clean_recall=0.569 worst_installed=0.500 seconds_combine=0.051 seconds_write=0.547
+F=  256 locality f=3 rho=0.4 R=1 robustrag       clean_recall=0.086 worst_installed=0.000 seconds_combine=0.006 seconds_write=0.547
+F=  256 locality f=3 rho=0.4 R=1 tabayyun_strict clean_recall=0.094 worst_installed=0.150 seconds_combine=0.412 seconds_write=0.547 violations=0 certified_correct_clean=0.015 worst_served_installed=0.000
+F=  256 locality f=3 rho=0.4 R=1 tabayyun_w      clean_recall=0.382 worst_installed=0.450 seconds_combine=0.410 seconds_write=0.547 violations=0 certified_correct_clean=0.026 worst_served_installed=0.000 eps_w=1.000
+F= 1024 dense    f=2 rho=0.7 R=3 titans          clean_recall=0.282 worst_installed=0.000 seconds_combine=5.959 seconds_write=8.001
+F= 1024 dense    f=2 rho=0.7 R=3 agg_trmean      clean_recall=0.527 worst_installed=0.500 seconds_combine=0.011 seconds_write=8.001
+F= 1024 dense    f=2 rho=0.7 R=3 agg_median      clean_recall=0.508 worst_installed=0.500 seconds_combine=0.011 seconds_write=8.001
+F= 1024 dense    f=2 rho=0.7 R=3 agg_geomed      clean_recall=0.499 worst_installed=0.500 seconds_combine=0.030 seconds_write=8.001
+F= 1024 dense    f=2 rho=0.7 R=3 robustrag       clean_recall=0.340 worst_installed=0.100 seconds_combine=0.012 seconds_write=8.001
+F= 1024 dense    f=2 rho=0.7 R=3 tabayyun_strict clean_recall=0.576 worst_installed=0.200 seconds_combine=4.991 seconds_write=8.001 violations=0 certified_correct_clean=0.000 worst_served_installed=0.000
+F= 1024 dense    f=2 rho=0.7 R=3 tabayyun_w      clean_recall=0.439 worst_installed=0.000 seconds_combine=5.043 seconds_write=8.001 violations=0 certified_correct_clean=0.000 worst_served_installed=0.000 eps_w=1.000
+F= 1024 locality f=3 rho=0.7 R=3 titans          clean_recall=0.285 worst_installed=0.000 seconds_combine=5.637 seconds_write=7.489
+F= 1024 locality f=3 rho=0.7 R=3 agg_trmean      clean_recall=0.573 worst_installed=0.500 seconds_combine=0.014 seconds_write=7.489
+F= 1024 locality f=3 rho=0.7 R=3 agg_median      clean_recall=0.521 worst_installed=0.500 seconds_combine=0.012 seconds_write=7.489
+F= 1024 locality f=3 rho=0.7 R=3 agg_geomed      clean_recall=0.519 worst_installed=0.500 seconds_combine=0.055 seconds_write=7.489
+F= 1024 locality f=3 rho=0.7 R=3 robustrag       clean_recall=0.286 worst_installed=0.000 seconds_combine=0.014 seconds_write=7.489
+F= 1024 locality f=3 rho=0.7 R=3 tabayyun_strict clean_recall=0.634 worst_installed=0.100 seconds_combine=4.843 seconds_write=7.489 violations=0 certified_correct_clean=0.000 worst_served_installed=0.000
+F= 1024 locality f=3 rho=0.7 R=3 tabayyun_w      clean_recall=0.498 worst_installed=0.000 seconds_combine=4.847 seconds_write=7.489 violations=0 certified_correct_clean=0.000 worst_served_installed=0.000 eps_w=1.000
+F= 1024 locality f=3 rho=0.4 R=1 titans          clean_recall=0.296 worst_installed=0.200 seconds_combine=1.227 seconds_write=2.137
+F= 1024 locality f=3 rho=0.4 R=1 agg_trmean      clean_recall=0.464 worst_installed=0.500 seconds_combine=0.014 seconds_write=2.137
+F= 1024 locality f=3 rho=0.4 R=1 agg_median      clean_recall=0.396 worst_installed=0.500 seconds_combine=0.012 seconds_write=2.137
+F= 1024 locality f=3 rho=0.4 R=1 agg_geomed      clean_recall=0.379 worst_installed=0.500 seconds_combine=0.055 seconds_write=2.137
+F= 1024 locality f=3 rho=0.4 R=1 robustrag       clean_recall=0.168 worst_installed=0.000 seconds_combine=0.014 seconds_write=2.137
+F= 1024 locality f=3 rho=0.4 R=1 tabayyun_strict clean_recall=0.387 worst_installed=0.100 seconds_combine=1.617 seconds_write=2.137 violations=0 certified_correct_clean=0.001 worst_served_installed=0.000
+F= 1024 locality f=3 rho=0.4 R=1 tabayyun_w      clean_recall=0.224 worst_installed=0.050 seconds_combine=1.646 seconds_write=2.137 violations=0 certified_correct_clean=0.000 worst_served_installed=0.000 eps_w=1.000
+SUMMARY {"rows": 3360, "violations": 0, "seconds": 2783.7}
+--- exit 0 in 2805.5s
+
+=== python.exe scripts/analyze_e13.py results/e13/e13_gpt2xl_scale_summary.json
+{
+ "table": {
+  "16": {
+   "titans": {
+    "recall": 0.976,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0419
+   },
+   "agg_trmean": {
+    "recall": 0.885,
+    "worst_installed": 0.45,
+    "seconds_combine": 0.0061
+   },
+   "agg_median": {
+    "recall": 0.799,
+    "worst_installed": 0.25,
+    "seconds_combine": 0.0046
+   },
+   "agg_geomed": {
+    "recall": 0.844,
+    "worst_installed": 0.35,
+    "seconds_combine": 0.0392
+   },
+   "robustrag": {
+    "recall": 0.364,
+    "worst_installed": 0.15,
+    "seconds_combine": 0.0016
+   },
+   "tabayyun_strict": {
+    "recall": 0.645,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0379,
+    "certified_correct": 0.644
+   },
+   "tabayyun_w": {
+    "recall": 0.796,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0369,
+    "certified_correct": 0.792
+   },
+   "seconds_write_quarantines": 0.1
+  },
+  "64": {
+   "titans": {
+    "recall": 0.973,
+    "worst_installed": 0.55,
+    "seconds_combine": 0.157
+   },
+   "agg_trmean": {
+    "recall": 0.901,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0058
+   },
+   "agg_median": {
+    "recall": 0.866,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0046
+   },
+   "agg_geomed": {
+    "recall": 0.873,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0391
+   },
+   "robustrag": {
+    "recall": 0.466,
+    "worst_installed": 0.05,
+    "seconds_combine": 0.0019
+   },
+   "tabayyun_strict": {
+    "recall": 0.64,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.1357,
+    "certified_correct": 0.617
+   },
+   "tabayyun_w": {
+    "recall": 0.783,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.1374,
+    "certified_correct": 0.738
+   },
+   "seconds_write_quarantines": 0.341
+  },
+  "256": {
+   "titans": {
+    "recall": 0.736,
+    "worst_installed": 0.35,
+    "seconds_combine": 0.9142
+   },
+   "agg_trmean": {
+    "recall": 0.881,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.008
+   },
+   "agg_median": {
+    "recall": 0.852,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0064
+   },
+   "agg_geomed": {
+    "recall": 0.848,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0419
+   },
+   "robustrag": {
+    "recall": 0.576,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0048
+   },
+   "tabayyun_strict": {
+    "recall": 0.66,
+    "worst_installed": 0.15,
+    "seconds_combine": 0.7802,
+    "certified_correct": 0.038
+   },
+   "tabayyun_w": {
+    "recall": 0.781,
+    "worst_installed": 0.45,
+    "seconds_combine": 0.7811,
+    "certified_correct": 0.033
+   },
+   "seconds_write_quarantines": 1.427
+  },
+  "1024": {
+   "titans": {
+    "recall": 0.288,
+    "worst_installed": 0.2,
+    "seconds_combine": 4.2744
+   },
+   "agg_trmean": {
+    "recall": 0.521,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.013
+   },
+   "agg_median": {
+    "recall": 0.475,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0114
+   },
+   "agg_geomed": {
+    "recall": 0.466,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0467
+   },
+   "robustrag": {
+    "recall": 0.264,
+    "worst_installed": 0.1,
+    "seconds_combine": 0.0133
+   },
+   "tabayyun_strict": {
+    "recall": 0.532,
+    "worst_installed": 0.2,
+    "seconds_combine": 3.8171,
+    "certified_correct": 0.0
+   },
+   "tabayyun_w": {
+    "recall": 0.387,
+    "worst_installed": 0.05,
+    "seconds_combine": 3.8454,
+    "certified_correct": 0.0
+   },
+   "seconds_write_quarantines": 5.876
+  }
+ },
+ "verdict": {
+  "S1": true,
+  "S2": false,
+  "S5": false
+ },
+ "S1_violations": 0,
+ "S2_exceptions": [
+  [
+   256,
+   "locality|f=3|rho=0.4|R=1",
+   "tabayyun_strict",
+   0.15
+  ],
+  [
+   256,
+   "locality|f=3|rho=0.4|R=1",
+   "tabayyun_w",
+   0.45
+  ],
+  [
+   1024,
+   "dense|f=2|rho=0.7|R=3",
+   "tabayyun_strict",
+   0.2
+  ],
+  [
+   1024,
+   "locality|f=3|rho=0.4|R=1",
+   "tabayyun_strict",
+   0.1
+  ],
+  [
+   1024,
+   "locality|f=3|rho=0.7|R=3",
+   "tabayyun_strict",
+   0.1
+  ]
+ ],
+ "S5_recall_W_vs_strict": {
+  "16": [
+   0.796,
+   0.645
+  ],
+  "64": [
+   0.783,
+   0.64
+  ],
+  "256": [
+   0.781,
+   0.66
+  ],
+  "1024": [
+   0.387,
+   0.532
+  ]
+ }
+}
+--- exit 0 in 3.8s
+
+# finished 2026-11-17 13:08:07; failed: none

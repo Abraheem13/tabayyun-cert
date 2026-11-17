@@ -1,0 +1,220 @@
+{
+ "table": {
+  "16": {
+   "titans": {
+    "recall": 0.976,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0419
+   },
+   "agg_trmean": {
+    "recall": 0.885,
+    "worst_installed": 0.45,
+    "seconds_combine": 0.0061
+   },
+   "agg_median": {
+    "recall": 0.799,
+    "worst_installed": 0.25,
+    "seconds_combine": 0.0046
+   },
+   "agg_geomed": {
+    "recall": 0.844,
+    "worst_installed": 0.35,
+    "seconds_combine": 0.0392
+   },
+   "robustrag": {
+    "recall": 0.364,
+    "worst_installed": 0.15,
+    "seconds_combine": 0.0016
+   },
+   "tabayyun_strict": {
+    "recall": 0.645,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0379,
+    "certified_correct": 0.644
+   },
+   "tabayyun_w": {
+    "recall": 0.796,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0369,
+    "certified_correct": 0.792
+   },
+   "seconds_write_quarantines": 0.1
+  },
+  "64": {
+   "titans": {
+    "recall": 0.973,
+    "worst_installed": 0.55,
+    "seconds_combine": 0.157
+   },
+   "agg_trmean": {
+    "recall": 0.901,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0058
+   },
+   "agg_median": {
+    "recall": 0.866,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0046
+   },
+   "agg_geomed": {
+    "recall": 0.873,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0391
+   },
+   "robustrag": {
+    "recall": 0.466,
+    "worst_installed": 0.05,
+    "seconds_combine": 0.0019
+   },
+   "tabayyun_strict": {
+    "recall": 0.64,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.1357,
+    "certified_correct": 0.617
+   },
+   "tabayyun_w": {
+    "recall": 0.783,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.1374,
+    "certified_correct": 0.738
+   },
+   "seconds_write_quarantines": 0.341
+  },
+  "256": {
+   "titans": {
+    "recall": 0.736,
+    "worst_installed": 0.35,
+    "seconds_combine": 0.9142
+   },
+   "agg_trmean": {
+    "recall": 0.881,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.008
+   },
+   "agg_median": {
+    "recall": 0.852,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0064
+   },
+   "agg_geomed": {
+    "recall": 0.848,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0419
+   },
+   "robustrag": {
+    "recall": 0.576,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0048
+   },
+   "tabayyun_strict": {
+    "recall": 0.66,
+    "worst_installed": 0.15,
+    "seconds_combine": 0.7802,
+    "certified_correct": 0.038
+   },
+   "tabayyun_w": {
+    "recall": 0.781,
+    "worst_installed": 0.45,
+    "seconds_combine": 0.7811,
+    "certified_correct": 0.033
+   },
+   "seconds_write_quarantines": 1.427
+  },
+  "1024": {
+   "titans": {
+    "recall": 0.288,
+    "worst_installed": 0.2,
+    "seconds_combine": 4.2744
+   },
+   "agg_trmean": {
+    "recall": 0.521,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.013
+   },
+   "agg_median": {
+    "recall": 0.475,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0114
+   },
+   "agg_geomed": {
+    "recall": 0.466,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0467
+   },
+   "robustrag": {
+    "recall": 0.264,
+    "worst_installed": 0.1,
+    "seconds_combine": 0.0133
+   },
+   "tabayyun_strict": {
+    "recall": 0.532,
+    "worst_installed": 0.2,
+    "seconds_combine": 3.8171,
+    "certified_correct": 0.0
+   },
+   "tabayyun_w": {
+    "recall": 0.387,
+    "worst_installed": 0.05,
+    "seconds_combine": 3.8454,
+    "certified_correct": 0.0
+   },
+   "seconds_write_quarantines": 5.876
+  }
+ },
+ "verdict": {
+  "S1": true,
+  "S2": false,
+  "S5": false
+ },
+ "S1_violations": 0,
+ "S2_exceptions": [
+  [
+   256,
+   "locality|f=3|rho=0.4|R=1",
+   "tabayyun_strict",
+   0.15
+  ],
+  [
+   256,
+   "locality|f=3|rho=0.4|R=1",
+   "tabayyun_w",
+   0.45
+  ],
+  [
+   1024,
+   "dense|f=2|rho=0.7|R=3",
+   "tabayyun_strict",
+   0.2
+  ],
+  [
+   1024,
+   "locality|f=3|rho=0.4|R=1",
+   "tabayyun_strict",
+   0.1
+  ],
+  [
+   1024,
+   "locality|f=3|rho=0.7|R=3",
+   "tabayyun_strict",
+   0.1
+  ]
+ ],
+ "S5_recall_W_vs_strict": {
+  "16": [
+   0.796,
+   0.645
+  ],
+  "64": [
+   0.783,
+   0.64
+  ],
+  "256": [
+   0.781,
+   0.66
+  ],
+  "1024": [
+   0.387,
+   0.532
+  ]
+ }
+}
