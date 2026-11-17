@@ -774,3 +774,28 @@ E05 `--union`, trials 360–389, MemLM d128 / d256 / d512 (310 s, 518 s, 1,453 s
 | worst installed | 0.07 | **0.00** |
 
 Locality recall of W vs strict: 0.38 vs 0.02 (f = 3, ρ = 0.4, R = 1), 0.58 vs 0.14, 0.89 vs 0.25, 0.96 vs 0.37. **Tier D (`gpt2`) clean ε tuning:** ε = 0.2 (objective flat for ε ≥ 0.2).
+
+---
+
+## Day 21 (2026-11-17): Tabayyun-W across Tiers B and D (Amendment 16): **all 6 criteria PASS on all 5 models**
+
+Tier B static (MemLM d128 / d256 / d512, trials 1100–1199, 96k rows each); Tier D static (`gpt2-xl`, `Qwen2.5-1.5B`, trials 1100–1199; clean-tuned ε = 0.3 for both); Tier D union (trials 1200–1219). 0 failed steps, ≈ 7.5 h on the RTX 5080.
+
+| | d128 | d256 | d512 | gpt2-xl | Qwen2.5-1.5B |
+|---|---|---|---|---|---|
+| H16a: violations | 0 | 0 | 0 | 0 | 0 |
+| H16b: P1 | 16/16 | 16/16 | 16/16 | 16/16 | 16/16 |
+| H16c: C1 (Tier B every cell; Tier D ≥ strict) | **16/16** (strict 15) | **16/16** (16) | **16/16** (15) | 11/16 (= strict 11) | 12/16 (= strict 12) |
+| H16d: f+1 recall law | 16/16 | 16/16 | 16/16 | 16/16 | 16/16 |
+| **H16e: locality recall, W vs strict** | **0.83 vs 0.51** | **0.83 vs 0.50** | **0.83 vs 0.49** | **0.81 vs 0.48** | **0.82 vs 0.48** |
+| worst static installed, W | 0.010 | 0.020 | 0.015 | 0.005 | 0.005 |
+| C2 (descriptive) | 5/8 | 5/8 | 4/8 | 4/8 | 4/8 |
+| H16f: union installed / served-installed, W | — | — | — | **0.00 / 0.00** | **0.00 / 0.00** |
+| union: TrMean worst / strict worst | — | — | — | 0.875 / 0.00 | 0.75 / 0.00 |
+| union: served certified-and-correct, W vs strict | — | — | — | **0.86 vs 0.60** | **0.88 vs 0.59** |
+
+**Reading.**
+- **The R2 weakness is fixed.** Tabayyun-W raises locality recall by 32–34 points over strict on all five models, with no loss of security: worst static installed ≤ 0.02 and union installed 0.00. In the thinnest cell (locality f = 3, ρ = 0.4, R = 1) it recalls 0.35–0.38 while strict and every secure baseline recall 0.00–0.02; at f = 3, ρ = 0.7, R = 1 it recalls 0.87–0.88 against ≤ 0.52 for the best secure baseline.
+- **The f+1 law of Theorem 6 predicts W's recall in 80/80 model-cells.**
+- **Tier D C1 still fails in 4–5 dense cells**, as for strict. TrMean / median / GeoMed recall 0.98–1.00 against W's 0.97–0.99 under static attacks. These same aggregators are installed at 0.75–0.875 (TrMean, union) and 0.33–0.83 (median, GeoMed, PGD, Day 16) under adaptive attacks, so the "tie" holds only against static attackers. The paper's main table will report each defence's worst case over all attacks run.
+- In Tier D dense R = 1 cells W also beats strict: 0.91 vs 0.77 and 0.95 vs 0.79.
