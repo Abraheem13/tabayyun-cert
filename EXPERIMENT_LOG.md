@@ -805,3 +805,33 @@ Tier B static (MemLM d128 / d256 / d512, trials 1100–1199, 96k rows each); Tie
 - **Tabayyun-W's agreement tolerance has to grow with load** (interference ∝ √(F/d_k)), so ε is calibrated per F on clean runs.
 - **Certification collapses with load for both variants:** certified-and-correct 0.91–1.00 at F = 16, 0.01–0.04 at F = 256 (d_k = 767). Security does not (installed 0.00, 0 violations). If this holds on `gpt2-xl` it is a stated capacity limit of the certified tier on this substrate, not something to hide.
 - Cost on CPU at F = 256: Tabayyun combine + certificate ≈ 0.8 s per round against 0.1 s for TrMean; quarantine writes dominate (15–25 s per round, shared by every per-source defence).
+
+---
+
+## Day 22 (2026-11-17): capacity and cost scaling (Amendment 17): **S1 PASS, S2 FAIL, S5 FAIL**
+
+E13 on `gpt2-xl`, d_k = 1024, trials 1300–1309, 3,360 rows, 2,784 s on the RTX 5080. Per-F clean ε for W: 0.2 / 0.3 / 1.0 / 1.0 at F = 16 / 64 / 256 / 1024.
+
+| F | strict recall / cert-correct / worst installed | W recall / cert-correct / worst installed | TrMean recall / worst installed | served-installed (both variants) | combine + cert time, Tabayyun vs TrMean |
+|---|---|---|---|---|---|
+| 16 | 0.65 / 0.64 / 0.00 | **0.80 / 0.79 / 0.00** | 0.89 / 0.45 | 0.00 | 0.04 s / 0.006 s |
+| 64 | 0.64 / 0.62 / 0.00 | **0.78 / 0.74 / 0.00** | 0.90 / 0.50 | 0.00 | 0.14 s / 0.006 s |
+| 256 | 0.66 / 0.04 / **0.15** | 0.78 / 0.03 / **0.45** | 0.88 / 0.50 | 0.00 | 0.78 s / 0.008 s |
+| 1024 | 0.53 / 0.00 / **0.20** | 0.39 / 0.00 / 0.05 | 0.52 / 0.50 | 0.00 | 3.8 s / 0.013 s |
+
+(Recall averaged over the three cells; the thin cell, locality f = 3, ρ = 0.4, R = 1, pulls every average down.)
+
+- **S1 holds:** 0 violations at every F.
+- **S2 fails** at F ≥ 256: strict installed up to 0.20, W up to 0.45 (thin cell, F = 256, ε = 1.0).
+- **S5 fails** at F = 1024 (W 0.39 vs strict 0.53).
+
+**Mechanism (confirmed, as stated in the amendment).** Up to F = 64 = d_k/16, everything holds: installed 0.00 and certified-and-correct 0.85–1.00 in the well-observed cells. Beyond that, interference inside each source's quarantine (≈ √(F/d_k) per read) makes honest sources disagree. Then:
+- (i) the certificate becomes uninformative (certified-and-correct 0.00–0.05);
+- (ii) for W, the clean calibration widens the agreement ball to ε = 1.0, which gives the adversary up to 2r of room (exactly the price stated in Thm 6b);
+- (iii) uncertified answers become attackable.
+
+**Certify-or-abstain still never served a wrong token** (served-installed 0.00 at every F, every cell), but at F ≥ 256 it serves almost nothing.
+
+**Conclusion.** The certified tier has a capacity of about d_k/16 facts per memory on this substrate. This is a real limit, and the paper states it. Uncertified operation beyond capacity is not secure.
+
+**Remedy tested next (exploratory):** shard the memory by a fixed hash of the key into S independent instances, each holding ≤ d_k/16 facts. Every shard is a full Tabayyun instance, so the guarantees hold per shard and per query.
