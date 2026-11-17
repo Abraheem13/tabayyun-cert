@@ -1,0 +1,151 @@
+{
+ "e04_d128_w_confirm.json": {
+  "violations": 0,
+  "P1": "16/16",
+  "C1": "16/16",
+  "C1_strict": "15/16",
+  "C1_criterion": "every cell (Tier B)",
+  "C1_dominated_by": {},
+  "H7_f+1": "16/16",
+  "locality_recall_W": 0.832,
+  "locality_recall_strict": 0.508,
+  "C2_descriptive": "5/8",
+  "worst_installed_W": 0.01,
+  "worst_served_installed_W": 0.0
+ },
+ "e04_d256_w_confirm.json": {
+  "violations": 0,
+  "P1": "16/16",
+  "C1": "16/16",
+  "C1_strict": "16/16",
+  "C1_criterion": "every cell (Tier B)",
+  "C1_dominated_by": {},
+  "H7_f+1": "16/16",
+  "locality_recall_W": 0.828,
+  "locality_recall_strict": 0.5,
+  "C2_descriptive": "5/8",
+  "worst_installed_W": 0.02,
+  "worst_served_installed_W": 0.0
+ },
+ "e04_d512_w_confirm.json": {
+  "violations": 0,
+  "P1": "16/16",
+  "C1": "16/16",
+  "C1_strict": "15/16",
+  "C1_criterion": "every cell (Tier B)",
+  "C1_dominated_by": {},
+  "H7_f+1": "16/16",
+  "locality_recall_W": 0.828,
+  "locality_recall_strict": 0.491,
+  "C2_descriptive": "4/8",
+  "worst_installed_W": 0.015,
+  "worst_served_installed_W": 0.0
+ },
+ "e10_gpt2xl_w_confirm.json": {
+  "violations": 0,
+  "P1": "16/16",
+  "C1": "11/16",
+  "C1_strict": "11/16",
+  "C1_criterion": "W >= strict (Tier D)",
+  "C1_dominated_by": {
+   "dense|f=1|rho=0.4|R=3": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed"
+   ],
+   "dense|f=1|rho=0.7|R=1": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed"
+   ],
+   "dense|f=1|rho=0.7|R=3": [
+    "agg_trmean",
+    "agg_median",
+    "agg_krum",
+    "agg_geomed",
+    "robustrag"
+   ],
+   "dense|f=2|rho=0.7|R=3": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed",
+    "robustrag"
+   ],
+   "locality|f=2|rho=0.7|R=3": [
+    "agg_median",
+    "agg_geomed"
+   ]
+  },
+  "H7_f+1": "16/16",
+  "locality_recall_W": 0.814,
+  "locality_recall_strict": 0.476,
+  "C2_descriptive": "4/8",
+  "worst_installed_W": 0.005,
+  "worst_served_installed_W": 0.005
+ },
+ "e10_qwen15b_w_confirm.json": {
+  "violations": 0,
+  "P1": "16/16",
+  "C1": "12/16",
+  "C1_strict": "12/16",
+  "C1_criterion": "W >= strict (Tier D)",
+  "C1_dominated_by": {
+   "dense|f=1|rho=0.4|R=3": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed"
+   ],
+   "dense|f=1|rho=0.7|R=1": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed"
+   ],
+   "dense|f=1|rho=0.7|R=3": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed",
+    "robustrag"
+   ],
+   "dense|f=2|rho=0.7|R=3": [
+    "agg_trmean",
+    "agg_median",
+    "agg_geomed",
+    "robustrag"
+   ]
+  },
+  "H7_f+1": "16/16",
+  "locality_recall_W": 0.817,
+  "locality_recall_strict": 0.476,
+  "C2_descriptive": "4/8",
+  "worst_installed_W": 0.005,
+  "worst_served_installed_W": 0.005
+ },
+ "e11_gpt2xl_w_union_summary.json": {
+  "violations": 0,
+  "worst_installed": 0.0,
+  "worst_served_installed": 0.0,
+  "union_vs_static_mean": [
+   0.0,
+   0.0
+  ],
+  "amnesia_mean": 0.133
+ },
+ "e11_qwen15b_w_union_summary.json": {
+  "violations": 0,
+  "worst_installed": 0.0,
+  "worst_served_installed": 0.0,
+  "union_vs_static_mean": [
+   0.0,
+   0.0
+  ],
+  "amnesia_mean": 0.122
+ },
+ "verdict": {
+  "H16a": true,
+  "H16b": true,
+  "H16c": true,
+  "H16d": true,
+  "H16e": true,
+  "H16f": true
+ }
+}
