@@ -837,3 +837,21 @@ E13 on `gpt2-xl`, d_k = 1024, trials 1300–1309, 3,360 rows, 2,784 s on the RTX
 **Remedy tested next (exploratory):** shard the memory by a fixed hash of the key into S independent instances, each holding ≤ d_k/16 facts. Every shard is a full Tabayyun instance, so the guarantees hold per shard and per query.
 
 **Sharding test (exploratory, `gpt2`, F = 256):** certified-and-correct rises from 0.03 (1 shard) to 0.83 (4 shards) and 0.94–0.98 (8 shards), with installed 0.00 and 0 violations. Amendment 18 fixes 32 facts per shard and re-runs the scaling test on `gpt2-xl` (Day 23).
+
+---
+
+## Day 23 (2026-11-17): sharded certified memory (Amendment 18): **all 4 criteria PASS, capacity limit removed**
+
+E13 `--facts_per_shard 32` on `gpt2-xl`, d_k = 1024, trials 1400–1409, 3,360 rows, 2,361 s. Clean per-F ε for W: 0.2 / 0.2 / 0.2 / 0.3.
+
+| F (shards) | strict: recall / cert-correct (well-observed) / worst installed | **W: recall / cert-correct (well-observed) / worst installed** | TrMean / median / GeoMed worst installed | combine + cert time, Tabayyun vs TrMean |
+|---|---|---|---|---|
+| 16 (1) | 0.61 / 0.92 / 0.00 | **0.77 / 1.00 / 0.00** | 0.50 / 0.40 / 0.45 | 0.04 s / 0.006 s |
+| 64 (2) | 0.64 / 0.94 / 0.00 | **0.77 / 0.99 / 0.00** | 0.85 / 0.65 / 0.75 | 0.14 s / 0.012 s |
+| 256 (8) | 0.64 / 0.93 / 0.00 | **0.78 / 0.97 / 0.00** | 1.00 / 0.80 / 0.95 | 0.55 s / 0.044 s |
+| 1024 (32) | 0.65 / 0.90 / 0.00 | **0.77 / 0.95 / 0.00** | 0.95 / 0.85 / 0.90 | 2.27 s / 0.18 s |
+
+- **SH1** 0 violations; **SH2** strict and W installed 0.00 at every F in every cell; **SH3** certified-and-correct 0.90–1.00 at every F; **SH4** W recall ≥ strict at every F (0.77–0.78 vs 0.61–0.65).
+- **Day 22's capacity limit is removed.** With 32 facts per shard, recall, security and certification are flat from 16 to 1,024 facts.
+- **Cost** grows linearly in F (≈ 2.2 ms per fact per round, combine + certificate, RTX 5080), ≈ 13× TrMean. The quarantine writes (6 s per round at F = 1024) are shared by every per-source defence.
+- **Unexpected and reported as found:** with sharding the robust aggregators become *more* attackable under the static edge attack (TrMean 0.50 → 0.95–1.00, median 0.40 → 0.85). With 32 facts per shard their coordinate-wise statistics are computed over fewer, less-mixed values, which the edge attack exploits. In Amendment 18's exploratory run (`gpt2`, F = 256, 2 trials) the opposite was seen (0.25 → 0.00). Sharding is therefore not a fix for the baselines.
