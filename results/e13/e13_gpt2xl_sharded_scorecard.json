@@ -1,0 +1,208 @@
+{
+ "table": {
+  "16": {
+   "titans": {
+    "recall": 0.983,
+    "worst_installed": 0.4,
+    "seconds_combine": 0.0402
+   },
+   "agg_trmean": {
+    "recall": 0.842,
+    "worst_installed": 0.5,
+    "seconds_combine": 0.0061
+   },
+   "agg_median": {
+    "recall": 0.771,
+    "worst_installed": 0.4,
+    "seconds_combine": 0.0046
+   },
+   "agg_geomed": {
+    "recall": 0.815,
+    "worst_installed": 0.45,
+    "seconds_combine": 0.0392
+   },
+   "robustrag": {
+    "recall": 0.36,
+    "worst_installed": 0.1,
+    "seconds_combine": 0.0016
+   },
+   "tabayyun_strict": {
+    "recall": 0.614,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0375,
+    "certified_correct": 0.619
+   },
+   "tabayyun_w": {
+    "recall": 0.767,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0364,
+    "certified_correct": 0.767
+   },
+   "seconds_write_quarantines": 0.099
+  },
+  "64": {
+   "titans": {
+    "recall": 0.978,
+    "worst_installed": 0.55,
+    "seconds_combine": 0.1583
+   },
+   "agg_trmean": {
+    "recall": 0.884,
+    "worst_installed": 0.85,
+    "seconds_combine": 0.0118
+   },
+   "agg_median": {
+    "recall": 0.832,
+    "worst_installed": 0.65,
+    "seconds_combine": 0.0091
+   },
+   "agg_geomed": {
+    "recall": 0.857,
+    "worst_installed": 0.75,
+    "seconds_combine": 0.0782
+   },
+   "robustrag": {
+    "recall": 0.401,
+    "worst_installed": 0.1,
+    "seconds_combine": 0.0038
+   },
+   "tabayyun_strict": {
+    "recall": 0.637,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.1359,
+    "certified_correct": 0.631
+   },
+   "tabayyun_w": {
+    "recall": 0.772,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.1353,
+    "certified_correct": 0.768
+   },
+   "seconds_write_quarantines": 0.364
+  },
+  "256": {
+   "titans": {
+    "recall": 0.974,
+    "worst_installed": 0.45,
+    "seconds_combine": 0.6385
+   },
+   "agg_trmean": {
+    "recall": 0.889,
+    "worst_installed": 1.0,
+    "seconds_combine": 0.0441
+   },
+   "agg_median": {
+    "recall": 0.84,
+    "worst_installed": 0.8,
+    "seconds_combine": 0.0327
+   },
+   "agg_geomed": {
+    "recall": 0.859,
+    "worst_installed": 0.95,
+    "seconds_combine": 0.3093
+   },
+   "robustrag": {
+    "recall": 0.412,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.0114
+   },
+   "tabayyun_strict": {
+    "recall": 0.642,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.546,
+    "certified_correct": 0.623
+   },
+   "tabayyun_w": {
+    "recall": 0.779,
+    "worst_installed": 0.0,
+    "seconds_combine": 0.5529,
+    "certified_correct": 0.768
+   },
+   "seconds_write_quarantines": 1.466
+  },
+  "1024": {
+   "titans": {
+    "recall": 0.968,
+    "worst_installed": 0.55,
+    "seconds_combine": 2.5917
+   },
+   "agg_trmean": {
+    "recall": 0.884,
+    "worst_installed": 0.95,
+    "seconds_combine": 0.1763
+   },
+   "agg_median": {
+    "recall": 0.836,
+    "worst_installed": 0.85,
+    "seconds_combine": 0.1293
+   },
+   "agg_geomed": {
+    "recall": 0.858,
+    "worst_installed": 0.9,
+    "seconds_combine": 1.2759
+   },
+   "robustrag": {
+    "recall": 0.428,
+    "worst_installed": 0.1,
+    "seconds_combine": 0.0415
+   },
+   "tabayyun_strict": {
+    "recall": 0.646,
+    "worst_installed": 0.0,
+    "seconds_combine": 2.2681,
+    "certified_correct": 0.608
+   },
+   "tabayyun_w": {
+    "recall": 0.769,
+    "worst_installed": 0.0,
+    "seconds_combine": 2.2681,
+    "certified_correct": 0.745
+   },
+   "seconds_write_quarantines": 5.994
+  }
+ },
+ "verdict": {
+  "S1": true,
+  "S2": true,
+  "S5": true,
+  "SH3": true
+ },
+ "S1_violations": 0,
+ "S2_exceptions": [],
+ "S5_recall_W_vs_strict": {
+  "16": [
+   0.767,
+   0.614
+  ],
+  "64": [
+   0.772,
+   0.637
+  ],
+  "256": [
+   0.779,
+   0.642
+  ],
+  "1024": [
+   0.769,
+   0.646
+  ]
+ },
+ "SH3_certified_correct_well_observed": {
+  "16": {
+   "tabayyun_strict": 0.919,
+   "tabayyun_w": 1.0
+  },
+  "64": {
+   "tabayyun_strict": 0.943,
+   "tabayyun_w": 0.987
+  },
+  "256": {
+   "tabayyun_strict": 0.927,
+   "tabayyun_w": 0.968
+  },
+  "1024": {
+   "tabayyun_strict": 0.904,
+   "tabayyun_w": 0.949
+  }
+ }
+}
