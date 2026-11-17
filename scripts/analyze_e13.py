@@ -32,5 +32,11 @@ out["S1_violations"] = viol
 out["S2_exceptions"] = s2
 out["S5_recall_W_vs_strict"] = s5
 out["verdict"] = {"S1": viol == 0, "S2": not s2, "S5": all(w >= s - 0.05 for w, s in s5.values())}
+# Amendment 18 (sharded): certified-and-correct in the two well-observed cells (rho = 0.7, R = 3)
+well = [c for c in cells if c.endswith("rho=0.7|R=3")]
+sh3 = {F: {d: round(sum(g(F, c, d)["certified_correct_clean"] for c in well) / len(well), 3)
+           for d in ("tabayyun_strict", "tabayyun_w")} for F in Fs}
+out["SH3_certified_correct_well_observed"] = sh3
+out["verdict"]["SH3"] = all(v >= 0.80 for row in sh3.values() for v in row.values())
 print(json.dumps(out, indent=1))
 p.with_name(p.stem.replace("_summary", "") + "_scorecard.json").write_text(json.dumps(out, indent=1))

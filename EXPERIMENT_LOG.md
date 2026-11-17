@@ -835,3 +835,5 @@ E13 on `gpt2-xl`, d_k = 1024, trials 1300–1309, 3,360 rows, 2,784 s on the RTX
 **Conclusion.** The certified tier has a capacity of about d_k/16 facts per memory on this substrate. This is a real limit, and the paper states it. Uncertified operation beyond capacity is not secure.
 
 **Remedy tested next (exploratory):** shard the memory by a fixed hash of the key into S independent instances, each holding ≤ d_k/16 facts. Every shard is a full Tabayyun instance, so the guarantees hold per shard and per query.
+
+**Sharding test (exploratory, `gpt2`, F = 256):** certified-and-correct rises from 0.03 (1 shard) to 0.83 (4 shards) and 0.94–0.98 (8 shards), with installed 0.00 and 0 violations. Amendment 18 fixes 32 facts per shard and re-runs the scaling test on `gpt2-xl` (Day 23).

@@ -369,3 +369,28 @@ C2 and C3 are reported descriptively.
 - wall-clock cost per combine + certificate step and per quarantine write, by F and defence.
 
 If (ii) is confirmed, the paper states the capacity limit of certification for this substrate: certification needs F ≪ d_k, or a quarantine with lower interference, such as a least-squares or orthogonalised write. That is future work.
+
+---
+
+## Amendment 18 (2026-11-17, sharded certified memory; registered BEFORE the confirmatory run)
+**Why.** Amendment 17 failed at F ≥ 256 (S2, S5): beyond about d_k/16 facts per memory, quarantine interference makes the certificate uninformative and uncertified answers attackable. **Sharding** routes each key, by a fixed function, to one of ⌈F / 32⌉ independent Tabayyun instances: `shard_of(k)` = argmax of S fixed random projections of k. Writers and readers route identically, so every shard is a complete instance and Prop. R/R′, Thm 3(a) and Thm 6 apply per shard and per query without change. **Facts per shard = 32** is fixed now.
+
+**What was seen before registration** (`gpt2`, d_k = 767, F = 256, exploratory trials 0–1, attacks none and edge):
+
+| shards | strict cert-correct | W cert-correct | strict / W / TrMean installed |
+|---|---|---|---|
+| 1 | 0.03 | 0.02–0.04 | 0.00 / 0.00 / 0.25 |
+| 4 | 0.83 | 0.71–0.86 | 0.00 / 0.00 / 0.00 |
+| 8 | 0.94 | 0.97–0.98 | 0.00 / 0.00 / 0.00 |
+
+Also a smoke run of the sharded path through the main entry point (F ≤ 64): 0 violations.
+
+**Confirmatory run.** As Amendment 17 (`gpt2-xl`, d_k = 1024, F ∈ {16, 64, 256, 1024}, same cells, attacks and defences) with `--facts_per_shard 32` (1 / 2 / 8 / 32 shards). Tabayyun-W's ε is re-calibrated per F on clean runs (`--tune_w --facts_per_shard 32`, same rule) as the first step. **Trials 1400–1409** (fresh).
+
+**Criteria** (`scripts/analyze_e13.py`):
+- **SH1**: 0 violations at every F.
+- **SH2**: strict and W worst installed ≤ 0.05 at every F, in every cell (the S2 criterion, now with sharding).
+- **SH3**: certified-and-correct ≥ 0.80 at every F for both variants, averaged over the two well-observed cells (ρ = 0.7, R = 3).
+- **SH4**: W mean clean recall ≥ strict − 0.05 at every F (the S5 criterion).
+
+Cost (combine + certificate per round, summed over shards) is reported descriptively. Sharding also lowers interference for the baselines (TrMean installed 0.25 → 0.00 in the exploratory run), which will be reported as such.

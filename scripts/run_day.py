@@ -154,6 +154,11 @@ def plan(day: int, dev: str) -> list[list[str]]:
              [PY, "experiments/e13_scale.py", "--model", "gpt2-xl", "--device", dev, "--trials", "10",
               "--trial_offset", "1300", "--tag", "gpt2xl_scale"],
              [PY, "scripts/analyze_e13.py", "results/e13/e13_gpt2xl_scale_summary.json"]],
+        # Amendment 18: sharded certified memory, capacity scaling on Tier D (GPU), trials 1400-1409
+        23: [[PY, "experiments/e13_scale.py", "--model", "gpt2-xl", "--device", dev, "--facts_per_shard", "32", "--tune_w"],
+             [PY, "experiments/e13_scale.py", "--model", "gpt2-xl", "--device", dev, "--facts_per_shard", "32",
+              "--trials", "10", "--trial_offset", "1400", "--tag", "gpt2xl_sharded"],
+             [PY, "scripts/analyze_e13.py", "results/e13/e13_gpt2xl_sharded_summary.json"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

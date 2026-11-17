@@ -86,6 +86,8 @@ def main():
     ap.add_argument("--facts", default=",".join(map(str, FACTS)))
     ap.add_argument("--tag", default="")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--facts_per_shard", type=int, default=0,
+                    help="Amendment 18: route keys to ceil(F / facts_per_shard) independent shards (0 = unsharded)")
     ap.add_argument("--tune_w", action="store_true",
                     help="clean-only eps of tabayyun_w per memory size F (trials 0-4, attack = none)")
     a = ap.parse_args()
@@ -101,7 +103,15 @@ def main():
     S = e10.Substrate(a.model, a.device, sel["layer"], sel["boost"])
     facts = [int(x) for x in a.facts.split(",")]
     out = ROOT / "results" / "e13"; out.mkdir(parents=True, exist_ok=True)
-    tw = out / f"tuning_w_{safe}.json"
+    global run_trial
+    if a.facts_per_shard:
+        base = run_trial
+
+        def run_trial(S_, F, n, f, rho, regime, attack, seed, R):  # noqa: F811
+            k = -(-F // a.facts_per_shard)
+            return base(S_, F, n, f, rho, regime, attack, seed, R) if k == 1 else \
+                run_trial_sharded(S_, F, n, f, rho, regime, attack, seed, R, k)
+    tw = out / (f"tuning_w_{safe}_fps{a.facts_per_shard}.json" if a.facts_per_shard else f"tuning_w_{safe}.json")
     if a.tune_w:
         global DEFS
         DEFS, res = ["tabayyun_w"], {}
@@ -159,12 +169,9 @@ def main():
     (out / f"{name}_summary.json").write_text(json.dumps(summ, indent=1))
     viol = sum(v.get("violations", 0) for v in summ.values())
     print("SUMMARY", json.dumps({"rows": len(rows), "violations": viol, "seconds": round(time.time() - t0, 1)}))
-    log_run("e13_scale", vars(a), {"summary": summ, "violations": viol},
+    log_run("e13_scale", vars(a), {"summary": summ, "violations": viol, "eps_by_F": eps_by_F},
             out="results/smoke.jsonl" if a.smoke else "results/registry.jsonl", smoke=a.smoke)
 
-
-if __name__ == "__main__":
-    main()
 
 
 # ---------------------------------------------------------------- sharded memory (Amendment 18)
@@ -234,3 +241,7 @@ def run_trial_sharded(S, F, n, f, rho, regime, attack, seed, R, shards):
                       "served_installed": float(np.mean(A["served"])) if A["served"] else (None if attack == "none" else 0.0)})
         out[d] = r
     return out
+
+
+if __name__ == "__main__":
+    main()
