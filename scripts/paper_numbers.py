@@ -277,3 +277,27 @@ ANCH = {"Titans": "west", "Mean": "south", "TrMean": "south", "Median": "east", 
 for flag, name in (("1", "tradeoff_D_adapt.dat"), ("0", "tradeoff_D_static.dat")):
     rows_ = [l.split() for l in tr[1:] if l.split()[3] == flag]
     (OUT / name).write_text("x y label anchor\n" + "\n".join(f"{r[0]} {r[1]} {r[2]} {ANCH[r[2]]}" for r in rows_) + "\n")
+
+
+# ---------------------------------------------------------------- paired bootstrap CIs, locality clean recall (Tabayyun-W minus baseline)
+from collections import defaultdict  # noqa: E402
+rng = np.random.default_rng(0)
+CI = {}
+for name, f in [("MemLM d128", "e04/e04_d128_w_confirm.json"), ("MemLM d256", "e04/e04_d256_w_confirm.json"),
+                ("MemLM d512", "e04/e04_d512_w_confirm.json"), ("GPT-2 XL", "e10/e10_gpt2xl_w_confirm.json"),
+                ("Qwen2.5-1.5B", "e10/e10_qwen15b_w_confirm.json")]:
+    rec = defaultdict(dict)
+    for r in J(f):
+        if r["attack"] == "none" and r["regime"] == "locality" and r["recall"] == r["recall"]:
+            rec[(r["f"], r["rho"], r["R"], r["trial"])][r["defence"]] = r["recall"]
+    keys = [k for k, v in rec.items() if all(d in v for d in ("tabayyun_w", "tabayyun_strict", "robustrag", "agg_trmean"))]
+    CI[name] = {}
+    for b in ("tabayyun_strict", "robustrag", "agg_trmean"):
+        dlt = np.array([rec[k]["tabayyun_w"] - rec[k][b] for k in keys])
+        bs = [dlt[rng.integers(0, len(dlt), len(dlt))].mean() for _ in range(4000)]
+        CI[name][b] = (float(dlt.mean()), float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5)), len(dlt))
+c = lambda t: f"{t[0]:+.3f} [{t[1]:+.3f}, {t[2]:+.3f}]"  # noqa: E731
+(OUT / "tab_ci.tex").write_text("\n".join(f"{nm} & {c(v['tabayyun_strict'])} & {c(v['robustrag'])} & {c(v['agg_trmean'])} \\\\"
+                                          for nm, v in CI.items()) + "\n")
+N["ci_locality"] = CI
+(OUT / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
