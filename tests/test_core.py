@@ -453,3 +453,15 @@ def test_agreement_gate_is_hull_valid_with_2f_plus_1_witnesses():
         assert out.promoted[0]
         H = D[f:f + 5, 0]
         assert (out.values[0] >= H.min(0).values - 1e-6).all() and (out.values[0] <= H.max(0).values + 1e-6).all()
+
+
+def test_action_certificate_never_certifies_a_zero_read():
+    """Regression (E14): a query outside the promoted basis reads rounding noise; it must not be certified."""
+    from tabayyun.certify import action_certified, action_certified_gram
+    g = torch.Generator().manual_seed(3)
+    W = torch.nn.functional.normalize(torch.randn(144, 64, generator=g), dim=1)
+    y = 1e-7 * torch.randn(5, 64, generator=g)                 # zero read plus float noise
+    logits = y @ W.T
+    drift = torch.full((5,), 1e-12)
+    assert not action_certified(logits, W, drift).any()
+    assert not action_certified_gram(logits, W, drift).any()

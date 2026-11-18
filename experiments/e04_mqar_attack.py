@@ -182,18 +182,21 @@ def run_trial(model, V, F, n, f, rho, regime, attack, seed, device, defences, ro
 
 
 def apply_defences(defences, Ms, written, q, titans_fn, predict_fn, readout_fn, hook, n, f, F, seed, device,
-                   vals, adv_vals, targets, benign, attack, certify_fn=action_certified):
+                   vals, adv_vals, targets, benign, attack, certify_fn=action_certified, keep=False):
     """Combine the per-source memories Ms (n, dv, dk) with every defence and score the predictions.
 
     Substrate-agnostic (used by E04 on MemLM and by E10 on a frozen pretrained LM):
     ``titans_fn()`` -> ungated shared memory (dv, dk); ``predict_fn(y)`` -> logits for the
     F queries given the reads y (F, dv); ``readout_fn()`` -> W with logits = W y + const.
+    ``keep=True`` also returns, under keys starting with '_', the per-query tensors (prediction, read,
+    certified flags, reference prediction and reference read) for substrates that post-process them (E15).
     """
     k_gate = 2 * f + 1
     I = torch.eye(Ms.shape[-1], device=device)
     res = {}
     for d in defences:
         cert = None
+        extra = {}
         if d == "titans":
             Mg = titans_fn()
             y = q @ Mg.T
@@ -252,12 +255,15 @@ def apply_defences(defences, Ms, written, q, titans_fn, predict_fn, readout_fn, 
                             "served_installed": float(np.mean([int(bool(certified[t]) and int(logits[t].argmax()) == int(adv_vals[t]))
                                                                for t in targets])) if attack != "none" else None,
                             "n_directions": int(U.shape[0])}
+                    extra = {"_cert": certified.cpu(), "_ref": ref_pred.cpu(), "_yref": q @ MP_ref.T}
         pred = predict_fn(y).argmax(-1).cpu()
         r = {"recall": float((pred[benign] == vals[benign]).float().mean()) if benign else math.nan,
              "installed": float(np.mean([int(pred[t] == adv_vals[t]) for t in targets])) if attack != "none" else None,
              "amnesia": float(np.mean([int(pred[t] != vals[t]) for t in targets]))}
         if cert is not None:
             r.update(cert)
+        if keep:
+            r.update({"_pred": pred, "_y": y, **extra})
         res[d] = r
     return res
 

@@ -136,24 +136,27 @@ class DirectionalDrift:
         return (q @ U.T).abs() @ self.E
 
 
-def action_certified(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tensor) -> torch.Tensor:
+def action_certified(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tensor, atol: float = 1e-5) -> torch.Tensor:
     """Theorem 3(a), pairwise form for a linear head z = W y + b.
 
     logits: (B, A); W: (A, dv); drift_q: (B,) upper bound on ||y - y~|| for the
     query (e.g. ``TabayyunMemory.query_certificate`` or ||E||_F * ||q||).
     The action a* = argmax z is certified iff, for all j != a*,
-        z_a* - z_j > ||w_a* - w_j|| * drift_q .
+        z_a* - z_j > ||w_a* - w_j|| * (drift_q + atol) .
+    ``atol`` is the same absolute numerical tolerance used when drift is checked against the bound: a read
+    that is zero in exact arithmetic (a query outside the promoted basis) is a vector of rounding noise,
+    and its argmax must never be certified.
     Returns (B,) bool.
     """
     top = logits.argmax(-1)
     za = logits.gather(1, top.view(-1, 1))
     wdiff = (W[top].unsqueeze(1) - W.unsqueeze(0)).norm(dim=-1)   # (B, A)
-    ok = (za - logits) > wdiff * drift_q.view(-1, 1)
+    ok = (za - logits) > wdiff * (drift_q.view(-1, 1) + atol)
     ok.scatter_(1, top.view(-1, 1), True)
     return ok.all(-1)
 
 
-def action_certified_gram(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tensor) -> torch.Tensor:
+def action_certified_gram(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.Tensor, atol: float = 1e-5) -> torch.Tensor:
     """Theorem 3(a) for large vocabularies: same test as ``action_certified`` but with
     ||w_a - w_j|| from the Gram identity (O(A d) memory instead of O(B A d)).
     The distance is rounded UP by a relative 1e-4, so this is never less strict.
@@ -163,7 +166,7 @@ def action_certified_gram(logits: torch.Tensor, W: torch.Tensor, drift_q: torch.
     d2 = n2[top].unsqueeze(1) + n2.unsqueeze(0) - 2.0 * (W[top] @ W.T)   # (B, A)
     wdiff = d2.clamp(min=0).sqrt() * (1 + 1e-4) + 1e-4 * n2.max().sqrt()
     za = logits.gather(1, top.view(-1, 1))
-    ok = (za - logits) > wdiff * drift_q.view(-1, 1)
+    ok = (za - logits) > wdiff * (drift_q.view(-1, 1) + atol)
     ok.scatter_(1, top.view(-1, 1), True)
     return ok.all(-1)
 
