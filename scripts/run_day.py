@@ -159,6 +159,16 @@ def plan(day: int, dev: str) -> list[list[str]]:
              [PY, "experiments/e13_scale.py", "--model", "gpt2-xl", "--device", dev, "--facts_per_shard", "32",
               "--trials", "10", "--trial_offset", "1400", "--tag", "gpt2xl_sharded"],
              [PY, "scripts/analyze_e13.py", "results/e13/e13_gpt2xl_sharded_summary.json"]],
+        # Amendment 19: real multi-source tier (Flight data, CPU); Amendment 20: mid-layer memory (GPU)
+        24: [[PY, "experiments/e14_fusion.py", "--tune_w"],
+             [PY, "experiments/e14_fusion.py", "--reps", "5", "--rep_offset", "1500", "--tag", "confirm"],
+             [PY, "scripts/analyze_e14.py", "results/e14/e14_confirm.json"]] +
+            [c for m, t in [("gpt2-xl", "gpt2xl"), ("Qwen/Qwen2.5-1.5B", "qwen15b")] for c in
+             [[PY, "experiments/e15_midlayer.py", "--model", m, "--device", dev, "--tune_w"],
+              [PY, "experiments/e15_midlayer.py", "--model", m, "--device", dev, "--trials", "20",
+               "--trial_offset", "1500", "--tag", f"{t}_confirm"]]] +
+            [[PY, "scripts/analyze_e15m.py", "results/e15m/e15m_gpt2xl_confirm_summary.json",
+              "results/e15m/e15m_qwen15b_confirm_summary.json"]],
         10: [[PY, "experiments/e03_mqar_train.py", "--device", dev, "--steps", "8000", "--batch", "128",
               "--d_model", "512", "--dk", "256", "--max_pairs", "24", "--max_segments", "6", "--tag", "memlm_d512"]],
     }

@@ -394,3 +394,75 @@ Also a smoke run of the sharded path through the main entry point (F ≤ 64): 0 
 - **SH4**: W mean clean recall ≥ strict − 0.05 at every F (the S5 criterion).
 
 Cost (combine + certificate per round, summed over shards) is reported descriptively. Sharding also lowers interference for the baselines (TrMean installed 0.25 → 0.00 in the exploratory run), which will be reported as such.
+
+
+---
+
+## Amendment 19 (2026-11-18, real multi-source tier on the Flight data set; registered BEFORE the confirmatory run)
+**Why.** Reviewer gap: every earlier tier has simulated sources. `experiments/e14_fusion.py` feeds the memory with **real web sources**. The data is the Flight truth-discovery data set (Li, Dong et al., PVLDB 2012), December 2011; `scripts/prep_fusion.py` parses it.
+- Coverage: 31 days, **11,146 gold facts** (flight × {scheduled/actual departure/arrival}, 80–386 per day), **36 sources** that report at least one gold fact.
+- Times are binned into 10-minute bins (144 values). The plurality vote over all sources is correct on 0.798 of the gold facts, so the sources carry real errors, real coverage gaps and real copying.
+- Memory: one trial is one day. Each gold fact gets a fixed orthonormal key (d_k = 512) and a value that is a random unit embedding of its bin (d_v = 64, seed 7). Each source writes exactly the values it reported, once per report, into its own quarantine (θ = 0.5).
+
+**Adversary.**
+- f ∈ {1, 2, 4} real sources are chosen at random per trial. On 2 random target facts they report gold + 2 h; everywhere else they keep their real reports.
+- Attacks: none, assert, edge, unbounded.
+- Defences: the 12 of E04, plus the classical data-fusion baseline, a plurality vote over all reports (compromised sources included). The vote has no certificate.
+
+**Change to the certificate code, found on the smoke run (disclosed).** Queries whose key lies outside the promoted basis read a vector that is zero in exact arithmetic, i.e. rounding noise of order 1e-7. Their argmax was certified because margins of about 1e-8 exceeded drift bounds of about 1e-12.
+- The action certificate now uses drift + atol, with atol = 1e-5, the same absolute tolerance already used when drift is checked against its bound (`certify.action_certified{,_gram}`). A regression test is added.
+- The change can only shrink the certified set, by tokens whose margin is below about 2e-5. All earlier tiers recorded 0 action violations with the old rule, and their results are not re-run.
+
+**What was seen before registration** (smoke run: days 1–3, one trial each, all f and attacks, ε_W = 0.3 default):
+
+| f | Tabayyun-W acc. / cert-correct / installed | strict acc. / installed | TrMean acc. / installed | vote acc. / installed |
+|---|---|---|---|---|
+| 1 | 0.879 / 0.879 / 0.00 | 0.874 / 0.00 | 0.874 / 0.17 | 0.877 / 0.00 |
+| 2 | 0.882 / 0.881 / 0.00 | 0.860 / 0.00 | 0.875 / 0.50 | 0.881 / 0.00 |
+| 4 | 0.859 / 0.860 / 0.00 | 0.761 / 0.00 | 0.873 / 0.50 | 0.874 / 0.00 |
+
+Violations: 0 (after the tolerance fix).
+
+**ε for Tabayyun-W.** Chosen by the clean-only rule of every tier, as the first step of the confirmatory day (as in Amendment 18): `--tune_w`, attack = none, trials 0–1 on all days, grid {0.1, 0.2, 0.3, 0.4, 0.6}, the smallest ε within 0.02 of the best objective (accuracy + certified-and-correct). The output is `results/e14/tuning_w_clean.json`. A partial local run gave objective 1.565 at ε = 0.1 before it was stopped to free the CPU.
+
+**Confirmatory run.** All 31 days, f ∈ {1, 2, 4}, 4 attacks, **trials 1500–1504** (fresh), 1,860 trials in all.
+
+**Criteria** (`scripts/analyze_e14.py`):
+- **F1**: 0 certificate and 0 certified-token violations.
+- **F2**: strict and Tabayyun-W worst installed ≤ 0.05 at every f.
+- **F3**: Tabayyun-W clean accuracy ≥ vote − 0.03 at every f. The certified memory loses at most 3 points against the classical fusion baseline, which sees every report and certifies nothing.
+- **F4**: Tabayyun-W certified-and-correct (clean) ≥ 0.80 at every f.
+- **F5**: at f ∈ {2, 4}, TrMean worst installed − Tabayyun-W worst installed > 0, with the 95% paired bootstrap CI over (day, trial) excluding 0 (on TrMean's worst attack).
+
+The cone variants' accuracy at f = 4 (which needs 2f + 1 = 9 agreeing sources) is reported descriptively, as an instance of Theorem 6 on real coverage.
+
+---
+
+## Amendment 20 (2026-11-18, memory inside the network: mid-layer residual stream with certified snapping; registered BEFORE the confirmatory run)
+**Why.** Reviewer gap: on Tier D the memory read enters after the final norm, where the logits are linear in the read. A memory inside the network faces L − l nonlinear blocks between the read and the output. A Lipschitz bound through them would be needed to carry the certificate, and self-attention has no finite global Lipschitz constant (Kim et al., ICML 2021).
+
+**Design** (`experiments/e15_midlayer.py`, `src/tabayyun/models/midlayer.py`).
+- **Key**: the E10 whitened key at layer l = L/2.
+- **Value**: a residual edit c = δ*/R, with |δ*| ≤ R. Added after block l at the last prompt token, δ* makes the frozen LM emit the asserted object. δ* is found by gradient search: 30 Adam steps, lr 0.1·R/√d. R is the median norm of h_l on calibration prompts.
+- **Serving**: the read y is snapped to the codebook entry a = argmax ⟨y, c⟩ − |c|²/2. The codebook holds every value asserted in the trial, the attacker's included. Only a certified snap is injected; the certificate is (11) with W = C.
+- **Proposition (certified snapping)**: if the snap is certified, the injected vector equals the vector the attack-free reference injects. The LM output is then identical to the reference output for any depth and nonlinearity of the remaining blocks, with no Lipschitz constant involved.
+
+**Setup.** Facts, sources, cells (the 16 E10 cells with R ∈ {1, 3}), attacks (none, assert, edge, unbounded) and the 12 defences are those of E10. They are scored at the LM output. Two models: `gpt2-xl` and `Qwen/Qwen2.5-1.5B`. ε_W is set by the clean rule (`--tune_w`, trials 0–4, attack = none, objective: final recall + final certified-and-correct) as the first step. **Trials 1500–1519** (fresh).
+
+**What was seen before registration** (`gpt2` smoke on CPU, cells dense f = 2 and locality f = 2, attacks none/assert/edge, trials 0–1):
+- 0 final and 0 read violations.
+- Oracle edit success 1.00; LM without memory 0.00.
+- Tabayyun-W: final recall 0.96, certified-and-correct 0.97, worst final installed 0.00.
+- Strict: certified-and-correct 0.78 (dense) and 0.97 (locality).
+- Titans: worst final installed 0.75.
+- Tabayyun-W without snapping: no output changes among 96 certified queries.
+
+**Criteria** (`scripts/analyze_e15m.py`, per model):
+- **M1**: 0 final violations (certified snap ⇒ next token = reference next token) and 0 read-level violations.
+- **M2**: strict and Tabayyun-W worst final installed ≤ 0.05 in every cell.
+- **M3**: strict and Tabayyun-W worst final served-installed = 0 in every cell.
+- **M4**: in the two well-observed cells (ρ = 0.7, R = 3), certified-and-correct ≥ 0.8 × the oracle edit success, for both variants.
+
+**Descriptive.**
+- Raw transfer failures (Tabayyun-W without snapping): queries whose read-level certificate holds but whose unsnapped next token differs from the unsnapped reference. This is a count over certified queries and shows what snapping buys.
+- Recall and installed rate of the baselines at the output.
