@@ -466,3 +466,11 @@ The cone variants' accuracy at f = 4 (which needs 2f + 1 = 9 agreeing sources) i
 **Descriptive.**
 - Raw transfer failures (Tabayyun-W without snapping): queries whose read-level certificate holds but whose unsnapped next token differs from the unsnapped reference. This is a count over certified queries and shows what snapping buys.
 - Recall and installed rate of the baselines at the output.
+
+---
+
+## Amendment 21 (2026-11-18, change of hardware for Day 24; registered BEFORE any confirmatory result of Amendments 19–20)
+The Windows/RTX 5080 machine refused to load PyTorch's CUDA library: an operating-system Application Control policy blocked it (WinError 4551). No Day 24 command ran.
+- **E14** (Amendment 19, CPU only) runs unchanged in the cloud container.
+- **E15** (Amendment 20) runs on an Apple-silicon Mac with the MPS backend (`scripts/run_mac.sh`). Because the hardware is slower, the confirmatory trials are reduced from 1500–1519 to **1500–1509**. Everything else is unchanged: models, cells, attacks, defences, the clean ε rule and criteria M1–M4.
+- One code change was needed for MPS, which has no float64. The agreement gate's tie-break key (member count, then tightness) is now computed in float64 on the CPU. It gives the same result as before on CUDA and CPU, and all 71 tests pass.

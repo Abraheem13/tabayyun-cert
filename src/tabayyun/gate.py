@@ -121,8 +121,9 @@ def _agreement_gate(D: torch.Tensor, cfg: GateConfig, norms: torch.Tensor, activ
     inball = (dist <= r.view(K, 1, 1)) & act.unsqueeze(1) & act.unsqueeze(2)
     cnt = inball.sum(-1)                                                 # (K, n)
     tot = (dist * inball).sum(-1)
-    key = cnt.to(torch.float64) - 0.5 * tot.to(torch.float64) / (tot.max().to(torch.float64) + 1e-12)
-    centre = key.argmax(1)                                               # most members, then tightest
+    cnt64, tot64 = cnt.cpu().to(torch.float64), tot.cpu().to(torch.float64)   # float64 on CPU (MPS has none)
+    key = cnt64 - 0.5 * tot64 / (tot64.max() + 1e-12)
+    centre = key.argmax(1).to(D.device)                                  # most members, then tightest
     C = inball[torch.arange(K, device=D.device), centre].T               # (n, K)
     srt, c = _masked_sorted(D, C)
     promoted = (c >= cfg.k) & (s > 0)
