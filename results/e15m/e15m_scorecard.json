@@ -1,0 +1,168 @@
+{
+ "e15m_gpt2xl_confirm_summary": {
+  "table": {
+   "no_memory": {
+    "final_recall": 0.0,
+    "worst_final_installed": 0.0
+   },
+   "oracle_value": {
+    "final_recall": 1.0,
+    "worst_final_installed": 0.0
+   },
+   "titans": {
+    "final_recall": 0.957,
+    "worst_final_installed": 0.5
+   },
+   "agg_trmean": {
+    "final_recall": 0.806,
+    "worst_final_installed": 0.425
+   },
+   "agg_median": {
+    "final_recall": 0.756,
+    "worst_final_installed": 0.3
+   },
+   "agg_geomed": {
+    "final_recall": 0.772,
+    "worst_final_installed": 0.3
+   },
+   "robustrag": {
+    "final_recall": 0.447,
+    "worst_final_installed": 0.075
+   },
+   "tabayyun_strict": {
+    "final_recall": 0.667,
+    "worst_final_installed": 0.025,
+    "final_certified_correct": 0.647,
+    "worst_final_served_installed": 0.025
+   },
+   "tabayyun_w": {
+    "final_recall": 0.866,
+    "worst_final_installed": 0.025,
+    "final_certified_correct": 0.86,
+    "worst_final_served_installed": 0.025
+   },
+   "tabayyun_w_raw": {
+    "final_recall": 0.859,
+    "worst_final_installed": 0.0
+   }
+  },
+  "M1_final_violations": 0,
+  "M1_read_violations": 0,
+  "M2_exceptions": [],
+  "M3_served_installed_exceptions": [
+   [
+    "locality|f=3|rho=0.4|R=1",
+    "tabayyun_strict",
+    0.025
+   ],
+   [
+    "locality|f=3|rho=0.4|R=1",
+    "tabayyun_w",
+    0.025
+   ],
+   [
+    "locality|f=3|rho=0.7|R=1",
+    "tabayyun_strict",
+    0.025
+   ]
+  ],
+  "M4_certified_correct_well_observed": {
+   "tabayyun_strict": 0.941,
+   "tabayyun_w": 0.967
+  },
+  "oracle_edit_success_well_observed": 1.0,
+  "raw_transfer_failures": [
+   3,
+   19806
+  ],
+  "verdict": {
+   "M1": true,
+   "M2": true,
+   "M3": false,
+   "M4": true
+  }
+ },
+ "e15m_qwen15b_confirm_summary": {
+  "table": {
+   "no_memory": {
+    "final_recall": 0.0,
+    "worst_final_installed": 0.0
+   },
+   "oracle_value": {
+    "final_recall": 1.0,
+    "worst_final_installed": 0.0
+   },
+   "titans": {
+    "final_recall": 0.955,
+    "worst_final_installed": 0.5
+   },
+   "agg_trmean": {
+    "final_recall": 0.749,
+    "worst_final_installed": 0.375
+   },
+   "agg_median": {
+    "final_recall": 0.699,
+    "worst_final_installed": 0.3
+   },
+   "agg_geomed": {
+    "final_recall": 0.722,
+    "worst_final_installed": 0.35
+   },
+   "robustrag": {
+    "final_recall": 0.438,
+    "worst_final_installed": 0.275
+   },
+   "tabayyun_strict": {
+    "final_recall": 0.666,
+    "worst_final_installed": 0.025,
+    "final_certified_correct": 0.651,
+    "worst_final_served_installed": 0.025
+   },
+   "tabayyun_w": {
+    "final_recall": 0.875,
+    "worst_final_installed": 0.025,
+    "final_certified_correct": 0.868,
+    "worst_final_served_installed": 0.0
+   },
+   "tabayyun_w_raw": {
+    "final_recall": 0.875,
+    "worst_final_installed": 0.0
+   }
+  },
+  "M1_final_violations": 40,
+  "M1_read_violations": 0,
+  "M2_exceptions": [],
+  "M3_served_installed_exceptions": [
+   [
+    "locality|f=3|rho=0.4|R=1",
+    "tabayyun_strict",
+    0.025
+   ],
+   [
+    "locality|f=3|rho=0.4|R=3",
+    "tabayyun_strict",
+    0.025
+   ],
+   [
+    "locality|f=3|rho=0.7|R=1",
+    "tabayyun_strict",
+    0.025
+   ]
+  ],
+  "M4_certified_correct_well_observed": {
+   "tabayyun_strict": 0.951,
+   "tabayyun_w": 0.975
+  },
+  "oracle_edit_success_well_observed": 1.0,
+  "raw_transfer_failures": [
+   35,
+   19578
+  ],
+  "verdict": {
+   "M1": false,
+   "M2": true,
+   "M3": false,
+   "M4": true
+  }
+ }
+}
