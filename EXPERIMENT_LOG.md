@@ -855,3 +855,52 @@ E13 `--facts_per_shard 32` on `gpt2-xl`, d_k = 1024, trials 1400–1409, 3,360 r
 - **Day 22's capacity limit is removed.** With 32 facts per shard, recall, security and certification are flat from 16 to 1,024 facts.
 - **Cost** grows linearly in F (≈ 2.2 ms per fact per round, combine + certificate, RTX 5080), ≈ 13× TrMean. The quarantine writes (6 s per round at F = 1024) are shared by every per-source defence.
 - **Unexpected and reported as found:** with sharding the robust aggregators become *more* attackable under the static edge attack (TrMean 0.50 → 0.95–1.00, median 0.40 → 0.85). With 32 facts per shard their coordinate-wise statistics are computed over fewer, less-mixed values, which the edge attack exploits. In Amendment 18's exploratory run (`gpt2`, F = 256, 2 trials) the opposite was seen (0.25 → 0.00). Sharding is therefore not a fix for the baselines.
+
+---
+
+## Day 24 (2026-11-20): real multi-source tier (Amendment 19) and memory inside the network (Amendment 20)
+
+**Hardware.** The Windows application-control block was cleared on the user's machine, and Day 24 ran there (RTX 5080, host recorded in the registry) with the original Amendment 20 protocol: trials 1500–1519. Amendment 21 (Mac, trials 1500–1509) was therefore not used. Its one code change (gate tie-break key computed in float64 on the CPU) was in the code that ran, and it is numerically identical on CUDA.
+
+### E14: 36 real web sources (Flight, Dec 2011), 31 days, f ∈ {1, 2, 4}, trials 1500–1504, 24,180 rows, 5,247 s
+
+**ε.** Clean ε rule: the objective is identical for every ε in the grid (1.565), so ε = 0.1 is selected. With orthonormal keys and categorical values, honest reports of the same value coincide exactly, and the radius plays no role.
+
+| f | W acc. / cert-correct / worst inst. | strict acc. / worst inst. | TrMean | median | GeoMed | mean | vote acc. / worst inst. |
+|---|---|---|---|---|---|---|---|
+| 1 | 0.789 / 0.789 / 0.000 | 0.787 / 0.000 | 0.123 | 0.074 | 0.132 | 0.397 | 0.791 / 0.000 |
+| 2 | 0.787 / 0.787 / 0.000 | 0.773 / 0.000 | 0.416 | 0.306 | 0.442 | 0.500 | 0.789 / 0.006 |
+| 4 | 0.773 / 0.773 / 0.003 | 0.673 / 0.006 | 0.500 | 0.497 | 0.500 | 0.503 | 0.790 / 0.023 |
+
+**Criteria.**
+- **F1 PASS:** 0 violations.
+- **F2 PASS:** worst installed ≤ 0.006.
+- **F3 PASS:** W ≥ vote − 0.017.
+- **F4 FAIL:** W certified-and-correct 0.789 / 0.787 / 0.773, against a threshold of 0.80. Every correct W answer is certified (certified-and-correct = accuracy), and accuracy is capped by the sources themselves: the plurality vote over all reports reaches only 0.79. The threshold was set from the 3-day smoke run, where the vote reached 0.88.
+- **F5 PASS:** TrMean − W worst installed is 0.416 [0.387, 0.442] at f = 2 and 0.497 [0.490, 0.500] at f = 4.
+
+**The single served-installed case (f = 4, 2011-12-26, trial 1502, target 299) is not an attack success.** 11 of the 18 uncompromised real sources report exactly the attacker's value (gold + 2 h); only 1 reports the gold value. The certified answer is the honest majority's answer, and the gold label disagrees with the sources.
+
+### E15: memory read after block L/2, certified snapping, scored at the LM output; 16 cells × 4 attacks × 20 trials per model
+
+| model (ε_W) | oracle edit / no memory | W: recall / cert-correct / worst inst. | strict: recall / cert-correct / worst inst. | Titans | TrMean | median | GeoMed | RobustRAG |
+|---|---|---|---|---|---|---|---|---|
+| gpt2-xl (0.2) | 1.00 / 0.00 | 0.866 / 0.860 / 0.025 | 0.667 / 0.647 / 0.025 | 0.50 | 0.425 | 0.30 | 0.30 | 0.075 |
+| Qwen2.5-1.5B (0.3) | 1.00 / 0.00 | 0.875 / 0.868 / 0.025 | 0.666 / 0.651 / 0.025 | 0.50 | 0.375 | 0.30 | 0.35 | 0.275 |
+
+(The baseline columns are worst installed.)
+
+**Criteria.**
+- **M2 PASS** for both models.
+- **M4 PASS** for both models: well-observed certified-and-correct is 0.94 / 0.97 (gpt2-xl) and 0.95 / 0.98 (Qwen), against an oracle of 1.00.
+- **M1:** PASS on gpt2-xl (0 output differences); **FAIL on Qwen**, with 40 certified queries out of 19,578 whose next token differs from the reference next token.
+  - Read-level violations are 0, so for each of these queries the snapped codebook index equals the reference index, and the two injected vectors are identical.
+  - The 40 differences are therefore two executions of the same forward pass giving different tokens: non-determinism of the batched low-precision inference, not a failure of the certificate's logic.
+  - The code does not fix the model precision, so with the library default (dtype = "auto") Qwen2.5 runs in its checkpoint precision (bfloat16) and GPT-2 XL in float32. The unsnapped-read transfer failures show the same split (35 vs 3).
+  - The proposition holds under deterministic execution, and the paper states this assumption.
+- **M3 FAIL** (served-installed must be 0) for both models: 1 of 40 targets in 3 cells per model. The cases are concentrated in one trial per model (gpt2-xl 1507, Qwen 1514), locality f = 3.
+  - In those trials the same targets are already answered wrongly **without any attack**: strict amnesia 1.0 at attack = none, with certified fraction 1.0. Neither target has enough witnesses for its own direction to be promoted.
+  - The certificate is sound (read violations 0: the attack-free reference snaps to the same entry). The failure is the snap itself: the read of an unpromoted fact is small, yet it is snapped to some codebook entry, and one candidate is the attacker's value for that prompt.
+  - **Remedy (not tested, for the paper's limitations):** restrict the snap codebook to values asserted by at least f + 1 sources, or abstain when the read is far from every entry.
+
+**Unsnapped reads.** Raw transfer failures are 3 / 19,806 (gpt2-xl) and 35 / 19,578 (Qwen) certified queries. Without snapping, the read-level certificate does not carry through the remaining blocks, which is what snapping removes.
