@@ -157,7 +157,7 @@ def out_of_model(r):
     """Runs outside the threat model or the design, by pre-registration: momentum in M^P (A4 ablation,
     Amendment 7) and more adversaries than the gate assumes (Sybils beyond f, Amendment 9)."""
     return str(r.get("defence", "")).startswith("tab_etaP") or (r.get("part") == "SYB" and (r.get("f_act") or 0) > 2)
-for f in sorted(R.glob("e0[2-9]/*.json")) + sorted(R.glob("e1[0-3]/*.json")):
+for f in sorted(R.glob("e0[2-9]/*.json")) + sorted(R.glob("e1[0-4]/*.json")) + sorted(R.glob("e15m/*.json")):
     if any(x in f.name for x in ("summary", "scorecard", "smoke", "tuning", "explore", "prereg")) or f.name.startswith("e01"):
         continue
     if f.parent.name == "e03":
@@ -178,6 +178,10 @@ for f in sorted(R.glob("e0[2-9]/*.json")) + sorted(R.glob("e1[0-3]/*.json")):
                 audit["out_of_model_rows"] += 1; audit["out_of_model_violations"] += v
             else:
                 audit["tab_rows"] += 1; audit["violations"] += v
+        if "final_violations" in r:                      # E15: identity of the LM output (Proposition 1)
+            audit["output_rows"] = audit.get("output_rows", 0) + 1
+            audit["output_violations"] = audit.get("output_violations", 0) + int(r["final_violations"])
+            audit["output_certified"] = audit.get("output_certified", 0) + int(round(r["certified_frac"] * 16))
 N["audit"] = audit
 
 (OUT / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
@@ -301,3 +305,38 @@ c = lambda t: f"{t[0]:+.3f} [{t[1]:+.3f}, {t[2]:+.3f}]"  # noqa: E731
                                           for nm, v in CI.items()) + "\n")
 N["ci_locality"] = CI
 (OUT / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
+
+
+# ---------------------------------------------------------------- Tier R (real sources, E14) and Tier M (mid-layer memory, E15)
+E14 = J("e14/e14_confirm_scorecard.json")["table"]
+M = {t: J(f"e15m/e15m_{t}_confirm_summary.json") for t in ("gpt2xl", "qwen15b")}
+
+
+def tierm(t, d, k):
+    v = [e for kk, e in M[t].items() if kk.endswith("|" + d)]
+    if k == "final_recall":
+        return float(np.nanmean([e[k] for e in v]))
+    return float(np.nanmax([e[k] for e in v]))
+
+
+RM = [("vote", "Plurality vote"), ("titans", "Titans (ungated)"), ("agg_mean", "Mean (FedAvg)"), ("agg_trmean", "Trimmed mean"),
+      ("agg_median", "Coordinate median"), ("agg_geomed", "Geometric median"), ("robustrag", "RobustRAG-style"),
+      ("tabayyun_strict", "Tabayyun-C"), ("tabayyun_w", "Tabayyun-W")]
+lines, NR = [], {}
+for d, nm in RM:
+    acc = np.mean([E14[f][d]["clean_accuracy"] for f in E14])
+    ins = max(E14[f][d]["worst_installed"] for f in E14)
+    row = [nm, f2(acc), f3(ins)]
+    for t in ("gpt2xl", "qwen15b"):
+        row += (["--", "--"] if d == "vote" else [f2(tierm(t, d, "final_recall")), f3(tierm(t, d, "worst_final_installed"))])
+    lines.append(" & ".join(row) + r" \\")
+    NR[d] = row[1:]
+(OUT / "tab_real.tex").write_text("\n".join(lines) + "\n")
+N["tier_r_m"] = NR
+N["tier_r"] = {f: {d: E14[f][d] for d in ("vote", "agg_trmean", "tabayyun_strict", "tabayyun_w")} for f in E14}
+N["tier_m"] = {t: {"oracle": tierm(t, "oracle_value", "final_recall"), "none": tierm(t, "no_memory", "final_recall"),
+                   "cc_W": float(np.mean([e["final_certified_correct_clean"] for k, e in M[t].items() if k.endswith("|tabayyun_w")])),
+                   "cc_C": float(np.mean([e["final_certified_correct_clean"] for k, e in M[t].items() if k.endswith("|tabayyun_strict")])),
+                   "raw_W": tierm(t, "tabayyun_w_raw", "final_recall")} for t in M}
+(OUT / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
+print(json.dumps({"audit": N["audit"], "tier_m": N["tier_m"]}, indent=1))
