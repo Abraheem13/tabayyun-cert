@@ -1,19 +1,21 @@
-% Every entry below was checked against Crossref or the arXiv API on 2026-11-17 (title, authors, year,
-% and venue/volume/pages/DOI where Crossref returns them). Entries without a DOI are conference papers
-% that Crossref does not index; their arXiv records were checked instead.
+% Bibliography audited on 2026-11-27 against Crossref, the arXiv API and publisher records.
+% Pages are omitted where the available sources disagree on pagination.
 
-@article{behrouz2024titans,
-  author  = {Ali Behrouz and Peilin Zhong and Vahab Mirrokni},
-  title   = {Titans: Learning to Memorize at Test Time},
-  journal = {arXiv preprint arXiv:2501.00663},
-  year    = {2024}
+@inproceedings{behrouz2024titans,
+  author    = {Ali Behrouz and Peilin Zhong and Vahab Mirrokni},
+  title     = {Titans: Learning to Memorize at Test Time},
+  booktitle = {Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)},
+  volume    = {38},
+  pages     = {125925--125962},
+  year      = {2025},
+  doi       = {10.52202/085713-3786}
 }
 
-@article{behrouz2025miras,
-  author  = {Ali Behrouz and Meisam Razaviyayn and Peilin Zhong and Vahab Mirrokni},
-  title   = {It's All Connected: A Journey Through Test-Time Memorization, Attentional Bias, Retention, and Online Optimization},
-  journal = {arXiv preprint arXiv:2504.13173},
-  year    = {2025}
+@inproceedings{behrouz2025miras,
+  author    = {Ali Behrouz and Meisam Razaviyayn and Peilin Zhong and Vahab Mirrokni},
+  title     = {It's All Connected: A Journey Through Test-Time Memorization, Attentional Bias, Retention, and Online Optimization},
+  booktitle = {Proc. Int. Conf. Learn. Represent. (ICLR)},
+  year      = {2026}
 }
 
 @inproceedings{schlag2021linear,
@@ -26,15 +28,17 @@
   year      = {2021}
 }
 
-@article{sun2024ttt,
-  author  = {Yu Sun and Xinhao Li and Karan Dalal and Jiarui Xu and Arjun Vikram and Genghan Zhang and others},
-  title   = {Learning to (Learn at Test Time): {RNNs} with Expressive Hidden States},
-  journal = {arXiv preprint arXiv:2407.04620},
-  year    = {2024}
+@inproceedings{sun2024ttt,
+  author    = {Yu Sun and Xinhao Li and Karan Dalal and Jiarui Xu and Arjun Vikram and Genghan Zhang and Yann Dubois and Xinlei Chen and Xiaolong Wang and Sanmi Koyejo and Tatsunori Hashimoto and Carlos Guestrin},
+  title     = {Learning to (Learn at Test Time): {RNNs} with Expressive Hidden States},
+  booktitle = {Proc. Int. Conf. Mach. Learn. (ICML)},
+  series    = {PMLR},
+  volume    = {267},
+  year      = {2025}
 }
 
 @article{chen2026fednl,
-  author  = {Hong Chen and Pengcheng Wu and Yuanguo Lin and Peilin Zhao and Xiuze Zhou},
+  author  = {Hong Chen and Pengcheng Wu and Yuanguo Lin and Peilin Zhao and Xiuze Zhou and Fan Lin and Han Yu},
   title   = {Federated Nested Learning: Collaborative Training of Self-Referential Memories for Test-Time Adaptation},
   journal = {arXiv preprint arXiv:2605.16350},
   year    = {2026}
@@ -51,7 +55,7 @@
 }
 
 @inproceedings{blanchard2017krum,
-  author    = {Peva Blanchard and El Mahdi El Mhamdi and Rachid Guerraoui and Julien Stainer},
+  author    = {Peva Blanchard and El Mahdi {El Mhamdi} and Rachid Guerraoui and Julien Stainer},
   title     = {Machine Learning with Adversaries: {Byzantine} Tolerant Gradient Descent},
   booktitle = {Proc. Adv. Neural Inf. Process. Syst. (NeurIPS)},
   volume    = {30},
@@ -107,7 +111,8 @@
   author    = {Virat Shejwalkar and Amir Houmansadr},
   title     = {Manipulating the {Byzantine}: Optimizing Model Poisoning Attacks and Defenses for Federated Learning},
   booktitle = {Proc. Netw. Distrib. Syst. Secur. Symp. (NDSS)},
-  year      = {2021}
+  year      = {2021},
+  doi       = {10.14722/ndss.2021.24498}
 }
 
 @article{cao2022flcert,
@@ -144,6 +149,7 @@
   author    = {Wei Zou and Runpeng Geng and Binghui Wang and Jinyuan Jia},
   title     = {{PoisonedRAG}: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models},
   booktitle = {Proc. USENIX Secur. Symp.},
+  pages     = {3827--3844},
   year      = {2025}
 }
 
@@ -157,11 +163,13 @@
   doi       = {10.52202/079017-4136}
 }
 
-@article{xiang2024robustrag,
-  author  = {Chong Xiang and Tong Wu and Zexuan Zhong and David Wagner and Danqi Chen and Prateek Mittal},
-  title   = {Certifiably Robust {RAG} against Retrieval Corruption},
-  journal = {arXiv preprint arXiv:2405.15556},
-  year    = {2024}
+@inproceedings{xiang2024robustrag,
+  author    = {Chong Xiang and Tong Wu and Zexuan Zhong and David Wagner and Danqi Chen and Prateek Mittal},
+  title     = {Certifiably Robust {RAG} against Retrieval Corruption},
+  booktitle = {Proc. IEEE Conf. Secure Trustworthy Mach. Learn. (SaTML)},
+  pages     = {392--410},
+  year      = {2026},
+  doi       = {10.1109/SaTML68715.2026.00029}
 }
 
 @article{sharma2026smsr,
@@ -182,6 +190,7 @@
   author    = {Battista Biggio and Blaine Nelson and Pavel Laskov},
   title     = {Poisoning Attacks against Support Vector Machines},
   booktitle = {Proc. Int. Conf. Mach. Learn. (ICML)},
+  pages     = {1807--1814},
   year      = {2012}
 }
 
@@ -211,15 +220,6 @@
   year      = {2021}
 }
 
-@inproceedings{cohen2019smoothing,
-  author    = {Jeremy Cohen and Elan Rosenfeld and J. Zico Kolter},
-  title     = {Certified Adversarial Robustness via Randomized Smoothing},
-  booktitle = {Proc. Int. Conf. Mach. Learn. (ICML)},
-  series    = {PMLR},
-  volume    = {97},
-  pages     = {1310--1320},
-  year      = {2019}
-}
 
 @article{lamport1982byzantine,
   author  = {Leslie Lamport and Robert Shostak and Marshall Pease},
@@ -315,7 +315,7 @@
 }
 
 @inproceedings{arora2024zoology,
-  author    = {Simran Arora and Sabri Eyuboglu and Aman Timalsina and Isys Johnson and Michael Poli and James Zou and others},
+  author    = {Simran Arora and Sabri Eyuboglu and Aman Timalsina and Isys Johnson and Michael Poli and James Zou and Atri Rudra and Christopher R{\'e}},
   title     = {Zoology: Measuring and Improving Recall in Efficient Language Models},
   booktitle = {Proc. Int. Conf. Learn. Represent. (ICLR)},
   year      = {2024}
@@ -337,7 +337,7 @@
 
 @article{polese2023coloran,
   author  = {Michele Polese and Leonardo Bonati and Salvatore D'Oro and Stefano Basagni and Tommaso Melodia},
-  title   = {{ColO-RAN}: Developing Machine Learning-Based {xApps} for Open {RAN} Closed-Loop Control on Programmable Experimental Platforms},
+  title   = {{ColO-RAN}: Developing Machine Learning-Based {xApps} for {Open RAN} Closed-Loop Control on Programmable Experimental Platforms},
   journal = {IEEE Trans. Mobile Comput.},
   volume  = {22},
   number  = {10},
@@ -371,7 +371,8 @@
   author    = {Hyunjik Kim and George Papamakarios and Andriy Mnih},
   title     = {The {L}ipschitz Constant of Self-Attention},
   booktitle = {Proc. Int. Conf. Mach. Learn. (ICML)},
-  series    = {Proc. Mach. Learn. Res.},
+  series    = {PMLR},
   volume    = {139},
+  pages     = {5562--5571},
   year      = {2021}
 }
