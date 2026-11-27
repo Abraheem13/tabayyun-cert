@@ -64,8 +64,11 @@ def worst(files, key, defs):
     return out
 
 ADV = ["tabayyun", "tabayyun_strict", "tabayyun_w", "agg_trmean", "agg_median", "agg_geomed", "agg_krum", "robustrag"]
-tierB_static = {d: max(static[t][d]["inst_worst"] for t in ("d128", "d256", "d512")) for d in DEFS}
-tierD_static = {d: max(static[t][d]["inst_worst"] for t in ("gpt2xl", "qwen15b")) for d in DEFS}
+# static column: every confirmatory static run (Amendments 3/10 trials 200-299 and 800-899, and 1100-1199)
+_eB = worst([f"e04/e04_{t}_confirm_summary.json" for t in ("d128", "d256", "d512")], "worst_installed", DEFS)
+_eD = worst([f"e10/e10_{t}_confirm_summary.json" for t in ("gpt2xl", "qwen15b")], "worst_installed", DEFS)
+tierB_static = {d: max([static[t][d]["inst_worst"] for t in ("d128", "d256", "d512")] + [_eB.get(d, 0.0)]) for d in DEFS}
+tierD_static = {d: max([static[t][d]["inst_worst"] for t in ("gpt2xl", "qwen15b")] + [_eD.get(d, 0.0)]) for d in DEFS}
 tierB_pgd = worst(["e05/e05_d128_confirm_summary.json", "e05/e05_d256_confirm_summary.json"], "pgd_installed", ADV)
 tierB_union = worst([f"e05/e05_{t}_union_summary.json" for t in ("d128", "d256", "d512")] +
                     [f"e05/e05_{t}_w_summary.json" for t in ("d128", "d256", "d512")], "pgd_installed", ADV)
@@ -231,7 +234,7 @@ for cfg in ["n=10,f=2", "n=20,f=2", "n=40,f=2", "n=80,f=2", "n=40,f=1", "n=40,f=
 (OUT / "tab_witness.tex").write_text("\n".join(lines) + "\n")
 
 FN = {"fedavg_titans": "FedAvg over Titans", "fed_mean": "Mean", "fed_trmean": "Trimmed mean", "fed_median": "Median",
-      "fed_krum": "Krum", "fed_geomed": "Geometric median", "fed_tabayyun": "Tabayyun (two-level)"}
+      "fed_krum": "Krum", "fed_geomed": "Geometric median", "fed_tabayyun": "Tabayyun-C (two-level)"}
 lines = []
 for d in ["fedavg_titans", "fed_mean", "fed_trmean", "fed_median", "fed_krum", "fed_geomed", "fed_tabayyun"]:
     e = N["fed"][d]

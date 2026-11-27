@@ -48,6 +48,7 @@
 }
 
 \begin{document}
+\bstctlcite{IEEEexample:BSTcontrol}
 
 \title{Corroborate Before You Remember: Witness-Optimal Certified Test-Time Memory Under Byzantine Poisoning}
 
@@ -66,7 +67,7 @@
 \maketitle
 
 \begin{abstract}
-Test-time memories write every observed association into shared weights by a gradient step. With several sources, a few compromised ones can implant false facts, and because writes superpose in the weights, the per-item provenance that retrieval-store defences rely on is lost. This work introduces Tabayyun, a two-tier memory in which each source writes only to its own quarantine and an association is promoted to the shared tier only when enough independent sources corroborate it. The promoted value is a trimmed mean over the corroborators and carries a runtime bound on its deviation from the honest consensus that no bound computed from the observed values can improve. Agreement among f+1 sources is necessary and sufficient for bounded error and 2f+1 for range validity, independently of the number of sources, whereas majority aggregation needs over half. Snapping the read to a certified stored value carries the certificate through later layers under deterministic inference. Pre-registered experiments covered seven substrates, including two frozen pretrained language models with the memory at the output and inside the network, 36 real web sources of flight times, federated clients and radio access network traces. No memory certificate was violated in 247,130 certified runs inside the threat model. Under union attacks combining gradient and static attacks, the agreement-gated variant was installed on at most 5.0 percent of targeted facts, against up to 100 percent for the trimmed mean. On real sources it stayed within 1.7 points of plurality voting, while the trimmed mean was installed on half the targets.
+Test-time memories write every observed association into shared weights by a gradient step. With several sources, a few compromised ones can implant false facts, and because writes superpose in the weights, the per-item provenance used by retrieval-store defenses is lost. Tabayyun is a two-tier memory in which each source writes only to its own quarantine and an association is promoted to the shared tier only when enough independent sources corroborate it. The promoted value, a trimmed mean over the corroborators, carries a runtime bound on its deviation from the honest consensus; with at least 2f+1 corroborators, f being the tolerated number of compromised sources, no sound bound computed from the observed values is smaller. Agreement among f+1 sources is necessary and sufficient for bounded error and 2f+1 for range validity, independently of the number of sources, whereas the median and trimmed mean lose facts known to at most half of them. Snapping the read to a certified stored value carries the certificate through later network layers under deterministic inference. Pre-registered experiments covered seven substrates, including two frozen pretrained language models, 36 real web sources of flight times, federated clients, and radio access network traces. No memory certificate was violated in 247,130 certified runs inside the threat model. Under union attacks combining gradient and static attacks, the agreement-gated variant admitted the attacker's value for at most 5.0\% of targets, against up to 100\% for the trimmed mean. On the real sources, its accuracy was within 1.7 percentage points of plurality voting.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -75,55 +76,33 @@ Byzantine robustness, certified defense, data poisoning, federated learning, lan
 
 %======================================================================
 \section{Introduction}
-\IEEEPARstart{L}{anguage} models with test-time memory adapt part of their parameters while they read. Titans~\cite{behrouz2024titans} and the Miras family~\cite{behrouz2025miras} store key--value associations in a neural memory by an online regression step, following fast-weight programmers~\cite{schlag2021linear} and test-time training layers~\cite{sun2024ttt}; federated nested learning trains, across clients, the parameters that govern how such memories are written~\cite{chen2026fednl}. In deployment, the associations originate from many sources: retrieved documents, tool outputs, users and, in the federated case, other clients. Every source therefore writes into the same parameters that later queries read, and a compromised source can implant a false association. On the substrates studied here, an ungated test-time memory accepted the attacker's value for up to 61\% of targeted facts on trained memory language models and up to 72\% on frozen pretrained models, under plain assertion attacks alone.
+\IEEEPARstart{L}{anguage} models with test-time memory update part of their parameters at inference time. Titans~\cite{behrouz2024titans} and the Miras family~\cite{behrouz2025miras} store key--value associations in a neural memory by an online regression step, following fast-weight programmers~\cite{schlag2021linear} and test-time training layers~\cite{sun2024ttt}; federated nested learning trains, across clients, the parameters that govern how such memories are written~\cite{chen2026fednl}. In deployment, the associations originate from many sources: retrieved documents, tool outputs, users, and, in the federated case, other clients. Every source therefore writes into the same parameters that later queries read, and a compromised source can implant a false association. Under plain assertion attacks, with each false fact asserted four times, an ungated test-time memory accepted the attacker's value for up to 61\% of targeted facts in the trained memory language models studied here and for up to 72\% in frozen pretrained language models.
 
-Existing defences do not transfer to this setting. Byzantine-robust aggregation (trimmed mean and median~\cite{yin2018byzantine}, Krum~\cite{blanchard2017krum}, the geometric median~\cite{pillutla2022rfa}, centered clipping~\cite{karimireddy2021history}, FLTrust~\cite{cao2021fltrust}) assumes that every honest participant estimates the same quantity, so a fact known to a minority of sources is outvoted by the sources that do not know it; it is also exposed to optimized attacks~\cite{fang2020local,baruch2019little,shejwalkar2021manipulating}. Defences for retrieval stores and agent memories (RobustRAG~\cite{xiang2024robustrag}, SMSR~\cite{sharma2026smsr}, origin-bound elevation~\cite{louck2026tma}) isolate or vote over discrete items, whose origin the agent-memory defences also record. In a parametric memory every write superposes into the same weights, and no item carries its origin.
+Existing defenses do not transfer to this setting. Byzantine-robust aggregation (trimmed mean and median~\cite{yin2018byzantine}, Krum~\cite{blanchard2017krum}, the geometric median~\cite{pillutla2022rfa}, centered clipping~\cite{karimireddy2021history}, and FLTrust~\cite{cao2021fltrust}) assumes that every honest participant estimates the same quantity. A fact known to a minority of sources is therefore outvoted by the sources that do not know it, and these aggregators are also exposed to optimized attacks~\cite{fang2020local,baruch2019little,shejwalkar2021manipulating}. Defenses for retrieval stores and agent memories (RobustRAG~\cite{xiang2024robustrag}, SMSR~\cite{sharma2026smsr}, and origin-bound authority~\cite{louck2026tma}) isolate or vote over discrete items, whose origin the agent-memory defenses also record. In a parametric memory, by contrast, every write superposes into the same weights, and no item carries its origin.
 
-This work addresses a single question: \emph{how many independent sources must agree before a memory may accept a fact, and what can then be guaranteed about the accepted value?} The proposed memory, Tabayyun\footnote{In Arabic, \emph{tabayyun} denotes verifying a report before acting on it.}, keeps one quarantine per source and promotes a direction of key space to a shared, linear tier only when $k$ sources corroborate it. Two gates are studied: a cone gate with $k=2f+1$ (\TabC), which keeps every promoted value inside the range of the honest values, and an agreement gate with $k=f+1$ (\TabW), which bounds the deviation by a tolerance chosen by the defender.
+This work addresses a single question: \emph{how many independent sources must agree before a memory may accept a fact, and what can then be guaranteed about the accepted value?} The proposed memory, Tabayyun\footnote{In Arabic, \emph{tabayyun} denotes verifying a report before acting on it.}, keeps one quarantine per source and promotes a direction in key space to a shared linear tier, the \emph{promoted tier}, only when at least $k$ sources corroborate it. With $f$ the number of Byzantine sources to be tolerated, two gates are studied: a cone gate with $k=2f+1$ (\TabC), which keeps every promoted value inside the range of the honest values, and a witness-optimal agreement gate with $k=f+1$ (\TabW), which bounds the deviation by a tolerance chosen by the defender.
 
-The contributions are the following.
+The contributions are as follows.
 \begin{enumerate}
-\item A two-tier memory with per-source quarantine, corroborated promotion and certify-or-abstain serving (Section~\ref{sec:method}). Sharding by key extends it to large memories at a cost linear in the number of facts.
-\item Guarantees (Section~\ref{sec:theory}): forgery resistance (no direction without an honest witness is promoted), a per-query runtime certificate for the promoted tier and a token-level action certificate, and instance optimality of the certificate.
-\item The witness complexity of corroborated promotion (Theorem~\ref{thm:witness}): $f+1$ agreeing witnesses are necessary and sufficient for bounded error and $2f+1$ for coordinate-wise range validity, independently of the number of sources $n$, whereas majority aggregation requires more than $n/2$.
-\item Certified snapping (Proposition~\ref{prop:snap}): when the read is replaced by the stored value it certifiably selects, the output of every later layer equals the output under the honest reference, with no Lipschitz constant of those layers.
-\item A pre-registered evaluation on seven substrates, including 36 real web sources and a memory inside a pretrained network, with static, gradient-based and union attackers (Sections~\ref{sec:setup} and~\ref{sec:results}). Twenty-one amendments fixed the criteria before each confirmatory run, and failed criteria are reported as failures.
+\item A two-tier memory with per-source quarantine, corroborated promotion, and certify-or-abstain serving (Section~\ref{sec:method}). Sharding by key extends it to large memories at a cost linear in the number of facts.
+\item Guarantees (Section~\ref{sec:theory}): forgery resistance, that is, no direction without an honest witness is promoted; a per-query runtime certificate for the promoted tier and a token-level action certificate; and instance optimality of the runtime certificate when at least $2f+1$ sources corroborate.
+\item The witness complexity of corroborated promotion (Theorem~\ref{thm:witness}): $f+1$ agreeing witnesses are necessary and sufficient for bounded error, and $2f+1$ for coordinate-wise range validity, independently of the number $n$ of sources, whereas the coordinate-wise median and the trimmed mean require more than $n/2$.
+\item Certified snapping (Proposition~\ref{prop:snap}): when the read is replaced by the stored value that it certifiably selects, the output of every later layer equals the output under the honest reference, provided that inference is deterministic; no Lipschitz constant of those layers is required.
+\item A pre-registered evaluation on seven substrates, including a truth-discovery data set with 36 real web sources and a memory inside a pretrained network, against static, gradient, and union attackers (Sections~\ref{sec:setup} and~\ref{sec:results}). Twenty-one amendments fixed the criteria before each confirmatory run, and failed criteria are reported as failures.
 \end{enumerate}
-Section~\ref{sec:related} reviews related work, Section~\ref{sec:model} defines the threat model, Section~\ref{sec:discussion} discusses limitations, and Section~\ref{sec:conclusion} concludes.
+Section~\ref{sec:related} reviews related work, Section~\ref{sec:model} defines the system and threat models, Sections~\ref{sec:method}--\ref{sec:results} present the method, the analysis, the methodology, and the results, Section~\ref{sec:discussion} discusses scope and limitations, and Section~\ref{sec:conclusion} concludes.
 
 %======================================================================
 \section{Related Work}\label{sec:related}
-\emph{Poisoning and Byzantine-robust learning.} Gradient-based poisoning was introduced for support vector machines~\cite{biggio2012poisoning} and later extended to distributed and federated training. Robust aggregators bound the influence of $f$ faulty updates~\cite{yin2018byzantine,blanchard2017krum,pillutla2022rfa,karimireddy2021history,cao2021fltrust}, and optimized attacks exploit the slack of these bounds in high dimension~\cite{fang2020local,baruch2019little,shejwalkar2021manipulating}. Certified defences bound the effect of poisoned training data~\cite{steinhardt2017certified,jia2021bagging,levine2021dpa} or of poisoned clients~\cite{cao2022flcert}, and privacy-preserving variants appear in~\cite{ma2022shieldfl,liu2021privacy}. All of them operate on entire updates or training sets; the aggregators assume an honest majority of participants, except FLTrust, which relies on a root data set held by the server.
+\emph{Poisoning and Byzantine-robust learning.} Gradient-based poisoning was introduced for support vector machines~\cite{biggio2012poisoning} and later extended to distributed and federated training. Robust aggregators bound the influence of $f$ faulty updates~\cite{yin2018byzantine,blanchard2017krum,pillutla2022rfa,karimireddy2021history,cao2021fltrust}, and optimized attacks exploit the slack of these bounds in high dimensions~\cite{fang2020local,baruch2019little,shejwalkar2021manipulating}. Certified defenses bound the effect of poisoned training data~\cite{steinhardt2017certified,jia2021bagging,levine2021dpa} or of poisoned clients~\cite{cao2022flcert}, and privacy-preserving Byzantine-robust aggregation is proposed in~\cite{ma2022shieldfl,liu2021privacy}. All of them operate on entire updates or training sets; the aggregators assume an honest majority of participants, except FLTrust, which relies on a root data set held by the server.
 
-\emph{Memory and retrieval poisoning.} PoisonedRAG~\cite{zou2025poisonedrag} and AgentPoison~\cite{chen2024agentpoison} corrupt retrieval stores and agent memories. RobustRAG~\cite{xiang2024robustrag} answers from each retrieved passage in isolation and aggregates the answers, SMSR~\cite{sharma2026smsr} certifies by randomized ablation and voting, and origin-bound authority~\cite{louck2026tma} elevates an item only after Sybil-resistant corroboration and binds authority to its write-time origin. The last mechanism is the closest to the present work. It requires corroboration by independent trusted principals for discrete, provenance-tagged items; Tabayyun operates on superposed parametric memory, applies a robust statistic inside the corroborating set, and returns a quantitative certificate. A count-only port of corroboration to parametric memory was installed on about half of the targets in the experiments of Section~\ref{sec:results}.
+\emph{Memory and retrieval poisoning.} PoisonedRAG~\cite{zou2025poisonedrag} and AgentPoison~\cite{chen2024agentpoison} corrupt retrieval stores and agent memories, respectively. RobustRAG~\cite{xiang2024robustrag} answers from each retrieved passage in isolation and aggregates the answers, and SMSR~\cite{sharma2026smsr} certifies by randomized ablation and voting. Origin-bound authority (TMA-NM)~\cite{louck2026tma} elevates an item only after Sybil-resistant corroboration by independent trusted principals and binds its authority to its write-time origin; it is the mechanism closest to the present work. It operates on discrete, provenance-tagged items, whereas Tabayyun operates on superposed parametric memory, applies a robust statistic within the corroborating set, and returns a quantitative certificate. Under a count-only port of this corroboration to parametric memory, the attacker's value was installed on about half of the targets in the experiments of Section~\ref{sec:results}.
 
-\emph{Test-time memory.} Titans~\cite{behrouz2024titans}, Miras~\cite{behrouz2025miras} and test-time training layers~\cite{sun2024ttt} update a memory by online regression, and federated nested learning~\cite{chen2026fednl} averages the parameters that govern memory writes across clients, while the memory states stay local. None of these works specifies a defence against malicious writers.
+\emph{Test-time memory.} Titans~\cite{behrouz2024titans}, Miras~\cite{behrouz2025miras} and test-time training layers~\cite{sun2024ttt} update a memory by online regression, and federated nested learning~\cite{chen2026fednl} averages the parameters that govern memory writes across clients, while the memory states stay local. None of these works specifies a defense against malicious writers.
 
-\emph{Truth discovery.} Truth discovery resolves conflicting reports of web sources by estimating the reliability of each source~\cite{li2012truth}; its Flight data set is used here as Tier R.
+\emph{Truth discovery.} Truth discovery resolves conflicting reports from web sources by estimating the reliability of each source~\cite{li2012truth}; the Flight data set of that study serves as Tier R (Section~\ref{sec:setup}).
 
-\emph{Byzantine agreement.} Byzantine agreement~\cite{lamport1982byzantine} and approximate agreement on real values~\cite{dolev1986approximate} tolerate $f$ faulty processes, and a client of a replicated service accepts a result after $f+1$ matching replies~\cite{castro1999pbft}. Vector consensus with convex-hull validity requires a number of processes that grows with the dimension~\cite{vaidya2013vector,mendes2013multidimensional}. The witness bounds of Theorem~\ref{thm:witness} use the weaker coordinate-wise range validity, which removes the dependence on dimension, and pair it with a runtime error bound. Table~\ref{tab:position} summarizes the comparison.
-
-\begin{table}[!t]
-\caption{Positioning by Method Class ($\checkmark$: Provided; --: Not Provided)}
-\label{tab:position}
-\centering\footnotesize
-\setlength{\tabcolsep}{3pt}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{@{}lccccc@{}}
-\toprule
-Class & Param. & Per-source & Witnesses & Runtime & Adaptive \\
- & memory & isolation & needed & bound & evaluation \\
-\midrule
-Robust aggregation~\cite{yin2018byzantine,blanchard2017krum,pillutla2022rfa} & $\checkmark$ & -- & $>n/2$ & -- & \cite{fang2020local,shejwalkar2021manipulating} \\
-Certified poisoning~\cite{jia2021bagging,levine2021dpa,cao2022flcert} & -- & partition & vote & $\checkmark$ & -- \\
-Retrieval / agent memory~\cite{xiang2024robustrag,sharma2026smsr} & -- & $\checkmark$ & majority & $\checkmark$ & $\checkmark$ \\
-Origin-bound elevation~\cite{louck2026tma} & -- & $\checkmark$ & $k$ & -- & $\checkmark$ \\
-Test-time memory~\cite{behrouz2024titans,chen2026fednl} & $\checkmark$ & -- & -- & -- & -- \\
-\midrule
-\TabC\ / \TabW\ (this paper) & $\checkmark$ & $\checkmark$ & $2f{+}1$ / $f{+}1$ & $\checkmark$ & $\checkmark$ \\
-\bottomrule
-\end{tabular}}
-\end{table}
+\emph{Byzantine agreement.} Byzantine agreement~\cite{lamport1982byzantine} and approximate agreement on real values~\cite{dolev1986approximate} tolerate $f$ faulty processes, and in practical Byzantine fault tolerance a client accepts a result after $f+1$ matching replies~\cite{castro1999pbft}. Vector consensus with convex-hull validity requires a number of processes that grows with the dimension~\cite{vaidya2013vector,mendes2013multidimensional}. The witness bounds of Theorem~\ref{thm:witness} use the weaker coordinate-wise range validity, which removes the dependence on the dimension, and pair it with a runtime error bound.
 
 %======================================================================
 \section{System Model and Threat Model}\label{sec:model}
@@ -135,23 +114,23 @@ A linear memory $\bm{M}\in\mathbb{R}^{d_v\times d_k}$ answers a query $\bm{q}$ w
 \bm{M}_t&=(1-\alpha)\bm{M}_{t-1}+\bm{S}_t,
 \end{aligned}
 \end{equation}
-with momentum $\eta$, step $\theta$ and forget gate $\alpha$. In a shared memory, all writes update the same matrix.
+with momentum $\eta$, step size $\theta$, and forget gate $\alpha$. In a shared memory, all writes update the same matrix.
 
 \subsection{Sources and Witnesses}
-There are $n$ sources $s\in[n]$. A fact $(\bm{k}_j,\bm{v}_j)$ is known to a set $H_j$ of honest sources, its \emph{witnesses}, of size $m_j=|H_j|$. Each witness observes the fact with probability $\rho$ in each of $R$ observation rounds and writes it when it observes it. Facts known to all honest sources form the \emph{dense} regime, and facts known to at most half of them form the \emph{locality} regime.
+There are $n$ sources, indexed by $s\in[n]=\{1,\dots,n\}$. A fact $(\bm{k}_j,\bm{v}_j)$ is known to a set $H_j$ of honest sources, its \emph{witnesses}, of size $m_j=|H_j|$. Each witness observes the fact with probability $\rho$ in each of $R$ observation rounds and writes it whenever it observes it. Facts known to all honest sources form the \emph{dense} regime, and facts known to at most half of them form the \emph{locality} regime.
 
 \subsection{Adversary}
-At most $f$ sources are Byzantine, and their identities are unknown. The adversary knows the memory, the gate and its parameters, and the state of every honest quarantine. Its sources may write arbitrary sequences of pairs; in the adaptive attacks of Section~\ref{sec:setup} they set the states of their own quarantines directly. The adversary aims to \emph{install} a target value $\bm{v}^\star$ at a key $\bm{k}^\star$, that is, to make the memory return $\bm{v}^\star$ or, for a language model, the attacker's token; or to cause \emph{amnesia}, the loss of the true value. The analysis rests on four assumptions.
+The identities of the Byzantine sources are unknown. The adversary knows the memory, the gate and its parameters, and the state of every honest quarantine. Its sources may write arbitrary sequences of pairs; in the adaptive attacks of Section~\ref{sec:setup} they set the states of their own quarantines directly. The adversary aims either to \emph{install} a target value $\bm{v}^\star$ at a key $\bm{k}^\star$, that is, to make the memory return $\bm{v}^\star$ (for a language model, the attacker's token), or to cause \emph{amnesia}, that is, the loss of the true value at $\bm{k}^\star$. The analysis rests on four assumptions.
 \begin{enumerate}
 \item[A1)] At most $f$ sources are Byzantine.
 \item[A2)] Honest sources are independent: the adversary does not control what they observe.
-\item[A3)] The memory read enters the downstream model through a linear map, or it is snapped to a stored value before it enters (Section~\ref{sec:serving}).
-\item[A4)] The promotion basis is frozen once a direction is added to it.
+\item[A3)] The memory read enters the downstream model through a linear map or is snapped to a stored value before entering it (Section~\ref{sec:serving}).
+\item[A4)] Each direction of the promotion basis is frozen once it has been added.
 \end{enumerate}
 Section~\ref{sec:limits} measures the consequences of violating A1 and A2.
 
 \subsection{Problem Statement and Metrics}
-Let $\Mpref$ denote the promoted memory obtained when every promoted value is replaced by the mean of the honest corroborators, under the same promotion decisions. A certificate is \emph{sound} for a query $\bm{q}$ if it upper-bounds $\|(\Mp-\Mpref)\bm{q}\|_2$. The design goals are (G1) no fact without an honest witness is promoted; (G2) every promoted value deviates from the honest consensus by a bounded amount that is certified at run time; (G3) facts known to few sources are served; and (G4) the cost grows linearly with the number of facts. The metrics are clean recall, the installed rate, the amnesia rate, the fraction of tokens that are certified and correct, and the \emph{served-installed} rate, the fraction of targets for which a wrong token is served under certify-or-abstain serving (Section~\ref{sec:serving}).
+Let $\Mpref$ denote the promoted memory obtained when every promoted value is replaced by the mean of the honest corroborators, under the same promotion decisions. A certificate is \emph{sound} for a query $\bm{q}$ if it upper-bounds $\|(\Mp-\Mpref)\bm{q}\|_2$. The design goals are as follows: (G1) no fact without an honest witness is promoted; (G2) every promoted value deviates from the honest consensus by a bounded amount that is certified at run time; (G3) facts known to few sources are served; and (G4) the cost grows linearly with the number of facts. \emph{Clean recall} is the fraction of non-target facts, observed by at least one honest source, whose value the memory returns without attack. The \emph{installed rate} is the fraction of targets for which it returns the attacker's value (for a language model, the attacker's token); it is called the flip rate when a served value switches to the attacker's and the hijack rate when a controller selects the attacker's action. The \emph{amnesia rate} is the fraction of targets whose true value is not returned. The \emph{certified-and-correct fraction} counts, over all facts of attack-free runs, the answers that are certified and correct, and the \emph{served-installed rate} is the fraction of targets for which the attacker's value is served under certify-or-abstain serving (Section~\ref{sec:serving}).
 
 %======================================================================
 \section{Method}\label{sec:method}
@@ -170,8 +149,8 @@ Fig.~\ref{fig:arch} shows the three paths of the memory. The write path keeps so
 \node[box, minimum width=14mm] (q2) at (2.6,-1.1) {$\Mq_2$};
 \node[font=\footnotesize] at (2.6,-2.0) {$\vdots$};
 \node[box, minimum width=14mm] (qn) at (2.6,-3.0) {$\Mq_n$};
-\node[lab] at (0,0.62) {Writers};
-\node[lab] at (2.6,0.62) {Quarantines, (\ref{eq:titans})};
+\node[lab] at (0,0.62) {Sources};
+\node[lab] at (2.6,0.62) {Quarantines~(\ref{eq:titans})};
 \draw[arr] (s1) -- (q1);
 \draw[arr] (s2) -- (q2);
 \draw[arr] (sn) -- (qn);
@@ -180,12 +159,12 @@ Fig.~\ref{fig:arch} shows the three paths of the memory. The write path keeps so
 \draw[thick] (qn.east) -- (3.9,-3.0);
 \draw[thick] (3.9,0) -- (3.9,-3.0);
 % ---------------- promotion path
-\node[box, minimum width=31mm] (basis) at (6.4,0.55) {Anchored basis $\bm{U}$\\keys of $\ge f{+}1$ writers};
-\node[box, minimum width=31mm] (reads) at (6.4,-0.75) {Direction reads\\$\bm{D}_{s,u}=\Mq_s\bm{u}$, (\ref{eq:reads})};
+\node[box, minimum width=31mm] (basis) at (6.4,0.55) {Anchored basis $\bm{U}$\\keys of $\ge f{+}1$ sources};
+\node[box, minimum width=31mm] (reads) at (6.4,-0.75) {Direction reads\\$\bm{D}_{s,u}=\Mq_s\bm{u}$~(\ref{eq:reads})};
 \node[box, minimum width=31mm] (gate) at (6.4,-2.05) {Gate, Fig.~\ref{fig:gate}\\(\ref{eq:active})--(\ref{eq:agree})};
 \node[box, minimum width=31mm] (val) at (6.4,-3.35) {Value $\bm{x}_u$, error $\bm{e}_u$\\(\ref{eq:value})--(\ref{eq:err})};
 \node[box, minimum width=31mm] (cert) at (10.75,-2.05) {Drift certificate $\bm{E}$\\(\ref{eq:drift})};
-\node[box, minimum width=31mm] (promo) at (10.75,-3.35) {Promoted tier $\Mp$\\linear, momentum-free, (\ref{eq:ema})};
+\node[box, minimum width=31mm] (promo) at (10.75,-3.35) {Promoted tier $\Mp$\\linear, momentum-free~(\ref{eq:ema})};
 \draw[arr] (3.9,-0.75) -- (reads.west);
 \draw[arr] (basis) -- (reads);
 \draw[arr] (reads) -- (gate);
@@ -193,8 +172,8 @@ Fig.~\ref{fig:arch} shows the three paths of the memory. The write path keeps so
 \draw[arr] ([yshift=-1.2mm]val.east) -- node[lab, below, pos=0.45]{$\bm{x}_u$} ([yshift=-1.2mm]promo.west);
 \draw[arr] ([yshift=1.2mm]val.east) -- ++(0.45,0) |- node[lab, left, pos=0.3]{$\bm{e}_u$} (cert.west);
 % ---------------- read path
-\node[box, minimum width=27mm] (route) at (15.0,0.55) {Query $\bm{q}$, shard\\router, (\ref{eq:shard})};
-\node[box, minimum width=27mm] (readq) at (15.0,-0.75) {Read $\bm{y}=\Mp\bm{q}$,\\bound $b(\bm{q})$, (\ref{eq:qbound})};
+\node[box, minimum width=27mm] (route) at (15.0,0.55) {Query $\bm{q}$, shard\\router~(\ref{eq:shard})};
+\node[box, minimum width=27mm] (readq) at (15.0,-0.75) {Read $\bm{y}=\Mp\bm{q}$,\\bound $b(\bm{q})$~(\ref{eq:qbound})};
 \node[dec] (ok) at (15.0,-2.15) {Certified?\\(\ref{eq:action})};
 \node[term, minimum width=14mm] (serve) at (15.0,-3.5) {Serve};
 \node[term, minimum width=14mm] (abst) at (16.75,-3.5) {Abstain};
@@ -214,30 +193,30 @@ Fig.~\ref{fig:arch} shows the three paths of the memory. The write path keeps so
 \node[lab, anchor=north] at (8.57,-4.05) {Promotion path, every $\tau$ writes};
 \node[lab, anchor=north] at (15.37,-4.05) {Read path};
 \end{tikzpicture}}
-\caption{Architecture of Tabayyun. Each source writes only into its own quarantine. Every $\tau$ writes, the quarantines are read along an anchored basis, a gate selects the corroborating sources of each direction, and the trimmed value and its runtime error update the promoted tier and the drift certificate. A query is routed to its shard, read from the promoted tier and answered only if the answer is certified. The dashed box marks a Byzantine source; numbers in parentheses refer to equations.}
+\caption{Architecture of Tabayyun. Each source writes only to its own quarantine. Every $\tau$ writes, the quarantines are read along an anchored basis, a gate selects the corroborating sources of each direction, and the trimmed value and its runtime error update the promoted tier and the drift certificate. A query is routed to its shard, read from the promoted tier and answered only if the answer is certified. The dashed box marks a Byzantine source; numbers in parentheses are equation numbers.}
 \label{fig:arch}
 \end{figure*}
 
 \subsection{Quarantine and Anchored Basis}
-Source $s$ writes only to its quarantine $\Mq_s$, which follows (\ref{eq:titans}) with step $\theta$ and forget gate $\alpha^{\mathrm{Q}}$. Every $\tau$ writes, a promotion round reads all quarantines along an orthonormal basis $\bm{U}=[\bm{u}_1,\dots,\bm{u}_K]^{\top}$:
+Source $s$ writes only to its quarantine $\Mq_s$, which follows (\ref{eq:titans}) with step $\theta$ and forget gate $\alpha_{\mathrm{Q}}$. Every $\tau$ writes, a promotion round reads all quarantines along an orthonormal set of directions $\bm{U}=\{\bm{u}_1,\dots,\bm{u}_K\}$:
 \begin{equation}\label{eq:reads}
 \bm{D}_{s,u}=\Mq_s\bm{u}\in\mathbb{R}^{d_v},\qquad s\in[n],\ \bm{u}\in\bm{U}.
 \end{equation}
-A direction is added to $\bm{U}$ and then frozen when a key has been written by at least $f+1$ distinct sources. This \emph{anchored} basis aligns each direction with one fact and, by A4, keeps the certificate of Section~\ref{sec:theory} well defined.
+When a key has been written by at least $f+1$ distinct sources, its direction, orthogonalized against $\bm{U}$, is added to $\bm{U}$ and then frozen. This \emph{anchored} basis aligns each direction with one fact and, by A4, keeps the certificate of Section~\ref{sec:theory} well defined.
 
 \subsection{Active Set and Corroborators}
-Let $\sigma_u$ denote the $(f+1)$-th largest norm $\|\bm{D}_{s,u}\|_2$. By A1, at most $f$ norms are adversarial, so $\sigma_u$ never exceeds the largest honest norm. The active set is
+Let $\sigma_u$ denote the $(f+1)$th largest of the norms $\|\bm{D}_{s,u}\|_2$, $s\in[n]$. By A1, at most $f$ of these norms are adversarial, so $\sigma_u$ never exceeds the largest honest norm. The active set is
 \begin{equation}\label{eq:active}
 A_u=\{s:\|\bm{D}_{s,u}\|_2\ge\max(\nu,\ \nu_{\mathrm{rel}}\,\sigma_u)\}.
 \end{equation}
-The relative threshold discards cross-talk reads in sources that never wrote the fact.
+The relative threshold excludes the cross-talk reads of sources that never wrote the fact.
 
-\emph{Cone gate} (\TabC). With $\bm{m}_u$ the coordinate-wise (lower) median over $A_u$, the corroborators are
+\emph{Cone gate} (\TabC). With $\bm{m}_u$ the coordinate-wise (lower) median of the reads in $A_u$, the corroborators are
 \begin{equation}\label{eq:cone}
 C_u=\{s\in A_u:\cos(\bm{D}_{s,u},\bm{m}_u)\ge\gamma\},\qquad k=2f+1.
 \end{equation}
 
-\emph{Agreement gate} (\TabW). With the ball $B_u(o)=\{s\in A_u:\|\bm{D}_{s,u}-\bm{D}_{o,u}\|_2\le\epsilon\sigma_u\}$ around source $o$, the corroborators form the most populated ball, with ties broken by the smaller total distance:
+\emph{Agreement gate} (\TabW). With the ball $B_u(o)=\{s\in A_u:\|\bm{D}_{s,u}-\bm{D}_{o,u}\|_2\le\epsilon\sigma_u\}$ around source $o$, the corroborators form the most populated ball, with ties broken in favor of the smaller total distance to the center:
 \begin{equation}\label{eq:agree}
 C_u=B_u(o^\star),\quad o^\star=\argmax_{o\in A_u}|B_u(o)|,\qquad k=f+1.
 \end{equation}
@@ -250,12 +229,12 @@ Direction $\bm{u}$ is promoted if $|C_u|\ge k$. Its value is the coordinate-wise
 \beta_u&=\min\big(f,\ \lfloor(|C_u|-1)/2\rfloor\big),
 \end{aligned}
 \end{equation}
-which removes $\beta_u$ values from each end of every coordinate. Let $c=|C_u|$. For coordinate $i$, let $L_{u,i}$ and $U_{u,i}$ be the means of the $c-f$ smallest and of the $c-f$ largest corroborator values, and let $\underline{x}_{u,i}$ and $\overline{x}_{u,i}$ be the smallest and the largest. The runtime error is
+which discards the $\beta_u$ smallest and the $\beta_u$ largest values in every coordinate. Let $c=|C_u|$. For coordinate $i$, let $\underline{\mu}_{u,i}$ and $\overline{\mu}_{u,i}$ be the means of the $c-f$ smallest and of the $c-f$ largest corroborator values, and let $\underline{x}_{u,i}$ and $\overline{x}_{u,i}$ be the smallest and largest corroborator values. The runtime error is
 \begin{equation}\label{eq:err}
-e_{u,i}=\begin{cases}\max\big(x_{u,i}-L_{u,i},\,U_{u,i}-x_{u,i}\big), & c\ge 2f{+}1,\\[2pt]
-\max\big(x_{u,i}-\underline{x}_{u,i},\,\overline{x}_{u,i}-x_{u,i}\big), & \text{otherwise}.\end{cases}
+e_{u,i}=\begin{cases}\max\big(x_{u,i}-\underline{\mu}_{u,i},\,\overline{\mu}_{u,i}-x_{u,i}\big), & c\ge 2f{+}1,\\[2pt]
+\max\big(x_{u,i}-\underline{x}_{u,i},\,\overline{x}_{u,i}-x_{u,i}\big), & \text{otherwise},\end{cases}
 \end{equation}
-For $f+1\le c\le 2f$, the order-statistic form is also sound and is tighter when $c\ge f+2$; the range form is the one evaluated here. The promoted tier moves by a convex step with $\alpha_{\mathrm{P}}\in(0,1]$, and the drift certificate, initialized at zero when $\bm{u}$ enters $\bm{U}$ and unchanged when $\bm{u}$ is not promoted, obeys the same recursion:
+the \emph{order-statistic error} in the first case and the \emph{range error} in the second. For $f+1\le c\le 2f$, the order-statistic form is also sound and is tighter when $c\ge f+2$; the range form is the one evaluated here. The promoted tier moves by a convex step with $\alpha_{\mathrm{P}}\in(0,1]$, and the drift certificate, initialized at zero when $\bm{u}$ enters $\bm{U}$ and unchanged when $\bm{u}$ is not promoted, obeys the same recursion:
 \begin{align}
 \Mp&\leftarrow\Mp+\alpha_{\mathrm{P}}\textstyle\sum_{u\ \mathrm{promoted}}(\bm{x}_u-\Mp\bm{u})\bm{u}^{\top},\label{eq:ema}\\
 E_{u,i}&\leftarrow(1-\alpha_{\mathrm{P}})E_{u,i}+\alpha_{\mathrm{P}}e_{u,i}\quad(\bm{u}\ \mathrm{promoted}).\label{eq:drift}
@@ -265,19 +244,19 @@ The promoted tier carries no momentum; Section~\ref{sec:limits} shows that momen
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}[x=1cm,y=0.88cm,box/.append style={minimum height=6mm},term/.append style={minimum height=5.5mm}]
-\node[term, minimum width=46mm] (in) at (3.4,0) {Reads $\bm{D}_{s,u}$ of direction $u$, (\ref{eq:reads})};
-\node[box, minimum width=46mm] (act) at (3.4,-0.95) {Active set $A_u$, (\ref{eq:active})};
+\node[term, minimum width=46mm] (in) at (3.4,0) {Reads $\bm{D}_{s,u}$ of direction $u$~(\ref{eq:reads})};
+\node[box, minimum width=46mm] (act) at (3.4,-0.95) {Active set $A_u$~(\ref{eq:active})};
 \node[dec] (rule) at (3.4,-2.0) {Gate type};
-\node[box, minimum width=25mm] (cone) at (1.35,-3.2) {Cone, (\ref{eq:cone})\\$k=2f+1$};
-\node[box, minimum width=25mm] (agr) at (5.45,-3.2) {Agreement, (\ref{eq:agree})\\$k=f+1$};
+\node[box, minimum width=25mm] (cone) at (1.35,-3.2) {Cone~(\ref{eq:cone})\\$k=2f+1$};
+\node[box, minimum width=25mm] (agr) at (5.45,-3.2) {Agreement~(\ref{eq:agree})\\$k=f+1$};
 \coordinate (mrg) at (3.4,-4.05);
 \node[dec] (cnt) at (3.4,-4.95) {$|C_u|\ge k$?};
 \node[box, minimum width=17mm] (np) at (6.95,-4.95) {Not promoted;\\$\bm{E}_u$ kept};
-\node[box, minimum width=46mm] (val) at (3.4,-6.3) {Trimmed value $\bm{x}_u$, (\ref{eq:value})};
+\node[box, minimum width=46mm] (val) at (3.4,-6.3) {Trimmed value $\bm{x}_u$~(\ref{eq:value})};
 \node[dec] (big) at (3.4,-7.65) {$|C_u|\ge 2f{+}1$?};
-\node[box, minimum width=25mm] (pr) at (1.35,-8.8) {Order-statistic\\error, (\ref{eq:err})};
-\node[box, minimum width=25mm] (rr) at (5.45,-8.8) {Range\\error, (\ref{eq:err})};
-\node[box, minimum width=30mm] (upd) at (3.4,-9.85) {Update $\Mp$ and $\bm{E}$, (\ref{eq:ema})--(\ref{eq:drift})};
+\node[box, minimum width=25mm] (pr) at (1.35,-8.8) {Order-statistic\\error~(\ref{eq:err})};
+\node[box, minimum width=25mm] (rr) at (5.45,-8.8) {Range\\error~(\ref{eq:err})};
+\node[box, minimum width=30mm] (upd) at (3.4,-9.85) {Update $\Mp$ and $\bm{E}$~(\ref{eq:ema})--(\ref{eq:drift})};
 \draw[arr] (in) -- (act);
 \draw[arr] (act) -- (rule);
 \draw[arr] (rule.west) -| node[lab, above, pos=0.3]{\TabC} (cone.north);
@@ -302,23 +281,23 @@ For a query $\bm{q}$, the read deviates from the reference read by at most
 \begin{equation}\label{eq:qbound}
 b(\bm{q})=\Big\|\textstyle\sum_{u}|\langle\bm{u},\bm{q}\rangle|\,\bm{E}_{u}\Big\|_2\ \ge\ \|(\Mp-\Mpref)\bm{q}\|_2 ,
 \end{equation}
-and the vector $\sum_u|\langle\bm{u},\bm{q}\rangle|\bm{E}_u$ bounds the deviation per coordinate. When the read enters a linear head $\bm{z}=\bm{W}\bm{y}+\bm{c}$ (for a language model, $\bm{W}=g\bm{W}_U$ with unembedding $\bm{W}_U$ and read gain $g$), the predicted token $a=\argmax_j z_j$ is certified if
+and the vector $\sum_u|\langle\bm{u},\bm{q}\rangle|\bm{E}_u$ bounds the deviation per coordinate. When the read enters a linear head $\bm{z}=\bm{W}\bm{y}+\bm{z}_0$ (for a language model, $\bm{W}=g\bm{W}_U$ with unembedding $\bm{W}_U$ and read gain $g$), the predicted token $a=\argmax_j z_j$ is certified if
 \begin{equation}\label{eq:action}
 z_a-z_j>\|\bm{w}_a-\bm{w}_j\|_2\,b(\bm{q})\qquad\forall j\ne a,
 \end{equation}
-since no read within $b(\bm{q})$ of $\bm{y}$ can change the arg max. For a linear utility $r_a=\bm{w}^{\top}\bm{y}_a$ of action $a$ with query $\bm{q}_a$ and read $\bm{y}_a=\Mp\bm{q}_a$, the chosen action $\hat{a}=\argmax_a r_a$ has regret $\max_j\tilde{r}_j-\tilde{r}_{\hat a}$ under the reference utilities $\tilde{r}_a=\bm{w}^{\top}\Mpref\bm{q}_a$ of at most
+since no read within distance $b(\bm{q})$ of $\bm{y}$ can change the $\argmax$. For a linear utility $r_a=\bm{w}^{\top}\bm{y}_a$ of action $a$ with query $\bm{q}_a$ and read $\bm{y}_a=\Mp\bm{q}_a$, the chosen action $\hat{a}=\argmax_a r_a$ has regret $\max_j\tilde{r}_j-\tilde{r}_{\hat a}$ under the reference utilities $\tilde{r}_a=\bm{w}^{\top}\Mpref\bm{q}_a$ of at most
 \begin{equation}\label{eq:regret}
-\hat{\varepsilon}=\max_j\big(r_j-r_{\hat a}+s_j+s_{\hat a}\big)^{+},\qquad s_a=\textstyle\sum_i|w_i|\,B_{a,i},
+\hat{\varepsilon}=\max_j\big(r_j-r_{\hat a}+t_j+t_{\hat a}\big)^{+},\qquad t_a=\textstyle\sum_i|w_i|\,B_{a,i},
 \end{equation}
-where $B_{a,i}$ is the per-coordinate bound for $\bm{q}_a$; the term $j=\hat{a}$ makes the bound conservative by at most $2s_{\hat a}$. Under \emph{certify-or-abstain} serving, the memory answers only when (\ref{eq:action}) holds.
+where $B_{a,i}$ is the per-coordinate bound for $\bm{q}_a$; the term $j=\hat{a}$ makes the bound conservative by at most $2t_{\hat a}$. Under \emph{certify-or-abstain} serving, the memory answers only when (\ref{eq:action}) holds and abstains otherwise.
 
-\emph{Memory inside the network.} When the read is added to the residual stream after block $\ell$ of an $L$-block network, the remaining $L-\ell$ blocks are not linear in it, and dot-product self-attention has no finite global Lipschitz constant~\cite{kim2021lipschitz}, so (\ref{eq:action}) cannot be propagated through them. The read is therefore \emph{snapped} to the stored value that it selects,
+\emph{Memory inside the network.} When the read is added to the residual stream after block $\ell$ of an $L$-block network, the remaining $L-\ell$ blocks are nonlinear in it. Because dot-product self-attention has no finite global Lipschitz constant~\cite{kim2021lipschitz}, (\ref{eq:action}) cannot be propagated through these blocks. The read is therefore \emph{snapped} to the stored value that it selects,
 \begin{equation}\label{eq:snap}
 \hat{a}=\argmax_{a\in\mathcal{C}}\ \langle\bm{y},\bm{c}_a\rangle-\tfrac{1}{2}\|\bm{c}_a\|_2^2,
 \end{equation}
-where the codebook $\mathcal{C}$ holds every value asserted for the memory, so that $\hat{a}$ is the codebook value nearest to $\bm{y}$. The scores are affine in $\bm{y}$, so (\ref{eq:action}) with $\bm{w}_a=\bm{c}_a$ decides whether $\hat{a}$ is certified, and only a certified $\bm{c}_{\hat a}$ is injected. Here a value $\bm{c}$ is a residual-stream edit that, added after block $\ell$ at the last prompt token, makes the frozen network emit the asserted object, found by gradient search as in locate-and-edit methods~\cite{meng2022rome}.
+where the codebook $\mathcal{C}$ holds every value asserted for the memory, so that $\hat{a}$ is the codebook value nearest to $\bm{y}$. The scores are affine in $\bm{y}$, so (\ref{eq:action}) with $\bm{w}_a=\bm{c}_a$ decides whether $\hat{a}$ is certified, and only a certified $\bm{c}_{\hat a}$ is injected. Each value $\bm{c}_a$ is a residual-stream edit, found by gradient search as in locate-and-edit methods~\cite{meng2022rome}, that makes the frozen network emit the asserted object when it is added after block $\ell$ at the last prompt token.
 
-Interference between near-orthogonal keys makes honest quarantines disagree when one memory holds many facts, and the certificate widens accordingly (Section~\ref{sec:scale}). Sharding removes this limit. A key is routed to one of $S$ independent instances by
+Interference between near-orthogonal keys makes honest quarantines disagree when one memory holds many facts, and the certificate widens accordingly (Section~\ref{sec:scale}). Sharding avoids this widening by bounding the number of facts per instance. A key is routed to one of $S$ independent instances by
 \begin{equation}\label{eq:shard}
 \mathrm{shard}(\bm{k})=\argmax_{j\in[S]}\ \langle\bm{p}_j,\bm{k}\rangle,
 \end{equation}
@@ -329,24 +308,24 @@ with fixed random projections $\bm{p}_j$. Writers and readers route identically,
 T_{\mathrm{round}}=\begin{cases}O\big(nKd_vd_k+Kd_v\,n\log n\big), & \text{cone gate},\\
 O\big(nKd_vd_k+Kd_v\,n^2\big), & \text{agreement gate},\end{cases}
 \end{equation}
-which is dominated by the reads (\ref{eq:reads}) when $n\ll d_k$. The per-query bound costs $O(K(d_k+d_v))$, and the action certificate costs $O(Vd_v)$ for a vocabulary of $V$ tokens when the distances in (\ref{eq:action}) are obtained from the Gram identity $\|\bm{w}_a-\bm{w}_j\|_2^2=\|\bm{w}_a\|_2^2+\|\bm{w}_j\|_2^2-2\bm{w}_a^{\top}\bm{w}_j$.
+The reads (\ref{eq:reads}) dominate this cost when $n\ll d_k$. The per-query bound costs $O(K(d_k+d_v))$, and the action certificate costs $O(Vd_v)$ for a vocabulary of $V$ tokens when the distances in (\ref{eq:action}) are obtained from the Gram identity $\|\bm{w}_a-\bm{w}_j\|_2^2=\|\bm{w}_a\|_2^2+\|\bm{w}_j\|_2^2-2\bm{w}_a^{\top}\bm{w}_j$.
 
 %======================================================================
 \section{Theoretical Analysis}\label{sec:theory}
 Throughout, $f$ is the number of Byzantine sources that the gate is configured to tolerate, and A1--A4 hold.
 
 \begin{theorem}[Forgery resistance]\label{thm:forge}
-A direction on which no honest source is active is never promoted. If a direction is promoted with $|C_u|\ge 2f+1$, every coordinate of $\bm{x}_u$ lies in the range of the honest corroborators; if it is promoted by the agreement gate with $f+1\le|C_u|\le 2f$, then $\|\bm{x}_u-\bm{h}\|_\infty\le 2\epsilon\sigma_u$ for an honest corroborator $\bm{h}$. Together with anchoring by $f+1$ distinct writers, every promoted direction has an honest witness.
+A direction on which no honest source is active is never promoted. If a direction is promoted with $|C_u|\ge 2f+1$, every coordinate of $\bm{x}_u$ lies in the range of the honest corroborators; if it is promoted by the agreement gate with $f+1\le|C_u|\le 2f$, then $\|\bm{x}_u-\bm{h}\|_\infty\le 2\epsilon\sigma_u$, where $\bm{h}$ is the read of some honest corroborator. Together with anchoring by $f+1$ distinct writers, every promoted direction has an honest witness.
 \end{theorem}
 \begin{proof}
-Both gates require $|C_u|\ge k\ge f+1$, and at most $f$ corroborators are Byzantine, so $C_u$ contains an honest source; if none is active, $C_u$ cannot reach $k$. A direction enters $\bm{U}$ only after $f+1$ distinct sources have written its key, at least one of them honest. For $|C_u|\ge 2f+1$, every value below the smallest honest value is Byzantine, there are at most $f\le\beta_u$ such values, and all are trimmed; the same holds above, so the retained values and their mean lie in the honest range. For the agreement gate, every member of $C_u$ lies within $\epsilon\sigma_u$ of the centre and hence within $2\epsilon\sigma_u$ of the honest member $\bm{h}$, in $\ell_2$ and therefore in every coordinate; the trimmed mean lies in the coordinate-wise range of the members.
+Both gates require $|C_u|\ge k\ge f+1$, and at most $f$ corroborators are Byzantine, so $C_u$ contains an honest source; if none is active, $C_u$ cannot reach $k$. A direction enters $\bm{U}$ only after $f+1$ distinct sources have written its key, at least one of them honest. For $|C_u|\ge 2f+1$, every value below the smallest honest value is Byzantine, there are at most $f\le\beta_u$ such values, and all are trimmed; the same holds above, so the retained values and their mean lie in the honest range. For the agreement gate, every member of $C_u$ lies within $\epsilon\sigma_u$ of the center and hence within $2\epsilon\sigma_u$ of the honest member $\bm{h}$, in $\ell_2$ and therefore in every coordinate; the trimmed mean lies in the coordinate-wise range of the members.
 \end{proof}
 
 \begin{theorem}[Runtime certificate]\label{thm:cert}
 Let at most $f$ of the $c=|C_u|$ corroborators of a promoted direction be Byzantine, and let $\mu_{u,i}$ be the mean of the honest corroborators in coordinate $i$. Then $|x_{u,i}-\mu_{u,i}|\le e_{u,i}$ with $e_{u,i}$ as in (\ref{eq:err}). Consequently $|((\Mp-\Mpref)\bm{u})_i|\le E_{u,i}$ after every round, and (\ref{eq:qbound}) holds for every query.
 \end{theorem}
 \begin{proof}
-If $c\ge 2f+1$, the honest corroborators number $h\ge c-f$. The mean of any $h$ of the $c$ values is at least the mean of the $c-f$ smallest and at most the mean of the $c-f$ largest, so $\mu_{u,i}\in[L_{u,i},U_{u,i}]$. If $f+1\le c\le 2f$, at least one corroborator is honest, so $\mu_{u,i}\in[\underline{x}_{u,i},\overline{x}_{u,i}]$. In both cases, $|x_{u,i}-\mu_{u,i}|$ is at most the distance from $x_{u,i}$ to the farther end of the interval. Both tiers start at zero and change only along directions of $\bm{U}$, so $\Mp-\Mpref=\sum_u\bm{\Delta}_u\bm{u}^{\top}$. Along $\bm{u}$, (\ref{eq:ema}) makes $\bm{\Delta}_u$ a convex combination of its previous value and $\bm{x}_u-\tilde{\bm{x}}_u$, where $\tilde{\bm{x}}_u=\bm{\mu}_u$ is the honest-corroborator mean, which yields (\ref{eq:drift}); then $(\Mp-\Mpref)\bm{q}=\sum_u\langle\bm{u},\bm{q}\rangle\bm{\Delta}_u$, and the triangle inequality gives (\ref{eq:qbound}).
+If $c\ge 2f+1$, the honest corroborators number $c_H\ge c-f$. The mean of any $c_H$ of the $c$ values is at least the mean of the $c-f$ smallest and at most the mean of the $c-f$ largest, so $\mu_{u,i}\in[\underline{\mu}_{u,i},\overline{\mu}_{u,i}]$. If $f+1\le c\le 2f$, at least one corroborator is honest, so $\mu_{u,i}\in[\underline{x}_{u,i},\overline{x}_{u,i}]$. In both cases, $|x_{u,i}-\mu_{u,i}|$ is at most the distance from $x_{u,i}$ to the farther end of the interval. Both tiers start at zero and change only along directions of $\bm{U}$, so $\Mp-\Mpref=\sum_u\bm{\Delta}_u\bm{u}^{\top}$. Along $\bm{u}$, (\ref{eq:ema}) makes $\bm{\Delta}_u$ a convex combination of its previous value and $\bm{x}_u-\tilde{\bm{x}}_u$, where $\tilde{\bm{x}}_u=\bm{\mu}_u$ is the honest-corroborator mean, which yields (\ref{eq:drift}); then $(\Mp-\Mpref)\bm{q}=\sum_u\langle\bm{u},\bm{q}\rangle\bm{\Delta}_u$, and the triangle inequality gives (\ref{eq:qbound}).
 \end{proof}
 
 \begin{proposition}[Certified snapping]\label{prop:snap}
@@ -360,20 +339,20 @@ The scores in (\ref{eq:snap}) are the logits of a linear head with rows $\bm{c}_
 For $c\ge 2f+1$, every bound $B(\cdot)$ on $|x_{u,i}-\mu_{u,i}|$ that is computed from the observed corroborator values and is sound for every placement of at most $f$ Byzantine values satisfies $B\ge e_{u,i}$.
 \end{theorem}
 \begin{proof}
-For a given vector of observed values, the hypotheses ``the $c-f$ smallest values are honest'' and ``the $c-f$ largest values are honest'' are both consistent with A1. They give $\mu_{u,i}=L_{u,i}$ and $\mu_{u,i}=U_{u,i}$, respectively, while the observation, and with it $x_{u,i}$ and $B$, is the same. Soundness under both hypotheses requires $B\ge\max(x_{u,i}-L_{u,i},\,U_{u,i}-x_{u,i})=e_{u,i}$.
+For a given vector of observed values, the hypotheses ``exactly the $c-f$ smallest values are honest'' and ``exactly the $c-f$ largest values are honest'' are both consistent with A1. They give $\mu_{u,i}=\underline{\mu}_{u,i}$ and $\mu_{u,i}=\overline{\mu}_{u,i}$, respectively, while the observation, and with it $x_{u,i}$ and $B$, is the same. Soundness under both hypotheses requires $B\ge\max(x_{u,i}-\underline{\mu}_{u,i},\,\overline{\mu}_{u,i}-x_{u,i})=e_{u,i}$.
 \end{proof}
 
 \begin{theorem}[Witness complexity]\label{thm:witness}
 Consider one direction with $c$ active reports, of which at most $f$ are Byzantine.
 \begin{enumerate}
 \item[(a)] A rule that either abstains or outputs $\hat{\bm{x}}$ with $\|\hat{\bm{x}}-\bm{D}_{s,u}\|_\infty\le B$ for some honest \emph{active} source $s$, where $B$ does not grow when the Byzantine reports change, must abstain whenever $c\le f$.
-\item[(b)] If at least $f+1$ active reports lie within $r=\epsilon\sigma_u$ of one of them, every point $\bm{x}$ of their coordinate-wise range satisfies $\|\bm{x}-\bm{h}\|_\infty\le 2r$ for an honest report $\bm{h}$ among them, and $r$ is at most $\epsilon$ times the largest honest norm.
+\item[(b)] If at least $f+1$ active reports lie within $r=\epsilon\sigma_u$ of one of them, every point $\bm{x}$ of their coordinate-wise range satisfies $\|\bm{x}-\bm{h}\|_\infty\le 2r$ for some honest report $\bm{h}$ among them, and $r$ is at most $\epsilon$ times the largest honest norm.
 \item[(c)] Coordinate-wise range validity, $\min_{s\in H_u}D_{s,u,i}\le\hat{x}_i\le\max_{s\in H_u}D_{s,u,i}$ for every $i$, with $H_u$ the honest active sources, requires abstention on some input for every $c\le 2f$, and the trimmed mean with $\beta=f$ attains it on every input with $c\ge 2f+1$.
 \item[(d)] Let $m>f$ honest sources hold a fact with positive value $v$ in coordinate $i$ and let the other $n-m$ sources, including silent adversaries, report $0$. The coordinate median over all $n$ sources returns $0$ when $m<n/2$, and the trimmed mean with $\beta=f$ returns $\frac{m-f}{n-2f}\,v\le v/2$ when $m\le n/2$.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-(a) If $c\le f$, the same input arises when all $c$ active reports are Byzantine and every honest source is inactive; then no honest active report exists, and any output violates the guarantee. (b) Follows from the argument for Theorem~\ref{thm:forge} and the bound on $\sigma_u$ in Section~\ref{sec:method}. (c) For $2\le c\le 2f$, place $\lceil c/2\rceil\le f$ reports at $\bm{a}$ and $\lfloor c/2\rfloor\le f$ at $\bm{b}\ne\bm{a}$. Either group may be Byzantine, the input is the same, and the honest ranges $\{\bm{a}\}$ and $\{\bm{b}\}$ are disjoint, so no output is valid in both; $c\le 1$ is covered by (a). Sufficiency is Theorem~\ref{thm:forge}. (d) With fewer than $n/2$ nonzero values, the median is $0$. Trimming $f$ values from each end of $n$ sorted values with $n-m$ zeros leaves $m-f$ copies of $v$ among $n-2f$ retained values, and $(m-f)/(n-2f)\le 1/2$ when $m\le n/2$.
+(a) If $c\le f$, the same input arises when all $c$ active reports are Byzantine and every honest source is inactive; then no honest active report exists, and any output violates the guarantee. (b) This follows from the argument for Theorem~\ref{thm:forge} and the bound on $\sigma_u$ in Section~\ref{sec:method}. (c) For $2\le c\le 2f$, place $\lceil c/2\rceil\le f$ reports at $\bm{a}$ and $\lfloor c/2\rfloor\le f$ at $\bm{b}\ne\bm{a}$. Either group may be Byzantine, the input is the same, and the honest ranges $\{\bm{a}\}$ and $\{\bm{b}\}$ are disjoint, so no output is valid in both; $c\le 1$ is covered by (a). Sufficiency is Theorem~\ref{thm:forge}. (d) With fewer than $n/2$ nonzero values, the median is $0$. Trimming $f$ values from each end of $n$ sorted values with $n-m$ zeros leaves $m-f$ copies of $v$ among $n-2f$ retained values, and $(m-f)/(n-2f)\le 1/2$ when $m\le n/2$.
 \end{proof}
 
 \begin{corollary}[Recall law]\label{cor:recall}
@@ -385,7 +364,7 @@ with $k=f+1$ for \TabW\ and $k=2f+1$ for \TabC; for random $m$, the right-hand s
 \end{corollary}
 
 \begin{remark}[Federated composition]
-In the two-level federated form, at most $f_c$ of $N$ clients are Byzantine. Client $\kappa$ reports its promoted read $\Mp_\kappa\bm{u}$ together with the bound $\bm{\delta}_\kappa(\bm{u})=\sum_{\bm{u}'\in\bm{U}_\kappa}|\langle\bm{u}',\bm{u}\rangle|\bm{E}^\kappa_{u'}$, the server applies the gate with $f_c$ across clients, and the global reference averages $\Mpref_\kappa\bm{u}$ over the honest server corroborators. The global error, with a coordinate-wise maximum,
+In the two-level federated form evaluated in Section~\ref{sec:results}, at most $f_c$ of $N$ clients are Byzantine. Client $\kappa$ reports its promoted read $\Mp_\kappa\bm{u}$ together with the bound $\bm{\delta}_\kappa(\bm{u})=\sum_{\bm{u}'\in\bm{U}_\kappa}|\langle\bm{u}',\bm{u}\rangle|\bm{E}^\kappa_{u'}$, the server applies the gate with $f_c$ across clients, and the global reference averages $\Mpref_\kappa\bm{u}$ over the honest server corroborators. The global error, with a coordinate-wise maximum,
 \begin{equation}\label{eq:fed}
 \bm{e}^{\mathrm{G}}_u=\bm{e}^{\mathrm{server}}_u+\max_{\kappa\in[N]}\bm{\delta}_\kappa(\bm{u})
 \end{equation}
@@ -399,10 +378,10 @@ By Theorems~\ref{thm:forge} and~\ref{thm:witness}, the adversary cannot create a
 The evaluation answers eight research questions. RQ1: are the certificates sound and tight? RQ2: does the witness threshold behave as Theorem~\ref{thm:witness} predicts? RQ3: what recall and security do the two gates achieve on trained and pretrained language models? RQ4: do adaptive attackers break them? RQ5: how do capacity and cost scale? RQ6: do the guarantees hold with real sources and with the memory inside a network? RQ7: does the design carry over to federated memories and to a control task? RQ8: which assumptions limit the guarantees?
 
 \subsection{Substrates and Data}
-Table~\ref{tab:setup} lists the seven substrates. \emph{Tier A} uses synthetic facts with orthonormal keys ($d_k=d_v=32$). \emph{Tier B} uses memory language models with a Titans scan, trained at three sizes on multi-query associative recall following the Zoology protocol~\cite{arora2024zoology}. \emph{Tier C} uses the ColO-RAN traces~\cite{polese2023coloran}: a slicing controller built here selects, per base station and from reported key performance indicators, one of 84 configurations (3 schedulers $\times$ 28 resource-block splits across slices). \emph{Tier D} attaches a linear test-time memory to two frozen pretrained language models, GPT-2 XL~\cite{radford2019gpt2} and Qwen2.5-1.5B~\cite{qwen2024qwen25}, at the input of the unembedding, so the logits are $\bm{W}_U(\bm{h}+g\bm{y})$ and (\ref{eq:action}) is exact. Its keys are whitened hidden states of the last prompt token ($d_k=256$), fitted on 2,000 calibration prompts of CounterFact~\cite{meng2022rome}. The memory stores the records' counterfactual objects, which the frozen models predict in 0.25\% (GPT-2 XL) and 0.10\% (Qwen2.5-1.5B) of cases, so recall measures the memory and not the prior of the model. \emph{Tier M} keeps the models, keys and facts of Tier D but adds the read to the residual stream after block $L/2$ and snaps it by (\ref{eq:snap}); every Tier-M metric is measured on the next token that the network emits after its remaining blocks. \emph{Tier R} uses the Flight data set of truth discovery~\cite{li2012truth}: 36 of its 38 web sources report at least one gold-standard departure or arrival time over 31 days of December 2011, for 11,146 facts. Each fact has an orthonormal key ($d_k=512$), its value embeds the reported 10-minute time bin, and every source writes exactly the values it reported, with its real errors, gaps and copying; $f\in\{1,2,4\}$ sources chosen at random report a time 2~h from the gold value on two target facts. The federated tier has $N=12$ clients with 7 sources each.
+Table~\ref{tab:setup} lists the seven substrates, referred to as tiers. \emph{Tier A} uses synthetic facts with orthonormal keys ($d_k=d_v=32$): 24 facts per run and, in the witness experiment, one fact per tested number of witnesses. \emph{Tier B} uses memory language models (MemLM) with a Titans scan, trained at three sizes on a multi-segment variant of multi-query associative recall (MQAR) following the Zoology protocol~\cite{arora2024zoology}. \emph{Tier C} uses the ColO-RAN traces~\cite{polese2023coloran}, from which a slicing controller built here selects, per base station and from reported key performance indicators, one of 84 configurations (3 schedulers $\times$ 28 resource-block splits across slices). \emph{Tier D} attaches a linear test-time memory at the input of the unembedding of two frozen pretrained language models, GPT-2 XL~\cite{radford2019gpt2} and Qwen2.5-1.5B~\cite{qwen2024qwen25}, so that the logits are $\bm{W}_U(\bm{h}_{\mathrm{out}}+g\bm{y})$ and (\ref{eq:action}) is exact. Its keys are last-token hidden states, whitened to $d_k=256$ dimensions by a transform fitted on 2,000 calibration prompts of CounterFact~\cite{meng2022rome}; a clean rule selected the last layer for both models. The memory stores the counterfactual objects of the records, which the frozen models predict in 0.25\% (GPT-2 XL) and 0.10\% (Qwen2.5-1.5B) of cases, so recall measures the memory and not the prior of the model. \emph{Tier M} keeps the models, facts, and key construction of Tier D, with keys taken at layer $L/2$, and adds the read to the residual stream after block $L/2$. Every defense, baselines included, is snapped by (\ref{eq:snap}) with a codebook that holds the objects of all 16 facts and the attacker's objects for the two targets, also in attack-free runs; recall and installed rates inject every snap, and only the certified metrics abstain. Tier-M metrics are measured on the next token that the network emits. \emph{Tier R} uses the Flight data set of truth discovery~\cite{li2012truth}: 36 of its 38 web sources report at least one gold-standard departure or arrival time on 31 days between 1 December 2011 and 3 January 2012, for 11,146 facts. A trial is one day with 80--386 facts; each fact has an orthonormal key ($d_k=512$), its value embeds the reported 10-minute time bin, and every source writes exactly the values that it reported, including its real errors, gaps, and copying. Copying violates A2; the certificates, which require only A1, remain sound. On two target facts, $f\in\{1,2,4\}$ sources chosen at random report a time 2~h later than the gold value. The federated tier has $N=12$ clients with 7 sources each, of which at most $f_c$ clients are Byzantine.
 
 \begin{table}[!t]
-\caption{Experimental Tiers (Trials Are Disjoint Across Runs)}
+\caption{Experimental Tiers (Confirmatory Trials Are Fresh Within Each Tier)}
 \label{tab:setup}
 \centering\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -411,7 +390,7 @@ Table~\ref{tab:setup} lists the seven substrates. \emph{Tier A} uses synthetic f
 \toprule
 Tier & Substrate & Sources & Main runs \\
 \midrule
-A & Synthetic, 24 facts & $n\in\{10,\dots,80\}$, $f\le 3$ & seeds 100--129, \\
+A & Synthetic, 7--24 facts & $n\in\{10,\dots,80\}$, $f\le 3$ & seeds 100--129, \\
  & & & 500--509, 700--709, 1000--1009 \\
 B & MemLM 0.20/0.66/2.36\,M & $n=10$, $f\in\{1,2\}$ (dense) & trials 200--299, \\
  & MQAR acc.\ $\ge$99.92\% & $n=20$, $f\in\{2,3\}$ (locality) & 300--389, 1100--1199 \\
@@ -426,13 +405,17 @@ Fed. & 12 clients $\times$ 7 & $f=1$, $f_c\in\{1,2\}$ & trials 400--419 \\
 \end{tabular}}
 \end{table}
 
-\subsection{Cells, Defences and Attacks}
-Tiers B and D cross the regime (dense or locality), $f$, $\rho\in\{0.4,0.7\}$ and $R\in\{1,3\}$ into 16 cells with 16 facts per trial. In the locality regime, each fact has $m\sim\mathcal{U}\{2f+1,\dots,\lfloor(n-f)/2\rfloor\}$ witnesses. The baselines are an ungated Titans memory; the mean (FedAvg), trimmed mean, coordinate median, Krum and geometric median applied to the per-source memories; and ports of the RobustRAG, SMSR and TMA-NM mechanisms to parametric memory. \TabC\ uses $\gamma=0.3$ and $\nu_{\mathrm{rel}}=0.3$, the ablation \TabC0 omits $\nu_{\mathrm{rel}}$, and \TabW\ uses $\nu_{\mathrm{rel}}=0.3$.
+\subsection{Cells, Defenses, and Attacks}
+Tiers B, D, and M cross the regime (dense or locality), $f$, $\rho\in\{0.4,0.7\}$, and $R\in\{1,3\}$ into 16 cells with 16 facts per trial. In the locality regime, each fact has $m\sim\mathcal{U}\{2f+1,\dots,\lfloor(n-f)/2\rfloor\}$ witnesses. The baselines are an ungated Titans memory; the mean (FedAvg), trimmed mean, coordinate-wise median, Krum, and geometric median applied to the per-source memories; and ports to parametric memory of RobustRAG, SMSR, and the corroboration gate of TMA-NM (tamper-evident memory authority, non-malleable)~\cite{louck2026tma}, labeled ``-style'' in the tables. Tier C also includes the Huber-loss memory Yaad of the Miras family~\cite{behrouz2025miras}.
 
-Four static attacks are used: targeted assertion, assertion repeated four times, an omniscient edge-of-range attack that places the adversarial reads at the edge of the honest range inside the cone, and unbounded reads. The adaptive attack, a projected gradient attack~\cite{madry2018towards}, optimizes the adversarial quarantine states with Adam on the Carlini--Wagner token loss~\cite{carlini2017towards} through the exact forward pass of each defence, for 100 steps with three restarts and a straight-through surrogate for the discrete gate~\cite{athalye2018obfuscated}. Following the recommendations of~\cite{tramer2020adaptive}, a \emph{union} attacker also starts from the adversary's actual quarantine states under the static attacks, keeps every starting point, optimizes with and without the cone surrogate and, against \TabW, starts just inside the agreement ball. It is therefore at least as strong as the static attacks on the same trial. As a control, the union attacker installed the target on 0.567 of trials against \TabW\ when $\epsilon$ was raised from its tuned value to $2.0$.
+\emph{Memory and gate settings.} The quarantines follow (\ref{eq:titans}) without momentum and with $\theta=0.5$ ($0.05$ in Tier C) and $\alpha_{\mathrm{Q}}=0.005$ ($0$ in Tier R); in Tier B, they use the data-dependent gates of the trained model, momentum included. In Tiers B, D, M, and R, the gate is applied once after all writes ($\alpha_{\mathrm{P}}=1$, so $\bm{E}_u=\bm{e}_u$); the recursion (\ref{eq:ema})--(\ref{eq:drift}) with $\alpha_{\mathrm{P}}=0.5$ is exercised in Tiers A and C and in the federated tier. In Tiers B, D, M, and R, both gates use $\nu=10^{-3}$ and $\nu_{\mathrm{rel}}=0.3$, \TabC\ uses $\gamma=0.3$, and the ablation \TabC0 omits $\nu_{\mathrm{rel}}$; in Tiers A and C, the federated tier, and RQ8, both gates use $\nu=0.05$ without $\nu_{\mathrm{rel}}$. The tolerance $\epsilon$ of \TabW\ is 0.2 (Tier A), 0.4 (Tier B), 0.3 (Tier D), 0.2 and 0.3 (Tier M, GPT-2 XL and Qwen2.5-1.5B), and 0.1 (Tier R).
+
+\emph{Attacks.} Tiers B and D use four static attacks: targeted assertion; assertion repeated four times; an omniscient edge-of-range attack, which places the adversarial reads at the edge of the coordinate-wise range of the honest reads; and an unbounded-read attack. Tiers M and R use all but the repeated assertion, and Tiers A and C use analogous sets. The assertion attacks act on both targets of a trial and the other two on the first target only, so their installed rate is at most 0.5. The gradient attack optimizes the adversarial quarantine states with Adam on the Carlini--Wagner token loss~\cite{carlini2017towards} through the exact forward pass of each defense, for 100 steps with three restarts; a hinge penalty keeps the adversarial reads inside the cone or the agreement ball, in the manner of backward-pass approximation~\cite{athalye2018obfuscated}. Following~\cite{tramer2020adaptive}, a \emph{union} attacker also starts from the adversary's quarantine states under the two assertion attacks and from the edge-of-range state, keeps every starting point, optimizes with and without the hinge, and, against \TabW, starts just inside the agreement ball, so it is at least as strong as those three static attacks on the same trial. As a control, with $\epsilon$ raised to 2.0, the union attacker installed the attacker's value on 34 of 60 targets against \TabW\ in the sparsest Tier-B cell (MemLM d128, $f=3$, $\rho=0.4$, $R=1$).
 
 \subsection{Protocol and Statistics}
-Fig.~\ref{fig:protocol} summarizes the protocol. Each confirmatory run was preceded by a written amendment that fixed the criteria, the trials and the analysis; 21 amendments were registered. Hyperparameters ($\gamma$, $\nu_{\mathrm{rel}}$, $\epsilon$, the key layer and read gain of Tier D, and the write step of Tier C) were chosen by fixed rules on attack-free exploratory trials only. Confidence intervals are paired bootstrap intervals over trials with 4,000 resamples, and Tier-A contrasts use the Holm correction~\cite{holm1979simple}. Experiments ran on an NVIDIA RTX 5080 (16~GB) with PyTorch 2.11 and CUDA 12.8, and on CPU with 19 worker processes.
+Fig.~\ref{fig:protocol} summarizes the protocol. An original pre-registration and 21 amendments fixed the criteria, the trials, and the analysis before each confirmatory run, with two exceptions: Amendment~1 changed a numerical tolerance after the first confirmatory run and rescored it, and Amendment~21, a change of hardware, was superseded when the original machine became available again. The key layer and read gain of Tier D, the write step of Tier C, $\gamma$, and $\epsilon$ were chosen by fixed rules on attack-free exploratory trials; for $\epsilon$, the rule takes the smallest grid value within 0.02 of the best sum of clean recall and certified-and-correct fraction. The registered rule selected no relative threshold, which is \TabC0, the primary variant of the early amendments; $\nu_{\mathrm{rel}}=0.3$ was then fixed from a diagnosis of cross-talk in clean exploratory runs. On Tier R, the rule used the confirmatory days with trials 0--1, and its objective was equal for every $\epsilon$. Confidence intervals are 95\% paired bootstrap intervals with 4,000 resamples (10,000 over seeds in Tier A), without multiplicity correction. Experiments ran on an NVIDIA RTX 5080 (16~GB) with PyTorch 2.11 and CUDA 12.8 and on a CPU with 19 worker processes; the Tier-B gradient attack ran on a CPU virtual machine (PyTorch 2.15, 4 workers). Model precision followed the library default.
+
+\emph{Registered criteria that failed.} Besides those reported in Section~\ref{sec:results}, the following criteria failed: in Tier A, superiority margins in two sparsely observed dense cells, in one locality cell, and in all locality cells for a comparison whose baseline set was misspecified (Amendment~2); on Tiers B and D, nondomination, a locality-recall margin of 0.20 over the best secure baseline, and an installed-rate margin of 0.50, the last predicted to fail before the run (Amendments~4, 7, 10, and 16); a bound of 0.10 on the installed rate of \TabC\ under the union attacker, missed in one cell on two Tier-B models (Amendment~13); and security and recall at 256 or more facts without sharding (Amendment~17).
 
 \begin{figure}[!t]
 \centering
@@ -440,7 +423,7 @@ Fig.~\ref{fig:protocol} summarizes the protocol. Each confirmatory run was prece
 \node[box, minimum width=58mm] (a) at (3.3,0) {Amendment: criteria, trials and scorer,\\committed before the run};
 \node[box, minimum width=58mm] (b) at (3.3,-1.15) {Exploratory trials only: smoke runs and\\attack-free hyperparameter rules};
 \node[box, minimum width=58mm] (c) at (3.3,-2.3) {Confirmatory run on fresh trials\\(GPU or CPU workers)};
-\node[box, minimum width=58mm] (d) at (3.3,-3.45) {Registered scorer: criteria, bootstrap\\intervals, Holm correction};
+\node[box, minimum width=58mm] (d) at (3.3,-3.45) {Registered scorer: criteria and\\bootstrap intervals};
 \node[dec] (e) at (3.3,-4.7) {All criteria met?};
 \node[term, minimum width=24mm] (p) at (1.3,-5.95) {Reported as pass};
 \node[term, minimum width=24mm] (f) at (5.3,-5.95) {Reported as fail};
@@ -459,13 +442,13 @@ Fig.~\ref{fig:protocol} summarizes the protocol. Each confirmatory run was prece
 %======================================================================
 \section{Results}\label{sec:results}
 \subsection{RQ1: Soundness and Tightness of the Certificates}
-The confirmatory result files contain 1,142,700 rows, 247,130 of which carry a certificate inside the threat model. None of them violates its drift certificate or its action certificate; for the memory inside the network, the identity of the output is examined separately in RQ6. The 179 violations recorded outside the threat model occur where they were predicted before the runs: in the ablation that adds momentum to the promoted tier (80 runs) and when the adversaries outnumber the assumed $f$ (99 runs). The certificate is tight: in the witness experiment, the largest ratio of measured drift to certified drift was 0.999, as Theorem~\ref{thm:opt} anticipates for an adversary that places its values at the edge of the honest range.
+The confirmatory result files contain 1,142,700 rows, one per run of a defense on a trial, and 247,130 of them carry a certificate inside the threat model and the design. None of these violated its drift certificate or its action certificate; whether the emitted token of the memory inside the network equals the reference token is examined in RQ6. The 179 violations recorded outside occurred where they had been predicted before the runs: in the ablation that adds momentum to the promoted tier (80 runs) and when the adversaries outnumbered the assumed $f$ (99 runs). The certificate was also tight: in the witness experiment, the largest ratio of measured to certified drift was 0.999, as Theorem~\ref{thm:opt} anticipates for an adversary that places its values at the edge of the honest range.
 
 \subsection{RQ2: Witness Complexity}\label{sec:witness}
-Table~\ref{tab:witness} reports, for 26,550 Tier-A runs, the smallest number of honest witnesses from which each defence serves a fact, that is, reaches clean recall of at least 0.5 at that and at every larger number. The thresholds equal $2f+1$ for \TabC\ and $f+1$ for \TabW\ in all six configurations, as Theorem~\ref{thm:witness} predicts. The trimmed mean, median, geometric median and RobustRAG need 6, 11, 21 and 41--60 witnesses for $n=10,20,40,80$ (Fig.~\ref{fig:witness}). Titans and the TMA-NM port serve facts with one to seven witnesses but were forged in every configuration, whereas neither Tabayyun variant recorded an installation, a flip or an amnesia at any served $m$.
+Table~\ref{tab:witness} reports, for 26,550 Tier-A rows, the witness threshold $m^\star$ of each defense: the smallest number of honest witnesses on the tested grid from which the defense serves a fact, that is, reaches a clean recall of at least 0.5 at that and at every larger number. The thresholds were $2f+1$ for \TabC\ and $f+1$ for \TabW\ in all six configurations, as Theorem~\ref{thm:witness} predicts. For $f=2$, the trimmed mean, median, geometric median, and RobustRAG needed 6, 11, 21, and 41--60 witnesses for $n=10$, 20, 40, and 80, respectively (Fig.~\ref{fig:witness}(a)). Titans and the TMA-NM port served facts with one to seven witnesses, but under both the attacker's value replaced the true value on at least half of the targets in every configuration, whereas neither Tabayyun variant recorded an installation, a flip, or an amnesia event at any served $m$.
 
 \begin{table}[!t]
-\caption{Witness Threshold $m^\star$: Honest Witnesses Needed Before a Fact Is Served (Tier A, Seeds 1000--1009). Titans and TMA-NM Were Forged in Every Configuration}
+\caption{Witness Threshold $m^\star$: Honest Witnesses Needed Before a Fact Is Served (Tier A, Seeds 1000--1009). Under Titans and TMA-NM, the Attacker's Value Replaced the True Value on at Least Half of the Targets in Every Configuration}
 \label{tab:witness}
 \centering\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -482,71 +465,60 @@ $n$ & $f$ & Titans & TMA & TrM. & Med. & GeoM. & RRAG & \TabC & \TabW & $f{+}1$ 
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}
-\begin{axis}[width=\columnwidth, height=38mm, xmode=log, log basis x=2, xtick={10,20,40,80}, xticklabels={10,20,40,80},
-  xlabel={Number of sources $n$ ($f=2$)}, ylabel={Witness threshold $m^\star$}, ymin=0, ymax=64,
-  legend style={font=\scriptsize, at={(0.5,-0.32)}, anchor=north, draw=black, fill=white, legend columns=2}, legend cell align=left,
-  tick label style={font=\footnotesize}, label style={font=\footnotesize}, grid=major, grid style={gray!30}]
+\begin{groupplot}[group style={group size=2 by 1, horizontal sep=12mm}, width=0.55\columnwidth, height=42mm,
+  tick label style={font=\scriptsize}, label style={font=\footnotesize}, title style={font=\footnotesize}, grid=major, grid style={gray!30}]
+\nextgroupplot[xmode=log, log basis x=2, xtick={10,20,40,80}, xticklabels={10,20,40,80}, ymin=0, ymax=64,
+  xlabel={Sources $n$ ($f=2$)}, ylabel={Witness threshold $m^\star$}, title={(a) Witness threshold},
+  legend to name=witleg, legend columns=3, legend style={font=\scriptsize, draw=black, fill=white}, legend cell align=left]
 \addplot[black, thick, mark=square*] table[x=n, y=trmean] {data/witness_f2.dat};
 \addlegendentry{Trimmed mean}
 \addplot[black, thick, densely dashed, mark=triangle*] table[x=n, y=median] {data/witness_f2.dat};
 \addlegendentry{Median, geo.\ median, RobustRAG}
-\addplot[black, thick, mark=o] table[x=n, y=tabc] {data/witness_f2.dat};
-\addlegendentry{\TabC\ ($2f+1=5$)}
-\addplot[black, thick, mark=*] table[x=n, y=tabw] {data/witness_f2.dat};
-\addlegendentry{\TabW\ ($f+1=3$)}
 \addplot[gray, dotted, thick, domain=10:80, samples=2] {x/2};
 \addlegendentry{$n/2$}
-\end{axis}
-\end{tikzpicture}
-\caption{Witness threshold against the number of sources (Tier A, $f=2$, 10 seeds per point). The Tabayyun thresholds stay at $2f+1$ and $f+1$; majority aggregators follow $n/2$ or more.}
+\addplot[black, thick, mark=o] table[x=n, y=tabc] {data/witness_f2.dat};
+\addlegendentry{\TabC}
+\addplot[black, thick, mark=*] table[x=n, y=tabw] {data/witness_f2.dat};
+\addlegendentry{\TabW}
+\nextgroupplot[xmin=0, xmax=1.02, ymin=0, ymax=1.02, xlabel={Predicted recall~(\ref{eq:recall})}, ylabel={Measured clean recall}, title={(b) Recall law}]
+\addplot[gray!60, fill=gray!15, draw=none] coordinates {(0,0.1) (0.92,1.02) (1.02,1.02) (1.02,0.92) (0.1,0) (0,0) (0,0.1)};
+\addplot[black, thin, domain=0:1.02, samples=2] {x};
+\addplot[only marks, mark=o, mark size=1.4pt, black] table[x=pred, y=meas, discard if not={variant}{C}] {data/recall_law.dat};
+\addplot[only marks, mark=*, mark size=1.1pt, black] table[x=pred, y=meas, discard if not={variant}{W}] {data/recall_law.dat};
+\end{groupplot}
+\end{tikzpicture}\\[1mm]
+\pgfplotslegendfromname{witleg}
+\caption{(a) Witness threshold against the number of sources (Tier A, $f=2$, 10 seeds per point): the Tabayyun thresholds stay at $2f+1=5$ and $f+1=3$, whereas the majority-based baselines follow $n/2$ or more. (b) Recall law: each point is one model--cell combination of Tiers B and D (5 models, 16 cells, 100 trials per cell; open: \TabC\ with $k=2f+1$; filled: \TabW\ with $k=f+1$); the shaded band marks a deviation of at most 0.10 from (\ref{eq:recall}), and all 80 points of \TabW\ and 79 of the 80 points of \TabC\ lie inside it.}
 \label{fig:witness}
 \end{figure}
 
 \subsection{RQ3: Recall and Security on Language Models}
-Table~\ref{tab:static} reports clean recall in the dense and locality regimes, the worst installed rate over static attacks and cells, and the fraction of certified and correct tokens, for the three trained models (Tier B) and the two pretrained models (Tier D), with 100 trials per cell. \TabW\ recalls 0.83 (Tier B) and 0.82 (Tier D) of the facts held by few sources, with a worst installed rate of 0.020 and 0.005. In paired 95\% bootstrap intervals over 800 trial--cells per model, \TabW\ exceeds \TabC\ by 32.4 to 34.2 points and RobustRAG by 32.0 to 73.7 points on every model. Its recall follows (\ref{eq:recall}) with $k=f+1$ within 0.10 in 80 of 80 model--cell combinations, and that of \TabC\ follows it with $k=2f+1$ in 79 of 80 (Fig.~\ref{fig:recalllaw}); the largest deviations are 0.042 and 0.101.
+Table~\ref{tab:static} reports clean recall in the dense and locality regimes, the worst installed rate over static attacks and cells, and the fraction of certified and correct tokens, for the three trained models (Tier B) and the two pretrained models (Tier D), with 100 trials per cell. \TabW\ recalled 0.83 (Tier B) and 0.82 (Tier D) of the local facts, with worst installed rates of 0.020 and 0.005, respectively. On every model, its mean paired advantage in locality recall was 32.4--34.2 percentage points over \TabC\ and 32.0--73.7 over RobustRAG, and every 95\% bootstrap interval (800 trial--cell pairs per model) lay above zero. Its recall was within 0.10 of (\ref{eq:recall}) with $k=f+1$ in all 80 model--cell combinations, and that of \TabC\ was within 0.10 of (\ref{eq:recall}) with $k=2f+1$ in 79 of 80 (Fig.~\ref{fig:witness}(b)); the largest deviations were 0.042 and 0.101.
 
-The comparison with majority aggregation is mixed. Under static attacks, the trimmed mean recalls about as many local facts as \TabW\ (paired differences between $-12.6$ and $+1.5$ points) and slightly more dense facts (0.97 against 0.93--0.94); \TabW\ is Pareto-dominated in 4 and 5 of 16 cells on the two Tier-D models, almost all dense, and in none of the 48 Tier-B cells. The aggregators that match its recall are, however, installed on 27--47\% of targets by static attacks and on up to 100\% by gradient attacks (RQ4); Krum and RobustRAG remain secure but recall at most 0.41 of local facts.
+The comparison with majority aggregation is mixed. Without attack, the trimmed mean recalled between 12.6 points more and 1.5 points fewer local facts than \TabW\ and slightly more dense facts (0.97 against 0.93--0.94). On (worst installed rate, worst amnesia rate, clean recall), \TabW\ was Pareto-dominated in 5 (GPT-2 XL) and 4 (Qwen2.5-1.5B) of 16 cells, almost all dense, and in none of the 48 Tier-B cells. The aggregators that match its recall, however, admitted the attacker's value for 27--53\% of targets under static attacks and for up to 100\% under gradient attacks (RQ4), and Krum and RobustRAG admitted it for at most 0.155 but recalled at most 0.41 of local facts.
 
 \begin{table*}[!t]
-\caption{Static Protocol, Tiers B and D (Trials 1100--1199, 16 Cells per Model). Recall: Mean Clean Recall Over Dense or Locality Cells and Models; Inst.: Worst Installed Rate Over Attacks, Cells and Models (Lower Is Better); Cert.: Mean Fraction of Tokens Certified and Correct}
+\caption{Static Protocol, Tiers B and D (Trials 1100--1199, 16 Cells per Model). Recall: Mean Clean Recall Over Dense or Locality Cells and Models; Inst.: Worst Installed Rate Over Attacks, Cells, and Models; Cert.: Certified-and-Correct Fraction, Clean Runs; --: No Certificate}
 \label{tab:static}
 \centering\footnotesize
 \begin{tabular}{@{}l|cccc|cccc@{}}
 \toprule
  & \multicolumn{4}{c|}{Tier B: MemLM d128 / d256 / d512} & \multicolumn{4}{c}{Tier D: GPT-2 XL / Qwen2.5-1.5B} \\
-Defence & Recall dense $\uparrow$ & Recall locality $\uparrow$ & Inst.\ $\downarrow$ & Cert.\ $\uparrow$ & Recall dense $\uparrow$ & Recall locality $\uparrow$ & Inst.\ $\downarrow$ & Cert.\ $\uparrow$ \\
+Defense & Recall dense $\uparrow$ & Recall locality $\uparrow$ & Inst.\ $\downarrow$ & Cert.\ $\uparrow$ & Recall dense $\uparrow$ & Recall locality $\uparrow$ & Inst.\ $\downarrow$ & Cert.\ $\uparrow$ \\
 \midrule
 \inputtab{data/tab_static.tex}
 \bottomrule
 \end{tabular}
 \end{table*}
 
-\begin{figure}[!t]
-\centering
-\begin{tikzpicture}
-\begin{axis}[width=0.78\columnwidth, height=0.54\columnwidth, xmin=0, xmax=1.02, ymin=0, ymax=1.02,
-  xlabel={Predicted recall, (\ref{eq:recall})}, ylabel={Measured clean recall},
-  legend style={font=\scriptsize, at={(0.97,0.03)}, anchor=south east, draw=black, fill=white}, legend cell align=left,
-  tick label style={font=\footnotesize}, label style={font=\footnotesize}, grid=major, grid style={gray!30}]
-\addplot[gray!60, fill=gray!15, draw=none, forget plot] coordinates {(0,0.1) (0.92,1.02) (1.02,1.02) (1.02,0.92) (0.1,0) (0,0) (0,0.1)};
-\addplot[black, thin, domain=0:1.02, samples=2, forget plot] {x};
-\addplot[only marks, mark=o, mark size=1.6pt, black] table[x=pred, y=meas, discard if not={variant}{C}] {data/recall_law.dat};
-\addlegendentry{\TabC, $k=2f+1$}
-\addplot[only marks, mark=*, mark size=1.3pt, black] table[x=pred, y=meas, discard if not={variant}{W}] {data/recall_law.dat};
-\addlegendentry{\TabW, $k=f+1$}
-\end{axis}
-\end{tikzpicture}
-\caption{Recall law. Each point is one model--cell combination (5 models, 16 cells, 100 trials). The shaded band marks a deviation of at most 0.10 from (\ref{eq:recall}); 80 of 80 points of \TabW\ and 79 of 80 points of \TabC\ lie inside it.}
-\label{fig:recalllaw}
-\end{figure}
 
 \subsection{RQ4: Adaptive Attacks}\label{sec:adaptive}
-Table~\ref{tab:worst} reports, for each defence, the worst installed rate under the static, gradient and union attacks and the maximum over the three. The gradient attack installed the attacker's value on every target in some Tier-B cells for the trimmed mean and the geometric median, and on 70--83\% on Tier D; the union attacker reached 88\% against the trimmed mean on Tier D. \TabC\ reached 0.283 on Tier B. In the sparsest cell ($f=3$, $\rho=0.4$, $R=1$) its target fact is rarely promoted, so its read is close to zero, and a bounded shift transmitted through cross-talk from other promoted directions decides the token. \TabW\ promotes such facts on $f+1$ witnesses and was installed on at most 0.050 of targets on Tier B and 0.005 on Tier D.
+Table~\ref{tab:worst} reports, for each defense, the worst installed rate under the static, gradient, and union attacks and the maximum over the three. Against the trimmed mean and the geometric median, the gradient attack installed the attacker's value on every target in some Tier-B cells and on 0.700--0.825 of targets on Tier D, and the union attacker reached 0.875 against the trimmed mean on Tier D. On Tier D, the plain gradient attack installed nothing against either gate and was weaker than the static attacks, because the gate is discrete; the union attacker therefore also starts from static attack states. Under \TabC, the installed rate reached 0.283 on Tier B: in the sparsest cell ($f=3$, $\rho=0.4$, $R=1$), the target fact was rarely promoted, its read was close to zero, and a bounded shift transmitted through cross-talk from other promoted directions decided the token. \TabW\ promotes such facts with $f+1$ witnesses; under it, the installed rate was at most 0.050 on Tier B and 0.005 on Tier D.
 
-Under certify-or-abstain serving and the union attacker, \TabW\ served no wrong token in any cell, and \TabC\ served one wrong token among 60 targets in one cell. Under the static attacks of Table~\ref{tab:static}, \TabW\ served one wrong token among 200 targets in its worst Tier-D cell and none on Tier B. Under the union attack, \TabW\ also lost the true fact less often than \TabC\ (mean amnesia 0.125--0.133 against 0.342--0.350) and answered 45--61\% of attacked facts with a correct certified token, against 1--6\% for \TabC.
+Under certify-or-abstain serving and the union attacker, \TabW\ never served the attacker's token, and \TabC\ served it for one of 60 targets in one cell. Under the static attacks of Table~\ref{tab:static}, \TabW\ served it for one of 200 targets in its worst Tier-D cell and never on Tier B. On Tier B under the union attack, \TabW\ also lost the true fact less often than \TabC\ (mean amnesia rate 0.125--0.133 against 0.342--0.350) and answered 0.45--0.61 of the attacked facts with a correct certified token, against 0.01--0.06 for \TabC.
 
 \begin{table}[!t]
-\caption{Worst Installed Rate Over Every Attack Run (Static; Gradient: PGD With Straight-Through Gate; Union: Union Attacker; --: Not Run)}
+\caption{Worst Installed Rate Over the Confirmatory Runs of Each Attack (Stat.: Static Attacks; Grad.: Gradient Attack With Gate Hinge; Union: Union Attacker; Max: Maximum of the Three; --: Not Run). The Attacks Were Run on Different Trials (Table~\ref{tab:setup})}
 \label{tab:worst}
 \centering\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -554,7 +526,7 @@ Under certify-or-abstain serving and the union attacker, \TabW\ served no wrong 
 \begin{tabular}{@{}l|cccc|cccc@{}}
 \toprule
  & \multicolumn{4}{c|}{Tier B} & \multicolumn{4}{c}{Tier D} \\
-Defence & Stat. & Grad. & Union & Max & Stat. & Grad. & Union & Max \\
+Defense & Stat. & Grad. & Union & Max & Stat. & Grad. & Union & Max \\
 \midrule
 \inputtab{data/tab_worst.tex}
 \bottomrule
@@ -562,7 +534,7 @@ Defence & Stat. & Grad. & Union & Max & Stat. & Grad. & Union & Max \\
 \end{table}
 
 \subsection{RQ5: Capacity and Cost}\label{sec:scale}
-Fig.~\ref{fig:scale} reports a GPT-2 XL memory with $d_k=1024$ that holds $F$ facts. Without sharding, the fraction of certified and correct tokens falls from 0.96--1.00 at $F=16$ to 0.04--0.05 at $F=256$ and to 0 at $F=1024$, and uncertified answers become attackable, with a worst installed rate of 0.15--0.45 at $F=256$. Certify-or-abstain serving still returned no wrong token at any $F$, but beyond $F=64$ it returned almost no answer. With 32 facts per shard (\ref{eq:shard}), certified and correct tokens remain at 0.90--0.94 for \TabC\ and 0.95--1.00 for \TabW\ up to $F=1024$, with no installation and no violation. The gate and certificate cost grows linearly, from 0.036~s to 2.27~s per promotion round between $F=16$ and $F=1024$, about 13 times the cost of the trimmed mean at $F=1024$.
+Fig.~\ref{fig:scale} reports a GPT-2 XL memory that holds $F$ facts, with $d_k=1024$ whitened key dimensions instead of the 256 of Tier D. Without sharding, the certified-and-correct fraction fell from 0.96--1.00 at $F=16$ to 0.04--0.05 at $F=256$ and to 0 at $F=1024$, and uncertified answers became attackable, with a worst installed rate of 0.15--0.45 at $F=256$. Certify-or-abstain serving never served the attacker's token, but beyond $F=64$ it answered almost nothing. With $\lceil F/32\rceil$ shards (\ref{eq:shard}), the certified-and-correct fraction remained at 0.90--0.94 for \TabC\ and 0.95--1.00 for \TabW\ up to $F=1024$, with no installation and no violation. The cost of the gate and certificate grew linearly, from 0.036~s to 2.27~s per promotion round between $F=16$ and $F=1024$, about 13 times the cost of the trimmed mean at $F=1024$.
 
 \begin{figure}[!t]
 \centering
@@ -588,17 +560,17 @@ Fig.~\ref{fig:scale} reports a GPT-2 XL memory with $d_k=1024$ that holds $F$ fa
 \end{groupplot}
 \end{tikzpicture}\\[1mm]
 \pgfplotslegendfromname{scaleleg}
-\caption{Capacity on Tier D (GPT-2 XL, $d_k=1024$, 10 trials per point). (a) Certified and correct tokens in the two well-observed cells; (b) worst installed rate over all cells and static attacks. Dashed: one memory; solid: 32 facts per shard.}
+\caption{Capacity on Tier D (GPT-2 XL, $d_k=1024$, 10 trials per point). (a) Certified-and-correct fraction in the two well-observed cells ($\rho=0.7$, $R=3$); (b) worst installed rate over all cells and static attacks. C and W denote \TabC\ and \TabW. Dashed: one memory; solid: $\lceil F/32\rceil$ shards.}
 \label{fig:scale}
 \end{figure}
 
 \subsection{RQ6: Real Sources and Memory Inside the Network}\label{sec:real}
-Table~\ref{tab:real} reports both tiers. On the real sources, \TabW\ answered 0.773--0.789 of the facts correctly and certified every correct answer, within 1.7 points of the uncertified plurality vote. The vote is itself correct on only 0.79 of the facts, so the sources bound the accuracy, and the registered threshold of 0.80 for certified and correct answers, set on a three-day smoke run, was missed. At $f=4$, the mean, trimmed mean, median and geometric median were installed on 0.50 of targets (paired difference of the trimmed mean to \TabW: 0.497, 95\% interval $[0.490,0.500]$), and \TabW\ on 0.003. That single case is not an attack success: 11 of the 18 uncompromised sources reported the attacker's value for that flight, and one reported the gold value. \TabC\ fell to 0.67 at $f=4$, where it needs nine agreeing sources.
+Table~\ref{tab:real} reports Tiers R and M. On the real sources, \TabW\ answered 0.773--0.789 of the facts correctly and certified every correct answer; its accuracy was within 1.7 percentage points of that of the uncertified plurality vote, which was itself correct on only 0.79 of the facts. The registered threshold of 0.80 for the certified-and-correct fraction, set on a three-day smoke run, was therefore missed. At $f=4$, the mean, trimmed mean, median, and geometric median admitted the attacker's value for 0.50 of targets, that is, for the attacked target in almost every trial of their worst attack (paired difference between the trimmed mean and \TabW: 0.497, 95\% interval $[0.490,0.500]$); \TabW\ and \TabC\ admitted it for 0.003 and 0.006. In the single case under \TabW, 11 of the 18 uncompromised sources that reported that flight gave the attacker's value, and one gave the gold value. The accuracy of \TabC\ fell to 0.67 at $f=4$, where it requires nine agreeing sources.
 
-Inside the network, the ungated memory was installed on 0.50 of targets and the robust aggregators on 0.30--0.43, while \TabW\ recalled 0.87 of the facts (oracle edit 1.00, frozen network 0.00), with 0.86--0.87 certified and correct and no read-level violation. On GPT-2 XL, every certified answer produced exactly the reference token, as Proposition~\ref{prop:snap} states. On Qwen2.5-1.5B, 40 of 51,278 certified answers did not; in each of them the snapped value equalled the reference value, so two forward passes with identical inputs returned different tokens. This non-determinism of batched reduced-precision inference is excluded by the requirement of a deterministic $g$, and the registered criterion failed on this model. A second criterion failed on both models: certify-or-abstain serving returned the attacker's token for one of 40 targets in two (GPT-2 XL) and three (Qwen2.5-1.5B) of 16 cells, each time in a single trial of the locality cells with $f=3$. In those trials, the same defence also answered targets wrongly without any attack, and the reference read selects the same attacker value, so the certificate held; the attacker's value entered as a candidate of the snap. Without snapping, 3 and 35 certified reads changed the token.
+Inside the network, the attacker's value was installed on 0.50 of targets under the ungated memory, on 0.300--0.425 under the trimmed mean, median, and geometric median, and on 0.025 under both Tabayyun variants. \TabW\ recalled 0.87 of the facts (oracle edit: 1.00; frozen network: 0.00), with 0.86--0.87 certified and correct and no read-level violation. On GPT-2 XL, every certified answer produced exactly the reference token, as Proposition~\ref{prop:snap} states. On Qwen2.5-1.5B, 40 of the 19,578 certified \TabW\ answers did not, and none of the 31,700 certified answers of \TabC\ and \TabC0; for each of the 40, the snapped value equaled the reference value, so two forward passes with identical inputs returned different tokens. This nondeterminism of batched reduced-precision inference violates the determinism that Proposition~\ref{prop:snap} requires, and the registered criterion failed on this model. A second criterion failed on both models: certify-or-abstain serving returned the attacker's token for one of 40 targets, on GPT-2 XL in two cells under \TabC\ and one under \TabW, and on Qwen2.5-1.5B in three cells under \TabC, each time in a single trial of the locality cells with $f=3$. In those trials, the same defense also answered targets wrongly without attack, and the reference read selected the same attacker value, so the certificate held; the attacker's value entered as a candidate of the snap. Without snapping, 3 and 35 certified \TabW\ reads changed the token.
 
 \begin{table}[!t]
-\caption{Real Sources (Tier R, Mean Accuracy and Worst Installed Rate Over $f\in\{1,2,4\}$) and Memory Inside the Network (Tier M, Recall and Worst Installed Rate of the Emitted Token Over 16 Cells and Three Attacks)}
+\caption{Real Sources (Tier R; Acc.: Mean Accuracy; Inst.: Worst Installed Rate Over $f\in\{1,2,4\}$) and Memory Inside the Network (Tier M; Rec.: Clean Recall and Inst.: Worst Installed Rate of the Emitted Token Over 16 Cells and Three Static Attacks)}
 \label{tab:real}
 \centering\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -606,7 +578,7 @@ Inside the network, the ungated memory was installed on 0.50 of targets and the 
 \begin{tabular}{@{}l|cc|cc|cc@{}}
 \toprule
  & \multicolumn{2}{c|}{R: Flight} & \multicolumn{2}{c|}{M: GPT-2 XL} & \multicolumn{2}{c}{M: Qwen2.5-1.5B} \\
-Defence & Acc.\ $\uparrow$ & Inst.\ $\downarrow$ & Rec.\ $\uparrow$ & Inst.\ $\downarrow$ & Rec.\ $\uparrow$ & Inst.\ $\downarrow$ \\
+Defense & Acc.\ $\uparrow$ & Inst.\ $\downarrow$ & Rec.\ $\uparrow$ & Inst.\ $\downarrow$ & Rec.\ $\uparrow$ & Inst.\ $\downarrow$ \\
 \midrule
 \inputtab{data/tab_real.tex}
 \bottomrule
@@ -614,10 +586,10 @@ Defence & Acc.\ $\uparrow$ & Inst.\ $\downarrow$ & Rec.\ $\uparrow$ & Inst.\ $\d
 \end{table}
 
 \subsection{RQ7: Federation and Radio Access Network Control}
-Table~\ref{tab:fedoran} summarizes the federated tier (5,600 runs) and the ColO-RAN tier (10,400 runs), both evaluated with the cone gate. Averaging promoted or ungated client memories was flipped in every cell. Server-side trimmed mean, median and geometric median kept the attacker's value out but lost the attacked fact in up to 85\% of trials when a minority of clients held it. Two-level Tabayyun recorded no flip, no amnesia and no violation of (\ref{eq:fed}) in 800 runs. In the slicing controller, the worst final-epoch hijack rate of \TabC\ was 0.05, against 1.00 for Titans and 0.90 for the trimmed mean, and 88.8\% of clean decisions were certified by (\ref{eq:regret}) to lie within 10\% of the optimal utility. The registered non-domination criterion failed in 3 of 8 cells: in dense cells, the trimmed mean, median and RobustRAG were equally secure, with a regret lower by at most 0.028 on a utility range of 1.88.
+Table~\ref{tab:fedoran} summarizes the federated tier (5,600 runs) and the ColO-RAN tier (10,400 runs), both evaluated with the cone gate. When the server averaged promoted or ungated client memories, the attacked fact was flipped in every cell. Server-side trimmed mean, median, and geometric median kept the attacker's value out but lost the attacked fact in up to 85\% of trials when only some clients held it. Two-level \TabC\ recorded no flip, no amnesia, and no violation of (\ref{eq:fed}) in 800 runs. In the slicing controller, the worst hijack rate of \TabC\ in the final epoch was 0.05, against 1.00 for Titans and 0.90 for the trimmed mean, and 88.8\% of clean decisions were certified by (\ref{eq:regret}) to have a regret of at most 10\% of the utility range. The registered nondomination criterion failed in 3 of 8 cells: in dense cells, the trimmed mean, median, median with anchored basis, RobustRAG, and SMSR were equally secure, with a clean regret lower by at most 0.028 and a worst-case regret lower by at most 0.055, for utility ranges of 1.71--2.17.
 
 \begin{table}[!t]
-\caption{Federated Tier (Left; Locality Recall, Worst Flip and Amnesia) and ColO-RAN Slicing (Right; Worst Hijack, Mean Clean Regret, Worst Regret)}
+\caption{Federated Tier (Top; Locality Recall, Worst Flip Rate, and Worst Amnesia Rate) and ColO-RAN Slicing (Bottom; Worst Hijack Rate, Mean Clean Regret, and Worst Regret)}
 \label{tab:fedoran}
 \centering\footnotesize
 \setlength{\tabcolsep}{2.4pt}
@@ -638,26 +610,26 @@ Controller memory & Hijack $\downarrow$ & Regret $\downarrow$ & Worst reg.\ $\do
 \end{table}
 
 \subsection{RQ8: Ablations and Limits}\label{sec:limits}
-\emph{Momentum.} A momentum of 0.5 or 0.9 in the promoted tier violated the certificate in 40 of 200 runs each, with drift up to 1.45 and 2.13 times the bound; the momentum-free update (\ref{eq:ema}) is necessary. \emph{Facts with one witness.} The certified read never serves a fact known to a single source, as Theorem~\ref{thm:witness}(a) requires; the owner still reads it from its own quarantine. Under Dirichlet(0.1) observation rates, \TabC\ kept a recall of 0.70, against 0.04--0.05 for the trimmed mean, median and RobustRAG. \emph{More adversaries than assumed} (A1 violated). With $f=2$ assumed and three or four actual adversaries, the certificate was violated in a third of the runs, but the fact was neither flipped nor erased; with five adversaries, which equals $2f+1$, every defence failed. \emph{Correlated sources} (A2 violated). When three honest sources relayed a poisoned upstream feed, so that adversaries and relays together reached $k$, the attacked fact was installed in 35\% of runs without any certificate violation, because the certificate bounds the deviation from the honest consensus, not from the truth.
+\emph{Momentum.} A momentum of 0.5 or 0.9 in the promoted tier violated the certificate in 40 of 200 runs each, with drift up to 1.45 and 2.13 times the bound; the certificate relies on the momentum-free update (\ref{eq:ema}). \emph{Facts with one witness.} The certified read never serves a fact known to a single source, as Theorem~\ref{thm:witness}(a) requires; the source that holds it can still read it from its own quarantine. \emph{Skewed observation.} In Tier A, under observation rates drawn from a Dirichlet(0.1) distribution, \TabC\ kept a recall of 0.70, against 0.04--0.05 for the trimmed mean, median, and RobustRAG. \emph{More adversaries than assumed (A1 violated).} With $f=2$ assumed and three or four actual adversaries, the certificate was violated in a third of the runs, but the fact was neither flipped nor erased; with five adversaries ($2f+1$), every defense failed. \emph{Correlated sources (A2 violated).} When three honest sources relayed a poisoned upstream feed, so that adversaries and relays together reached $k$, the attacked fact was installed in 35\% of runs. No certificate was violated, because the certificate bounds the deviation from the honest consensus, not from the truth.
 
 %======================================================================
 \section{Discussion}\label{sec:discussion}
-\emph{Scope of the guarantee.} The certificate bounds the deviation of the promoted memory from the mean of the honest corroborators under the same promotion decisions. It does not certify that the honest consensus is true, and it relies on A1 and A2; Section~\ref{sec:limits} quantifies the failure when either assumption is removed. Deployments in which sources share an upstream feed must therefore count that feed, and not its relays, as one source.
+\emph{Scope of the guarantee.} The certificate bounds the deviation of the promoted memory from the mean of the honest corroborators under the same promotion decisions. It does not certify that the honest consensus is true: its soundness rests on A1, and its protection against installation also rests on A2; Section~\ref{sec:limits} quantifies the failure when either assumption is violated. Deployments in which sources share an upstream feed must therefore count that feed, and not its relays, as one source.
 
-\emph{Relation to robust aggregation.} The advantage over majority aggregation is one of witnesses, not of accuracy. When every honest source knows a fact, majority aggregators serve it with equal or slightly higher recall under static attacks, as they did on the real sources, but they were installed on 30--100\% of targets across the tiers. When knowledge is local, Theorem~\ref{thm:witness}(d) forces them to lose the fact, whereas the Tabayyun thresholds do not depend on $n$.
+\emph{Relation to robust aggregation.} The advantage over majority aggregation lies in the number of witnesses required, not in accuracy. When every honest source knows a fact, majority aggregators serve it with equal or slightly higher recall, as they did on the real sources, but under the strongest attack of each tier the trimmed mean admitted the attacker's value for 0.425--1.000 of targets in Tiers B, C, D, M, and R. When knowledge is local, Theorem~\ref{thm:witness}(d) makes the median return zero and the trimmed mean at most half of the honest value, whereas the Tabayyun thresholds do not depend on $n$.
 
-\emph{Choice of gate.} The agreement gate accepts facts with $f+1$ witnesses at the price of a shift of up to $2\epsilon\sigma_u$ when fewer than $2f+1$ witnesses agree. The union attacks did not exploit this margin beyond 5\% of targets, but no proof excludes a stronger attack on the selection of corroborators. The cone gate offers range validity and should be preferred where facts are typically held by at least $2f+1$ sources.
+\emph{Choice of gate.} The agreement gate accepts facts with $f+1$ witnesses at the price of a shift of up to $2\epsilon\sigma_u$ per coordinate when fewer than $2f+1$ witnesses agree. Under the union attacks, its installed rate did not exceed 0.050, but no proof excludes a stronger attack on the selection of corroborators. The cone gate offers range validity and should be preferred where facts are typically held by at least $2f+1$ sources.
 
-\emph{Practical configuration.} The parameter $f$ should equal the number of independent sources an adversary can control, not the number of accounts; $\epsilon$ should be calibrated on attack-free data at the intended load; and shards should hold at most about $d_k/32$ facts.
+\emph{Practical configuration.} The parameter $f$ should equal the number of independent sources an adversary can control, not the number of accounts; $\epsilon$ should be calibrated on attack-free data at the intended load; and, as measured on GPT-2 XL with $d_k=1024$, shards should hold no more than about $d_k/32$ facts.
 
-\emph{Limitations and threats to validity.} Inside a network, the certificate reaches the output only through snapping and only under deterministic inference, and the snap can select an uncorroborated value (RQ6); a codebook restricted to values asserted by at least $f+1$ sources would close that channel but was not evaluated. Tier R uses real sources but a simulated attacker and gold labels that disagree with most sources on some facts. Each trial stored 16 facts in Tiers B, D and M, and larger stores were examined only in RQ5. Federation and radio access network control were evaluated with the cone gate only. Liveness under attacks that suppress promotion was measured but not proved, and the attacks, although adaptive, are not exhaustive.
+\emph{Limitations and threats to validity.} Inside a network, the certificate reaches the output only through snapping and only under deterministic inference, which the evaluation did not enforce, and the snap can select a value that no honest source asserted (RQ6); a codebook restricted to values asserted by at least $f+1$ sources is expected to close this channel but was not evaluated. In Tiers B, D, M, and R, promotion ran as a single round, so the drift recursion was exercised only in Tiers A and C and in the federated tier. Tier R uses real sources but a simulated attacker, and its gold labels disagree with most sources on some facts. Each trial stored 16 facts in Tiers B, D, and M; larger stores were examined in RQ5 and in Tier R (up to 386 facts per trial). Federation and radio access network control were evaluated with the cone gate only. Liveness under attacks that suppress promotion was measured but not proved, and the attacks, although adaptive, are not exhaustive.
 
 %======================================================================
 \section{Conclusion}\label{sec:conclusion}
-A test-time memory that accepts writes from several sources can be protected without per-item provenance by keeping the sources apart and promoting an association only after independent corroboration. Agreement among $f+1$ witnesses is necessary and sufficient for bounded error and $2f+1$ for range validity, independently of the number of sources, and the resulting runtime certificate cannot be tightened from the observed values; under deterministic inference, snapping carries it through the layers of a network. In pre-registered experiments on seven substrates, no memory certificate was violated inside the threat model. The agreement-gated variant was installed on at most 5.0\% of targets under union attacks, remained certified up to 1,024 facts per memory with sharding, and stayed within 1.7 points of plurality voting on 36 real web sources while the trimmed mean was installed on half of the targets. A proof of liveness, a corroborated codebook for snapping, and deployment with live sources remain open.
+A test-time memory that accepts writes from several sources can be protected without per-item provenance by keeping the sources apart and promoting an association only after independent corroboration. Agreement among $f+1$ witnesses is necessary and sufficient for bounded error, and agreement among $2f+1$ for range validity, independently of the number of sources. With at least $2f+1$ corroborators, the resulting runtime certificate cannot be tightened from the observed values, and under deterministic inference, snapping carries it through the layers of a network. In pre-registered experiments on seven substrates, no memory certificate was violated inside the threat model. Under union attacks, the agreement-gated variant admitted the attacker's value for at most 5.0\% of targets; with sharding, it remained certified for up to 1,024 facts; and on 36 real web sources, its accuracy was within 1.7 percentage points of plurality voting, whereas the trimmed mean admitted the attacker's value for half of the targets. A proof of liveness, a corroborated codebook for snapping, and deployment with live sources remain future work.
 
 \section*{Data and Code Availability}
-Code, configurations, the pre-registration with its 21 amendments, all result files, and the script that regenerates every number, table and figure are at \url{https://github.com/Abraheem13/tabayyun-cert}; all data sets and models used are public.
+Code, configurations, the pre-registration with its 21 amendments, all result files, and the script that regenerates every table and figure from the stored results are available at \url{https://github.com/Abraheem13/tabayyun-cert}. All data sets and models used are public.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
