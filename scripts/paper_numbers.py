@@ -193,7 +193,7 @@ print(json.dumps({k: N[k] for k in ("audit", "witness_viol", "worst", "served_un
 
 # ---------------------------------------------------------------- LaTeX table bodies (generated, never typed by hand)
 NAME = {"titans": "Titans (ungated)", "agg_mean": "Mean (FedAvg)", "agg_trmean": "Trimmed mean",
-        "agg_median": "Coordinate median", "agg_krum": "Krum", "agg_geomed": "Geometric median",
+        "agg_median": "Coordinate-wise median", "agg_krum": "Krum", "agg_geomed": "Geometric median",
         "robustrag": "RobustRAG-style", "smsr": "SMSR-style", "tma_corr": "TMA-NM-style",
         "tabayyun": "Tabayyun-C0 (ablation)", "tabayyun_strict": "Tabayyun-C", "tabayyun_w": "Tabayyun-W"}
 f2 = lambda x: f"{x:.2f}"  # noqa: E731
@@ -241,7 +241,7 @@ for d in ["fedavg_titans", "fed_mean", "fed_trmean", "fed_median", "fed_krum", "
     lines.append(" & ".join([FN[d], f2(e["rec_loc"]), f2(e["flip"]), f2(e["amn"])]) + " \\\\")
 (OUT / "tab_fed.tex").write_text("\n".join(lines) + "\n")
 ON = {"titans": "Titans (ungated)", "miras_yaad": "Miras-Yaad (Huber)", "agg_trmean": "Trimmed mean",
-      "agg_median": "Coordinate median", "agg_geomed": "Geometric median", "agg_krum": "Krum",
+      "agg_median": "Coordinate-wise median", "agg_geomed": "Geometric median", "agg_krum": "Krum",
       "robustrag": "RobustRAG-style", "smsr": "SMSR-style", "tma_corr": "TMA-NM-style", "tabayyun_anchored2": "Tabayyun-C"}
 lines = []
 for d in ["titans", "miras_yaad", "agg_trmean", "agg_median", "agg_geomed", "agg_krum", "robustrag", "smsr", "tma_corr",
@@ -323,7 +323,7 @@ def tierm(t, d, k):
 
 
 RM = [("vote", "Plurality vote"), ("titans", "Titans (ungated)"), ("agg_mean", "Mean (FedAvg)"), ("agg_trmean", "Trimmed mean"),
-      ("agg_median", "Coordinate median"), ("agg_geomed", "Geometric median"), ("robustrag", "RobustRAG-style"),
+      ("agg_median", "Coordinate-wise median"), ("agg_geomed", "Geometric median"), ("robustrag", "RobustRAG-style"),
       ("tabayyun_strict", "Tabayyun-C"), ("tabayyun_w", "Tabayyun-W")]
 lines, NR = [], {}
 for d, nm in RM:
