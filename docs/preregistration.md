@@ -474,3 +474,5 @@ The Windows/RTX 5080 machine refused to load PyTorch's CUDA library: an operatin
 - **E14** (Amendment 19, CPU only) runs unchanged in the cloud container.
 - **E15** (Amendment 20) runs on an Apple-silicon Mac with the MPS backend (`scripts/run_mac.sh`). Because the hardware is slower, the confirmatory trials are reduced from 1500–1519 to **1500–1509**. Everything else is unchanged: models, cells, attacks, defences, the clean ε rule and criteria M1–M4.
 - One code change was needed for MPS, which has no float64. The agreement gate's tie-break key (member count, then tightness) is now computed in float64 on the CPU. It gives the same result as before on CUDA and CPU, and all 71 tests pass.
+
+**Note on Amendment 21 (added 2026-11-27, after Day 24; no criterion changed).** Amendment 21 was registered but not used. The Windows machine's application-control block was cleared, and Day 24 ran there under the original Amendment 20 protocol: RTX 5080, trials 1500–1519 (see EXPERIMENT_LOG.md, Day 24). The MPS-safe gate change from Amendment 21 was part of the code that ran and gives the same numerical result on CUDA.

@@ -177,7 +177,8 @@ def certified_regret(util: torch.Tensor, coord_bound: torch.Tensor, w: torch.Ten
     util: (A,) utilities of the reads; coord_bound: (A, dv) per-coordinate bounds on
     |y_a - y~_a|; w: (dv,).  With s_a = sum_i |w_i| B_{a,i} >= |u_a - u~_a|,
         max_j u~_j - u~_{a_hat} <= eps_hat = max_j (u_j - u_{a_hat} + s_j + s_{a_hat})^+,
-    a_hat = argmax_a u_a.  eps_hat = 0 iff a_hat is certified exactly (Thm 3a).
+    a_hat = argmax_a u_a.  The term j = a_hat makes eps_hat conservative by at most 2 s_{a_hat}, so eps_hat > 0
+    whenever s_{a_hat} > 0 even if a_hat is certified exactly (Thm 3a).
     """
     s = coord_bound @ w.abs()
     a = int(util.argmax())
